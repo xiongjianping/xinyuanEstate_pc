@@ -2,20 +2,20 @@
   <div class="header">
     <div class="navList">
       <ul class="navCont">
-        <li v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
+        <li v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
-          <ul class="subMenu" v-if="info.subMenu && info.subMenu.length > 0" v-show="info.showSub">
-            <li v-for="item in info.subMenu" :key="item.id" @click="goLink(item, info)">{{item.name}}</li>
+          <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
+            <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}</li>
           </ul>
         </li>
         <li>
           <img src="../../assets/images/zhong.png" alt="" style="width:50%;margin-left:-55px;">
           <img src="../../assets/images/logo.png"  alt="" class="logos">
         </li>
-        <li v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
+        <li v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
-          <ul class="subMenu" v-if="info.subMenu && info.subMenu.length > 0" v-show="info.showSub">
-            <li v-for="item in info.subMenu" :key="item.id" @click="goLink(item, info)">{{item.name}}
+          <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
+            <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}
             <!--<ul class="subMenu" v-if="info.subMenu && info.subMenu.length > 0" v-show="info.showSub">-->
               <!--&lt;!&ndash;<li v-for="item in info.subMenu.subMenu1" :key="item.id" @click="goLink(item, info)"></li>&ndash;&gt;-->
             <!--</ul>-->
@@ -43,146 +43,12 @@
         nowDate: '',
         week: '',
         curLi: '/index',
-        navList: [
-          {
-            id: 1,
-            name: '首 页',
-            url: '/index',
-            subMenu: []
-          },
-          {
-            id: 2,
-            name: '项目管理',
-            url: '/projecManage',
-            subMenu: [
-              {
-                id: 21,
-                name: '项目管理',
-                url: '/projecManage/projec/list'
-              }, {
-                id: 22,
-                name: '楼层管理',
-                url: '/projecManage/floor/list'
-              },
-              {
-                id: 23,
-                name: '铺位管理',
-                url: '/projecManage/store/list'
-              }
-            ]
-          },
-          {
-            id: 3,
-            name: '品牌管理',
-            url: '/indicatorsManage',
-            subMenu: [
-              {
-                id: 31,
-                name: '品牌管理',
-                url: '/indicatorsManage/indicators/list'
-              }
-            ]
-
-          },
-          {
-            id: 4,
-            name: '签约管理',
-            url: '/qianyue',
-            subMenu: [
-              {
-                id: 41,
-                name: '签约管理',
-                url: '/qianyue/qianyue/list'
-              }, {
-                id: 42,
-                name: '三角理论',
-                url: '/qianyue/sanjiao/list'
-              }
-            ]
-          },
-        ],
-        navList1:[
-          {
-            id: 5,
-            name: '数据管理',
-            url: '/dataManage',
-
-            subMenu: [
-              {
-                id: 51,
-                name: '标准三角形',
-                url: '/dataManage/version/list'
-              }, {
-                id: 52,
-                name: '区间设置',
-                url: '/dataManage/trigonometric/list'
-              }, {
-                id: 53,
-                name: '动态三角形',
-                url: '/dataManage/dongtai/list'
-              }, {
-                id: 54,
-                name: '数据维护',
-                url: '/dataManage/shuju/list'
-              }
-            ]
-          }, {
-            id: 6,
-            name: '帮扶计划',
-            url: '/evaluationTpl',
-            subMenu: [
-              {
-                id: 61,
-                name: '项目帮扶',
-                url: '/evaluationTpl/template/list'
-              }, {
-                id: 62,
-                name: '楼层帮扶',
-                url: '/evaluationTpl/evaluation/list'
-              }, {
-                id: 63,
-                name: '业态帮扶',
-                url: '/evaluationTpl/yetaibangfu/list'
-              }, {
-                id: 64,
-                name: '帮扶内容',
-                url: '/evaluationTpl/bangfuneirong/list'
-              }
-            ]
-
-          }, {
-            id: 7,
-            name: '评估模板',
-            url: '/organizationStructure',
-
-            subMenu: [
-              {
-                id: 71,
-                name: '模板管理',
-                url: '/organizationStructure/organization'
-              }
-            ]
-          }, {
-            id: 8,
-            name: '系统平台',
-            url: '/dataDictionary',
-
-            subMenu: [
-              {
-                id: 81,
-                name: '数据字典',
-                url: '/dataDictionary/brand/list',
-              }, {
-                id: 82,
-                name: '主数据',
-                url: '/dataDictionary/formats/list',
-              }
-            ]
-          },
-        ]
+        navList: [],
+        navList1:[]
       }
     },
     created () {
+      this.getMenus()
       this.nowDate = new Date().getFullYear() + '年' + (new Date().getMonth() + 1) + '月' + new Date().getDate() + '日'
       var weekList = ['日', '一', '二', '三', '四', '五', '六']
       this.week = '星期' + weekList[new Date().getDay()]
@@ -207,9 +73,32 @@
       }
     },
     methods: {
+      // 获取菜单并平分菜单为2个数组
+      getMenus(){
+        window.$menus().then((res) => {
+          console.log(res)
+          if(res.length === 1){
+            // 如果只有首页权限
+            this.navList = res
+          } else {
+            // 判断数组是单数还是双数
+            let middle = res.length / 2
+            if(res.length % 2 === 0){
+              this.navList = res.slice(0, middle)
+              console.log('this.navList: ' + JSON.stringify(this.navList))
+              this.navList1 = res.slice(middle)
+            } else {
+              this.navList = res.slice(0, middle + 1)
+              this.navList1 = res.slice(middle + 1)
+            }
+          }
+        }, (err) => {
+          console.log(err)
+        })
+      },
       goLink (info, data) {
-        if (info.subMenu && info.subMenu.length > 0) {
-          this.closeAllSubMenu();
+        this.closeAllSubMenu()
+        if (info.childMenus && info.childMenus.length > 0) {
           this.$set(data, 'showSub', true);
           this.curLi = data ? data.url : info.url;
         } else {
@@ -220,22 +109,7 @@
       },
       closeAllSubMenu () {
         this.navList.map((item) => { this.$set(item, 'showSub', false) })
-      },
-
-      loginout () {
-        var that = this
-        this.$confirm('即将退出, 是否继续?', '温馨提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          that.$axios.get('/shop/userauth/logout/' + that.userInfo.id).then((res) => {
-            window.localStorage.removeItem('userInfo')
-            that.$router.push('/login')
-          }).catch(function (eMsg) {
-            that.showAlert('退出失败，请重试~')
-          })
-        })
+        this.navList1.map((item) => { this.$set(item, 'showSub', false) })
       },
       showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
