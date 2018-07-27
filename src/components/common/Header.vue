@@ -76,7 +76,6 @@
       // 获取菜单并平分菜单为2个数组
       getMenus(){
         window.$menus().then((res) => {
-          console.log(res)
           if(res.length === 1){
             // 如果只有首页权限
             this.navList = res
