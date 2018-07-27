@@ -22,7 +22,7 @@
           </el-form-item>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
           </el-form-item>
@@ -48,7 +48,7 @@
     </el-dialog>
 
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="projectList" border size="medium">
         <el-table-column align="center" prop="projectId" label="序号"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域">
         </el-table-column>
@@ -66,7 +66,7 @@
             <el-button type="text" v-on:click="showDetails(scope.row.projectId)">查看</el-button>
             <el-button type="text" v-on:click="editDetails(scope.row.projectId)">编辑</el-button>
             <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
-            <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+            <el-button type="text" v-on:click="deleteProject(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -74,11 +74,11 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="data.page"
+          :current-page="page"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="size"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="data.count">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -131,12 +131,13 @@ export default {
       }
     ],
     searchForm: {
-      areaId: null,
-      projectName: null,
-      createTimeBegin: null,
-      createTimeEnd:null
+      // areaId: null,
+      // projectName: null,
+      // createTimeBegin: null,
+      // createTimeEnd:null
     },
     infoData: {},
+    projectList:[],
     page: 1,
     size: 10,
     dialogFormVisible: false,
@@ -149,42 +150,11 @@ export default {
   }),
   created () {
     window.$getAreaList().then((res) => {
-        console.log(res)
         this.options.push.apply(this.options, res)
-        console.log(this.options)
       }, (err) => {
         console.log(err)
       })
-    this.searchList(1)
-      // this.$http.post("http://123.207.169.220:8080/tissue/employee/login", {
-      //   "userName": "admin",
-      //   "userPassword": "admin"
-      // })
-      //   .then((data) => {
-      //     this.arrs = data.body;
-      //     window.Vue.http.headers.common['accessToken'] = data.body.data.accessToken;
-      //   })
-
-      this.$http.post("/api/region/find/project/list?p=1&c=10", {})
-        // .then((data) => {
-        //   this.arrs = data.body;
-        //   window.Vue.http.headers.common['accessToken'] = data.body.data.accessToken;
-        // })
-        .then((data) => {
-          this.arrs2 = data.body;
-        })
-
-
-    /*axios.post(url,qs.stringify({  // 通过qs.stringify()将对象解析成URL的形式
-      name:'0', age:'2'
-    }),{emulateJSON: true},{
-      headers:{"Content-Type": "application/x-www-form-urlencoded;charset=utf-8",}
-    }).then(reponse=>{
-      console.log(reponse)
-      this.tableData=reponse.data.data
-    })*/
-
-
+    this.searchList()
   },
 
   methods: {
@@ -193,7 +163,7 @@ export default {
       window.$getCompanyAll().then((res) => {
         this.companyList = res
       }, (err) => {
-        console.log(err)
+        this.showAlert(err)
       })
     },
     createCompany(){
@@ -214,62 +184,17 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
-    searchList (type) {// 0.全部  1.点击搜索按钮重置数据  2.下一页或上一页
-      
-      let params = {}
-      if(type === 2){
-        this.page = 1
-      } else {
-        this.page = 1
-      }
-      window.$getProjectList(this.page, this.size, params)
+    searchList () {
+    window.$getProjectList(this.page, this.size, this.searchForm)
       .then((res) => {
         this.data = res
-        console.log(res)
+        this.projectList = this.data.resultList
       }, (err) => {
         console.log(err)
       })
-      // this.loading = false
-      // var that = this
-      // var page
-      // var params = {
-      //   publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-      //   merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-      //   startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      // }
-      // if (type === 1) {
-      //   page = 1
-      // } else {
-      //   page = this.data.page
-      // }
-      // that.loading = false
-     // var self = this
-     //  $.post('/api/tissue/employee/login', {}, function (res) {
-     //    that.data = res;
-     //  }, 'json')
-
-
-
-
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      // that.$axios.post('/list').then((res) => {
-      //   that.loading = false
-      //   that.data = res
-      //   console.log(res)
-      // }).catch(function (eMsg) {
-      //   that.loading = false
-      //   that.showAlert(eMsg)
-      // })
-
-      // that.$http.post('/api/region/find/project/list',{}).then(function (res) {
-      //   that.loading = false;
-      //   that.data = res
-      // },function (err) {})
-
-
     },
     // 查看详情
     showDetails (id) {
@@ -286,6 +211,13 @@ export default {
       } else {
         return true
       }
+    },
+    deleteProject(project){
+      window.$deleteProject(project.projectId).then((res) => {
+        this.projectList.splice(project, 1)
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

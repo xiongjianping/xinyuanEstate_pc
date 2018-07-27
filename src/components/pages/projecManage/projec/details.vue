@@ -20,7 +20,7 @@
           状态：<span v-if="!data.state">停用</span><span v-if="data.state">启用</span>
         </el-col>
         <el-col :span="4" :offset="1">
-          文件：{{data.projectName}}
+          文件：<img class="imgList" v-for="img in data.projectImages" :src="img"/>
         </el-col><br><br>
 
         <el-col :span="7" :offset="1">
@@ -92,6 +92,10 @@ export default {
     width: 100%;
     height: 100%;
     background: #fff;
+    .imgList{
+      width: 10%;
+      height: 10%;
+    }
   }
 
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

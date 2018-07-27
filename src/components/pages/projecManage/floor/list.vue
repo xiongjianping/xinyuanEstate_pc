@@ -4,8 +4,8 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
           <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择">
+              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -17,42 +17,47 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="方位">
-            <el-select size="small" v-model="searchForm.area" placeholder="地上">
-              <el-option label="地上" value="null"></el-option>
-              <el-option label="地下" value="null"></el-option>
+            <el-select size="small" v-model="searchForm.location" placeholder="地上">
+              <el-option label="地上" value="1"></el-option>
+              <el-option label="地下" value="2"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="resetForm();">新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="floorList" border size="medium">
         <el-table-column align="center" prop="id" label="序号"></el-table-column>
-        <el-table-column align="center" prop="area" label="区域"></el-table-column>
-        <el-table-column align="center" prop="area" label="项目名称"></el-table-column>
-        <el-table-column align="center" prop="company" label="楼栋"></el-table-column>
-        <el-table-column align="center" prop="company" label="楼层"></el-table-column>
-        <el-table-column align="center" prop="operationleader" label="位置"></el-table-column>
-        <el-table-column align="center" prop="operationleader" label="面积"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="创建时间"></el-table-column>
+        <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
+        <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+        <el-table-column align="center" prop="buildingName" label="楼栋"></el-table-column>
+        <el-table-column align="center" prop="name" label="楼层"></el-table-column>
+        <el-table-column align="center" prop="location" label="位置">
+          <template slot-scope="scope">
+            <el-button disabled type="text" size="small" v-if="scope.row.location === 1">地上</el-button>
+            <el-button disabled type="text" size="small" v-if="!scope.row.location === 2">地下</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="acreage" label="面积"></el-table-column>
+        <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="merchandiseName" label="当前状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.status === 'ENABLED'">启用</el-button>
-            <el-button disabled  size="small" type="danger" v-if="scope.row.status === 'DISABLED'">禁用</el-button>
+            <el-button disabled  size="small" type="success" v-if="scope.row.state">启用</el-button>
+            <el-button disabled  size="small" type="danger" v-if="!scope.row.state">禁用</el-button>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
             <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
-            <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
-            <el-button type="text" v-if="scope.row.status == 'ENABLED'" v-on:click="showDetails(scope.row)">禁用</el-button>
+            <el-button type="text" v-if="!scope.row.state" v-on:click="showDetails(scope.row)">启用</el-button>
+            <el-button type="text" v-if="scope.row.state" v-on:click="showDetails(scope.row)">禁用</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -61,11 +66,11 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="data.page"
+          :current-page="page"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="size"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="data.count">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -78,11 +83,14 @@ export default {
     data: {},
     loading: false,
     searchForm: {
-      area: '',
-      company: '',
-      startTime: null
+      // area: '',
+      // company: '',
+      // startTime: null
     },
+    areaList:[],
+    floorList: [],
     infoData: {},
+    page: 1,
     size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
@@ -90,7 +98,12 @@ export default {
     picIndex: 0
   }),
   created () {
-    this.searchList(1)
+    this.searchList()
+    window.$getAreaList().then((res) => {
+      this.areaList = res
+    }, (err) => {
+      this.showAlert(err)
+    })
   },
   methods: {
     handleSizeChange (val) {
@@ -98,32 +111,20 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
     searchList (type) {
       this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+      window.$getFloorList(this.page, this.size, this.searchForm)
+      .then((res) => {
+        this.loading = false
+        this.data = res
+        this.floorList = res.resultList
+        console.log(this.floorList)
+      }, (err) => {
+        this.loading = false
+        this.showAlert(err)
       })
     },
     // 查看详情

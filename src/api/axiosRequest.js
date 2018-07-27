@@ -124,3 +124,111 @@ Vue.prototype.getProjectDetails = window.$getProjectDetails = function(id) {
             });
     })
 }
+
+/*
+ * 项目管理类列表页
+ * 
+ * 删除项目(GET)
+ */
+Vue.prototype.deleteProject = window.$deleteProject = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/remove/project/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 楼层管理类列表页
+ * 
+ * 删除项目(GET)
+ */
+Vue.prototype.getFloorList = window.$getFloorList = function(page, size, params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/find/floor/list?p=' + page + '&c=' + size, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 楼层管理类列表页
+ * 
+ * 查看楼层详情(GET)
+ */
+Vue.prototype.getFloorDetails = window.$getFloorDetails = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/find/floor/by/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ * 
+ * 获取列表(POST)
+ */
+Vue.prototype.getBrandList = window.$getBrandList = function(page, size, params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/brand/find/brand/list?p=' + page + '&c=' + size, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ * 
+ * 获取业态下拉列表(POST)
+ */
+Vue.prototype.getformSelect = window.$getformSelect = function() {
+    return new Promise(function(resolve, reject) {
+        axios.get('/base/find/business/form/select')
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ * 
+ * 获取业种下拉列表(POST)
+ */
+Vue.prototype.getspeciesSelect = window.$getspeciesSelect = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/base/find/business/species/select/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
