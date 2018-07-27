@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 // import { ERR_OK } from 'api/config'
+var isRefresh = true
 
 axios.defaults.baseURL = "http://10.17.9.123:8080" // 本地
     // axios.defaults.baseURL = "http://123.207.169.220:8080" // 测试
@@ -24,14 +25,22 @@ async function responseInterceptor(response) {
     } else if (response.data.code === 'AOP_CHECK_TOKEN_003') {
         console.log('token过期')
             // token过期, 刷新token
-        let rToken = window.localStorage.getItem('xinyuan_refreshtoken')
-        this.$axios.get('/token/refresh/token/' + rToken)
-            .then((res) => {
-                console.log('新token：' + JSON.stringify(res))
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        if (isRefresh) {
+            isRefresh = false
+            let rToken = window.localStorage.getItem('xinyuan_refreshtoken')
+            axios.get('/token/refresh/token/' + rToken)
+                .then((res) => {
+                    window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
+                    window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
+                    window.location.reload()
+                    isRefresh = true
+                })
+                .catch((err) => {
+                    console.log(err)
+                    isRefresh = true
+                })
+        }
+
         return Promise.reject(response.data.message)
     } else {
         return Promise.reject(response.data.message)
