@@ -71,7 +71,17 @@ export default new Router({
                     pageName: '详情'
                   },
                   component: resolve => require(['@/components/pages/projecManage/projec/details.vue'], resolve)
+                },
+                {
+                  path: 'bianji/:id',
+                  name: 'projecBianji',
+                  meta: {
+                    parentPath: '/projecManage',
+                    pageName: '编辑'
+                  },
+                  component: resolve => require(['@/components/pages/projecManage/projec/bianji.vue'], resolve)
                 }
+
               ]
             },
             {
@@ -96,7 +106,7 @@ export default new Router({
                   name: 'floorAdd',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '新增/编辑楼层'
+                    pageName: '新增'
                   },
                   component: resolve => require(['@/components/pages/projecManage/floor/add.vue'], resolve)
                 },
@@ -105,9 +115,18 @@ export default new Router({
                   name: 'floorDetails',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '详情'
+                    pageName: '编辑'
                   },
                   component: resolve => require(['@/components/pages/projecManage/floor/details.vue'], resolve)
+                },
+                {
+                  path: 'xiangqing/:id',
+                  name: 'floorXiangqing',
+                  meta: {
+                    parentPath: '/projecManage',
+                    pageName: '详情'
+                  },
+                  component: resolve => require(['@/components/pages/projecManage/floor/xiangqing.vue'], resolve)
                 }
               ]
             },
@@ -133,9 +152,18 @@ export default new Router({
                   name: 'storeAdd',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '新增/编辑铺位'
+                    pageName: '新增铺位'
                   },
                   component: resolve => require(['@/components/pages/projecManage/store/add.vue'], resolve)
+                },
+                {
+                  path: 'xiangqing/:id',
+                  name: 'storeXiangqing',
+                  meta: {
+                    parentPath: '/projecManage',
+                    pageName: '详情'
+                  },
+                  component: resolve => require(['@/components/pages/projecManage/store/xiangqing.vue'], resolve)
                 },
                 {
                   path: 'details/:id',
@@ -177,13 +205,22 @@ export default new Router({
                   component: resolve => require(['@/components/pages/indicatorsManage/indicators/list.vue'], resolve)
                 },
                 {
-                  path: 'details/:id',
-                  name: 'indicatorsDetails',
+                  path: 'add/:id',
+                  name: 'indicatorsAdd',
                   meta: {
                     parentPath: '/indicatorsManage',
-                    pageName: '新增/编辑铺位'
+                    pageName: '新增品牌'
                   },
-                  component: resolve => require(['@/components/pages/indicatorsManage/indicators/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/indicatorsManage/indicators/add.vue'], resolve)
+                },
+                {
+                  path: 'bianji/:id',
+                  name: 'indicatorsBianji',
+                  meta: {
+                    parentPath: '/indicatorsManage',
+                    pageName: '新增品牌'
+                  },
+                  component: resolve => require(['@/components/pages/indicatorsManage/indicators/bianji.vue'], resolve)
                 }
               ]
             },

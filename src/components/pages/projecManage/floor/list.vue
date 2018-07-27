@@ -26,7 +26,9 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="resetForm();">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="showDetails(0);">编辑</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(0);">详情</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -130,8 +132,15 @@ export default {
     showDetails (id) {
       this.$router.push('/projecManage/floor/details/' + id)
     },
+    //编辑
     editDetails (id) {
       this.$router.push('/projecManage/floor/add/' + id)
+    },
+
+
+    //详情
+    xiangqing(id){
+      this.$router.push('/projecManage/floor/xiangqing/' + id)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
