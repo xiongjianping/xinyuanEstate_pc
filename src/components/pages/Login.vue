@@ -7,7 +7,7 @@
       </div>
       <div class="inputList">
         <el-form-item prop="username">
-          <el-input class="lineInput user" :maxlength="20" v-model="ruleForm.username" placeholder="请输入您的账号"></el-input>
+          <el-input class="lineInput user" :maxlength="50" v-model="ruleForm.username" placeholder="请输入您的账号"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input class="lineInput pwd" :maxlength="20" type="password" placeholder="请输入您的密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
@@ -55,36 +55,14 @@ export default {
   },
   methods: {
     submitForm (formName) {
-      this.$router.push('/index')
-      // const self = this
-      // self.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     self.loading = true
-      //     let params = {
-      //       userName: self.ruleForm.username,
-      //       passWord: self.ruleForm.password,
-      //       code: null,
-      //       sessionId: self.session.sessionId
-      //     }
-      //     self.$axios.post('/shop/userauth/Login', params).then((res) => {
-      //       self.loading = false
-      //       self.$axios.get('/shop/user/permission').then((res) => {
-      //         self.loading = false
-      //         window.localStorage.setItem('userInfo', JSON.stringify(res))
-      //         self.$router.push('/tradingRecord')
-      //       }).catch(function (eMsg) {
-      //         self.loading = false
-      //         self.showAlert(eMsg)
-      //       })
-      //     }).catch(function (eMsg) {
-      //       self.loading = false
-      //       self.showAlert(eMsg)
-      //     })
-      //   } else {
-      //     console.log('error submit!!')
-      //     return false
-      //   }
-      // })
+      const self = this
+      window.$login(self.ruleForm.username).then((res) => {
+        window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
+        window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
+        this.$router.replace('/index')
+      }, (err) => {
+        console.log(err)
+      })
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

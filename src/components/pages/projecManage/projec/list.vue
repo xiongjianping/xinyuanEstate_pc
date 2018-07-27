@@ -2,18 +2,19 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <!-- <el-col :span="6"> -->
           <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+            <el-select size="small" v-model="searchForm.areaId" placeholder="全部">
+              <el-option v-for="(item,index) in options" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-        <el-col :span="6">
+        <!-- </el-col> -->
+
+        <!-- <el-col :span="6"> -->
           <el-form-item label="项目名称">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
-        </el-col>
+        <!-- </el-col> -->
         <el-form-item label="开始时间">
         <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
         </el-date-picker>
@@ -21,30 +22,48 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="searchList();">新增公司</el-button>
-            <el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>
+            <el-button type="primary" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
+            <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
 
+    <el-dialog title="新增公司" :visible.sync="dialogFormVisible">
+      <el-form :model="newCompany">
+        <el-form-item label="公司名称" :label-width="formLabelWidth">
+          <el-input v-model="newCompany.name"></el-input>
+        </el-form-item>
+        <el-form-item label="父公司" :label-width="formLabelWidth">
+          <el-select v-model="newCompany.parentId" placeholder="添加父公司">
+            <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="createCompany()">确 定</el-button>
+      </div>
+    </el-dialog>
+
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
-        <el-table-column align="center" prop="id" label="序号"></el-table-column>
-        <el-table-column align="center" prop="area" label="区域"></el-table-column>
+      <el-table :data="data.resultList" border size="medium">
+        <el-table-column align="center" prop="projectId" label="序号"></el-table-column>
+        <el-table-column align="center" prop="areaName" label="区域">
+        </el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
-        <el-table-column align="center" prop="operationleader" label="运营负责人"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="创建时间"></el-table-column>
+        <el-table-column align="center" prop="projectAuditName" label="运营负责人"></el-table-column>
+        <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="merchandiseName" label="当前状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.status === 'ENABLED'">启用</el-button>
-            <el-button disabled  size="small" type="danger" v-if="scope.row.status === 'DISABLED'">禁用</el-button>
+            <el-button disabled  size="small" type="success" v-if="scope.row.state">启用</el-button>
+            <el-button disabled  size="small" type="danger" v-if="!scope.row.state">禁用</el-button>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="showDetails(scope.row.id)">详情</el-button>
-            <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
+            <el-button type="text" v-on:click="showDetails(scope.row.projectId)">查看</el-button>
+            <el-button type="text" v-on:click="editDetails(scope.row.projectId)">编辑</el-button>
             <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
           </template>
@@ -62,7 +81,7 @@
         </el-pagination>
       </div>
     </div>
-     </div>
+  </div>
 </template>
 <script>
 
@@ -104,19 +123,37 @@ export default {
     data: {
     },
     loading: false,
+    options:[
+      {
+        name: '全部',
+        // id: '0'
+      }
+    ],
     searchForm: {
-      area: '',
-      company: '',
-      startTime: null
+      areaId: null,
+      projectName: null,
+      createTimeBegin: null,
+      createTimeEnd:null
     },
     infoData: {},
+    page: 1,
     size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
     pictureList: [],
     picIndex: 0,
+    newCompany: {},
+    formLabelWidth: '120px',
+    companyList: []
   }),
   created () {
+    window.$getAreaList().then((res) => {
+        console.log(res)
+        this.options.push.apply(this.options, res)
+        console.log(this.options)
+      }, (err) => {
+        console.log(err)
+      })
     this.searchList(1)
       // this.$http.post("http://123.207.169.220:8080/tissue/employee/login", {
       //   "userName": "admin",
@@ -150,6 +187,27 @@ export default {
   },
 
   methods: {
+    showCreateCompany(){
+      this.dialogFormVisible = true
+      window.$getCompanyAll().then((res) => {
+        this.companyList = res
+      }, (err) => {
+        console.log(err)
+      })
+    },
+    createCompany(){
+      if(this.checkCompanyInfo()){
+        window.$createCompany(this.newCompany).then((res) => {
+          this.$message('新增成功');
+          this.dialogFormVisible = false
+        }, (err) => {
+          this.$message(err);
+        })
+      }
+    },
+    changeArea() {
+      console.log('select状态改变 ')
+    },
     handleSizeChange (val) {
       this.size = val
       this.searchList()
@@ -158,21 +216,35 @@ export default {
       this.data.page = val
       this.searchList()
     },
-    searchList (type) {
-      this.loading = false
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
+    searchList (type) {// 0.全部  1.点击搜索按钮重置数据  2.下一页或上一页
+
+      let params = {}
+      if(type === 2){
+        this.page = 1
       } else {
-        page = this.data.page
+        this.page = 1
       }
-      that.loading = false
+      window.$getProjectList(this.page, this.size, params)
+      .then((res) => {
+        this.data = res
+        console.log(res)
+      }, (err) => {
+        console.log(err)
+      })
+      // this.loading = false
+      // var that = this
+      // var page
+      // var params = {
+      //   publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
+      //   merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
+      //   startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
+      // }
+      // if (type === 1) {
+      //   page = 1
+      // } else {
+      //   page = this.data.page
+      // }
+      // that.loading = false
      // var self = this
      //  $.post('/api/tissue/employee/login', {}, function (res) {
      //    that.data = res;
@@ -191,10 +263,10 @@ export default {
       //   that.showAlert(eMsg)
       // })
 
-      that.$http.post('/api/region/find/project/list',{}).then(function (res) {
-        that.loading = false;
-        that.data = res
-      },function (err) {})
+      // that.$http.post('/api/region/find/project/list',{}).then(function (res) {
+      //   that.loading = false;
+      //   that.data = res
+      // },function (err) {})
 
 
     },
@@ -204,6 +276,15 @@ export default {
     },
     editDetails (id) {
       this.$router.push('/projecManage/projec/add/' + id)
+    },
+    checkCompanyInfo(){
+      console.log(this.newCompany.name)
+      if(!this.newCompany.name || this.newCompany.name == ''){
+        this.$message('请输入公司名称');
+        return false
+      } else {
+        return true
+      }
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
