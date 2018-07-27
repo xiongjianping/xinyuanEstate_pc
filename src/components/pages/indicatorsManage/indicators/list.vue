@@ -45,7 +45,7 @@
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="xinzeng();">新增</el-button>
-            <el-button type="primary" size="medium" v-on:click="bianji();"></el-button>
+            <el-button type="primary" size="medium" v-on:click="bianji();">编辑</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -176,7 +176,6 @@ export default {
     bianji (id) {
       this.$router.push('/indicatorsManage/indicators/bianji/' + id)
     },
-
 
 
     showAlert: function (cont) {
