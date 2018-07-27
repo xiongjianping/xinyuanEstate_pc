@@ -1,25 +1,30 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
-
       <el-form label-width="100px" :model="searchForm">
+
+
+
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">创建角色</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">删除角色</el-button>
+            <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
+            <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
       <el-table :data="data.list" border size="medium">
-        <el-table-column align="center" type="index" prop="id" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="业态"></el-table-column>
-        <el-table-column align="center" prop="area" label="业种"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" width="120">
+        <el-table-column align="center" type="id" prop="id" label="序号" width="50"></el-table-column>
+        <el-table-column align="center" prop="area" label="角色名称" ></el-table-column>
+        <el-table-column align="center" prop="company" label="级别"  ></el-table-column>
+        <el-table-column align="center" prop="startTime" label="功能权限"></el-table-column>
+        <el-table-column align="center" prop="startTime" label="最后修改时间"></el-table-column>
+        <el-table-column align="center"  label="操作" >
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
-            <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+            <el-button type="text" v-on:click="editDetails(scope.row.id)">授权</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -90,7 +95,7 @@ export default {
     },
     // 查看详情
     showDetails (id) {
-      this.$router.push('/projecManage/details/' + id)
+      this.$router.push('/dataDicionary/brand/details/' + id)
     },
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
@@ -112,6 +117,7 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }
+
   .el-table{
     position: relative;
     overflow: hidden;

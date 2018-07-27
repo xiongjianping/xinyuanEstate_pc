@@ -1,5 +1,5 @@
 <template>
-  <!--新增项目-->
+  <!--编辑-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox" :gutter="30">
@@ -15,10 +15,10 @@
         <!-- </el-col> -->
 
         <el-col :span="7" :offset="1">
-        开始时间：{{data.startTime}}
+          开始时间：{{data.startTime}}
         </el-col>
         <el-col :span="8" :offset="1">
-        修改时间：{{data.lastTime}}
+          修改时间：{{data.lastTime}}
         </el-col><br>
 
 
@@ -28,11 +28,11 @@
           </el-form-item>
         </el-col>
 
-         <el-col :span="6">
-        <el-form-item label="公司：">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-        </el-form-item>
-            </el-col><br><br><br><br><br>
+        <el-col :span="6">
+          <el-form-item label="公司：">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="状态：">
@@ -54,85 +54,85 @@
           <el-button type="primary">选择</el-button>
         </el-row>
 
-      <div class="xxk">
-        <button>取消</button>
-        <button>确定</button>
-      </div>
+        <div class="xxk">
+          <button>取消</button>
+          <button>确定</button>
+        </div>
 
       </el-form>
     </el-row>
   </div>
 </template>
 <script>
-import moment from 'moment'
-export default {
-  data: () => ({
-    data: {},
-    loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
+  import moment from 'moment'
+  export default {
+    data: () => ({
+      data: {},
+      loading: false,
+      searchForm: {
+        area: '',
+        company: '',
+        startTime: null
+      },
+      infoData: {},
+      size: 10,
+      dialogFormVisible: false,
+      dialogVisible: false,
+      pictureList: [],
+      picIndex: 0
+    }),
+    created () {
+      this.searchList(1)
     },
-    infoData: {},
-    size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0
-  }),
-  created () {
-    this.searchList(1)
-  },
-  methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
-    },
-    handleCurrentChange (val) {
-      this.data.page = val
-      this.searchList()
-    },
-    searchList (type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        console.log(res)
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
-      })
+    methods: {
+      handleSizeChange (val) {
+        this.size = val
+        this.searchList()
+      },
+      handleCurrentChange (val) {
+        this.data.page = val
+        this.searchList()
+      },
+      searchList (type) {
+        this.loading = true
+        var that = this
+        var page
+        var params = {
+          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
+          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
+          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
+        }
+        if (type === 1) {
+          page = 1
+        } else {
+          page = this.data.page
+        }
+        console.log(params, page)
+        that.loading = true
+        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
+        that.$axios.get('/list').then((res) => {
+          console.log(res)
+          that.loading = false
+          that.data = res
+        }).catch(function (eMsg) {
+          that.loading = false
+          that.showAlert(eMsg)
+        })
 
-    },
-    showMessage (cont) {
-      this.$message({
-        type: 'success',
-        message: cont
-      })
-    },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+      },
+      showMessage (cont) {
+        this.$message({
+          type: 'success',
+          message: cont
+        })
+      },
+      showAlert: function (cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
     }
   }
-}
 </script>
 <style scoped  lang="less">
   .mainContent{
@@ -140,9 +140,9 @@ export default {
     height: 100%;
     background: #fff;
   }
-.el-date-editor.el-input, .el-date-editor.el-input__inner{
-  width: 100%;
-}
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
   .el-col-10 {
     width: 41.66667%;
     margin-top: 45px;

@@ -1,25 +1,26 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <el-row class="searchBox" :gutter="30">
 
-      <el-form label-width="100px" :model="searchForm">
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
-          </el-form-item>
-        </el-col>
-      </el-form>
-    </el-row>
+    <div class="left">
+      <h2>总部</h2>
+      <p>北京城市公司一</p>
+      <h3>销售部</h3>
+      <p>北京城市公司二</p>
+      <h3>客服部</h3>
+    </div>
     <div class="listCont">
+
       <el-table :data="data.list" border size="medium">
-        <el-table-column align="center" type="index" prop="id" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="业态"></el-table-column>
-        <el-table-column align="center" prop="area" label="业种"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" width="120">
+
+        <el-table-column align="center" type="id" prop="id" label="排序号" ></el-table-column>
+        <el-table-column align="center" prop="area" label="真实姓名" ></el-table-column>
+        <el-table-column align="center" prop="company" label="登录名称" ></el-table-column>
+        <el-table-column align="center" prop="startTime" label="电子邮箱"></el-table-column>
+        <el-table-column align="center" prop="startTime" label="移动电话"></el-table-column>
+        <el-table-column align="center" prop="merchandiseName" label="状态">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
-            <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+            <el-button disabled  size="small" type="success" v-if="scope.row.status === 'ENABLED'">0</el-button>
+            <el-button disabled  size="small" type="danger" v-if="scope.row.status === 'DISABLED'">1</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -90,7 +91,7 @@ export default {
     },
     // 查看详情
     showDetails (id) {
-      this.$router.push('/projecManage/details/' + id)
+      this.$router.push('/dataDicionary/brand/details/' + id)
     },
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
@@ -109,9 +110,32 @@ export default {
     height: 100%;
     background: #fff;
   }
+  .left{
+    width: 200px;
+    height: 100%;
+    background: rgb(242,242,242);
+    float: left;
+    margin-left: 50px;
+    margin-top: 30px;
+    p{
+     margin-left: 50px;
+      font-weight: bold;
+    }
+    h2{
+      margin-left: 20px;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    h3{
+      margin-left: 70px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }
+
   .el-table{
     position: relative;
     overflow: hidden;

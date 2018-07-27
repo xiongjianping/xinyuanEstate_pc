@@ -272,7 +272,6 @@
     </div>
   </div>
 </template>
-
 <script>
   import echarts from '../../../static/js/echarts.js'
 
@@ -285,9 +284,7 @@ export default {
 
    }
   },
-
   created(){
-
    /* this.$http.post("http://123.207.169.220:8080/tissue/employee/login", {
       "userName": "admin",
       "userPassword": "admin"
@@ -334,7 +331,7 @@ export default {
                   }],
                 globalCoord: true // 缺省为 false
               }
-            }
+            },
           }
         },
         {dim: 1, name: '客销率',min:-50,max:200,
@@ -406,7 +403,6 @@ export default {
       },
       series: [{
         type: 'parallel',
-
         lineStyle: {
           width: 3
         },
@@ -423,7 +419,6 @@ export default {
               color:'blue'
             }
           }
-
         ]
       },{
         color:'#333',
@@ -444,8 +439,6 @@ export default {
               color:'red'
             }
           }
-
-
         ]
       }]
     };
@@ -732,14 +725,14 @@ export default {
             margin-left: 80px;
             clear: both;
           }
-          .cent-img{
-            width: 35%;
-            height: 110px;
-            background: url("../../assets/images/cent.png");
-            margin-top: 30px;
-            margin-left: 280px;
-            background-size: 100% 110px;
-          }
+          /*.cent-img{*/
+            /*width: 35%;*/
+            /*height: 110px;*/
+            /*background: url("../../assets/images/cent.png");*/
+            /*margin-top: 30px;*/
+            /*margin-left: 280px;*/
+            /*background-size: 100% 110px;*/
+          /*}*/
           .cent-btn{
             width: 85%;
             height: 130px;
@@ -753,7 +746,7 @@ export default {
               width: 60%;
               height: 50px;
               position: relative;
-              top: 30px;
+              top: -25px;
               text-align: center;
               color: white;
               font-size: 16px;
@@ -768,7 +761,7 @@ export default {
               text-align: center;
               font-weight: bold;
               font-size: 50px;
-              line-height: 110px;
+              line-height: 10px;
             }
           }
           .cent-btn-right{
@@ -776,34 +769,48 @@ export default {
             height: 80px;
             float: right;
             /*background: red;*/
-            margin-top: 22px;
+            margin-top: -33px;
             ul li{
               display: block;
               float: left;
-              width:60px;
-              height: 60px;
+              width:50px;
+              height: 50px;
               background: rgba(22, 155, 213, 1);
               margin-left: 60px;
-              margin-top: 5px;
+              margin-top: 11px;
               border-radius: 50%;
               div{
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
                 background: white;
                 margin-top: 10px;
                 margin-left: 10px;
                 border-radius: 50%;
                 text-align: center;
-                line-height: 40px;
+                line-height: 30px;
                 font-size: 16px;
               }
               p{
                 text-align: center;
                 color: white;
                 line-height: 50px;
-
+                font-size: 15px;
               }
             }
+          }
+          #main{
+            position: relative;
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            padding: 0px;
+            margin: 0px;
+            border-width: 0px;
+            cursor: crosshair;
+            left: -100px;
+            top:15px;
+            /*background: pink;*/
+            color:#fff;
           }
         }
       }
