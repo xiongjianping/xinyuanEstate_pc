@@ -19,6 +19,7 @@ export default new Router({
       name: 'home',
       component: resolve => require(['@/components/common/Home.vue'], resolve),
         children: [
+        //  首页
         {
           path: '/index',
           name: 'index',
@@ -27,6 +28,7 @@ export default new Router({
           },
           component: resolve => require(['@/components/pages/index'], resolve)
         },
+        //  项目管理
         {
           path: '/projecManage',
           name: 'projecManage',
@@ -57,7 +59,7 @@ export default new Router({
                   name: 'projecAdd',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '新增/编辑项目'
+                    pageName: '新增项目'
                   },
                   component: resolve => require(['@/components/pages/projecManage/projec/add.vue'], resolve)
                 },
@@ -69,7 +71,17 @@ export default new Router({
                     pageName: '详情'
                   },
                   component: resolve => require(['@/components/pages/projecManage/projec/details.vue'], resolve)
+                },
+                {
+                  path: 'bianji/:id',
+                  name: 'projecBianji',
+                  meta: {
+                    parentPath: '/projecManage',
+                    pageName: '编辑'
+                  },
+                  component: resolve => require(['@/components/pages/projecManage/projec/bianji.vue'], resolve)
                 }
+
               ]
             },
             {
@@ -94,7 +106,7 @@ export default new Router({
                   name: 'floorAdd',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '新增/编辑楼层'
+                    pageName: '新增'
                   },
                   component: resolve => require(['@/components/pages/projecManage/floor/add.vue'], resolve)
                 },
@@ -103,9 +115,18 @@ export default new Router({
                   name: 'floorDetails',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '详情'
+                    pageName: '编辑'
                   },
                   component: resolve => require(['@/components/pages/projecManage/floor/details.vue'], resolve)
+                },
+                {
+                  path: 'xiangqing/:id',
+                  name: 'floorXiangqing',
+                  meta: {
+                    parentPath: '/projecManage',
+                    pageName: '详情'
+                  },
+                  component: resolve => require(['@/components/pages/projecManage/floor/xiangqing.vue'], resolve)
                 }
               ]
             },
@@ -131,9 +152,18 @@ export default new Router({
                   name: 'storeAdd',
                   meta: {
                     parentPath: '/projecManage',
-                    pageName: '新增/编辑铺位'
+                    pageName: '新增铺位'
                   },
                   component: resolve => require(['@/components/pages/projecManage/store/add.vue'], resolve)
+                },
+                {
+                  path: 'xiangqing/:id',
+                  name: 'storeXiangqing',
+                  meta: {
+                    parentPath: '/projecManage',
+                    pageName: '详情'
+                  },
+                  component: resolve => require(['@/components/pages/projecManage/store/xiangqing.vue'], resolve)
                 },
                 {
                   path: 'details/:id',
@@ -148,6 +178,7 @@ export default new Router({
             }
           ]
         },
+        //  品牌管理
         {
           path: '/indicatorsManage',
           name: 'indicatorsManage',
@@ -174,18 +205,28 @@ export default new Router({
                   component: resolve => require(['@/components/pages/indicatorsManage/indicators/list.vue'], resolve)
                 },
                 {
-                  path: 'details/:id',
-                  name: 'indicatorsDetails',
+                  path: 'add/:id',
+                  name: 'indicatorsAdd',
                   meta: {
                     parentPath: '/indicatorsManage',
-                    pageName: '新增/编辑铺位'
+                    pageName: '新增品牌'
                   },
-                  component: resolve => require(['@/components/pages/indicatorsManage/indicators/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/indicatorsManage/indicators/add.vue'], resolve)
+                },
+                {
+                  path: 'bianji/:id',
+                  name: 'indicatorsBianji',
+                  meta: {
+                    parentPath: '/indicatorsManage',
+                    pageName: '新增品牌'
+                  },
+                  component: resolve => require(['@/components/pages/indicatorsManage/indicators/bianji.vue'], resolve)
                 }
               ]
             },
           ]
         },
+        //  签约管理
         {
             path: '/qianyue',
             name: 'qianyue',
@@ -243,6 +284,7 @@ export default new Router({
               },
             ]
           },
+        //  数据管理
         {
           path: '/dataManage',
           name: 'dataManage',
@@ -372,6 +414,7 @@ export default new Router({
             }
           ]
         },
+        //  帮扶计划
         {
           path: '/evaluationTpl',
           name: 'evaluationTpl',
@@ -522,6 +565,7 @@ export default new Router({
             }
           ]
         },
+        //  评估模板
         {
           path: '/organizationStructure',
           name: 'organizationStructure',
@@ -550,7 +594,7 @@ export default new Router({
             }
           ]
         },
-
+        //  系统平台
         {
           path: '/dataDictionary',
           name: 'dataDictionary',
@@ -560,33 +604,138 @@ export default new Router({
           component: resolve => require(['@/components/common/SubContent.vue'], resolve),
           children: [
             {
-              path: '/brand/list/:userId/detail',
+              path: 'brand',
               name: 'brand',
               meta: {
-                pageName: '数据字典'
+                pageName: '业态管理'
               },
               component: resolve => require(['@/components/common/SubContent.vue'], resolve),
               children: [
                 {
                   path: 'list',
-                  name: 'brandList',
+                  name: 'brand',
                   meta: {
-                    parentPath: '/dataDictionary',
-                    pageName: '品牌管理'
+                    parentPath: '/brand',
+                    pageName: '业态管理'
                   },
                   component: resolve => require(['@/components/pages/dataDictionary/brand/list.vue'], resolve)
                 },
-                {
-                  path: 'edit/:id',
-                  name: 'brandEdit',
-                  meta: {
-                    parentPath: '/dataDictionary',
-                    pageName: '新增/编辑品牌'
-                  },
-                  component: resolve => require(['@/components/pages/dataDictionary/brand/add.vue'], resolve)
-                }
               ]
-            }
+            },
+            {
+              path: 'formats',
+              name: 'formats',
+              meta: {
+                pageName: '业种管理'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'formats',
+                  meta: {
+                    parentPath: '/formats',
+                    pageName: '业种管理'
+                  },
+                  component: resolve => require(['@/components/pages/dataDictionary/formats/list.vue'], resolve)
+                },
+              ]
+            },
+            {
+              path: 'megabite',
+              name: 'megabite',
+              meta: {
+                pageName: '适配值'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'megabite',
+                  meta: {
+                    parentPath: '/megabite',
+                    pageName: '适配值'
+                  },
+                  component: resolve => require(['@/components/pages/dataDictionary/megabite/list.vue'], resolve)
+                },
+              ]
+            },
+            {
+              path: 'qujiangongsi',
+              name: 'qujiangongsi',
+              meta: {
+                pageName: '区间公司'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'qujiangongsi',
+                  meta: {
+                    parentPath: '/qujiangongsi',
+                    pageName: '区间公司'
+                  },
+                  component: resolve => require(['@/components/pages/dataDictionary/qujiangongsi/list.vue'], resolve)
+                },
+              ]
+            },
+            {
+              path: 'zuzhiguanli',
+              name: 'zuzhiguanli',
+              meta: {
+                pageName: '组织管理'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'zuzhiguanli',
+                  meta: {
+                    parentPath: '/zuzhiguanli',
+                    pageName: '组织管理'
+                  },
+                  component: resolve => require(['@/components/pages/dataDictionary/zuzhiguanli/list.vue'], resolve)
+                },
+              ]
+            },
+            {
+              path: 'renyuanguanli',
+              name: 'renyuanguanli',
+              meta: {
+                pageName: '人员管理'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'renyuanguanli',
+                  meta: {
+                    parentPath: '/renyuanguanli',
+                    pageName: '人员管理'
+                  },
+                  component: resolve => require(['@/components/pages/dataDictionary/renyuanguanli/list.vue'], resolve)
+                },
+              ]
+            },
+            {
+              path: 'jueseguanli',
+              name: 'jueseguanli',
+              meta: {
+                pageName: '角色管理'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'jueseguanli',
+                  meta: {
+                    parentPath: '/jueseguanli',
+                    pageName: '角色管理'
+                  },
+                  component: resolve => require(['@/components/pages/dataDictionary/jueseguanli/list.vue'], resolve)
+                },
+              ]
+            },
           ]
         },
       ]

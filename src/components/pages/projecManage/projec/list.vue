@@ -12,10 +12,9 @@
 
         <!-- <el-col :span="6"> -->
           <el-form-item label="项目名称">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称" style="width:250px"></el-input>
           </el-form-item>
         <!-- </el-col> -->
-
         <el-form-item label="开始时间">
         <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
         </el-date-picker>
@@ -25,6 +24,8 @@
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
+            <el-button type="primary" size="medium" v-on:click="details(0);">详情</el-button>
+            <el-button type="primary" size="medium" v-on:click="bianji(0);">编辑</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -63,7 +64,7 @@
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="showDetails(scope.row.projectId)">查看</el-button>
+            <el-button type="text" v-on:click="editDetails(0)">查看</el-button>
             <el-button type="text" v-on:click="editDetails(scope.row.projectId)">编辑</el-button>
             <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
             <el-button type="text" v-on:click="deleteProject(scope.row)">删除</el-button>
@@ -93,7 +94,8 @@ import axios from 'axios';
 export default {
   data: () => ({
     pickerOptions2: {
-      shortcuts: [{
+      shortcuts: [
+        {
         text: '最近一周',
         onClick(picker) {
           const end = new Date();
@@ -101,7 +103,8 @@ export default {
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
           picker.$emit('pick', [start, end]);
         }
-      }, {
+      },
+        {
         text: '最近一个月',
         onClick(picker) {
           const end = new Date();
@@ -109,7 +112,8 @@ export default {
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
           picker.$emit('pick', [start, end]);
         }
-      }, {
+      },
+        {
         text: '最近三个月',
         onClick(picker) {
           const end = new Date();
@@ -148,6 +152,7 @@ export default {
     formLabelWidth: '120px',
     companyList: []
   }),
+
   created () {
     window.$getAreaList().then((res) => {
         this.options.push.apply(this.options, res)
@@ -200,8 +205,17 @@ export default {
     showDetails (id) {
       this.$router.push('/projecManage/projec/details/' + id)
     },
+    //新增项目
     editDetails (id) {
       this.$router.push('/projecManage/projec/add/' + id)
+    },
+    //详情
+    details(id){
+      this.$router.push('/projecManage/projec/details/' + id)
+    },
+    //编辑
+    bianji(id){
+      this.$router.push('/projecManage/projec/bianji/' + id)
     },
     checkCompanyInfo(){
       console.log(this.newCompany.name)

@@ -1,118 +1,163 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <div class="detailsContent">
+
+    <el-row class="searchBox" :gutter="30">
       <h3 class="title">基本信息</h3>
-      <el-row class="detailsInfo" :gutter="30">
-        <el-col :span="7" :offset="1">
-          {{data.projectName}}
-        </el-col>
-        <el-col :span="7" :offset="1">
-          区域：{{data.area}}
-        </el-col>
-        <el-col :span="7" :offset="1">
-          公司：{{data.company}}
-        </el-col>
-        <el-col :span="7" :offset="1">
-          状态：<span v-if="data.status === 'DISABLED'">停用</span><span v-if="data.status === 'ENABLED'">启用</span>
-        </el-col>
+      <i class="hengxian"></i>
+      <el-form label-width="100px" :model="searchForm">
+
+        <!-- <el-col :span="6"> -->
+        <el-form-item label="铺位名称">
+          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+        </el-form-item>
+        <!-- </el-col> -->
+
         <el-col :span="7" :offset="1">
           开始时间：{{data.startTime}}
         </el-col>
-        <el-col :span="7" :offset="1">
-          最后一次修改时间：{{data.lastTime}}
+        <el-col :span="8" :offset="1">
+          修改时间：{{data.lastTime}}
+        </el-col><br>
+
+        <el-col :span="6">
+          <el-form-item label="区域：">
+            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
-        <el-col :span="7" :offset="1">
-          修改人：{{data.modifierName}}
+
+        <el-col :span="6">
+          <el-form-item label="公司：">
+            <el-select size="small" v-model="searchForm.area" placeholder="">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+        <el-col :span="6">
+          <el-form-item label="所属项目：">
+            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
-        <el-col :span="7" :offset="1">
-          负责人：{{data.projectleader}}
+
+        <el-col :span="6">
+          <el-form-item label="楼栋：">
+            <el-select size="small" v-model="searchForm.area" placeholder="A座">
+              <el-option label="A座" value="null"></el-option>
+              <el-option label="B座" value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+
+        <el-col :span="6">
+          <el-form-item label="楼层：">
+            <el-select size="small" v-model="searchForm.area" placeholder="A座">
+              <el-option label="A座" value="null"></el-option>
+              <el-option label="B座" value="null"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
-        <el-col :span="7" :offset="1">
-          联系方式：{{data.phone}}
-        </el-col>
-        <el-col :span="7" :offset="1">
-          组员：<span v-for="info in data.members" :key="info.id">{{info.name}}</span>
-        </el-col>
-        <el-col :span="7" :offset="1">
-          文件：{{data.projectName}}
-        </el-col>
-      </el-row>
-    </div>
-    <div class="detailsContent">
-      <h3 class="title">铺位信息</h3>
-      <div class="listCont">
-        <el-table :data="data.unitList.list" border size="medium">
-          <el-table-column align="center" prop="num" label="铺位编号"></el-table-column>
-          <el-table-column align="center" prop="building" label="楼栋"></el-table-column>
-          <el-table-column align="center" prop="floor" label="楼层"></el-table-column>
-          <el-table-column align="center" prop="area" label="面积"></el-table-column>
-          <el-table-column align="center" prop="brand" label="品牌名称"></el-table-column>
-          <el-table-column align="center" prop="operation" label="经营方式"></el-table-column>
-          <el-table-column align="center" prop="formats" label="业态"></el-table-column>
-          <el-table-column align="center" prop="merchandiseName" label="状态">
-            <template slot-scope="scope">
-              <el-button disabled  size="mini" type="success" v-if="scope.row.status === 'ENABLED'">启用</el-button>
-              <el-button disabled  size="mini" type="danger" v-if="scope.row.status === 'DISABLED'">停用</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="paginationCont">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="data.unitList.page"
-            :page-size="size"
-            layout="total, prev, pager, next"
-            :total="data.unitList.count">
-          </el-pagination>
+
+        <el-col :span="6">
+          <el-form-item label="面积/平：">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+        <el-col :span="6">
+          <el-form-item label="状态：">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+
+        <div class="xxk">
+          <button>取消</button>
+          <button>确定</button>
         </div>
-      </div>
-    </div>
+
+
+      </el-form>
+    </el-row>
   </div>
 </template>
 <script>
-export default {
-  data: () => ({
-    data: {
-      unitList: []
+  import moment from 'moment'
+  export default {
+    data: () => ({
+      data: {},
+      loading: false,
+      searchForm: {
+        area: '',
+        company: '',
+        startTime: null
+      },
+      infoData: {},
+      size: 10,
+      dialogFormVisible: false,
+      dialogVisible: false,
+      pictureList: [],
+      picIndex: 0
+    }),
+    created () {
+      this.searchList(1)
     },
-    loading: false,
-    size: 10
-  }),
-  created () {
-    this.getData()
-  },
-  methods: {
-    getData () {
-      this.$axios.get('/details').then((res) => {
-        this.loading = false
-        this.data = res
-      }).catch((eMsg) => {
-        this.loading = false
-        this.showAlert(eMsg)
-      })
-    },
-    handleCurrentChange (val) {
-      this.data.unitList.page = val
-      this.searchList()
-    },
-    searchList (type) {
-      this.loading = true
-      // this.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + this.size, params).then((res) => {
-      this.$axios.get('/list').then((res) => {
-        this.loading = false
-        this.data = res
-      }).catch((eMsg) => {
-        this.loading = false
-        this.showAlert(eMsg)
-      })
-    },
-    showAlert (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+    methods: {
+      handleSizeChange (val) {
+        this.size = val
+        this.searchList()
+      },
+      handleCurrentChange (val) {
+        this.data.page = val
+        this.searchList()
+      },
+      searchList (type) {
+        this.loading = true
+        var that = this
+        var page
+        var params = {
+          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
+          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
+          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
+        }
+        if (type === 1) {
+          page = 1
+        } else {
+          page = this.data.page
+        }
+        console.log(params, page)
+        that.loading = true
+        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
+        that.$axios.get('/list').then((res) => {
+          console.log(res)
+          that.loading = false
+          that.data = res
+        }).catch(function (eMsg) {
+          that.loading = false
+          that.showAlert(eMsg)
+        })
+
+      },
+      showMessage (cont) {
+        this.$message({
+          type: 'success',
+          message: cont
+        })
+      },
+      showAlert: function (cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
     }
   }
-}
 </script>
 <style scoped  lang="less">
   .mainContent{
@@ -120,7 +165,48 @@ export default {
     height: 100%;
     background: #fff;
   }
-.el-date-editor.el-input, .el-date-editor.el-input__inner{
-  width: 100%;
-}
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
+  .el-col-10 {
+    width: 41.66667%;
+    margin-top: 45px;
+  }
+  .el-form-item{
+    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-left: 52px;
+  }
+  .el-form-item__label {
+    text-align: right;
+    float: left;
+    font-size: 17px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  el-button{
+    background: rgb(22,155,213);
+  }
+  .xxk{
+    width: 100%;
+    height: 100px;
+    button{
+      width: 100px;
+      height: 50px;
+      display: inline-block;
+      border-radius: 10px;
+      background: rgb(22,155, 213);
+      outline:medium;
+      outline: none;
+      position: relative;
+      left:500px;
+      top: 50px;
+      margin-left: 20px;
+    }
+  }
+
+
 </style>

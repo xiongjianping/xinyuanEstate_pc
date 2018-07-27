@@ -26,7 +26,9 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="resetForm();">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="showDetails(0);">编辑</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(0);">详情</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>
@@ -54,8 +56,8 @@
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-            <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
+            <el-button type="text" v-on:click="xiangqing(scope.row.id)">查看</el-button>
+            <el-button type="text" v-on:click="showDetails(scope.row.id)">编辑</el-button>
             <el-button type="text" v-if="!scope.row.state" v-on:click="showDetails(scope.row)">启用</el-button>
             <el-button type="text" v-if="scope.row.state" v-on:click="showDetails(scope.row)">禁用</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
@@ -131,8 +133,15 @@ export default {
     showDetails (id) {
       this.$router.push('/projecManage/floor/details/' + id)
     },
+    //编辑
     editDetails (id) {
       this.$router.push('/projecManage/floor/add/' + id)
+    },
+
+
+    //详情
+    xiangqing(id){
+      this.$router.push('/projecManage/floor/xiangqing/' + id)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

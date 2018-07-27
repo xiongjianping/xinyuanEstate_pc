@@ -132,7 +132,6 @@
     width: 100%;
     height: 85px;
     color: #fff;
-    /*background: #fff;*/
     z-index: 99;
   }
 

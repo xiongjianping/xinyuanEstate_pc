@@ -21,7 +21,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-
         <el-col :span="6.5">
           <el-form-item label="开始时间" label-width="100px">
             <el-date-picker
@@ -48,9 +47,9 @@
         </el-col>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="resetForm();">新增</el-button>
-            <!--<el-button type="primary" size="medium" v-on:click="editDetails();">导出</el-button>-->
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="xinzeng();">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="bianji();">编辑</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -174,6 +173,17 @@ export default {
     // showDetails (id) {
     //   this.$router.push('/projecManage/indicators/details/' + id)
     // },
+
+    //新增项目
+    xinzeng (id) {
+      this.$router.push('/indicatorsManage/indicators/add/' + id)
+    },
+    //编辑
+    bianji (id) {
+      this.$router.push('/indicatorsManage/indicators/bianji/' + id)
+    },
+
+
 
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

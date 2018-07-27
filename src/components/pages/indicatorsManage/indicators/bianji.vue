@@ -9,8 +9,8 @@
 
 
         <!-- <el-col :span="6"> -->
-        <el-form-item label="项目名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+        <el-form-item label="品牌名称">
+          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入品牌名称"></el-input>
         </el-form-item>
         <!-- </el-col> -->
 
@@ -23,36 +23,32 @@
 
 
         <el-col :span="6">
-          <el-form-item label="区域：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-          </el-form-item>
-        </el-col>
-
-         <el-col :span="6">
-        <el-form-item label="公司：">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-        </el-form-item>
-            </el-col><br><br><br><br><br>
-
-        <el-col :span="6">
-          <el-form-item label="状态：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          <el-form-item label="业态：">
+            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="面积/平：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+          <el-form-item label="业种：">
+            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="8" :offset="1">
-          运营负责人：李某某
-        </el-col>
+        <el-col :span="6">
+          <el-form-item label="经营方式：">
+            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
 
-        <el-row>
-          <el-button type="primary">选择</el-button>
-        </el-row>
 
       <div class="xxk">
         <button>取消</button>
