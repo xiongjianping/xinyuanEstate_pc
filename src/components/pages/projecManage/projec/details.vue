@@ -8,29 +8,29 @@
           {{data.projectName}}
         </el-col><br>
         <el-col :span="3" :offset="1">
-          区域：{{data.area}}
+          区域：{{data.areaName}}
         </el-col>
         <el-col :span="3" :offset="1">
-          公司：{{data.company}}
+          公司：{{data.companyName}}
         </el-col>
         <el-col :span="3" :offset="1">
-          面积/平：{{data.company}}
+          面积/平：{{data.acreage}}
         </el-col>
         <el-col :span="7" :offset="1">
-          状态：<span v-if="data.status === 'DISABLED'">停用</span><span v-if="data.status === 'ENABLED'">启用</span>
+          状态：<span v-if="!data.state">停用</span><span v-if="data.state">启用</span>
         </el-col>
         <el-col :span="4" :offset="1">
           文件：{{data.projectName}}
         </el-col><br><br>
 
         <el-col :span="7" :offset="1">
-          开始时间：{{data.startTime}}
+          开始时间：{{data.createTime}}
         </el-col>
         <el-col :span="7" :offset="1">
-          最后一次修改时间：{{data.lastTime}}
+          最后一次修改时间：{{data.modifyTime}}
         </el-col>
         <el-col :span="7" :offset="1">
-          负责人：{{data.projectleader}}
+          负责人：{{data.projectAuditName}}
         </el-col>
 
       </el-row>
@@ -42,6 +42,7 @@
 
 export default {
   data: () => ({
+    id:'',
     data: {
       unitList: []
     },
@@ -53,13 +54,13 @@ export default {
   },
   methods: {
     getData () {
-      console.log(123);
-      this.$axios.get('/details').then((res) => {
+      window.$getProjectDetails(this.$route.params.id).then((res) => {
         this.loading = false
+        console.log(res)
         this.data = res
-      }).catch((eMsg) => {
+      }, (err) => {
         this.loading = false
-        this.showAlert(eMsg)
+        this.showAlert(err)
       })
     },
     handleCurrentChange (val) {

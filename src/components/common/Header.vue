@@ -85,7 +85,6 @@
             let middle = res.length / 2
             if(res.length % 2 === 0){
               this.navList = res.slice(0, middle)
-              console.log('this.navList: ' + JSON.stringify(this.navList))
               this.navList1 = res.slice(middle)
             } else {
               this.navList = res.slice(0, middle + 1)
