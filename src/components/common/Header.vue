@@ -16,9 +16,6 @@
           <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.subMenu && info.subMenu.length > 0" v-show="info.showSub">
             <li v-for="item in info.subMenu" :key="item.id" @click="goLink(item, info)">{{item.name}}
-            <!--<ul class="subMenu" v-if="info.subMenu && info.subMenu.length > 0" v-show="info.showSub">-->
-              <!--&lt;!&ndash;<li v-for="item in info.subMenu.subMenu1" :key="item.id" @click="goLink(item, info)"></li>&ndash;&gt;-->
-            <!--</ul>-->
             </li>
           </ul>
         </li>
@@ -106,27 +103,30 @@
             id: 5,
             name: '数据管理',
             url: '/dataManage',
-
             subMenu: [
               {
                 id: 51,
                 name: '标准三角形',
                 url: '/dataManage/version/list'
-              }, {
+              },
+              {
                 id: 52,
                 name: '区间设置',
                 url: '/dataManage/trigonometric/list'
-              }, {
+              },
+              {
                 id: 53,
                 name: '动态三角形',
                 url: '/dataManage/dongtai/list'
-              }, {
+              },
+              {
                 id: 54,
                 name: '数据维护',
                 url: '/dataManage/shuju/list'
               }
             ]
-          }, {
+          },
+          {
             id: 6,
             name: '帮扶计划',
             url: '/evaluationTpl',
@@ -150,7 +150,8 @@
               }
             ]
 
-          }, {
+          },
+          {
             id: 7,
             name: '评估模板',
             url: '/organizationStructure',
@@ -162,20 +163,46 @@
                 url: '/organizationStructure/organization'
               }
             ]
-          }, {
+          },
+          {
             id: 8,
             name: '系统平台',
             url: '/dataDictionary',
-
             subMenu: [
               {
                 id: 81,
-                name: '数据字典',
+                name: '业态管理',
                 url: '/dataDictionary/brand/list',
-              }, {
+              },
+              {
                 id: 82,
-                name: '主数据',
+                name: '业种管理',
                 url: '/dataDictionary/formats/list',
+              },
+              {
+                id: 83,
+                name: '适配值',
+                url: '/dataDictionary/megabite/list',
+              },
+
+              {
+                id: 84,
+                name: '区间公司',
+                url: '/dataDictionary/qujiangongsi/list',
+              },
+              {
+                id: 85,
+                name: '组织管理',
+                url: '/dataDictionary/zuzhiguanli/list',
+              },
+              {
+                id: 86,
+                name: '人员管理',
+                url: '/dataDictionary/renyuanguanli/list',
+              }, {
+                id: 87,
+                name: '角色管理',
+                url: '/dataDictionary/jueseguanli/list',
               }
             ]
           },
@@ -260,7 +287,6 @@
     width: 100%;
     height: 85px;
     color: #fff;
-    /*background: #fff;*/
     z-index: 99;
   }
 

@@ -8,10 +8,13 @@ import ElementUI from 'element-ui'
 // import cors from 'cors'
 import echarts from 'echarts'
 
+
+
 import vueMethodsPromise from 'vue-methods-promise'
 import babelPolyfill from 'babel-polyfill'
 import './assets/css/index.css'
 import './mock/mockData.js'
+
 
 import VueResource from 'vue-resource'
 Vue.use(VueResource)

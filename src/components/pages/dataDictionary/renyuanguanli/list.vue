@@ -1,24 +1,47 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
-
       <el-form label-width="100px" :model="searchForm">
+        <el-col :span="6">
+          <el-form-item label="真实姓名">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item label="用户名">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
+          </el-form-item>
+        </el-col>
+
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
+
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
       <el-table :data="data.list" border size="medium">
-        <el-table-column align="center" type="index" prop="id" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="业态"></el-table-column>
-        <el-table-column align="center" prop="area" label="业种"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" width="120">
+        <el-table-column align="center" type="id" prop="id" label="序号" width="50"></el-table-column>
+        <el-table-column align="center" type="id" prop="projectleader" label="姓名" ></el-table-column>
+        <el-table-column align="center" type="id" prop="projectleader" label="用户名" ></el-table-column>
+        <el-table-column align="center" type="id" prop="projectleader" label="联系方式"></el-table-column>
+        <el-table-column align="center" prop="area" label="所属部门" ></el-table-column>
+        <el-table-column align="center" prop="merchandiseName" label="状态" >
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
+            <el-button disabled  size="small" type="success" v-if="scope.row.status === 'ENABLED'">使用</el-button>
+            <el-button disabled  size="small" type="danger" v-if="scope.row.status === 'DISABLED'">禁用</el-button>
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" prop="startTime" label="修改时间" width="200"></el-table-column>
+        <el-table-column align="center"  label="操作" width="300">
+          <template slot-scope="scope">
+            <el-button type="text"  >权限管理</el-button>
+            <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
+            <el-button type="text" v-on:click="editDetails(scope.row.id)">禁用</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -90,7 +113,7 @@ export default {
     },
     // 查看详情
     showDetails (id) {
-      this.$router.push('/projecManage/details/' + id)
+      this.$router.push('/dataDicionary/brand/details/' + id)
     },
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
@@ -112,20 +135,8 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }
-  .el-table{
-    position: relative;
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    width: 50%;
-    max-width: 100%;
-    font-size: 14px;
-    color: #606266;
-    margin: 0 auto;
-  }
+
+
   .block{
     float: right;
   }

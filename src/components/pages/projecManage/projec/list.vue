@@ -9,14 +9,11 @@
             </el-select>
           </el-form-item>
         </el-col>
-
-
         <el-col :span="6">
           <el-form-item label="项目名称">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
-
         <el-form-item label="开始时间">
         <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
         </el-date-picker>
@@ -24,14 +21,14 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList();">新增公司</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
-    <div class="listCont">
 
+    <div class="listCont">
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" prop="id" label="序号"></el-table-column>
         <el-table-column align="center" prop="area" label="区域"></el-table-column>
@@ -46,7 +43,7 @@
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
+            <el-button type="text" v-on:click="showDetails(scope.row.id)">详情</el-button>
             <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
             <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>

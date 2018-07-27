@@ -21,7 +21,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-
         <el-col :span="6.5">
           <el-form-item label="开始时间" label-width="100px">
             <el-date-picker
