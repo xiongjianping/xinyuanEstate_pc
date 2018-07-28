@@ -48,7 +48,7 @@
 
     <div class="listCont">
       <el-table :data="projectList" border size="medium">
-        <el-table-column align="center" prop="projectId" label="序号"></el-table-column>
+        <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域">
         </el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
@@ -65,7 +65,7 @@
             <el-button type="text" v-on:click="showDetails(scope.row.projectId)">查看</el-button>
             <el-button type="text" v-on:click="bianji(scope.row.projectId)">编辑</el-button>
             <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
-            <el-button type="text" v-on:click="deleteProject(scope.row)">删除</el-button>
+            <el-button type="text" v-on:click="deleteProject(scope.row.projectId)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -222,10 +222,18 @@ export default {
         return true
       }
     },
-    deleteProject(project){
-      window.$deleteProject(project.projectId).then((res) => {
-        this.projectList.splice(project, 1)
+    deleteProject(id){
+      this.loading = true
+      window.$deleteProject(id).then((res) => {
+        for(var i = this.projectList.length - 1; i >= 0; i--){
+          if(this.projectList[i].projectId === id){
+            this.projectList.splice(i, 1)
+            this.loading = false
+            return false
+          }
+        }
       }, (err) => {
+        this.loading = false
         this.showAlert(err)
       })
     },
