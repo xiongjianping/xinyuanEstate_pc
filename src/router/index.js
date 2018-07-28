@@ -574,17 +574,17 @@ export default new Router({
             pageName: '评估模板'
           },
           component: resolve => require(['@/components/common/SubContent.vue'], resolve),
-          // children: [
-          //   {
-          //     path: 'organizationStructure',
-          //     name: 'organizationStructure',
-          //     meta: {
-          //       pageName: '模板管理'
-          //     },
-          //     component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+          children: [
+            {
+              path: 'organization',
+              name: 'organization',
+              meta: {
+                pageName: '模板管理'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
               children:[
                 {
-                  path: 'organization',
+                  path: 'list',
                   name: 'organizationList',
                   meta: {
                     parentPath: '/organizationStructure',
@@ -610,8 +610,8 @@ export default new Router({
                   },
                   component: resolve => require(['@/components/pages/organizationStructure/organization/details.vue'], resolve)
                 }
-            //   ]
-            // },
+              ]
+            },
           ]
         },
 
