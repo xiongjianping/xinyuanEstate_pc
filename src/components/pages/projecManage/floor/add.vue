@@ -4,88 +4,70 @@
     <el-row class="searchBox" :gutter="30">
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
-      <el-form label-width="100px" :model="searchForm">
+      <el-form label-width="100px" :model="data">
 
-        <!-- <el-col :span="6"> -->
         <el-form-item label="楼层名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-        </el-form-item>
-        <!-- </el-col> -->
-
-        <!-- <el-col :span="7" :offset="1">
-          开始时间：{{data.startTime}}
-        </el-col>
-        <el-col :span="8" :offset="1">
-          修改时间：{{data.lastTime}}
-        </el-col><br> -->
-
-        <el-form-item label="时间">
-          <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
+          <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入楼层名称"></el-input>
         </el-form-item>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择区域">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.areaId" placeholder="请选择区域" @change="getProjectList()">
+              <el-option v-for="(item, index) in areaList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="公司：">
-            <el-select size="small" v-model="searchForm.area" placeholder="">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.companyId" placeholder="请选择公司">
+              <el-option v-for="(item, index) in companyList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="项目：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.projectId" placeholder="请选择项目" @change="getBuilding()">
+              <el-option v-for="(item, index) in projectList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="楼栋：">
-            <el-select size="small" v-model="searchForm.area" placeholder="A座">
-              <el-option label="A座" value="null"></el-option>
-              <el-option label="B座" value="null"></el-option>
+            <el-select size="small" v-model="data.buildingId" placeholder="请选择楼栋">
+              <el-option v-for="(item, index) in buildingList" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="面积/平：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+            <el-input size="small" v-model="data.acreage" :maxlength="11" placeholder="请填写平米"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="位置：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.location" placeholder="请选择位置">
+              <el-option label="地上" value="1"></el-option>
+              <el-option label="地下" value="2"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="状态">
-            <el-select size="small" v-model="searchForm.area" placeholder="启用">
-              <el-option label="启用" value="null"></el-option>
-              <el-option label="禁用" value="null"></el-option>
+            <el-select size="small" v-model="data.state" placeholder="请选择状态">
+              <el-option label="启用" value="true"></el-option>
+              <el-option label="禁用" value="false"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
         <div class="xxk">
-          <button>取消</button>
-          <button>确定</button>
+          <button type="button" @click="goBack()">取消</button>
+          <button type="button" @click="createFloor()">确定</button>
         </div>
 
       </el-form>
@@ -96,29 +78,51 @@
   import moment from 'moment'
   export default {
     data: () => ({
-      data: {},
       loading: false,
-      searchForm: {
-        area: '',
-        company: '',
-        startTime: null
-      },
-      infoData: {},
-      size: 10,
-      dialogFormVisible: false,
-      dialogVisible: false,
-      pictureList: [],
-      picIndex: 0
+      data: {},
+      areaList: [],
+      companyList: [],
+      projectList: [],
+      buildingList: []
     }),
     created () {
-      this.searchList(1)
+      window.$getAreaList().then((res) => {
+        this.areaList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+      window.$getCompanyAll().then((res) => {
+        this.companyList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+      
     },
     methods: {
-      showMessage (cont) {
-        this.$message({
-          type: 'success',
-          message: cont
+      getProjectList(){
+        window.$getProjectListForArea(this.data.areaId).then((res) => {
+          this.projectList = res
+        }, (err) => {
+          this.showAlert(err)
         })
+      },
+      getBuilding(){
+        window.$getBuilding(this.data.projectId).then((res) => {
+          this.buildingList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      createFloor(){
+        window.$createFloor(this.data).then((res) => {
+          this.showAlert('新增成功')
+          this.goBack()
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      goBack(){
+        this.$router.back(-1)
       },
       showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {

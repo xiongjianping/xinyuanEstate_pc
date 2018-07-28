@@ -17,7 +17,7 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="方位">
-            <el-select size="small" v-model="searchForm.location" placeholder="地上">
+            <el-select size="small" v-model="searchForm.location" placeholder="请选择位置">
               <el-option label="地上" value="1"></el-option>
               <el-option label="地下" value="2"></el-option>
             </el-select>
@@ -35,7 +35,7 @@
     </el-row>
     <div class="listCont">
       <el-table :data="floorList" border size="medium">
-        <el-table-column align="center" prop="id" label="序号"></el-table-column>
+        <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
         <el-table-column align="center" prop="buildingName" label="楼栋"></el-table-column>
@@ -43,7 +43,7 @@
         <el-table-column align="center" prop="location" label="位置">
           <template slot-scope="scope">
             <el-button disabled type="text" size="small" v-if="scope.row.location === 1">地上</el-button>
-            <el-button disabled type="text" size="small" v-if="!scope.row.location === 2">地下</el-button>
+            <el-button disabled type="text" size="small" v-if="scope.row.location === 2">地下</el-button>
           </template>
         </el-table-column>
         <el-table-column align="center" prop="acreage" label="面积"></el-table-column>
@@ -58,9 +58,7 @@
           <template slot-scope="scope">
             <el-button type="text" v-on:click="xiangqing(scope.row.id)">查看</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row.id)">编辑</el-button>
-            <el-button type="text" v-if="!scope.row.state" v-on:click="showDetails(scope.row)">启用</el-button>
-            <el-button type="text" v-if="scope.row.state" v-on:click="showDetails(scope.row)">禁用</el-button>
-            <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+            <el-button type="text" v-on:click="deleteFloor(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -137,11 +135,24 @@ export default {
     editDetails (id) {
       this.$router.push('/projecManage/floor/add/' + id)
     },
-
-
     //详情
     xiangqing(id){
       this.$router.push('/projecManage/floor/xiangqing/' + id)
+    },
+    deleteFloor(id){
+      this.loading = true
+      window.$deleteFloor(id).then((res) => {
+        for(var i = this.floorList.length - 1; i >= 0; i--){
+          if(this.floorList[i].id === id){
+            this.floorList.splice(i, 1)
+            this.loading = false
+            return false
+          }
+        }
+      }, (err) => {
+        this.loading = false
+        this.showAlert(err)
+      })
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

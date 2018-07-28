@@ -59,7 +59,7 @@
 
       <div class="xxk">
         <button type="button" @click="goBack()">取消</button>
-        <button type="button" @click="create()">确定</button>
+        <button type="button" @click="edit()">确定</button>
       </div>
 
       </el-form>
@@ -93,8 +93,10 @@
     },
     methods: {
       getData () {
+        this.searchForm.projectId = this.$route.params.id
         window.$getAreaList().then((res) => {
           this.areaList = res
+          console.log(that)
         }, (err) => {
           this.showAlert(res)
         })
@@ -107,6 +109,7 @@
         window.$getProjectDetails(this.$route.params.id).then((res) => {
           this.loading = false
           this.searchForm = res
+          this.departmentId = res.deptId
           this.getDepartment()
         }, (err) => {
           this.loading = false
@@ -129,6 +132,18 @@
         }, (err) => {
           this.showAlert(err)
         })
+      },
+      edit(){
+        console.log(this.searchForm)
+        window.$editProject(this.searchForm).then((res) => {
+          this.showAlert('编辑成功')
+          this.goBack()
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      goBack(){
+        this.$router.back(-1)
       },
       showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
