@@ -18,10 +18,10 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="defaultHelpCon.resultList" border size="medium">
-        <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="typeName" label="类别"></el-table-column>
-        <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
+      <el-table :data="defaultHelpCon.reslultList" border size="medium">
+        <el-table-column align="center" type="index" prop='id' label="序号" width="50"></el-table-column>
+        <el-table-column align="center" prop="type" label="类别"></el-table-column>
+        <el-table-column align="center" prop="area" label="帮扶内容"></el-table-column>
         <el-table-column align="center" label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
@@ -66,6 +66,7 @@ export default {
   created() {
     // this.searchList(1)
     window.$helpContent(this.helpType).then((res) => {
+      console.log(res)
       this.defaultHelpCon = res;
       this.typeNameShow(this.defaultHelpCon)
     }, (err) => {})

@@ -5,17 +5,17 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="addDetail">新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.resultList" border size="medium">
         <el-table-column align="center" type="index" prop="id" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="业态"></el-table-column>
-        <el-table-column align="center" prop="area" label="业种"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
+        <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
+        <el-table-column align="center" prop="name" label="业种"></el-table-column>
+        <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
         <el-table-column align="center"  label="操作" width="120">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
@@ -23,19 +23,51 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="block">
-        <span class="demonstration"></span>
-        <el-pagination
-          layout="prev, pager, next"
-          :total="30">
-        </el-pagination>
-      </div>
+      <el-row type='flex' justify="center">
+        <el-col :span="12">
+          <div class="block">
+            <span class="demonstration"></span>
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page="data.page"
+              :page-size="size"
+              layout="prev, pager, next"
+              :total="data.countSize">
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-row>
     </div>
+    <el-dialog
+      title="提示"
+      :visible="yetaiVisible"
+      width="40%"
+      :modal=false 
+      :show-close=false>
+      <el-select 
+        v-model="yetaiSelect" 
+        placeholder="请选择">
+        <el-option
+          v-for="item in yetaiList"
+          :key="item.value"
+          :label="item.name"
+          :value="item.id">
+        </el-option>
+      </el-select>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="yetaiVisible = false">取 消</el-button>
+        <el-button type="primary" @click="yetaiVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
 import moment from 'moment'
+import addSelect from './addselect'
 export default {
+  components:{
+    addSelect
+  },
   data: () => ({
     data: {},
     loading: false,
@@ -49,16 +81,28 @@ export default {
     dialogFormVisible: false,
     dialogVisible: false,
     pictureList: [],
-    picIndex: 0
+    picIndex: 0,
+    yetaiVisible: false,
+    yetaiSelect: '',
+    yetaiList: [
+      {
+        id:'123',
+        name:'123'
+      },
+      {
+        id:'456',
+        name:'456'
+      }
+    ]
   }),
   created () {
     this.searchList(1)
+    this.$axios.get('/base/find/business/form/select').then(res => {
+      console.log(res)
+      this.yetaiList = res;
+    })
   },
   methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
-    },
     handleCurrentChange (val) {
       this.data.page = val
       this.searchList()
@@ -67,20 +111,15 @@ export default {
       this.loading = true
       var that = this
       var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
       if (type === 1) {
         page = 1
+        this.data.page = page
       } else {
         page = this.data.page
       }
-      console.log(params, page)
-      that.loading = true
       // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
+      that.$axios.get('/base/find/business/species?p=' + page + '&c=' + this.size).then(res => {
+        console.log(res)
         that.loading = false
         that.data = res
       }).catch(function (eMsg) {
@@ -90,10 +129,14 @@ export default {
     },
     // 查看详情
     showDetails (id) {
-      this.$router.push('/projecManage/details/' + id)
+      // this.$router.push('/projecManage/details/' + id)
     },
     editDetails (id) {
-      this.$router.push('/projecManage/edit/' + id)
+      // this.$router.push('/projecManage/edit/' + id)
+    },
+    addDetail () {
+      this.yetaiVisible = true;
+      
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
