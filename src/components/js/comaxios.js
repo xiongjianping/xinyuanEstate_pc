@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { ERR_OK } from 'api/config'
 var isRefresh = true
 
-axios.defaults.baseURL = "http://10.17.9.123:8080" // 本地
+axios.defaults.baseURL = "http://192.168.3.33:8080" // 本地
     // axios.defaults.baseURL = "http://123.207.169.220:8080" // 测试
 axios.defaults.withCredentials = true
 axios.defaults.timeout = 10000
