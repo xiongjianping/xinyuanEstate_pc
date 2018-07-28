@@ -3,8 +3,8 @@ import axios from 'axios'
 // import { ERR_OK } from 'api/config'
 var isRefresh = true
 
-axios.defaults.baseURL = "http://192.168.3.33:8080" // 本地
-    // axios.defaults.baseURL = "http://123.207.169.220:8080" // 测试
+axios.defaults.baseURL = "http://10.17.9.123:8080" // 本地
+    // axios.defaults.baseURL = "http://192.168.3.33:8080" // 测试
 axios.defaults.withCredentials = true
 axios.defaults.timeout = 10000
 
@@ -22,7 +22,7 @@ axios.interceptors.request.use(config => {
 async function responseInterceptor(response) {
     if (response.data.code === '0' || response.data.code === 0) {
         return response.data.data
-    } else if (response.data.code === 'AOP_CHECK_TOKEN_003') {
+    } else if (response.data.code === 'AOP_CHECK_TOKEN_003') { // token过期，刷新token
         console.log('token过期')
             // token过期, 刷新token
         if (isRefresh) {
@@ -31,7 +31,7 @@ async function responseInterceptor(response) {
             axios.get('/token/refresh/token/' + rToken)
                 .then((res) => {
                     window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
-                    window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
+                        // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
                     window.location.reload()
                     isRefresh = true
                 })
@@ -40,8 +40,10 @@ async function responseInterceptor(response) {
                     isRefresh = true
                 })
         }
-
         return Promise.reject(response.data.message)
+    } else if (response.data.code === 'AOP_CHECK_TOKEN_002' ||
+        response.data.code === 'SSO_LOGIN_002') { // token无效，踢出页面
+        refreshApp()
     } else {
         return Promise.reject(response.data.message)
     }
@@ -53,8 +55,8 @@ axios.interceptors.response.use(function(response) {
 })
 
 async function refreshApp() {
-    Vue.prototype.clearData()
     window.localStorage.clear()
-    window.location.href = window.location.href.replace(/#.*$/, '')
+    console.log('跳转登录页')
+    window.location.replace('/login')
 }
 Vue.prototype.$axios = axios

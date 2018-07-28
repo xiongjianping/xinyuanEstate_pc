@@ -12,16 +12,21 @@
         </el-form-item>
         <!-- </el-col> -->
 
-        <el-col :span="7" :offset="1">
+        <!-- <el-col :span="7" :offset="1">
           开始时间：{{data.startTime}}
         </el-col>
         <el-col :span="8" :offset="1">
           修改时间：{{data.lastTime}}
-        </el-col><br>
+        </el-col><br> -->
+
+        <el-form-item label="时间">
+          <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
 
         <el-col :span="6">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+            <el-select size="small" v-model="searchForm.area" placeholder="请选择区域">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
@@ -109,41 +114,6 @@
       this.searchList(1)
     },
     methods: {
-      handleSizeChange (val) {
-        this.size = val
-        this.searchList()
-      },
-      handleCurrentChange (val) {
-        this.data.page = val
-        this.searchList()
-      },
-      searchList (type) {
-        this.loading = true
-        var that = this
-        var page
-        var params = {
-          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-        }
-        if (type === 1) {
-          page = 1
-        } else {
-          page = this.data.page
-        }
-        console.log(params, page)
-        that.loading = true
-        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-        that.$axios.get('/list').then((res) => {
-          console.log(res)
-          that.loading = false
-          that.data = res
-        }).catch(function (eMsg) {
-          that.loading = false
-          that.showAlert(eMsg)
-        })
-
-      },
       showMessage (cont) {
         this.$message({
           type: 'success',

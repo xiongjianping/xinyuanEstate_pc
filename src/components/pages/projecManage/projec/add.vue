@@ -8,55 +8,59 @@
       <el-form label-width="100px" :model="searchForm">
 
 
-        <!-- <el-col :span="6"> -->
-        <el-form-item label="项目名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+      <el-form-item label="项目名称">
+        <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
+      </el-form-item>
+
+
+      <el-form-item label="区域">
+        <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
+          <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-col :span="6">
+        <el-form-item label="公司">
+          <el-select size="small" v-model="searchForm.companyId" placeholder="请选择公司" @change="getDepartment()">
+            <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
+          </el-select>
         </el-form-item>
-        <!-- </el-col> -->
-
-        <el-col :span="7" :offset="1">
-        开始时间：{{data.startTime}}
-        </el-col>
-        <el-col :span="8" :offset="1">
-        修改时间：{{data.lastTime}}
-        </el-col><br>
-
+      </el-col><br><br><br><br><br>
 
         <el-col :span="6">
-          <el-form-item label="区域：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-          </el-form-item>
-        </el-col>
-
-         <el-col :span="6">
-        <el-form-item label="公司：">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-        </el-form-item>
-            </el-col><br><br><br><br><br>
-
-        <el-col :span="6">
-          <el-form-item label="状态：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          <el-form-item label="状态">
+            <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
+              <el-option label="启用" value="true"></el-option>
+              <el-option label="禁用" value="false"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="面积/平：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+            <el-input size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
-
-        <el-col :span="8" :offset="1">
-          运营负责人：李某某
         </el-col>
 
-        <el-row>
-          <el-button type="primary">选择</el-button>
-        </el-row>
+        <el-col :span="6" :offset="1">
+          <el-form-item label="部门">
+            <el-select size="small" v-model="departmentId" placeholder="请选择部门" @change="getPerson()">
+              <el-option v-for="(item,index) in departmentList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6" :offset="1">
+          <el-form-item label="运营负责人">
+            <el-select size="small" v-model="searchForm.projectHeadId" placeholder="请选择负责人">
+              <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
 
       <div class="xxk">
-        <button>取消</button>
-        <button>确定</button>
+        <button type="button" @click="goBack()">取消</button>
+        <button type="button" @click="create()">确定</button>
       </div>
 
       </el-form>
@@ -64,67 +68,62 @@
   </div>
 </template>
 <script>
-import moment from 'moment'
 export default {
   data: () => ({
-    data: {},
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
-    infoData: {},
-    size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
+    searchForm: {},
+    areaList: [],
+    companyList: [],
+    departmentList: [],
+    projectHeadList: [],
     pictureList: [],
-    picIndex: 0
+    departmentId:''
   }),
   created () {
-    this.searchList(1)
+    // this.searchList(1)
+    window.$getAreaList().then((res) => {
+      this.areaList = res
+    }, (err) => {
+      this.showAlert(res)
+    })
+
+    window.$getCompanyAll().then((res) => {
+      this.companyList = res
+    }, (err) => {
+      this.showAlert(res)
+    })
   },
   methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
-    },
-    handleCurrentChange (val) {
-      this.data.page = val
-      this.searchList()
-    },
-    searchList (type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
+    getDepartment(){
+      window.$getDepartments(this.searchForm.companyId).then((res) => {
+        this.departmentList = res
         console.log(res)
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+      }, (err) => {
+        this.showAlert(err)
       })
-
     },
-    showMessage (cont) {
-      this.$message({
-        type: 'success',
-        message: cont
+    getPerson(){
+      window.$getPersion(this.departmentId).then((res) => {
+        this.projectHeadList = res
+        console.log(res)
+      }, (err) => {
+        this.showAlert(err)
       })
+    },
+    create(){
+      this.searchForm.projectImages = []
+      console.log(this.searchForm)
+      window.$createProject(this.searchForm).then((res) => {
+        console.log(res)
+        this.searchForm = {}
+        this.showAlert('创建成功')
+        this.goBack()
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    goBack(){
+      this.$router.back(-1)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
