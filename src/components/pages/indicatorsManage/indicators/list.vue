@@ -175,14 +175,13 @@ export default {
     // },
 
     //新增项目
-    xinzeng (id) {
-      this.$router.push('/indicatorsManage/indicators/add/' + id)
+    xinzeng(id){
+      this.$router.push('/indicatorsManage' + '/indicators/add/' + id)
     },
     //编辑
     bianji (id) {
       this.$router.push('/indicatorsManage/indicators/bianji/' + id)
     },
-
 
 
     showAlert: function (cont) {

@@ -8,8 +8,6 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
-            <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
-            <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
           </el-form-item>
         </el-col>
       </el-form>
