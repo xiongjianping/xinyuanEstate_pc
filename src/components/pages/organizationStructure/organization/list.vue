@@ -145,10 +145,10 @@ export default {
       this.$router.push('/organizationStructure/organization/details/' + id)
     },
     bianji(id){
-      this.$router.push('/organizationStructure/organization/bianji/' + id)
+      this.$router.push('/organizationStructure/bianji/' + id)
     },
     xiangqing(id){
-      this.$router.push('/organizationStructure/organization/details/' + id)
+      this.$router.push('/organizationStructure/details/' + id)
     },
 
     showAlert: function (cont) {

@@ -91,27 +91,36 @@
         </el-row>
 
       <div class="biao">
-        <!--<el-table :data="tableData" border>-->
-          <!--<el-table-column prop="date" label="日期">-->
-          <!--</el-table-column>-->
-          <!--<el-table-column prop="name" label="姓名">-->
-          <!--</el-table-column>-->
-          <!--<el-table-column prop="address" label="地址">-->
-          <!--</el-table-column>-->
-        <!--</el-table>-->
+        <el-table
+          :data="tableData3"
+          height="280"
+          border
+          style="width: 280px">
+          <el-table-column
+            prop="date"
+            label="序号">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="铺位名称">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="楼层名称">
+          </el-table-column>
+        </el-table>
 
-
-        <table class="main">
-          <tr style="height: 20px;">
-            <th>序号</th>
-            <th>铺位名称</th>
-            <th>楼层名称</th>
-          </tr>
-        <tr>
-          <td>1</td>
-          <td>123</td>
-          <td>一层</td></tr>
-        </table>
+        <!--<table class="main">-->
+          <!--<tr style="height: 20px;">-->
+            <!--<th>序号</th>-->
+            <!--<th>铺位名称</th>-->
+            <!--<th>楼层名称</th>-->
+          <!--</tr>-->
+        <!--<tr>-->
+          <!--<td>1</td>-->
+          <!--<td>123</td>-->
+          <!--<td>一层</td></tr>-->
+        <!--</table>-->
       </div>
 
         <div class="xxk">
@@ -251,24 +260,27 @@
     height: 350px;
     border: 3px solid #000;
     margin-left: 160px;
-    .main{
-      width: 280px;
-      height: 280px;
-      border: 1px solid #000;
-      margin: 0 auto;
-      margin-top: 10px;
-      tr{
-        height: 20px;
-        border: 1px solid #CCC;
-        background: red;
-      }
-      /*th,tr,td{*/
-        /*height: 20px;*/
-        /*border: 1px solid #ccc;*/
-        /*border-collapse: collapse;*/
-        /*text-align: center;*/
-      /*}*/
+    el-table{
+      margin-left: 10px;
     }
+    /*.main{*/
+      /*width: 280px;*/
+      /*height: 280px;*/
+      /*border: 1px solid #000;*/
+      /*margin: 0 auto;*/
+      /*margin-top: 10px;*/
+      /*tr{*/
+        /*height: 20px;*/
+        /*border: 1px solid #CCC;*/
+        /*background: red;*/
+      /*}*/
+      /*!*th,tr,td{*!*/
+        /*!*height: 20px;*!*/
+        /*!*border: 1px solid #ccc;*!*/
+        /*!*border-collapse: collapse;*!*/
+        /*!*text-align: center;*!*/
+      /*!*}*!*/
+    /*}*/
   }
 
 
