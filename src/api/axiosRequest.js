@@ -36,7 +36,7 @@ Vue.prototype.menus = window.$menus = function() {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 获取区域列表(GET)
  */
 Vue.prototype.getAreaList = window.$getAreaList = function() {
@@ -54,7 +54,7 @@ Vue.prototype.getAreaList = window.$getAreaList = function() {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 通过区域获取项目列表(POST)
  */
 Vue.prototype.getProjectList = window.$getProjectList = function(page, size, params) {
@@ -73,7 +73,7 @@ Vue.prototype.getProjectList = window.$getProjectList = function(page, size, par
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 获取父公司列表(GET)
  */
 Vue.prototype.getCompanyAll = window.$getCompanyAll = function() {
@@ -91,7 +91,7 @@ Vue.prototype.getCompanyAll = window.$getCompanyAll = function() {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 新增公司(POST)
  */
 Vue.prototype.createCompany = window.$createCompany = function(params) {
@@ -109,7 +109,7 @@ Vue.prototype.createCompany = window.$createCompany = function(params) {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 新增项目(POST)
  */
 Vue.prototype.createProject = window.$createProject = function(params) {
@@ -127,7 +127,7 @@ Vue.prototype.createProject = window.$createProject = function(params) {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 通过公司获取部门(GET)
  */
 Vue.prototype.getDepartments = window.$getDepartments = function(companyId) {
@@ -145,7 +145,7 @@ Vue.prototype.getDepartments = window.$getDepartments = function(companyId) {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 通过部门获取人员(GET)
  */
 Vue.prototype.getPersion = window.$getPersion = function(departmentId) {
@@ -163,7 +163,6 @@ Vue.prototype.getPersion = window.$getPersion = function(departmentId) {
 
 /*
  * 项目管理类列表页
- * 
  * 查看项目详情(GET)
  */
 Vue.prototype.getProjectDetails = window.$getProjectDetails = function(id) {
@@ -181,7 +180,7 @@ Vue.prototype.getProjectDetails = window.$getProjectDetails = function(id) {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 删除项目(GET)
  */
 Vue.prototype.deleteProject = window.$deleteProject = function(id) {
@@ -199,7 +198,7 @@ Vue.prototype.deleteProject = window.$deleteProject = function(id) {
 
 /*
  * 楼层管理类列表页
- * 
+ *
  * 删除项目(GET)
  */
 Vue.prototype.getFloorList = window.$getFloorList = function(page, size, params) {
@@ -217,7 +216,7 @@ Vue.prototype.getFloorList = window.$getFloorList = function(page, size, params)
 
 /*
  * 楼层管理类列表页
- * 
+ *
  * 查看楼层详情(GET)
  */
 Vue.prototype.getFloorDetails = window.$getFloorDetails = function(id) {
@@ -235,7 +234,7 @@ Vue.prototype.getFloorDetails = window.$getFloorDetails = function(id) {
 
 /*
  * 品牌管理类列表页
- * 
+ *
  * 获取列表(POST)
  */
 Vue.prototype.getBrandList = window.$getBrandList = function(page, size, params) {
@@ -253,7 +252,7 @@ Vue.prototype.getBrandList = window.$getBrandList = function(page, size, params)
 
 /*
  * 品牌管理类列表页
- * 
+ *
  * 获取业态下拉列表(POST)
  */
 Vue.prototype.getformSelect = window.$getformSelect = function() {
@@ -271,7 +270,7 @@ Vue.prototype.getformSelect = window.$getformSelect = function() {
 
 /*
  * 品牌管理类列表页
- * 
+ *
  * 获取业种下拉列表(POST)
  */
 Vue.prototype.getspeciesSelect = window.$getspeciesSelect = function(id) {

@@ -2,68 +2,63 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <div class="detailsContent">
       <h3 class="title">基本信息</h3>
+      <i class="hengxian"></i>
       <el-row class="detailsInfo" :gutter="30">
         <el-col :span="7" :offset="1">
           {{data.projectName}}
         </el-col>
         <el-col :span="7" :offset="1">
-          区域：{{data.area}}
-        </el-col>
+          模板名称：{{data.area}}
+        </el-col><br><br>
         <el-col :span="7" :offset="1">
-          公司：{{data.company}}
-        </el-col>
+          模板编号：{{data.company}}
+        </el-col><br><br>
+
         <el-col :span="7" :offset="1">
-          状态：<span v-if="data.status === 'DISABLED'">停用</span><span v-if="data.status === 'ENABLED'">启用</span>
+          模板分类：{{data.startTime}}
+        </el-col><br><br>
+        <el-col :span="4" :offset="1">
+          开始时间：{{data.lastTime}}
         </el-col>
-        <el-col :span="7" :offset="1">
-          开始时间：{{data.startTime}}
-        </el-col>
-        <el-col :span="7" :offset="1">
-          最后一次修改时间：{{data.lastTime}}
-        </el-col>
-        <el-col :span="7" :offset="1">
+        <el-col :span="4" :offset="1">
           修改人：{{data.modifierName}}
         </el-col>
-        <el-col :span="7" :offset="1">
-          负责人：{{data.projectleader}}
+        <el-col :span="4" :offset="1">
+          状态：<span v-if="data.status === 'DISABLED'">停用</span><span v-if="data.status === 'ENABLED'">启用</span>
         </el-col>
-        <el-col :span="7" :offset="1">
-          联系方式：{{data.phone}}
-        </el-col>
-        <el-col :span="7" :offset="1">
-          组员：<span v-for="info in data.members" :key="info.id">{{info.name}}</span>
-        </el-col>
-        <el-col :span="7" :offset="1">
-          文件：{{data.projectName}}
-        </el-col>
-      </el-row>
+
+
+      </el-row><br>
+
     </div>
+
     <div class="detailsContent">
-      <h3 class="title">铺位信息</h3>
+
       <div class="listCont">
-        <el-table :data="data.unitList.list" border size="medium">
-          <el-table-column align="center" prop="num" label="铺位编号"></el-table-column>
-          <el-table-column align="center" prop="building" label="楼栋"></el-table-column>
-          <el-table-column align="center" prop="floor" label="楼层"></el-table-column>
-          <el-table-column align="center" prop="area" label="面积"></el-table-column>
-          <el-table-column align="center" prop="brand" label="品牌名称"></el-table-column>
-          <el-table-column align="center" prop="operation" label="经营方式"></el-table-column>
-          <el-table-column align="center" prop="formats" label="业态"></el-table-column>
-          <el-table-column align="center" prop="merchandiseName" label="状态">
+        <div class="hx"></div>
+        <el-row>
+          <el-button type="primary" style="margin-top: -15px">新增指标</el-button>
+        </el-row>
+        <el-table :data="data.unitList.list" border size="medium" style="margin-top: 10px">
+
+          <el-table-column align="center" prop="id" label="序号"></el-table-column>
+          <el-table-column align="center" prop="building" label="编号"></el-table-column>
+          <el-table-column align="center" prop="floor" label="指标名称"></el-table-column>
+          <el-table-column align="center" prop="area" label="最大值"></el-table-column>
+          <el-table-column align="center" prop="brand" label="分类"></el-table-column>
+          <el-table-column align="center"  label="操作" width="200">
             <template slot-scope="scope">
-              <el-button disabled  size="mini" type="success" v-if="scope.row.status === 'ENABLED'">启用</el-button>
-              <el-button disabled  size="mini" type="danger" v-if="scope.row.status === 'DISABLED'">停用</el-button>
+              <el-button type="text" v-on:click="showDetails(scope.row.id)">详情</el-button>
+              <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
+              <!--<el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>-->
+              <el-button type="text" v-if="scope.row.status == 'ENABLED'" v-on:click="showDetails(scope.row)">禁用</el-button>
+              <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
-        <div class="paginationCont">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="data.unitList.page"
-            :page-size="size"
-            layout="total, prev, pager, next"
-            :total="data.unitList.count">
-          </el-pagination>
+        <div class="xxk">
+          <button>取消</button>
+          <button>确定</button>
         </div>
       </div>
     </div>
@@ -113,9 +108,26 @@ export default {
     }
   }
 }
+
 </script>
 <style scoped  lang="less">
-
+  .xxk{
+    width: 100%;
+    height: 100px;
+    button{
+      width: 100px;
+      height: 50px;
+      display: inline-block;
+      border-radius: 10px;
+      background: rgb(22,155, 213);
+      outline:medium;
+      outline: none;
+      position: relative;
+      left:500px;
+      top: 50px;
+      margin-left: 20px;
+    }
+  }
   .mainContent{
     width: 100%;
     height: 100%;

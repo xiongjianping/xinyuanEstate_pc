@@ -8,49 +8,73 @@
       <el-form label-width="100px" :model="searchForm">
 
         <!-- <el-col :span="6"> -->
-        <el-form-item label="项目名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+        <el-form-item label="模板名称">
+          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"  style="width:300px"></el-input>
         </el-form-item>
         <!-- </el-col> -->
 
-        <el-col :span="7" :offset="1">
+        <el-form-item label="模板编号">
+          <el-input
+            placeholder="请输入内容"
+            clearable style="width: 200px">
+          </el-input>
+        </el-form-item>
+
+
+        <el-col :span="6">
+          <el-form-item label="模板分类">
+            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
+              <el-option label="请选择" value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+        <el-col :span="4" :offset="1">
           开始时间：{{data.startTime}}
         </el-col>
-        <el-col :span="8" :offset="1">
-          修改时间：{{data.lastTime}}
-        </el-col><br>
-
-        <el-col :span="6">
-          <el-form-item label="区域：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-          </el-form-item>
+        <el-col :span="4" :offset="1">
+          修改人：李某某
         </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="公司：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+        <el-col :span="6" style="margin-top: -30px">
+          <el-form-item label="状态">
+            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
+              <el-option label="请选择" value="null"></el-option>
+            </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
-
-        <el-col :span="6">
-          <el-form-item label="状态：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="面积/平：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
-          </el-form-item>
-        </el-col><br><br><br><br><br>
-
-        <el-col :span="8" :offset="1">
-          运营负责人：李某某
-        </el-col>
 
         <el-row>
-          <el-button type="primary">选择</el-button>
+          <el-button type="primary" style="margin-left: 80px">主要按钮</el-button>
         </el-row>
+
+        <div class="listCont" style="margin-left: 50px">
+          <el-table :data="data.list" border size="medium">
+            <el-table-column align="center" prop="id" label="序号"></el-table-column>
+            <el-table-column align="center" prop="area" label="编号"></el-table-column>
+            <el-table-column align="center" prop="company" label="指标名称"></el-table-column>
+            <el-table-column align="center" prop="startTime" label="最大值"></el-table-column>
+            <el-table-column align="center" prop="startTime" label="分类"></el-table-column>
+            <el-table-column align="center"  label="操作" width="200">
+              <template slot-scope="scope">
+                <el-button type="text" v-on:click="showDetails(scope.row.id)">详情</el-button>
+                <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
+                <el-button type="text" v-if="scope.row.status == 'ENABLED'" v-on:click="showDetails(scope.row)">禁用</el-button>
+                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="paginationCont">
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="data.page"
+              :page-sizes="[10, 20, 50, 100]"
+              :page-size="size"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="data.count">
+            </el-pagination>
+          </div>
+        </div>
 
         <div class="xxk">
           <button>取消</button>
