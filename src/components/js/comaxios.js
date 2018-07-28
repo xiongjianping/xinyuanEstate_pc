@@ -20,7 +20,6 @@ axios.interceptors.request.use(config => {
 })
 
 async function responseInterceptor(response) {
-
   if (response.data.code === '0' || response.data.code === 0) {
     return response.data.data
   } else if (response.data.code === 'AOP_CHECK_TOKEN_003') { // token过期，刷新token
@@ -48,10 +47,6 @@ async function responseInterceptor(response) {
   } else {
     return Promise.reject(response.data.message)
   }
-
-  return Promise.reject(response.data.message)
-} else {
-  return Promise.reject(response.data.message)
 }
 
 
