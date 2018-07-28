@@ -110,6 +110,60 @@ Vue.prototype.createCompany = window.$createCompany = function(params) {
 /*
  * 项目管理类列表页
  * 
+ * 新增项目(POST)
+ */
+Vue.prototype.createProject = window.$createProject = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/save/project', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 项目管理类列表页
+ * 
+ * 通过公司获取部门(GET)
+ */
+Vue.prototype.getDepartments = window.$getDepartments = function(companyId) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/find/department/by/parent/' + companyId)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 项目管理类列表页
+ * 
+ * 通过部门获取人员(GET)
+ */
+Vue.prototype.getPersion = window.$getPersion = function(departmentId) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/tissue/find/employee/by/company/' + departmentId)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 项目管理类列表页
+ * 
  * 查看项目详情(GET)
  */
 Vue.prototype.getProjectDetails = window.$getProjectDetails = function(id) {

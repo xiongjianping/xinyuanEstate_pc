@@ -15,17 +15,15 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称" style="width:250px"></el-input>
           </el-form-item>
         <!-- </el-col> -->
-        <el-form-item label="开始时间">
-        <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-        </el-date-picker>
-          </el-form-item>
+        <el-form-item label="时间">
+          <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
-            <el-button type="primary" size="medium" v-on:click="details(0);">详情</el-button>
-            <el-button type="primary" size="medium" v-on:click="bianji(0);">编辑</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -54,7 +52,7 @@
         <el-table-column align="center" prop="areaName" label="区域">
         </el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
-        <el-table-column align="center" prop="projectAuditName" label="运营负责人"></el-table-column>
+        <el-table-column align="center" prop="projectHeadName" label="运营负责人"></el-table-column>
         <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="merchandiseName" label="当前状态">
           <template slot-scope="scope">
@@ -64,8 +62,8 @@
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="editDetails(0)">查看</el-button>
-            <el-button type="text" v-on:click="editDetails(scope.row.projectId)">编辑</el-button>
+            <el-button type="text" v-on:click="showDetails(scope.row.projectId)">查看</el-button>
+            <el-button type="text" v-on:click="bianji(scope.row.projectId)">编辑</el-button>
             <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
             <el-button type="text" v-on:click="deleteProject(scope.row)">删除</el-button>
           </template>
@@ -195,6 +193,7 @@ export default {
     searchList () {
     window.$getProjectList(this.page, this.size, this.searchForm)
       .then((res) => {
+        console.log(res)
         this.data = res
         this.projectList = this.data.resultList
       }, (err) => {
@@ -203,15 +202,12 @@ export default {
     },
     // 查看详情
     showDetails (id) {
+      console.log(id)
       this.$router.push('/projecManage/projec/details/' + id)
     },
     //新增项目
     editDetails (id) {
       this.$router.push('/projecManage/projec/add/' + id)
-    },
-    //详情
-    details(id){
-      this.$router.push('/projecManage/projec/details/' + id)
     },
     //编辑
     bianji(id){

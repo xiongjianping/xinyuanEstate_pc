@@ -18,7 +18,7 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: resolve => require(['@/components/common/Home.vue'], resolve),
-        children: [
+      children: [
         //  首页
         {
           path: '/index',
@@ -228,62 +228,62 @@ export default new Router({
         },
         //  签约管理
         {
-            path: '/qianyue',
-            name: 'qianyue',
-            meta: {
-              pageName: '签约管理'
-            },
-            component: resolve => require(['@/components/common/SubContent.vue'], resolve),
-            children: [
-              {
-                path: 'qianyue',
-                name: 'qianyue',
-                meta: {
-                  pageName: '签约管理'
-                },
-                component: resolve => require(['@/components/common/SubContent.vue'], resolve),
-                children: [
-                  {
-                    path: 'list',
-                    name: 'qianyueList',
-                    meta: {
-                      parentPath: '/qianyue',
-                      pageName: '签约管理'
-                    },
-                    component: resolve => require(['@/components/pages/qianyue/qianyue/list.vue'], resolve)
-                  },
-                  {
-                    path: 'add/:id',
-                    name: 'qianyueAdd',
-                    meta: {
-                      parentPath: '/qianyue',
-                      pageName: '签约'
-                    },
-                    component: resolve => require(['@/components/pages/qianyue/qianyue/add.vue'], resolve)
-                  }
-                ]
-              },
-              {
-                path: 'sanjiao',
-                name: 'sanjiao',
-                meta: {
-                  pageName: '三角理论'
-                },
-                component: resolve => require(['@/components/common/SubContent.vue'], resolve),
-                children: [
-                  {
-                    path: 'list',
-                    name: 'sanjiao',
-                    meta: {
-                      parentPath: '/sanjiao',
-                      pageName: '三角理论'
-                    },
-                    component: resolve => require(['@/components/pages/qianyue/sanjiao/list.vue'], resolve)
-                  },
-                ]
-              },
-            ]
+          path: '/qianyue',
+          name: 'qianyue',
+          meta: {
+            pageName: '签约管理'
           },
+          component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+          children: [
+            {
+              path: 'qianyue',
+              name: 'qianyue',
+              meta: {
+                pageName: '签约管理'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'qianyueList',
+                  meta: {
+                    parentPath: '/qianyue',
+                    pageName: '签约管理'
+                  },
+                  component: resolve => require(['@/components/pages/qianyue/qianyue/list.vue'], resolve)
+                },
+                {
+                  path: 'add/:id',
+                  name: 'qianyueAdd',
+                  meta: {
+                    parentPath: '/qianyue',
+                    pageName: '签约'
+                  },
+                  component: resolve => require(['@/components/pages/qianyue/qianyue/add.vue'], resolve)
+                }
+              ]
+            },
+            {
+              path: 'sanjiao',
+              name: 'sanjiao',
+              meta: {
+                pageName: '三角理论'
+              },
+              component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+              children: [
+                {
+                  path: 'list',
+                  name: 'sanjiao',
+                  meta: {
+                    parentPath: '/sanjiao',
+                    pageName: '三角理论'
+                  },
+                  component: resolve => require(['@/components/pages/qianyue/sanjiao/list.vue'], resolve)
+                },
+              ]
+            },
+          ]
+        },
         //  数据管理
         {
           path: '/dataManage',
@@ -577,7 +577,7 @@ export default new Router({
           children: [
             {
               path: 'organization',
-              name: 'organization',
+              name: 'organizationList',
               meta: {
                 pageName: '模板管理'
               },
@@ -602,8 +602,8 @@ export default new Router({
                   component: resolve => require(['@/components/pages/organizationStructure/organization/bianji.vue'], resolve)
                 },
                 {
-                  path: 'details/:id',
-                  name: 'organizationDetails',
+                  path: 'xiangqing/:id',
+                  name: 'organizationXiangqing',
                   meta: {
                     parentPath: '/organizationStructure',
                     pageName: '详情'
@@ -612,6 +612,8 @@ export default new Router({
                 }
               ]
             },
+
+
           ]
         },
 

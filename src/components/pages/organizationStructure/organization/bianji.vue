@@ -1,4 +1,5 @@
 <template>
+  <!--编辑-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox" :gutter="30">
@@ -7,81 +8,49 @@
       <el-form label-width="100px" :model="searchForm">
 
         <!-- <el-col :span="6"> -->
-        <el-form-item label="楼层名称">
+        <el-form-item label="项目名称">
           <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
         </el-form-item>
         <!-- </el-col> -->
 
-        <!-- <el-col :span="7" :offset="1">
+        <el-col :span="7" :offset="1">
           开始时间：{{data.startTime}}
         </el-col>
         <el-col :span="8" :offset="1">
           修改时间：{{data.lastTime}}
-        </el-col><br> -->
-
-        <el-form-item label="时间">
-          <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
-        </el-form-item>
+        </el-col><br>
 
         <el-col :span="6">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择区域">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="公司：">
-            <el-select size="small" v-model="searchForm.area" placeholder="">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
         <el-col :span="6">
-          <el-form-item label="项目：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
+          <el-form-item label="状态：">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="楼栋：">
-            <el-select size="small" v-model="searchForm.area" placeholder="A座">
-              <el-option label="A座" value="null"></el-option>
-              <el-option label="B座" value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="面积/平：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="位置：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="6">
-          <el-form-item label="状态">
-            <el-select size="small" v-model="searchForm.area" placeholder="启用">
-              <el-option label="启用" value="null"></el-option>
-              <el-option label="禁用" value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br><br><br><br>
+        <el-col :span="8" :offset="1">
+          运营负责人：李某某
+        </el-col>
+
+        <el-row>
+          <el-button type="primary">选择</el-button>
+        </el-row>
 
         <div class="xxk">
           <button>取消</button>
@@ -114,6 +83,41 @@
       this.searchList(1)
     },
     methods: {
+      handleSizeChange (val) {
+        this.size = val
+        this.searchList()
+      },
+      handleCurrentChange (val) {
+        this.data.page = val
+        this.searchList()
+      },
+      searchList (type) {
+        this.loading = true
+        var that = this
+        var page
+        var params = {
+          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
+          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
+          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
+        }
+        if (type === 1) {
+          page = 1
+        } else {
+          page = this.data.page
+        }
+        console.log(params, page)
+        that.loading = true
+        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
+        that.$axios.get('/list').then((res) => {
+          console.log(res)
+          that.loading = false
+          that.data = res
+        }).catch(function (eMsg) {
+          that.loading = false
+          that.showAlert(eMsg)
+        })
+
+      },
       showMessage (cont) {
         this.$message({
           type: 'success',
@@ -153,7 +157,7 @@
     color: #606266;
     line-height: 40px;
     padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
   el-button{

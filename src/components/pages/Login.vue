@@ -58,7 +58,7 @@ export default {
       const self = this
       window.$login(self.ruleForm.username).then((res) => {
         window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
-        window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
+        // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
         this.$router.replace('/index')
       }, (err) => {
         console.log(err)
