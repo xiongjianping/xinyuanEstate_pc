@@ -47,6 +47,15 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item label="业态：">
+            <el-select size="small" v-model="searchForm.area" placeholder="启用">
+              <el-option label="启用" value="null"></el-option>
+              <el-option label="停用" value="null"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col><br><br><br><br><br>
 
 
