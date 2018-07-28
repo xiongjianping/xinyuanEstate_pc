@@ -6,21 +6,6 @@
       <h3 class="title">签约信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
-
-        <!--&lt;!&ndash; <el-col :span="6"> &ndash;&gt;-->
-        <!--<el-form-item label="品牌名称">-->
-          <!--<el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入品牌名称"></el-input>-->
-        <!--</el-form-item>-->
-        <!--&lt;!&ndash; </el-col> &ndash;&gt;-->
-
-        <!--<el-col :span="7" :offset="1">-->
-          <!--开始时间：{{data.startTime}}-->
-        <!--</el-col>-->
-        <!--<el-col :span="8" :offset="1">-->
-          <!--修改时间：{{data.lastTime}}-->
-        <!--</el-col><br>-->
-
-
         <el-col :span="6">
           <el-form-item label="业态：">
             <el-select size="small" v-model="searchForm.area" placeholder=" ">
