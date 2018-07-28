@@ -423,6 +423,7 @@ export default new Router({
           },
           component: resolve => require(['@/components/common/SubContent.vue'], resolve),
           children: [
+            //项目帮扶
             {
               path: 'template',
               name: 'template',
@@ -458,6 +459,7 @@ export default new Router({
                 }
               ]
             },
+            //楼层帮扶
             {
               path: 'evaluation',
               name: 'evaluation',
@@ -479,20 +481,13 @@ export default new Router({
                   name: 'templateAdd',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
                 }
               ]
             },
+
             {
               path: 'yetaibangfu',
               name: 'yetaibangfu',
