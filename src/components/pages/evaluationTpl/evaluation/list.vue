@@ -24,7 +24,6 @@
           </el-form-item>
         </el-col>
 
-
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
@@ -122,7 +121,7 @@ export default {
       this.$router.push('/evaluationTpl/evaluation/' + id)
     },
     xinzeng(id){
-      this.$router.push("/evaluationTpl/evaluation/xinzeng"+id)
+      this.$router.push("/evaluationTpl/evaluation/xinzeng/"+id)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

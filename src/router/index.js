@@ -437,25 +437,17 @@ export default new Router({
                   name: 'templateList',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '模板管理1'
+                    pageName: '项目帮扶'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/template/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'templateXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/template/xinzeng.vue'], resolve)
                 }
               ]
             },
@@ -477,22 +469,22 @@ export default new Router({
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/evaluation/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'evaluationXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
                     pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/evaluation/xinzeng.vue'], resolve)
                 }
               ]
             },
-
+            //业态帮扶
             {
               path: 'yetaibangfu',
               name: 'yetaibangfu',
               meta: {
-                pageName: '楼层帮扶'
+                pageName: '业态帮扶'
               },
               component: resolve => require(['@/components/common/SubContent.vue'], resolve),
               children: [
@@ -501,33 +493,26 @@ export default new Router({
                   name: 'yetaibangfuList',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '模板管理1'
+                    pageName: '业态帮扶'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/yetaibangfu/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'yetaibangfuXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/yetaibangfu/xinzeng.vue'], resolve)
                 }
               ]
             },
+            //帮扶内容 ????????????????????????????
             {
               path: 'bangfuneirong',
               name: 'bangfuneirong',
               meta: {
-                pageName: '楼层帮扶'
+                pageName: '帮扶内容'
               },
               component: resolve => require(['@/components/common/SubContent.vue'], resolve),
               children: [
@@ -536,25 +521,17 @@ export default new Router({
                   name: 'bangfuneirongList',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '模板管理1'
+                    pageName: '帮扶内容'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/bangfuneirong/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'bangfuneirongXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/bangfuneirong/xinzeng.vue'], resolve)
                 }
               ]
             }

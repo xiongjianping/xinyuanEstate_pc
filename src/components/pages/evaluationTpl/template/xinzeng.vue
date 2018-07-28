@@ -1,9 +1,7 @@
 <template>
   <!--签约-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-
     <el-row class="searchBox" :gutter="30">
-
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
           <el-form-item label="区域：">
@@ -21,21 +19,12 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
         </el-col><br><br><br><br><br>
 
 
         <el-col :span="6">
           <el-form-item label="">
-            <el-select size="small" v-model="searchForm.area" placeholder="项目帮扶 ">
+            <el-select size="small" v-model="searchForm.area" placeholder="租金帮扶 ">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
