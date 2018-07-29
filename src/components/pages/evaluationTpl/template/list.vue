@@ -23,14 +23,14 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="scarchProject();">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="resetForm();">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="addPage();">新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
       <el-table :data="defaultProjectData.resultList" border size="medium">
-        <el-table-column align="center" prop="projectId" label="序号"></el-table-column>
+        <el-table-column align="center" type="index" prop='id' label="序号"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
         <el-table-column align="center" prop="yx" label="优秀"></el-table-column>
         <el-table-column align="center" prop="lh" label="良好"></el-table-column>
@@ -147,6 +147,9 @@ export default {
       window.$helpScarchAll(this.defaultProject).then((res) => {
         this.defaultProjectData = res;
       }, (err) => {})
+    },
+    addPage() {
+      this.$router.push('/evaluationTpl/template/add');
     },
     showAlert: function(cont) {
       this.$alert(cont, '温馨提示', {

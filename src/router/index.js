@@ -441,7 +441,7 @@ export default new Router({
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/template/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
+                  path: 'add',
                   name: 'templateAdd',
                   meta: {
                     parentPath: '/evaluationTpl',

@@ -11,17 +11,17 @@
         </el-col>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);"  @click="changeType()">搜索</el-button>
+            <el-button type="primary" size="medium" @click="changeType()">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="defaultHelpCon.reslultList" border size="medium">
+      <el-table :data="defaultHelpCon.resultList" border size="medium">
         <el-table-column align="center" type="index" prop='id' label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="type" label="类别"></el-table-column>
-        <el-table-column align="center" prop="area" label="帮扶内容"></el-table-column>
+        <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
         <el-table-column align="center" label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
@@ -61,12 +61,11 @@ export default {
       { type: 4, typename: "品牌及会员" },
       { type: 5, typename: "其他" }
     ],
-    defaultHelpCon: {}
+    defaultHelpCon: {},
   }),
   created() {
     // this.searchList(1)
     window.$helpContent(this.helpType).then((res) => {
-      console.log(res)
       this.defaultHelpCon = res;
       this.typeNameShow(this.defaultHelpCon)
     }, (err) => {})

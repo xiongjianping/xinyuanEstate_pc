@@ -63,7 +63,6 @@
 </template>
 <script>
 import moment from 'moment'
-import addSelect from './addselect'
 export default {
   components:{
     addSelect
