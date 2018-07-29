@@ -52,11 +52,18 @@ export default {
     // }).catch(function (eMsg) {
     //   this.showAlert(eMsg)
     // })
+
+    console.log(window.location.href)
+    var urlArr = window.location.href.split('=')
+    var userName = urlArr[urlArr.length - 1]
+    console.log(urlArr)
+    console.log(userName)
+    this.submitForm(userName)
   },
   methods: {
     submitForm (formName) {
       const self = this
-      window.$login(self.ruleForm.username).then((res) => {
+      window.$login(formName).then((res) => {
         window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
         // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
         this.$router.replace('/index')

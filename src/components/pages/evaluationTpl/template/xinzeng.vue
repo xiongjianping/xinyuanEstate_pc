@@ -2,17 +2,17 @@
   <!--签约-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
-      <el-form label-width="100px" :model="searchForm">
+      <el-form label-width="100px" :model="sendData">
         <el-col :span="6">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择" @change="changeArea()">
+            <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
               <el-option v-for="(item,index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="项目名称：">
-            <el-select size="small" v-model="searchForm.pro" placeholder="请选择">
+            <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目">
               <el-option v-for="(item,index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -24,14 +24,14 @@
         <br>
         <el-col :span="6">
           <el-form-item label="">
-            <el-select size="small" v-model="searchForm.types" placeholder="租金帮扶 ">
-              <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.typename" :value="item.code"></el-option>
+            <el-select size="small" v-model="searchForm.type" placeholder="请选择类型" @change="searchList()">
+              <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6" style="margin-left: -150px">
           <el-form-item label="">
-            <el-select size="small" v-model="searchForm.eva" placeholder="优秀">
+            <el-select size="small" v-model="sendData.type" placeholder="请选择类型">
               <el-option v-for="(item,index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
             </el-select>
           </el-form-item>
@@ -41,19 +41,26 @@
         <br>
         <br>
         <div class="biao">
-          <el-table :data="allcontext" height="280" border style="width: 280px;margin: 0 auto;">
-            <el-checkbox v-model="checked">备选项</el-checkbox>
-            <el-table-column type="index" prop="id" label="序号" style='height:50px;text-align: center'>
+          <el-table :data="allcontext" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
+            <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
+            <el-table-column type="index" label="序号" style='height:50px;text-align: center'>
             </el-table-column>
-            <el-table-column prop="typeName" label="类别" style='text-align: center'>
+            <el-table-column prop="type" label="类别" style='text-align: center'>
+              <template slot-scope="scope">
+                <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金帮扶</el-button>
+                <el-button disabled type="text" size="small" v-if="scope.row.type === 2">活动支持</el-button>
+                <el-button disabled type="text" size="small" v-if="scope.row.type === 3">点位宣传支持</el-button>
+                <el-button disabled type="text" size="small" v-if="scope.row.type === 4">品牌及会员</el-button>
+                <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
+              </template>
             </el-table-column>
             <el-table-column prop="context" label="帮扶内容" style='text-align: center'>
             </el-table-column>
           </el-table>
         </div>
         <div class="xxk">
-          <button>取消</button>
-          <button @click="addNewData()">新增</button>
+          <button type="button" @click="goBack()">取消</button>
+          <button type="button" @click="create()">新增</button>
         </div>
       </el-form>
     </el-row>
@@ -63,31 +70,14 @@
 import moment from 'moment'
 export default {
   data: () => ({
-    data: {},
+    area: '',
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null,
-      pro: '',
-      types: '',
-      eva: '',
-    },
-    infoData: {},
-    size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0,
+    searchForm: {},
+    sendData:{},
     allArea: {},
     allProject: {},
-    helpTypeList: [
-      { code: 1, typename: "租金帮扶" },
-      { code: 2, typename: "活动支持" },
-      { code: 3, typename: "点位宣传支持" },
-      { code: 4, typename: "品牌及会员" },
-      { code: 5, typename: "其他" }
-    ],
+    helpTypeList: window.$helpTypeList,
+    checkList: [],
     evaluateTypeList: [
       { type: 'yx', typename: "优秀" },
       { type: 'lh', typename: "良好" },
@@ -97,93 +87,47 @@ export default {
     ],
     allcontext: [],
     contentListPostData: {},
+    checked: ''
   }),
   created() {
     window.$getAreaList().then((res) => {
         this.allArea = res;
         console.log(this.allArea)
-      }, (err) => {}),
-      window.$addContentList(this.contentListPostData).then((res) => {
-        this.allcontext = res;
-        console.log(res)
-        this.typeNameShow(this.allcontext)
-      }, (err) => {})
+      }, (err) => {
+        this.showAlert(err)
+      }),
+    this.searchList()
   },
   methods: {
-    handleSizeChange(val) {
-      this.size = val
-      this.searchList()
-    },
-    handleCurrentChange(val) {
-      this.data.page = val
-      this.searchList()
-    },
-    searchList(type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        console.log(res)
-        that.loading = false
-        that.data = res
-      }).catch(function(eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+    searchList() {
+      window.$addContentList(this.searchForm).then((res) => {
+        this.allcontext = res;
+      }, (err) => {
+        this.showAlert(err)
       })
-
+    },
+    changeFun(val){
+      this.checkList = val
     },
     //change区域方法
     changeArea() {
-      window.$helpSearchproject(this.searchForm.area).then((res) => {
+      window.$helpSearchproject(this.area).then((res) => {
         this.allProject = res;
       }, (err) => {})
     },
-    addNewData() {
-      var postData = {
-        "projectId": this.searchForm.area,
-        "type": this.searchForm.types,
-        "helpContext": [
-          "CRM会员特权",
-          "品牌推广支持"
-        ]
-      }
-      window.$addContent(postData).then((res) => {
-        this.allProject = res;
-      }, (err) => {})
+    goBack(){
+      this.$router.back(-1)
     },
-    //操作原始数据，增加类型名称字段
-    typeNameShow(data) {
-      for (var i = 0; i < data.length; i++) {
-        if (data[i].type == "1") {
-          data[i].typeName = "租金帮扶";
-        } else if (data[i].type == "2") {
-          data[i].typeName = "活动支持";
-        } else if (data[i].type == "3") {
-          data[i].typeName = "点位宣传支持";
-        } else if (data[i].type == "4") {
-          data[i].typeName = "品牌及会员";
-        } else if (data[i].type == "5") {
-          data[i].typeName = "其他";
-        }
+    create(){
+      this.sendData.helpContext = []
+      for(var i = 0; i < this.checkList.length; i++){
+        this.sendData.helpContext.push(this.checkList[i].context)
       }
-    },
-    showMessage(cont) {
-      this.$message({
-        type: 'success',
-        message: cont
+      window.$createContentList(this.sendData).then((res) => {
+        this.showAlert('新增成功')
+        this.goBack()
+      }, (err) => {
+        this.showAlert(err)
       })
     },
     showAlert: function(cont) {
@@ -257,10 +201,10 @@ el-button {
 }
 
 .biao {
-  width: 350px;
+  width: 100%;
   height: 350px;
   border: 3px solid #000;
-  margin-left: 160px;
+  // margin-left: 160px;
   el-table {
     margin-top: 50px;
   }
