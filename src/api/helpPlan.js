@@ -48,16 +48,31 @@ Vue.prototype.helpContent = window.$helpContent = function(params) {
       });
   })
 }
+//帮扶项目下新增
+//帮扶项目   
 
-
-
-
-
-
-
-
-
-
-
-
-
+Vue.prototype.addContent = window.$addContent = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/help/save/help/plan/project', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+//帮扶项目 新增 列表
+Vue.prototype.addContentList = window.$addContentList = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/help/find/help/context/all', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
