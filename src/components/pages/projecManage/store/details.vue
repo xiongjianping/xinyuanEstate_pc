@@ -4,53 +4,40 @@
     <el-row class="searchBox" :gutter="30">
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
-      <el-form label-width="100px" :model="searchForm">
+      <el-form label-width="100px" :model="data">
 
-        <!-- <el-col :span="6"> -->
         <el-form-item label="铺位名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入铺位名称"></el-input>
         </el-form-item>
-        <!-- </el-col> -->
-
-        <el-col :span="7" :offset="1">
-          开始时间：{{data.startTime}}
-        </el-col>
-        <el-col :span="8" :offset="1">
-          修改时间：{{data.lastTime}}
-        </el-col><br>
 
         <el-col :span="6">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.areaId" placeholder="请选择区域" @change="getProjectList()">
+              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="公司：">
-            <el-select size="small" v-model="searchForm.area" placeholder="">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.companyId" placeholder="请选择公司">
+              <el-option v-for="(item, index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="所属项目：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.projectId" placeholder="请选择项目" @change="getBuilding()">
+              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="楼栋：">
-            <el-select size="small" v-model="searchForm.area" placeholder="A座">
-              <el-option label="A座" value="null"></el-option>
-              <el-option label="B座" value="null"></el-option>
+            <el-select size="small" v-model="data.buildingId" placeholder="请选择楼栋" @change="getFloor()">
+              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
@@ -58,29 +45,30 @@
 
         <el-col :span="6">
           <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.area" placeholder="A座">
-              <el-option label="A座" value="null"></el-option>
-              <el-option label="B座" value="null"></el-option>
+            <el-select size="small" v-model="data.floorId" placeholder="请选择楼层">
+              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="面积/平：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+            <el-input size="small" v-model="data.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="状态：">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-select size="small" v-model="data.state" placeholder="请选择状态">
+              <el-option v-for="(item, index) in stateList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
 
         <div class="xxk">
-          <button>取消</button>
-          <button>确定</button>
+          <button type="button" @click="goBack()">取消</button>
+          <button type="button" @click="edit()">确定</button>
         </div>
 
 
@@ -94,62 +82,77 @@
     data: () => ({
       data: {},
       loading: false,
-      searchForm: {
-        area: '',
-        company: '',
-        startTime: null
-      },
-      infoData: {},
-      size: 10,
-      dialogFormVisible: false,
-      dialogVisible: false,
-      pictureList: [],
-      picIndex: 0
+      areaList: [],
+      projectList: [],
+      buildingList: [],
+      floorList: [],
+      companyList: [],
+      stateList: [
+        {
+          name: '启用',
+          id: 1
+        },
+        {
+          name: '禁用',
+          id: 2
+        }
+      ]
     }),
     created () {
-      this.searchList(1)
+      this.getData()
     },
     methods: {
-      handleSizeChange (val) {
-        this.size = val
-        this.searchList()
-      },
-      handleCurrentChange (val) {
-        this.data.page = val
-        this.searchList()
-      },
-      searchList (type) {
-        this.loading = true
-        var that = this
-        var page
-        var params = {
-          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-        }
-        if (type === 1) {
-          page = 1
-        } else {
-          page = this.data.page
-        }
-        console.log(params, page)
-        that.loading = true
-        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-        that.$axios.get('/list').then((res) => {
-          console.log(res)
-          that.loading = false
-          that.data = res
-        }).catch(function (eMsg) {
-          that.loading = false
-          that.showAlert(eMsg)
+      getData(){
+        window.$getCompanyAll().then((res) => {
+          this.companyList = res
+        }, (err) => {
+          this.showAlert(err)
         })
-
+        window.$getAreaList().then((res) => {
+            this.areaList = res
+            window.$getStoreDetails(this.$route.params.id).then((res) => {
+              this.data = res
+              this.getProjectList()
+            }, (err) => {
+              this.showAlert(err)
+            })
+          }, (err) => {
+            this.showAlert(err)
+          })
       },
-      showMessage (cont) {
-        this.$message({
-          type: 'success',
-          message: cont
+      getProjectList(){
+        window.$getProjectListForArea(this.data.areaId).then((res) => {
+          this.projectList = res
+          this.getBuilding()
+        }, (err) => {
+          this.showAlert(err)
         })
+      },
+      getBuilding(){
+        window.$getBuilding(this.data.projectId).then((res) => {
+          this.buildingList = res
+          this.getFloor()
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      getFloor(){
+        window.$getFloorForBuilding(this.data.buildingId).then((res) => {
+          this.floorList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      edit(){
+        window.$editStore(this.data).then((res) => {
+          this.showAlert('修改成功')
+          this.goBack()
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      goBack(){
+        this.$router.back(-1)
       },
       showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {

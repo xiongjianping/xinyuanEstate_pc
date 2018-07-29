@@ -64,7 +64,7 @@
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.projectId)">查看</el-button>
             <el-button type="text" v-on:click="bianji(scope.row.projectId)">编辑</el-button>
-            <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>
+            <!-- <el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button> -->
             <el-button type="text" v-on:click="deleteProject(scope.row.projectId)">删除</el-button>
           </template>
         </el-table-column>
