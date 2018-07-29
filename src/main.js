@@ -63,7 +63,6 @@ var alert = require('element-ui').MessageBox.alert
 //     })
 // })
 // Vue.prototype.$axios = axios;
-
 Vue.use(ElementUI);
 /* eslint-disable no-new */
 new Vue({
