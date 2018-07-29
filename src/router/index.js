@@ -293,6 +293,7 @@ export default new Router({
           },
           component: resolve => require(['@/components/common/SubContent.vue'], resolve),
           children: [
+            //标准三角形
             {
               path: 'version',
               name: 'version',
@@ -311,16 +312,72 @@ export default new Router({
                   component: resolve => require(['@/components/pages/dataManage/version/list.vue'], resolve)
                 },
                 {
-                  path: 'details/:id',
-                  name: 'versionDetails',
+                  path: 'xinzeng/:id',
+                  name: 'versionXinzeng',
                   meta: {
                     parentPath: '/dataManage',
-                    pageName: '详情'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/dataManage/version/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/dataManage/version/xinzeng.vue'], resolve)
+                },
+                {
+                  path: 'bianji/:id',
+                  name: 'versionBianji',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '编辑'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/version/bianji.vue'], resolve)
+                },
+                {
+                  path: 'xmyzl/:id',
+                  name: 'versionXmyzl',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '项目溢租率'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/version/xmyzl.vue'], resolve)
+                },
+                {
+                  path: 'lcyzl/:id',
+                  name: 'versionLcyzl',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '项目溢租率'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/version/lcyzl.vue'], resolve)
+                },
+                {
+                  path: 'ytyzl/:id',
+                  name: 'versionYtyzl',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '业态溢租率'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/version/ytyzl.vue'], resolve)
+                },
+                {
+                  path: 'kxd/:id',
+                  name: 'versionKxd',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '客销度'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/version/kxd.vue'], resolve)
+                }
+                ,
+                {
+                  path: 'spz/:id',
+                  name: 'versionSpz',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '业态溢租率'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/version/spz.vue'], resolve)
                 }
               ]
             },
+            //动态三角形
             {
               path: 'dongtai',
               name: 'dongtai',
@@ -339,16 +396,27 @@ export default new Router({
                   component: resolve => require(['@/components/pages/dataManage/dongtai/list.vue'], resolve)
                 },
                 {
-                  path: 'details/:id',
-                  name: 'dongtaiDetails',
+                  path: 'xiugai/:id',
+                  name: 'dongtaiXiugai',
                   meta: {
                     parentPath: '/dataManage',
-                    pageName: '详情'
+                    pageName: '修改'
                   },
-                  component: resolve => require(['@/components/pages/dataManage/dongtai/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/dataManage/dongtai/Xiugai.vue'], resolve)
+                }
+                ,
+                {
+                  path: 'xiangqing/:id',
+                  name: 'dongtaiXiangqing',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '修改'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/dongtai/xiangqing.vue'], resolve)
                 }
               ]
             },
+            //数据维护
             {
               path: 'shuju',
               name: 'shuju',
@@ -385,6 +453,7 @@ export default new Router({
                 }
               ]
             },
+            //区间设置
             {
               path: 'trigonometric',
               name: 'trigonometric',
@@ -402,13 +471,21 @@ export default new Router({
                   },
                   component: resolve => require(['@/components/pages/dataManage/trigonometric/list.vue'], resolve)
                 }, {
-                  path: 'details/:id',
-                  name: 'trigonometricAdd',
+                  path: 'kx-xinzeng/:id',
+                  name: 'trigonometricKx',
                   meta: {
                     parentPath: '/dataManage',
-                    pageName: '新增'
+                    pageName: '客销度新增'
                   },
-                  component: resolve => require(['@/components/pages/dataManage/trigonometric/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/dataManage/trigonometric/kx-xinzeng.vue'], resolve)
+                }, {
+                  path: 'yz-xinzeng/:id',
+                  name: 'trigonometricYz',
+                  meta: {
+                    parentPath: '/dataManage',
+                    pageName: '溢租率新增'
+                  },
+                  component: resolve => require(['@/components/pages/dataManage/trigonometric/yz-xinzeng.vue'], resolve)
                 }
               ]
             }
@@ -437,25 +514,17 @@ export default new Router({
                   name: 'templateList',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '模板管理1'
+                    pageName: '项目帮扶'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/template/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'templateXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/template/xinzeng.vue'], resolve)
                 }
               ]
             },
@@ -477,22 +546,22 @@ export default new Router({
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/evaluation/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'evaluationXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
                     pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/evaluation/xinzeng.vue'], resolve)
                 }
               ]
             },
-
+            //业态帮扶
             {
               path: 'yetaibangfu',
               name: 'yetaibangfu',
               meta: {
-                pageName: '楼层帮扶'
+                pageName: '业态帮扶'
               },
               component: resolve => require(['@/components/common/SubContent.vue'], resolve),
               children: [
@@ -501,33 +570,26 @@ export default new Router({
                   name: 'yetaibangfuList',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '模板管理1'
+                    pageName: '业态帮扶'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/yetaibangfu/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'yetaibangfuXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/yetaibangfu/xinzeng.vue'], resolve)
                 }
               ]
             },
+            //帮扶内容
             {
               path: 'bangfuneirong',
               name: 'bangfuneirong',
               meta: {
-                pageName: '楼层帮扶'
+                pageName: '帮扶内容'
               },
               component: resolve => require(['@/components/common/SubContent.vue'], resolve),
               children: [
@@ -536,31 +598,22 @@ export default new Router({
                   name: 'bangfuneirongList',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '模板管理1'
+                    pageName: '帮扶内容'
                   },
                   component: resolve => require(['@/components/pages/evaluationTpl/bangfuneirong/list.vue'], resolve)
                 }, {
-                  path: 'edit/:id',
-                  name: 'templateAdd',
+                  path: 'xinzeng/:id',
+                  name: 'bangfuneirongXinzeng',
                   meta: {
                     parentPath: '/evaluationTpl',
-                    pageName: '新增/编辑模板'
+                    pageName: '新增'
                   },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/add.vue'], resolve)
-                }, {
-                  path: 'details/:id',
-                  name: 'templateDetails',
-                  meta: {
-                    parentPath: '/evaluationTpl',
-                    pageName: '详情'
-                  },
-                  component: resolve => require(['@/components/pages/evaluationTpl/template/details.vue'], resolve)
+                  component: resolve => require(['@/components/pages/evaluationTpl/bangfuneirong/xinzeng.vue'], resolve)
                 }
               ]
             }
           ]
         },
-
         //  评估模板
         {
           path: '/organizationStructure',
@@ -609,7 +662,6 @@ export default new Router({
             },
           ]
         },
-
         //  系统平台
         {
           path: '/dataDictionary',

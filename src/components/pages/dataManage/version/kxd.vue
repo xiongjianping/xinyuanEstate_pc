@@ -7,18 +7,7 @@
             <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="纬度">
-            <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+
         <el-col :span="7">
           <el-form-item label="数据涵盖起止时间" label-width="150px">
             <el-date-picker
@@ -42,33 +31,22 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
-            <el-button type="primary" size="medium" v-on:click="bianji(1);">编辑</el-button>
-            <el-button type="primary" size="medium" v-on:click="xm_yzl(1);">项目溢租率</el-button>
-            <el-button type="primary" size="medium" v-on:click="lc_yzl(1);">楼层溢租率</el-button>
-            <el-button type="primary" size="medium" v-on:click="yt_yzl(1);">业态溢租率</el-button>
-            <el-button type="primary" size="medium" v-on:click="kxd(1);">客销度</el-button>
-            <el-button type="primary" size="medium" v-on:click="spz(1);">适配值</el-button>
+            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">导入</el-button>
+            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">导出</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
-      <!--<div class="tabs">-->
-        <!--<div class="tab" @click="toggleTab('prince')">溢租率<img src="../../../../assets/images/lankuang.png" alt=""></div>-->
-        <!--<div class="tab" @click="toggleTab('rose')">客销度</div>-->
-        <!--<div class="tab" @click="toggleTab('fox')">适配值</div>-->
-      <!--</div>-->
+
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" prop="id" label="序号"></el-table-column>
-        <el-table-column align="center" prop="area" label="纬度"></el-table-column>
+        <el-table-column align="center" prop="area" label="品牌名称"></el-table-column>
         <el-table-column align="center" prop="area" label="业态"></el-table-column>
         <el-table-column align="center" prop="area" label="业种"></el-table-column>
         <el-table-column align="center" prop="area" label="毛利率"></el-table-column>
         <el-table-column align="center" prop="area" label="客单价"></el-table-column>
-        <el-table-column align="center" prop="area" label="溢租率"></el-table-column>
         <el-table-column align="center" prop="area" label="客销度"></el-table-column>
-        <el-table-column align="center" prop="area" label="适配值"></el-table-column>
         <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
         <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
@@ -162,27 +140,6 @@ export default {
     },
     editDetails (id) {
       this.$router.push('/dataManage/version/details/' + id)
-    },
-    xinzeng(id){
-      this.$router.push('/dataManage/version/xinzeng/' + id)
-    },
-    bianji(id){
-      this.$router.push('/dataManage/version/bianji/' + id)
-    },
-    xm_yzl(id){
-      this.$router.push('/dataManage/version/xmyzl/' + id)
-    },
-    lc_yzl(id){
-      this.$router.push('/dataManage/version/lcyzl/' + id)
-    },
-    yt_yzl(id){
-      this.$router.push('/dataManage/version/ytyzl/' + id)
-    },
-    kxd(id){
-      this.$router.push('/dataManage/version/kxd/' + id)
-    },
-    spz(id){
-      this.$router.push('/dataManage/version/spz/' + id)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

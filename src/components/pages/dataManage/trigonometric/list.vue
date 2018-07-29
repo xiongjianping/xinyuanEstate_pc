@@ -4,20 +4,22 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
           <el-form-item label="区域">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入区域名称"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="项目">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-input size="small" v-model="searchForm.projectName1" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
+
         <el-col :span="6">
           <el-form-item label="楼层">
             <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
           </el-form-item>
-        </el-col>
+        </el-col><br><br><br>
+
         <el-col :span="6">
           <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.area" placeholder="请选择">
@@ -25,6 +27,7 @@
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="6">
           <el-form-item label="业种">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
@@ -36,13 +39,26 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
 
+    <!--<el-row>-->
+      <!--<el-button type="primary" style="margin-left: 30px;margin-top: 20px">溢租率</el-button>-->
+      <!--<el-button type="info" >客销度</el-button>-->
+      <!--<el-button type="info" >适配值</el-button>-->
+    <!--</el-row>-->
+
+    <el-tabs v-model="activeName2" @tab-click="handleClick" class="tab" style="margin-left: 30px;margin-top: 20px">
+      <el-tab-pane class="chartsPanel first1" label="溢租率" name="first-ta"></el-tab-pane>
+      <el-tab-pane class="chartsPanel" label="客销度" name="second-ta"></el-tab-pane>
+      <el-tab-pane class="chartsPanel" label="适配值" name="three-ta"></el-tab-pane>
+    </el-tabs>
+
     <div class="listCont">
-      <!--<div class="tabs"></div>-->
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="projectName" label="纬度"></el-table-column>
@@ -139,6 +155,12 @@ export default {
     editDetails (id) {
       this.$router.push('/dataManage/trigonometric/edit/' + id)
     },
+    kxxz (id) {
+      this.$router.push('/dataManage/trigonometric/kx-xinzeng/' + id)
+    },
+    yzl (id) {
+      this.$router.push('/dataManage/trigonometric/yz-xinzeng/' + id)
+    },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
         confirmButtonText: '确定'
@@ -165,4 +187,15 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }
+  .tab{
+    /*width: 300px;*/
+    height:40px;
+    .first1{
+      background: url("../../../../assets/images/lankuang.png") center left;
+      display: inline-block;
+      width: 369px;
+      height: 189px;
+
+    }
+  }
 </style>
