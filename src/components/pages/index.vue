@@ -93,7 +93,6 @@
                 </i>
               </li>
             </ul>
-
           </div>
         </div>
         <div class="left-btn">
