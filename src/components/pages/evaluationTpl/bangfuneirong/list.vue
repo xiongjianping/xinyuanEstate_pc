@@ -19,6 +19,7 @@
     </el-row>
     <div class="listCont">
       <el-table :data="defaultHelpCon.resultList" border size="medium">
+
         <el-table-column align="center" type="index"  prop='id'  label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="typeName" label="类别"></el-table-column>
         <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
@@ -159,5 +160,4 @@ export default {
 .el-date-editor.el-input__inner {
   width: 100%;
 }
-
 </style>

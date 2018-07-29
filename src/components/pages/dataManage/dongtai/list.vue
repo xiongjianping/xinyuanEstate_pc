@@ -36,11 +36,27 @@
             <el-button type="primary" size="medium" v-on:click="searchList(1);">导出</el-button>
             <el-button type="primary" size="medium" v-on:click="xiugai(1);">修改</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
-
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
+
+    <!--<el-radio-group v-model="tabPosition" style="margin-top: 50px;margin-bottom:-25px;margin-left: 30px">-->
+      <!--<el-radio-button label="top">固定成本</el-radio-button>-->
+      <!--<el-radio-button label="right">客销度</el-radio-button>-->
+      <!--<el-radio-button label="bottom">适配值</el-radio-button>-->
+    <!--</el-radio-group>-->
+
+
+    <div>
+      <el-radio-group v-model="radio3">
+        <el-radio-button label="上海" style="user-select: none;"></el-radio-button>
+        <el-radio-button label="北京"></el-radio-button>
+        <el-radio-button label="广州"></el-radio-button>
+        <el-radio-button label="深圳"></el-radio-button>
+      </el-radio-group>
+    </div>
+
 
     <div class="listCont">
       <!--<div class="tabs"></div>-->
@@ -76,6 +92,7 @@
         </el-pagination>
       </div>
     </div>
+
   </div>
 </template>
 <script>
