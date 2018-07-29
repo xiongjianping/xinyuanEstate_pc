@@ -19,7 +19,7 @@
         <el-table-column align="center"  label="操作" width="120">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
-            <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+            <el-button type="text" v-on:click="deleteDetails(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -54,9 +54,12 @@
           :value="item.id">
         </el-option>
       </el-select>
+      <div class="content-input">
+        <el-input v-model="addContent" maxlength='20' placeholder="请输入内容"></el-input>
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="yetaiVisible = false">取 消</el-button>
-        <el-button type="primary" @click="yetaiVisible = false">确 定</el-button>
+        <el-button type="primary" @click="addYezhong">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -64,9 +67,6 @@
 <script>
 import moment from 'moment'
 export default {
-  components:{
-    addSelect
-  },
   data: () => ({
     data: {},
     loading: false,
@@ -87,21 +87,40 @@ export default {
       {
         id:'123',
         name:'123'
-      },
-      {
-        id:'456',
-        name:'456'
       }
-    ]
+    ],
+    addContent: ''
   }),
   created () {
     this.searchList(1)
     this.$axios.get('/base/find/business/form/select').then(res => {
-      console.log(res)
       this.yetaiList = res;
     })
   },
   methods: {
+    addYezhong () {
+      if (this.yetaiSelect === '') {
+        this.$alert('请选择业态名称')
+      } else if (this.addContent.replace(/\s/g,'') === '') {
+        this.$alert('请输入业种名称')
+      } else {
+        this.$axios.post('base/save/business/species',{
+          businessFormId: this.yetaiSelect,
+          name: this.addContent.replace(/\s/g,'')
+        }).then(res => {
+          if (res === 'OK') {
+            this.$alert('添加成功').then(action => {
+              this.searchList(1)
+            })
+          } else {
+            this.$alert(res)
+          }
+          this.yetaiVisible = false;
+        }).catch(err => {
+          this.$alert(err)
+        })
+      }
+    },
     handleCurrentChange (val) {
       this.data.page = val
       this.searchList()
@@ -126,6 +145,20 @@ export default {
         that.showAlert(eMsg)
       })
     },
+    deleteDetails (id) {
+      this.$axios.get('/base/remove/business/species/' + id).then(res => {
+        if (res === 'OK') {
+          this.$alert('删除成功!','提示',{
+            type:'success'
+          }).then(res => {
+            this.searchList(1)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        this.showAlert(err)
+      })
+    },
     // 查看详情
     showDetails (id) {
       // this.$router.push('/projecManage/details/' + id)
@@ -135,6 +168,8 @@ export default {
     },
     addDetail () {
       this.yetaiVisible = true;
+      this.yetaiSelect = ''
+      this.addContent = ''
 
     },
     showAlert: function (cont) {
@@ -145,7 +180,7 @@ export default {
   }
 }
 </script>
-<style scoped  lang="less">
+<style  lang="less">
   .mainContent{
     width: 100%;
     height: 100%;
@@ -170,5 +205,9 @@ export default {
   }
   .block{
     float: right;
+  }
+  .el-dialog .content-input{
+    width: 60%;
+    display: inline-block;
   }
 </style>
