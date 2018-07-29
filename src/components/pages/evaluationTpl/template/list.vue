@@ -27,7 +27,7 @@
     </el-row>
     <div class="listCont">
       <el-table :data="defaultProjectData.resultList" border size="medium">
-        <el-table-column align="center" prop="projectId" label="序号"></el-table-column>
+        <el-table-column align="center" type="index" prop='id' label="序号"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
         <el-table-column align="center" prop="yx" label="优秀"></el-table-column>
         <el-table-column align="center" prop="lh" label="良好"></el-table-column>
@@ -135,6 +135,7 @@ export default {
         this.defaultProjectData = res;
       }, (err) => {})
     },
+
     //新增
     xinzeng(id){
       this.$router.push("/evaluationTpl/template/xinzeng/"+id)

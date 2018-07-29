@@ -402,7 +402,7 @@ export default new Router({
                     parentPath: '/dataManage',
                     pageName: '修改'
                   },
-                  component: resolve => require(['@/components/pages/dataManage/dongtai/Xiugai.vue'], resolve)
+                  component: resolve => require(['@/components/pages/dataManage/dongtai/xiugai.vue'], resolve)
                 }
                 ,
                 {

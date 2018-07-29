@@ -3,7 +3,7 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <!-- <el-col :span="6"> -->
-          <el-form-item label="区域">
+          <el-form-item label="区域" style="width: 300px">
             <el-select size="small" v-model="searchForm.areaId" placeholder="全部">
               <el-option v-for="(item,index) in options" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>

@@ -1,12 +1,5 @@
 <template>
   <div>
-    <el-row :gutter="10">
-      <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="grid-content bg-purple-light"></div></el-col>
-    </el-row>
-
     <div class="index-box">
       <!--首页左边页面布局-->
       <div class="left-box">
@@ -281,7 +274,6 @@
 </template>
 <script>
   import echarts from '../../../static/js/echarts.js'
-
 export default {
   components: {
 
@@ -305,7 +297,6 @@ export default {
         // console.log(data)
         this.arrs2 = data.body;
       })*/
-
   },
   mounted () {
     var myChart = echarts.init(document.getElementById('main'));

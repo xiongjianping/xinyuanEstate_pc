@@ -52,11 +52,11 @@
       <!--<el-button type="info" >适配值</el-button>-->
     <!--</el-row>-->
 
-    <el-tabs v-model="activeName2" @tab-click="handleClick" class="tab" style="margin-left: 30px;margin-top: 20px">
-      <el-tab-pane class="chartsPanel first1" label="溢租率" name="first-ta"></el-tab-pane>
-      <el-tab-pane class="chartsPanel" label="客销度" name="second-ta"></el-tab-pane>
-      <el-tab-pane class="chartsPanel" label="适配值" name="three-ta"></el-tab-pane>
-    </el-tabs>
+    <el-radio-group v-model="tabPosition" style="margin-top: 50px;margin-bottom:-25px;margin-left: 30px">
+      <el-radio-button label="top">溢租率</el-radio-button>
+      <el-radio-button label="right">客销度</el-radio-button>
+      <el-radio-button label="bottom">适配值</el-radio-button>
+    </el-radio-group>
 
     <div class="listCont">
       <el-table :data="data.list" border size="medium">
@@ -187,15 +187,6 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }
-  .tab{
-    /*width: 300px;*/
-    height:40px;
-    .first1{
-      background: url("../../../../assets/images/lankuang.png") center left;
-      display: inline-block;
-      width: 369px;
-      height: 189px;
 
-    }
-  }
+
 </style>
