@@ -1,12 +1,12 @@
 <template>
-  <!--签约-->
+  <!--新增-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox" :gutter="30">
 
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-          <el-form-item label="区域：">
+          <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.area" placeholder=" ">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
@@ -15,7 +15,16 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="项目名称：">
+          <el-form-item label="项目">
+            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+              <el-option label="  " value="null"></el-option>
+              <el-option label=" " value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+        <el-col :span="6">
+          <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.area" placeholder=" ">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
@@ -23,8 +32,9 @@
           </el-form-item>
         </el-col>
 
+
         <el-col :span="6">
-          <el-form-item label="楼层：">
+          <el-form-item label="业种">
             <el-select size="small" v-model="searchForm.area" placeholder=" ">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>

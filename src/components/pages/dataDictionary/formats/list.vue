@@ -42,10 +42,10 @@
       title="提示"
       :visible="yetaiVisible"
       width="40%"
-      :modal=false 
+      :modal=false
       :show-close=false>
-      <el-select 
-        v-model="yetaiSelect" 
+      <el-select
+        v-model="yetaiSelect"
         placeholder="请选择">
         <el-option
           v-for="item in yetaiList"
@@ -135,7 +135,7 @@ export default {
     },
     addDetail () {
       this.yetaiVisible = true;
-      
+
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {

@@ -1,13 +1,14 @@
 <template>
-  <!--签约-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox" :gutter="30">
-
+      <h3 class="title">区间设置</h3>
+      <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
+
         <el-col :span="6">
-          <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+          <el-form-item label="纬度：">
+            <el-select size="small" v-model="searchForm.area" placeholder=客销度>
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
@@ -15,66 +16,93 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="项目名称：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+          <el-form-item label="分类：">
+            <el-select size="small" v-model="searchForm.area" placeholder="项目">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-
         <el-col :span="6">
-          <el-form-item label="">
-            <el-select size="small" v-model="searchForm.area" placeholder="项目帮扶 ">
+          <el-form-item label="区域：">
+            <el-select size="small" v-model="searchForm.area" placeholder="华东区域">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6" style="margin-left: -150px">
-          <el-form-item label="">
-            <el-select size="small" v-model="searchForm.area" placeholder="优秀">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+
+        <el-col :span="6">
+          <el-form-item label="项目：">
+            <el-select size="small" v-model="searchForm.area" placeholder="">
+              <el-option label="" value="null"></el-option>
+              <el-option label="" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br>
-      <div class="biao">
-        <el-table
-          :data="tableData3"
-          height="280"
-          border
-          style="width: 280px;margin: 0 auto;">
-          <el-checkbox v-model="checked">备选项</el-checkbox>
-          <el-table-column
-            prop="date"
-            label="序号" style='height:50px;text-align: center'>
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="类别"style='text-align: center'>
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            label="帮扶内容"style='text-align: center'>
-          </el-table-column>
-        </el-table>
+        </el-col><br><br><br><br><br>
 
-      </div>
+
+        <el-col :span="6">
+          <el-form-item label="楼层：">
+            <el-select size="small" v-model="searchForm.area" placeholder="A座">
+              <el-option label="A座" value="null"></el-option>
+              <el-option label="B座" value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+
+        <el-col :span="6">
+          <el-form-item label="业态：">
+            <el-select size="small" v-model="searchForm.area" placeholder="餐饮">
+              <el-option label="餐饮" value="null"></el-option>
+              <el-option label="精品" value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="业种：">
+            <el-select size="small" v-model="searchForm.area" placeholder="川菜">
+              <el-option label="川菜" value="null"></el-option>
+              <el-option label="火锅" value="null"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+        <el-col :span="6">
+          <el-form-item label="优秀">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="良好">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+        <el-col :span="6">
+          <el-form-item label="提升">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="合理">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+        <el-col :span="6">
+          <el-form-item label="亏损">
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
+          </el-form-item>
+        </el-col><br><br><br><br><br>
+
+
+
+
 
         <div class="xxk">
           <button>取消</button>
-          <button>新增</button>
+          <button>确定</button>
         </div>
 
       </el-form>
@@ -153,10 +181,6 @@
   }
 </script>
 <style scoped  lang="less">
-  .xuan{
-    margin-left: 15px;
-    margin-top: 20px;
-  }
   .mainContent{
     width: 100%;
     height: 100%;
@@ -203,33 +227,6 @@
       top: 50px;
       margin-left: 20px;
     }
-  }
-  .biao{
-    width: 350px;
-    height: 350px;
-    border: 3px solid #000;
-    margin-left: 160px;
-    el-table{
-      margin-top: 50px;
-    }
-    /*.main{*/
-      /*width: 280px;*/
-      /*height: 280px;*/
-      /*border: 1px solid #000;*/
-      /*margin: 0 auto;*/
-      /*margin-top: 10px;*/
-      /*tr{*/
-        /*height: 20px;*/
-        /*border: 1px solid #CCC;*/
-        /*background: red;*/
-      /*}*/
-      /*!*th,tr,td{*!*/
-        /*!*height: 20px;*!*/
-        /*!*border: 1px solid #ccc;*!*/
-        /*!*border-collapse: collapse;*!*/
-        /*!*text-align: center;*!*/
-      /*!*}*!*/
-    /*}*/
   }
 
 

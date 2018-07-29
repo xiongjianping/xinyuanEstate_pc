@@ -6,77 +6,20 @@
 
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-          <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="项目名称：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
+          <el-form-item label="类别：">
+            <el-select size="small" v-model="searchForm.area" placeholder="租金帮扶">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
-
-
-        <el-col :span="6">
-          <el-form-item label="">
-            <el-select size="small" v-model="searchForm.area" placeholder="项目帮扶 ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6" style="margin-left: -150px">
-          <el-form-item label="">
-            <el-select size="small" v-model="searchForm.area" placeholder="优秀">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br><br><br>
-      <div class="biao">
-        <el-table
-          :data="tableData3"
-          height="280"
-          border
-          style="width: 280px;margin: 0 auto;">
-          <el-checkbox v-model="checked">备选项</el-checkbox>
-          <el-table-column
-            prop="date"
-            label="序号" style='height:50px;text-align: center'>
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="类别"style='text-align: center'>
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            label="帮扶内容"style='text-align: center'>
-          </el-table-column>
-        </el-table>
-
-      </div>
-
+        <p style="margin-left: 100px;">帮扶内容：</p>
+        <el-input type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
+        </el-input>
         <div class="xxk">
           <button>取消</button>
           <button>新增</button>
         </div>
-
       </el-form>
     </el-row>
   </div>

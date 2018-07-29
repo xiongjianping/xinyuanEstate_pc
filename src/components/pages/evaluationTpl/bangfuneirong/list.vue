@@ -12,16 +12,17 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" @click="changeType()">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
       <el-table :data="defaultHelpCon.resultList" border size="medium">
-        <el-table-column align="center" type="index" prop='id' label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="type" label="类别"></el-table-column>
+        <el-table-column align="center" type="index"  prop='id'  label="序号" width="50"></el-table-column>
+        <el-table-column align="center" prop="typeName" label="类别"></el-table-column>
         <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
+
         <el-table-column align="center" label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
@@ -111,6 +112,7 @@ export default {
     editDetails(id) {
       this.$router.push('/evaluationTpl/bangfuneirong/edit/' + id)
     },
+
     //操作原始数据，增加类型名称字段
     typeNameShow(data) {
       for (var i = 0; i < data.resultList.length; i++) {
@@ -126,6 +128,9 @@ export default {
           data.resultList[i].typeName = "其他";
         }
       }
+    },
+    xinzeng(id){
+      this.$router.push('/evaluationTpl/bangfuneirong/xinzeng/'+id);
     },
     changeType() {
       this.helpType.type = this.searchForm.type;
