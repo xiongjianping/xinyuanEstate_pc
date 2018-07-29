@@ -3,49 +3,49 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-          <el-form-item label="级别">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+          <el-form-item label="区域：">
+            <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
+              <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="6">
-          <el-form-item label="修改时间">
-            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+          <el-form-item label="项目名称：">
+            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
+              <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.resultList" border size="medium">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="业态"></el-table-column>
-        <el-table-column align="center" prop="area" label="业种"></el-table-column>
-        <el-table-column align="center" prop="company" label="优秀"></el-table-column>
-        <el-table-column align="center" prop="projectleader" label="良好"></el-table-column>
-        <el-table-column align="center" prop="operationleader" label="提升"></el-table-column>
-        <el-table-column align="center" prop="phone" label="合理"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="亏损"></el-table-column>
-
+        <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+        <el-table-column align="center" prop="floorName" label="楼层名称"></el-table-column>
+        <el-table-column align="center" prop="yx" label="优秀"></el-table-column>
+        <el-table-column align="center" prop="lh" label="良好"></el-table-column>
+        <el-table-column align="center" prop="ts" label="提升"></el-table-column>
+        <el-table-column align="center" prop="hl" label="合理"></el-table-column>
+        <el-table-column align="center" prop="ks" label="亏损"></el-table-column>
       </el-table>
       <div class="paginationCont">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="data.page"
+          :current-page="page"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="size"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="data.count">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -55,22 +55,23 @@
 import moment from 'moment'
 export default {
   data: () => ({
-    data: {},
+    area: '',
+    data:{},
+    building: '',
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
-    infoData: {},
+    searchForm: {},
+    page: 1,
     size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0
+    allArea: {},
+    allProject: {},
   }),
   created () {
-    this.searchList(1)
+    window.$getAreaList().then((res) => {
+        this.allArea = res;
+      }, (err) => {
+        this.showAlert(err)
+      }),
+    this.searchList()
   },
   methods: {
     handleSizeChange (val) {
@@ -78,33 +79,20 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
-    searchList (type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+    searchList() {
+      window.$helpBusinessContent(this.page, this.size, this.searchForm).then((res) => {
+        this.data = res;
+      }, (err) => {
+        this.showAlert(err)
       })
+    },
+    changeArea() {
+      window.$helpSearchproject(this.area).then((res) => {
+        this.allProject = res;
+      }, (err) => {})
     },
     // 查看详情
     showDetails (id) {
