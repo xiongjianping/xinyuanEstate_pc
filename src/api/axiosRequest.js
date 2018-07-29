@@ -71,6 +71,21 @@ Vue.prototype.getProjectList = window.$getProjectList = function(page, size, par
     })
 }
 
+Vue.prototype.getProjectListForArea = window.$getProjectListForArea = function(areaId) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/find/project/by/area/' + areaId)
+            .then((res) => {
+                console.log(res)
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+
 /*
  * 项目管理类列表页
  *
@@ -97,6 +112,24 @@ Vue.prototype.getCompanyAll = window.$getCompanyAll = function() {
 Vue.prototype.createCompany = window.$createCompany = function(params) {
     return new Promise(function(resolve, reject) {
         axios.post('/region/save/company', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 项目管理类列表页
+ *
+ * 编辑项目(POST)
+ */
+Vue.prototype.editProject = window.$editProject = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/edit/project', params)
             .then((res) => {
                 resolve(res)
             })
@@ -163,6 +196,7 @@ Vue.prototype.getPersion = window.$getPersion = function(departmentId) {
 
 /*
  * 项目管理类列表页
+ * 
  * 查看项目详情(GET)
  */
 Vue.prototype.getProjectDetails = window.$getProjectDetails = function(id) {
@@ -199,11 +233,46 @@ Vue.prototype.deleteProject = window.$deleteProject = function(id) {
 /*
  * 楼层管理类列表页
  *
- * 删除项目(GET)
  */
 Vue.prototype.getFloorList = window.$getFloorList = function(page, size, params) {
     return new Promise(function(resolve, reject) {
         axios.post('/region/find/floor/list?p=' + page + '&c=' + size, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 楼层管理类列表页
+ *
+ * 新增楼层(POST)
+ */
+Vue.prototype.createFloor = window.$createFloor = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/save/floor', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 楼层管理类列表页
+ *
+ * 通过项目获取楼栋(GET)
+ */
+Vue.prototype.getBuilding = window.$getBuilding = function(areaId) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/find/building/project/' + areaId)
             .then((res) => {
                 resolve(res)
             })
@@ -222,6 +291,42 @@ Vue.prototype.getFloorList = window.$getFloorList = function(page, size, params)
 Vue.prototype.getFloorDetails = window.$getFloorDetails = function(id) {
     return new Promise(function(resolve, reject) {
         axios.get('/region/find/floor/by/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 楼层管理类列表页
+ *
+ * 删除楼层(GET)
+ */
+Vue.prototype.deleteFloor = window.$deleteFloor = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/remove/floor/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 楼层管理类列表页
+ *
+ * 编辑楼层详情(POST)
+ */
+Vue.prototype.editFloor = window.$editFloor = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/edit/floor', params)
             .then((res) => {
                 resolve(res)
             })
