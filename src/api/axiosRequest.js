@@ -338,6 +338,95 @@ Vue.prototype.editFloor = window.$editFloor = function(params) {
 }
 
 /*
+ * 铺位管理类列表页
+ *
+ */
+Vue.prototype.getStoreList = window.$getStoreList = function(page, size, params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/find/room/list?p=' + page + '&c=' + size, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 铺位管理类列表页
+ *
+ * 新增铺位(POST)
+ */
+Vue.prototype.createStore = window.$createStore = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/save/room', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 铺位管理类列表页
+ *
+ * 铺位详情(GET)
+ */
+Vue.prototype.getStoreDetails = window.$getStoreDetails = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/find/room/by/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 铺位管理类列表页
+ *
+ * 编辑铺位详情(POST)
+ */
+Vue.prototype.editStore = window.$editStore = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/edit/room', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 铺位管理类列表页
+ *
+ * 通过楼栋获取楼层(GET)
+ */
+Vue.prototype.getFloorForBuilding = window.$getFloorForBuilding = function(buildingId) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/region/find/floor/by/building/' + buildingId)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
  * 品牌管理类列表页
  *
  * 获取列表(POST)
@@ -378,9 +467,81 @@ Vue.prototype.getformSelect = window.$getformSelect = function() {
  *
  * 获取业种下拉列表(POST)
  */
-Vue.prototype.getspeciesSelect = window.$getspeciesSelect = function(id) {
+Vue.prototype.getSpeciesSelect = window.$getSpeciesSelect = function(id) {
     return new Promise(function(resolve, reject) {
         axios.get('/base/find/business/species/select/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ *
+ * 新增品牌(POST)
+ */
+Vue.prototype.createBrand = window.$createBrand = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/brand/save/brand', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ *
+ * 品牌详情(GET)
+ */
+Vue.prototype.getBrandDetails = window.$getBrandDetails = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/brand/find/brand/by/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ *
+ * 编辑品牌(POST)
+ */
+Vue.prototype.editBrand = window.$editBrand = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/brand/edit/brand', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 品牌管理类列表页
+ *
+ * 删除品牌(GET)
+ */
+Vue.prototype.deleteBrand = window.$deleteBrand = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/brand/remove/brand/' + id)
             .then((res) => {
                 resolve(res)
             })

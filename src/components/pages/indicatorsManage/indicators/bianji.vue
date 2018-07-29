@@ -5,63 +5,50 @@
     <el-row class="searchBox" :gutter="30">
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
-      <el-form label-width="100px" :model="searchForm">
+      <el-form label-width="100px" :model="data">
 
-
-        <!-- <el-col :span="6"> -->
         <el-form-item label="品牌名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入品牌名称"></el-input>
+          <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
         </el-form-item>
-        <!-- </el-col> -->
-
-        <el-col :span="7" :offset="1">
-        开始时间：{{data.startTime}}
-        </el-col>
-        <el-col :span="8" :offset="1">
-        修改时间：{{data.lastTime}}
-        </el-col><br>
-
 
         <el-col :span="6">
           <el-form-item label="业态：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.businessFormId" placeholder="请选择业态" @change="getSpeciesList()">
+              <el-option v-for="(item, index) in formList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="业种：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br><br><br><br>
-
-        <el-col :span="6">
-          <el-form-item label="经营方式：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="data.businessSpeciesId" placeholder="请选择业种">
+              <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="业态：">
-            <el-select size="small" v-model="searchForm.area" placeholder="启用">
-              <el-option label="启用" value="null"></el-option>
-              <el-option label="停用" value="null"></el-option>
+          <el-form-item label="经营方式：">
+            <el-select size="small" v-model="data.brandType" placeholder="请选择经营方式">
+              <el-option v-for="(item, index) in brandTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
+        <el-col :span="6" v-if="data.state == 1">
+          <el-form-item label="状态：">
+            签约
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" v-if="data.state == 2">
+          <el-form-item label="状态：">
+            停用
+          </el-form-item>
+        </el-col>
 
       <div class="xxk">
-        <button>取消</button>
-        <button>确定</button>
+        <button type="button" @click="goBack()">取消</button>
+        <button type="button" @click="edit()">确定</button>
       </div>
 
       </el-form>
@@ -74,62 +61,58 @@ export default {
   data: () => ({
     data: {},
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
-    infoData: {},
-    size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0
+    speciesList: [],
+    formList:[],
+    brandTypeList:[
+      {
+        name: '直营',
+        id: 1
+      },
+      {
+        name: '代理',
+        id: 2
+      }
+    ]
   }),
   created () {
-    this.searchList(1)
+    this.getData()
   },
   methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
+    getData(){
+      window.$getformSelect().then((res) => {
+        this.formList = res
+        window.$getBrandDetails(this.$route.params.id).then((res) => {
+          this.loading = false
+          this.data = res
+          this.getSpeciesList()
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
-    handleCurrentChange (val) {
-      this.data.page = val
-      this.searchList()
+    getSpeciesList(){
+      window.$getSpeciesSelect(this.data.businessFormId).then((res) => {
+        this.speciesList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
-    searchList (type) {
+    edit(){
       this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        console.log(res)
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+      window.$editBrand(this.data).then((res) => {
+        this.loading = false
+        this.showAlert('修改成功')
+        this.goBack()
+      }, (err) => {
+        this.loading = false
+        this.showAlert(err)
       })
-
     },
-    showMessage (cont) {
-      this.$message({
-        type: 'success',
-        message: cont
-      })
+    goBack(){
+      this.$router.back(-1)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
