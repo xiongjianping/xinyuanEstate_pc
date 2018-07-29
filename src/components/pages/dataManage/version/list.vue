@@ -53,12 +53,14 @@
         </el-col>
       </el-form>
     </el-row>
+
+    <el-radio-group v-model="tabPosition" style="margin-top: 50px;margin-bottom:-25px;margin-left: 30px">
+      <el-radio-button label="top">溢租率</el-radio-button>
+      <el-radio-button label="right">客销度</el-radio-button>
+      <el-radio-button label="bottom">适配值</el-radio-button>
+    </el-radio-group>
+
     <div class="listCont">
-      <!--<div class="tabs">-->
-        <!--<div class="tab" @click="toggleTab('prince')">溢租率<img src="../../../../assets/images/lankuang.png" alt=""></div>-->
-        <!--<div class="tab" @click="toggleTab('rose')">客销度</div>-->
-        <!--<div class="tab" @click="toggleTab('fox')">适配值</div>-->
-      <!--</div>-->
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" prop="id" label="序号"></el-table-column>
         <el-table-column align="center" prop="area" label="纬度"></el-table-column>

@@ -16,22 +16,11 @@
           <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
             <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}
-            <!--<ul class="subMenu" v-if="info.subMenu && info.subMenu.length > 0" v-show="info.showSub">-->
-              <!--&lt;!&ndash;<li v-for="item in info.subMenu.subMenu1" :key="item.id" @click="goLink(item, info)"></li>&ndash;&gt;-->
-            <!--</ul>-->
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <!--<div class="breadcrumb" style="display: none">-->
-      <!--<el-breadcrumb separator="/" class="bread">-->
-        <!--<el-breadcrumb-item class="indexPage">您所在的位置</el-breadcrumb-item>-->
-        <!--<el-breadcrumb-item v-if="pageNameList.length > 1 && page.pageName"-->
-                            <!--v-for="(page, index) in pageNameList" :key="page.pageName" v-show="index != 0" >{{page.pageName}}-->
-        <!--</el-breadcrumb-item>-->
-      <!--</el-breadcrumb>-->
-    <!--</div>-->
   </div>
 
 </template>

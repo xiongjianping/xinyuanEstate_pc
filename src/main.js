@@ -4,12 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 // import axios from 'axios'
-import ElementUI from 'element-ui'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 // import cors from 'cors'
 import echarts from 'echarts'
-
-
-
 import vueMethodsPromise from 'vue-methods-promise'
 import babelPolyfill from 'babel-polyfill'
 import './assets/css/index.css'
@@ -33,6 +31,7 @@ window.XMLHttpRequest.withCredentials = true
 
 
 var alert = require('element-ui').MessageBox.alert
+
     // var tokenBugNum = 0
     // var tokenBug = function(eMsg) {
     //     if (tokenBugNum === 1) {
