@@ -1,18 +1,50 @@
 <template>
+  <!--<div class="header">-->
+    <!--<el-row :gutter="20" class="">-->
+      <!--<el-col :span="8">-->
+        <!--<div class="index-left">-->
+          <!--<ul style="margin-top: 20px">-->
+            <!--<li>-->
+              <!--<p>首页</p>-->
+            <!--</li>-->
+            <!--<li class="subMenu">项目管理</li>-->
+            <!--<li>品牌管理</li>-->
+            <!--<li>签约管理</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</el-col>-->
+      <!--<el-col :span="8">-->
+        <!--<div class="index-content">-->
+          <!--<img src="../../assets/images/logo1.png" alt="" style="width:100%;margin-top:28px;">-->
+        <!--</div>-->
+      <!--</el-col>-->
+      <!--<el-col :span="8"><div class="index-right">-->
+        <!--<ul style="margin-top: 20px">-->
+          <!--<li>数据管理</li>-->
+          <!--<li>帮扶计划</li>-->
+          <!--<li>评估模板</li>-->
+          <!--<li>系统平台</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--</el-col>-->
+    <!--</el-row>-->
+  <!--</div>-->
+
+
   <div class="header">
     <div class="navList">
-      <ul class="navCont">
-        <li v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
+      <ul class="navCont" >
+        <li     v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
             <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}</li>
           </ul>
         </li>
-        <li>
-          <img src="../../assets/images/zhong.png" alt="" style="width:50%;margin-left:-55px;">
-          <img src="../../assets/images/logo.png"  alt="" class="logos">
+        <li >
+          <!--<img src="../../assets/images/zhong.png" alt="" style="width:50%;margin-left:-55px;">-->
+          <img src="../../assets/images/logo1.png"  alt="" class="logos">
         </li>
-        <li v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
+        <li   v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
             <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}
@@ -22,6 +54,7 @@
       </ul>
     </div>
   </div>
+
 
 </template>
 <script>
@@ -107,14 +140,58 @@
   }
 </script>
 
-<style scoped lang="less">
-  .logos{
-    width :200px;
-    height: 66px;
-    margin-left: 95px;
-    margin-top :-50px;
-  }
+<!--<style scoped lang="less">-->
 
+  <!--.header{-->
+    <!--color: #fff;-->
+    <!--margin: 0 auto;-->
+    <!--/*头部左边部分*/-->
+    <!--.index-left{-->
+      <!--ul li{-->
+        <!--display: inline-block;-->
+        <!--padding:19px;-->
+        <!--font-size: 14px;-->
+      <!--}-->
+      <!--ul li.subMenu{-->
+        <!--width: 60px;-->
+        <!--padding: 5px 0;-->
+        <!--background: #fff;-->
+        <!--color: #333;-->
+        <!--border: 1px solid #ddd;-->
+        <!--border-bottom-left-radius: 8px;-->
+        <!--border-bottom-right-radius: 8px;-->
+      <!--}-->
+    <!--}-->
+
+    <!--/*头部中间部分*/-->
+    <!--.index-content{-->
+      <!--ul li{-->
+        <!--display: inline-block;-->
+        <!--padding: 19px;-->
+        <!--font-size: 14px;-->
+      <!--}-->
+    <!--}-->
+    <!--/*头部右边部分*/-->
+    <!--.index-right{-->
+      <!--ul li{-->
+        <!--display: inline-block;-->
+        <!--padding: 19px;-->
+        <!--font-size: 14px;-->
+      <!--}-->
+    <!--}-->
+  <!--}-->
+
+<!--</style>-->
+
+
+
+<style scoped lang="less">
+
+  .logos{
+    width: 420px;
+    height: 65px;
+    margin-top: -18px;
+  }
   .header {
     position: relative;
     box-sizing: border-box;
@@ -123,7 +200,7 @@
     color: #fff;
     z-index: 99;
   }
-
+  /**/
   .header .logo{
     float: left;
     width:250px;
@@ -133,7 +210,7 @@
       height: 100%;
     }
   }
-
+  /**/
   .navList{
     width: 100%;
     height: 32px;
@@ -199,7 +276,7 @@
       content: '';
       border: none;
     }
-
+    /**/
     li.navLi1{
       float: left;
       padding: 0 20px;

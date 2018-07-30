@@ -7,10 +7,11 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="data">
 
-
-        <el-form-item label="品牌名称">
+        <el-col :span="6">
+        <el-form-item label="品牌">
           <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
         </el-form-item>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="业态：">
@@ -26,7 +27,7 @@
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="经营方式：">

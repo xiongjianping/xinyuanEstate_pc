@@ -17,7 +17,6 @@ Vue.prototype.helpSearchproject = window.$helpSearchproject = function(id) {
     })
 }
 
-
 //项目帮扶搜索查询(post)
 
 Vue.prototype.helpScarchAll = window.$helpScarchAll = function(p, c, params) {
@@ -34,7 +33,22 @@ Vue.prototype.helpScarchAll = window.$helpScarchAll = function(p, c, params) {
 }
 
 
-//帮扶内容 
+//帮扶内容
+
+Vue.prototype.helpContent = window.$helpContent = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/help/find/help/context/list', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+//帮扶内容
 Vue.prototype.helpContent = window.$helpContent = function(p, c, params) {
         return new Promise(function(resolve, reject) {
             axios.post('/help/find/help/context/list?p=' + p + '&c=' + c, params)
@@ -75,7 +89,7 @@ Vue.prototype.deleteHelpContent = window.$deleteHelpContent = function(id) {
 }
 
 //帮扶项目下新增
-//帮扶项目   
+//帮扶项目
 
 Vue.prototype.addContent = window.$addContent = function(params) {
         return new Promise(function(resolve, reject) {
@@ -102,7 +116,7 @@ Vue.prototype.addContentList = window.$addContentList = function(params) {
                 });
         })
     }
-    //帮扶项目 新增 
+    //帮扶项目 新增
 Vue.prototype.createContentList = window.$createContentList = function(params) {
     return new Promise(function(resolve, reject) {
         axios.post('/help/save/help/plan/project', params)

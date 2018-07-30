@@ -11,7 +11,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="项目名称：">
+          <el-form-item label="项目：">
             <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目">
               <el-option v-for="(item,index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -24,22 +24,44 @@
         <br>
         <el-col :span="6">
           <el-form-item label="">
-            <el-select size="small" v-model="searchForm.type" placeholder="请选择类型" @change="searchList()">
+            <el-select size="small" v-model="searchForm.type" placeholder="租金帮扶" @change="searchList()">
               <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6" style="margin-left: -150px">
           <el-form-item label="">
-            <el-select size="small" v-model="sendData.type" placeholder="请选择类型">
+            <el-select size="small" v-model="sendData.type" placeholder="优秀">
               <el-option v-for="(item,index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col><br><br>
+      <!--<div class="biao">-->
+        <!--<el-table-->
+          <!--:data="tableData3"-->
+          <!--height="280"-->
+          <!--border-->
+          <!--style="width: 280px;margin: 0 auto;">-->
+          <!--<el-checkbox v-model="checked">备选项</el-checkbox>-->
+          <!--<el-table-column-->
+            <!--prop="date"-->
+            <!--label="序号">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+            <!--prop="name"-->
+            <!--label="类别">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+            <!--prop="address"-->
+            <!--label="帮扶内容">-->
+          <!--</el-table-column>-->
+        <!--</el-table>-->
+
+      <!--</div>-->
+
         <br>
         <br>
-        <br>
-        <br>
+
         <div class="biao">
           <el-table :data="allcontext" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
             <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
@@ -139,93 +161,160 @@ export default {
 }
 
 </script>
-<style scoped lang="less">
-.xuan {
-  margin-left: 15px;
-  margin-top: 20px;
-}
-
-.mainContent {
-  width: 100%;
-  height: 100%;
-  background: #fff;
-}
-
-.el-date-editor.el-input,
-.el-date-editor.el-input__inner {
-  width: 100%;
-}
-
-.el-col-10 {
-  width: 41.66667%;
-  margin-top: 45px;
-}
-
-.el-form-item {
-  margin-bottom: 30px;
-  margin-top: 20px;
-  margin-left: 52px;
-}
-
-.el-form-item__label {
-  text-align: right;
-  float: left;
-  font-size: 17px;
-  color: #606266;
-  line-height: 40px;
-  padding: 0 12px 0 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-el-button {
-  background: rgb(22, 155, 213);
-}
-
-.xxk {
-  width: 100%;
-  height: 100px;
-  button {
-    width: 100px;
-    height: 50px;
-    display: inline-block;
-    border-radius: 10px;
-    background: rgb(22, 155, 213);
-    outline: medium;
-    outline: none;
-    position: relative;
-    left: 500px;
-    top: 50px;
-    margin-left: 20px;
+<style scoped  lang="less">
+  .xuan{
+    margin-left: 15px;
+    margin-top: 20px;
   }
+  .mainContent{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
+  .el-col-10 {
+    width: 41.66667%;
+    margin-top: 45px;
+  }
+  .el-form-item{
+    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-left: 52px;
+  }
+  .el-form-item__label {
+    text-align: right;
+    float: left;
+    font-size: 17px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  el-button{
+    background: rgb(22,155,213);
+  }
+  .xxk{
+    width: 100%;
+    height: 100px;
+    button{
+      width: 100px;
+      height: 50px;
+      display: inline-block;
+      border-radius: 10px;
+      background: rgb(22,155, 213);
+      outline:medium;
+      outline: none;
+      position: relative;
+      left:500px;
+      top: 50px;
+      margin-left: 20px;
+    }
+  }
+  .biao{
+    width: 350px;
+    height: 350px;
+    border: 0px solid #fff;
+    margin-left: 160px;
+    el-table-column{
+      margin-top: 50px;
+      text-align: center;
+    }
+  }
+tr,th {
+  text-align: center;
 }
 
-.biao {
-  width: 100%;
-  height: 350px;
-  border: 3px solid #000;
-  // margin-left: 160px;
-  el-table {
-    margin-top: 50px;
-  }
-  /*.main{*/
-  /*width: 280px;*/
-  /*height: 280px;*/
-  /*border: 1px solid #000;*/
-  /*margin: 0 auto;*/
-  /*margin-top: 10px;*/
-  /*tr{*/
-  /*height: 20px;*/
-  /*border: 1px solid #CCC;*/
-  /*background: red;*/
+/*<style scoped lang = "less">*/
+/*. xuan {*/
+  /*margin-left: 15px;*/
+  /*margin-top: 20px;*/
+/*}*/
+
+  /*.mainContent {*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*background: #fff;*/
   /*}*/
-  /*!*th,tr,td{*!*/
-  /*!*height: 20px;*!*/
-  /*!*border: 1px solid #ccc;*!*/
-  /*!*border-collapse: collapse;*!*/
-  /*!*text-align: center;*!*/
-  /*!*}*!*/
+
+  /*.el-date-editor.el-input,*/
+  /*.el-date-editor.el-input__inner {*/
+    /*width: 100%;*/
   /*}*/
-}
+
+  /*.el-col-10 {*/
+    /*width: 41.66667%;*/
+    /*margin-top: 45px;*/
+  /*}*/
+
+  /*.el-form-item {*/
+    /*margin-bottom: 30px;*/
+    /*margin-top: 20px;*/
+    /*margin-left: 52px;*/
+  /*}*/
+
+  /*.el-form-item__label {*/
+    /*text-align: right;*/
+    /*float: left;*/
+    /*font-size: 17px;*/
+    /*color: #606266;*/
+    /*line-height: 40px;*/
+    /*padding: 0 12px 0 0;*/
+    /*-webkit-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
+  /*}*/
+
+  /*el-button {*/
+    /*background: rgb(22, 155, 213);*/
+  /*}*/
+
+  /*.xxk {*/
+    /*width: 100%;*/
+    /*height: 100px;*/
+    /*button {*/
+      /*width: 100px;*/
+      /*height: 50px;*/
+      /*display: inline-block;*/
+      /*border-radius: 10px;*/
+      /*background: rgb(22, 155, 213);*/
+      /*outline: medium;*/
+      /*outline: none;*/
+      /*position: relative;*/
+      /*left: 500px;*/
+      /*top: 50px;*/
+      /*margin-left: 20px;*/
+    /*}*/
+  /*}*/
+
+  /*.biao {*/
+    /*width: 100%;*/
+    /*height: 350px;*/
+    /*border: 3px solid #000;*/
+    /*// margin-left: 160px;*/
+    /*el-table {*/
+      /*margin-top: 50px;*/
+    /*}*/
+    /*!*.main{*!*/
+    /*!*width: 280px;*!*/
+    /*!*height: 280px;*!*/
+    /*!*border: 1px solid #000;*!*/
+    /*!*margin: 0 auto;*!*/
+    /*!*margin-top: 10px;*!*/
+    /*!*tr{*!*/
+    /*!*height: 20px;*!*/
+    /*!*border: 1px solid #CCC;*!*/
+    /*!*background: red;*!*/
+    /*!*}*!*/
+    /*!*!*th,tr,td{*!*!*/
+    /*!*!*height: 20px;*!*!*/
+    /*!*!*border: 1px solid #ccc;*!*!*/
+    /*!*!*border-collapse: collapse;*!*!*/
+    /*!*!*text-align: center;*!*!*/
+    /*!*!*}*!*!*/
+    /*!*}*!*/
+  /*}*/
+/*}*/
 
 </style>

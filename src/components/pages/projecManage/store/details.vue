@@ -5,10 +5,11 @@
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="data">
-
-        <el-form-item label="铺位名称">
+        <el-col :span="6">
+        <el-form-item label="铺位：">
           <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入铺位名称"></el-input>
         </el-form-item>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="区域：">
@@ -24,10 +25,10 @@
               <el-option v-for="(item, index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
-          <el-form-item label="所属项目：">
+          <el-form-item label=" 项目：">
             <el-select size="small" v-model="data.projectId" placeholder="请选择项目" @change="getBuilding()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -40,7 +41,7 @@
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
 
         <el-col :span="6">
@@ -55,7 +56,7 @@
           <el-form-item label="面积/平：">
             <el-input size="small" v-model="data.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="状态：">
@@ -176,7 +177,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: -6px;
     margin-top: 20px;
     margin-left: 52px;
   }

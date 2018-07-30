@@ -4,7 +4,7 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
           <el-form-item label="区域">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入区域"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">

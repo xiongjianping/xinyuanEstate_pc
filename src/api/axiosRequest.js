@@ -196,7 +196,7 @@ Vue.prototype.getPersion = window.$getPersion = function(departmentId) {
 
 /*
  * 项目管理类列表页
- * 
+ *
  * 查看项目详情(GET)
  */
 Vue.prototype.getProjectDetails = window.$getProjectDetails = function(id) {
@@ -480,6 +480,7 @@ Vue.prototype.getSpeciesSelect = window.$getSpeciesSelect = function(id) {
     })
 }
 
+
 /*
  * 品牌管理类列表页
  *
@@ -551,6 +552,7 @@ Vue.prototype.deleteBrand = window.$deleteBrand = function(id) {
             });
     })
 }
+
 
 /*
  * 签约管理

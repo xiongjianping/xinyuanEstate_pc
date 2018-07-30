@@ -3,7 +3,7 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-          <el-form-item label="品牌名称">
+          <el-form-item label="品牌">
             <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
@@ -20,8 +20,8 @@
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-        <el-col :span="6.5">
+        </el-col><br><br><br>
+        <el-col :span="6">
           <el-form-item label="开始时间" label-width="100px">
             <el-date-picker
               size="small"
@@ -33,8 +33,8 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="至" label-width="50px">
+        <el-col :span="6">
+          <el-form-item label="至" label-width="100px">
             <el-date-picker
               format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"

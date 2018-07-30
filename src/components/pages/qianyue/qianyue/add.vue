@@ -67,6 +67,7 @@
           <el-table-column prop="roomName" label="铺位名称" style='text-align: center'>
           </el-table-column>
         </el-table>
+
       </div>
 
         <div class="xxk">
@@ -126,7 +127,7 @@
         }, (err) => {
           this.showAlert(err)
         })
-       
+
       },
       speciesChanged(){
         window.$getBrandForSpecies(this.species).then((res) => {
@@ -238,7 +239,7 @@
   .biao{
     width: 350px;
     height: 350px;
-    border: 3px solid #000;
+    border: 0px solid #fff;
     margin-left: 160px;
     el-table{
       margin-left: 10px;

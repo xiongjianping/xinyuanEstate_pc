@@ -3,15 +3,15 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="全部" @change="changeArea()">
               <el-option v-for="(item,index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="6">
-          <el-form-item label="项目名称">
+          <el-form-item label="项目">
             <el-select size="small" v-model="searchForm.projectId" placeholder="全部">
               <el-option v-for="(item,index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -36,13 +36,13 @@
         <el-table-column align="center" prop="ks" label="亏损"></el-table-column>
       </el-table>
       <div class="paginationCont">
-        <el-pagination 
-        @size-change="handleSizeChange" 
-        @current-change="handleCurrentChange" 
-        :current-page="page" 
-        :page-sizes="[10, 20, 50, 100]" 
-        :page-size="size" 
-        layout="total, sizes, prev, pager, next, jumper" 
+        <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="page"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="size"
+        layout="total, sizes, prev, pager, next, jumper"
         :total="data.countSize">
         </el-pagination>
       </div>

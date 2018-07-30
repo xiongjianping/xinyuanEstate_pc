@@ -3,6 +3,7 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
+
           <el-form-item label="区域：">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -14,6 +15,7 @@
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
+>>>>>>> 0313542611733363b31d95a7ec6349fe1e1d3978
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -45,6 +47,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
+
           <el-form-item label="品牌：">
             <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌">
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -153,7 +156,7 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
-      
+
     },
     speciesChanged(){
       window.$getBrandForSpecies(this.searchForm.businessSpeciesId).then((res) => {

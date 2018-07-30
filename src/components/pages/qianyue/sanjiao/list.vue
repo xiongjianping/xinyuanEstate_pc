@@ -4,18 +4,18 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
           <el-form-item label="区域">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入品牌名称"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="项目">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-input size="small" v-model="searchForm.projectName1" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="楼层">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
+            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入楼层"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -35,7 +35,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="铺位名称 ">
+          <el-form-item label="铺位">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
             </el-select>
@@ -45,15 +45,12 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <!--<el-button type="primary" size="medium" v-on:click="searchList(2);">导出</el-button>-->
-
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
 
     <div class="listCont">
-
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="projectName" label="溢租率"></el-table-column>
@@ -65,23 +62,10 @@
         <el-table-column align="center" prop="startTime" label="业态"></el-table-column>
         <el-table-column align="center" prop="operationleader" label="品牌名称"></el-table-column>
         <el-table-column align="center" prop="phone" label="铺位名称"></el-table-column>
-
       </el-table>
-
-      <!--<div class="paginationCont">-->
-        <!--<el-pagination-->
-          <!--@size-change="handleSizeChange"-->
-          <!--@current-change="handleCurrentChange"-->
-          <!--:current-page="data.page"-->
-          <!--:page-sizes="[10, 20, 50, 100]"-->
-          <!--:page-size="size"-->
-          <!--layout="total, sizes, prev, pager, next, jumper"-->
-          <!--:total="data.count">-->
-        <!--</el-pagination>-->
       </div>
-
     </div>
-  </div>
+
 </template>
 <script>
 import moment from 'moment'

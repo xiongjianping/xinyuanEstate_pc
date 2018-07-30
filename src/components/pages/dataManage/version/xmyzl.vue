@@ -3,8 +3,8 @@
     <el-row class="searchBox" :gutter="20">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-          <el-form-item label="版本名称">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
+          <el-form-item label="版本">
+            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -18,7 +18,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br>
+        </el-col>
         <el-col :span="7">
           <el-form-item label="数据涵盖起止时间" label-width="150px">
             <el-date-picker

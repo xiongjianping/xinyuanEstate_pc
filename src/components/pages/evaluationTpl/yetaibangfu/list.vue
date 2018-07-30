@@ -11,7 +11,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="项目名称：">
+          <el-form-item label="项目：">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
               <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>

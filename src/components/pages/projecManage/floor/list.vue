@@ -11,7 +11,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="项目名称">
+          <el-form-item label="项目">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
@@ -27,8 +27,6 @@
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增</el-button>
-            <!-- <el-button type="primary" size="medium" v-on:click="showDetails(0);">编辑</el-button>
-            <el-button type="primary" size="medium" v-on:click="xiangqing(0);">详情</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>

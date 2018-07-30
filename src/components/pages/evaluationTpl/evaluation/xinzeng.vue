@@ -14,7 +14,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="项目名称：">
+          <el-form-item label="项目：">
             <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目" @change="changeProject()">
               <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -27,31 +27,30 @@
               <el-option v-for="(item, index) in allBuilding" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
-        <el-col :span="6">
+        <el-col :span="6" >
           <el-form-item label="楼层：">
             <el-select size="small" v-model="sendData.floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in allFloor" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br>
 
-
-        <el-col :span="6">
+        <el-col :span="6" >
           <el-form-item label="类型：">
             <el-select size="small" v-model="searchForm.type" placeholder="请选择类型"  @change="searchList()">
               <el-option v-for="(item, index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6" style="margin-left: -150px">
+        <el-col :span="6" >
           <el-form-item label="评价：">
             <el-select size="small" v-model="sendData.type" placeholder="请选择评价">
               <el-option v-for="(item, index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br>
+        </el-col>
       <div class="biao">
         <el-table :data="allcontext" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
           <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
@@ -219,29 +218,11 @@
   .biao{
     width: 350px;
     height: 350px;
-    border: 3px solid #000;
+    border: 0px solid #fff;
     margin-left: 160px;
     el-table{
       margin-top: 50px;
     }
-    /*.main{*/
-      /*width: 280px;*/
-      /*height: 280px;*/
-      /*border: 1px solid #000;*/
-      /*margin: 0 auto;*/
-      /*margin-top: 10px;*/
-      /*tr{*/
-        /*height: 20px;*/
-        /*border: 1px solid #CCC;*/
-        /*background: red;*/
-      /*}*/
-      /*!*th,tr,td{*!*/
-        /*!*height: 20px;*!*/
-        /*!*border: 1px solid #ccc;*!*/
-        /*!*border-collapse: collapse;*!*/
-        /*!*text-align: center;*!*/
-      /*!*}*!*/
-    /*}*/
   }
 
 
