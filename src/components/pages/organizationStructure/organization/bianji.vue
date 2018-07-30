@@ -7,18 +7,20 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
 
-        <!-- <el-col :span="6"> -->
+         <el-col :span="6">
         <el-form-item label="模板名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"  style="width:300px"></el-input>
+          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入模板名称"  ></el-input>
         </el-form-item>
-        <!-- </el-col> -->
+         </el-col>
 
+        <el-col :span="6">
         <el-form-item label="模板编号">
           <el-input
-            placeholder="请输入内容"
-            clearable style="width: 200px">
+            placeholder="请输入模板编号"
+            clearable  >
           </el-input>
         </el-form-item>
+        </el-col>
 
 
         <el-col :span="6">
@@ -29,10 +31,10 @@
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="4" :offset="1">
+        <el-col :span="4" :offset="2">
           开始时间：{{data.startTime}}
         </el-col>
-        <el-col :span="4" :offset="1">
+        <el-col :span="4" :offset="3">
           修改人：李某某
         </el-col>
         <el-col :span="6" style="margin-top: -30px">

@@ -9,6 +9,7 @@ axios.defaults.baseURL = "http://10.17.9.123:8080" // 本地
 axios.defaults.withCredentials = true
 axios.defaults.timeout = 10000
 
+
 async function requestInterceptor(config) {
   let token = window.localStorage.getItem('xinyuan_accesstoken')
   console.log('token: ' + token)

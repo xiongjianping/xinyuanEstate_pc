@@ -1,253 +1,499 @@
 <template>
   <div>
     <div class="index-box">
-    <el-row :gutter="20">
-      <el-col :span="7"  :xs="24">
-        <div class="left-box">
-          <div class="left-top">
-            <img src="../../assets/images/l_t.png" alt="">
-            <!--<img src="../../assets/images/l_t1.png" alt="">-->
-            <p>销售：500,000万元 </p>
-            <p>客流：50,000万人次 </p>
+      <!--首页左边页面布局-->
+      <div class="left-box">
+        <div class="left-top">
+          <div class="left-top-t1">
+            <p>全国各项目总量</p>
           </div>
-          <div class="left-cont">
-            <img src="../../assets/images/l_t.png" alt="">
-            <div class="left-cont-t1">
-              <p class="p1"><i></i><span>全国各区域客流量</span></p>
-              <p class="p2"><i></i><span>全国各区域销售量</span></p>
-            </div>
-            <div class="left-cont-t2">
-              <ul>
-                <li>
-                  <i class="i1">01</i>
-                  <span>华北区域</span>
-                  <span class="span1">
+          <p>销售：500,000万元 </p>
+          <p>客流：50,000万人次 </p>
+        </div>
+        <div class="left-cent">
+          <div class="left-top-t2">
+            <p>全国各区域客流量排行</p>
+          </div>
+          <div class="left-cent-t1">
+            <p class="p1"><i></i><span>全国各区域客流量</span></p>
+            <p class="p2"><i></i><span>全国各区域销售量</span></p>
+          </div>
+          <div class="left-cent-t2">
+            <ul>
+              <li>
+                <i class="i1">01</i>
+                <span>华北区域</span>
+                <span class="span1">
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-                  <i class="i2">
-                    <p>500</p>
-                    <p>300</p>
-                  </i>
-                </li>
-                <li>
-                  <i class="i1">02</i>
-                  <span>华南区域</span>
-                  <span class="span1">
+                <i class="i2">
+                  <p>500</p>
+                  <p>300</p>
+                </i>
+              </li>
+              <li>
+                <i class="i1">02</i>
+                <span>华南区域</span>
+                <span class="span1">
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-                  <i class="i2">
-                    <p>500</p>
-                    <p>300</p>
-                  </i>
-                </li>
-                <li>
-                  <i class="i1">03</i>
-                  <span>华西南区域</span>
-                  <span class="span1">
+                <i class="i2">
+                  <p>500</p>
+                  <p>300</p>
+                </i>
+              </li>
+              <li>
+                <i class="i1">03</i>
+                <span>华西南区域</span>
+                <span class="span1">
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-                  <i class="i2">
-                    <p>500</p>
-                    <p>300</p>
-                  </i>
-                </li>
-                <li>
-                  <i class="i1">04</i>
-                  <span>华西区域</span>
-                  <span class="span1">
+                <i class="i2">
+                  <p>500</p>
+                  <p>300</p>
+                </i>
+              </li>
+              <li>
+                <i class="i1">04</i>
+                <span>华西区域</span>
+                <span class="span1">
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-                  <i class="i2">
-                    <p>500</p>
-                    <p>300</p>
-                  </i>
-                </li>
-                <li>
-                  <i class="i1">05</i>
-                  <span>华中区域</span>
-                  <span class="span1">
+                <i class="i2">
+                  <p>500</p>
+                  <p>300</p>
+                </i>
+              </li>
+              <li>
+                <i class="i1">05</i>
+                <span>华中区域</span>
+                <span class="span1">
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-                  <i class="i2">
-                    <p>500</p>
-                    <p>300</p>
-                  </i>
-                </li>
-                <li>
-                  <i class="i1">06</i>
-                  <span>华东区域</span>
-                  <span class="span1">
+                <i class="i2">
+                  <p>500</p>
+                  <p>300</p>
+                </i>
+              </li>
+              <li>
+                <i class="i1">06</i>
+                <span>华东区域</span>
+                <span class="span1">
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-
                 <i class="i2">
                   <p>500</p>
                   <p>300</p>
                 </i>
               </li>
             </ul>
+
           </div>
         </div>
         <div class="left-btn">
           <div class="left-top-t3">
             <p>全国销售额与客流量增长趋势统计</p>
           </div>
-          <div class="left-bottom">
-            <img src="../../assets/images/l_t.png" alt="">
-            <div class="left-bottom-t1">
-              <p class="p1"><i></i><span>全国各区域客流量</span></p>
-              <p class="p2"><i></i><span>全国各区域销售量</span></p>
-            </div>
+          <div class="left-btn-t1">
+            <p class="p1"><i></i><span>全国各区域客流量</span></p>
+            <p class="p2"><i></i><span>全国各区域销售量</span></p>
           </div>
+          <div id="main1"></div>
         </div>
-        </div>
-      </el-col>
-      <el-col :span="10" :xs="24">
-        <div class="cont-box">
-          <div class="cont-top">
-            <img src="../../assets/images/l_t.png" alt="">
-            <div class="center-cent1">
-              <div class="left">
-                <select>
-                  <option value="华北区域">华北区域</option>
-                  <option value="华南区域">华南区域</option>
-                  <option value="华西南区域">华西南区域</option>
-                  <option value="华中地区">华中地区</option>
-                </select>
-                <select>
-                  <option value="北京">北京</option>
-                  <option value="沈阳">沈阳</option>
-                  <option value="上海">上海</option>
-                  <option value="广州">广州</option>
-                </select>
-                <select>
-                  <option value="全部项目">全部项目</option>
-                  <option value="项目一">项目一</option>
-                  <option value="项目二">项目二</option>
-                  <option value="项目三">项目三</option>
-                </select>
+      </div>
+      <!--首页中间页面布局-->
+      <div class="center-box">
+        <div class="center-box-top">
+          <div class="center-top-t1">
+            <p>三角理论统计</p>
+          </div>
+          <div class="center-cent1">
+            <div class="left">
+              <select>
+                <option value="华北区域">华北区域</option>
+                <option value="华南区域">华南区域</option>
+                <option value="华西南区域">华西南区域</option>
+                <option value="华中地区">华中地区</option>
+              </select>
+              <select>
+                <option value="北京">北京</option>
+                <option value="沈阳">沈阳</option>
+                <option value="上海">上海</option>
+                <option value="广州">广州</option>
+              </select>
+              <select>
+                <option value="全部项目">全部项目</option>
+                <option value="项目一">项目一</option>
+                <option value="项目二">项目二</option>
+                <option value="项目三">项目三</option>
+              </select>
+            </div>
+            <div class="right">
+              <select>
+                <option value="全部楼层">全部楼层</option>
+                <option value="一层">一层</option>
+              </select>
+              <select>
+                <option value="全部业态">全部业态</option>
+                <option value="服装类">服装类</option>
+              </select>
+              <select>
+                <option value="全部品牌">全部品牌</option>
+                <option value="A&amp;F">A&amp;F</option>
+                <option value="杰克琼斯">杰克琼斯</option>
+                <option value="斯莱德">斯莱德</option>
+              </select>
+            </div>
+            <!--<div class="cent-img"></div>-->
+            <div id="main" style="width: 200px;height:200px;"></div>
+            <div class="cent-btn">
+              <div class="cent-btn-left">
+                <div class="cent-btn-left1">综合评估</div>
+                <div class="cent-btn-left2">优</div>
               </div>
-              <div class="right">
-                <select>
-                  <option value="全部楼层">全部楼层</option>
-                  <option value="一层">一层</option>
-                </select>
-                <select>
-                  <option value="全部业态">全部业态</option>
-                  <option value="服装类">服装类</option>
-                </select>
-                <select>
-                  <option value="全部品牌">全部品牌</option>
-                  <option value="A&amp;F">A&amp;F</option>
-                  <option value="杰克琼斯">杰克琼斯</option>
-                  <option value="斯莱德">斯莱德</option>
-                </select>
+              <div class="cent-btn-right">
+                <ul>
+                  <li> <p>溢租率</p></li>
+                  <li> <p>客销度</p></li>
+                  <li> <p>适配值</p></li>
+                </ul>
               </div>
-              <div id="main" style="width: 180px;height:180px;"></div>
-              <!--<div class="cent-btn">-->
-                <!--<div class="cent-btn-left">-->
-                  <!--<div class="cent-btn-left1">综合评估</div>-->
-                  <!--<div class="cent-btn-left2">优</div>-->
-                <!--</div>-->
-                <!--<div class="cent-btn-right">-->
-                  <!--<ul>-->
-                    <!--<li><div>10P</div><p>溢租率</p></li>-->
-                    <!--<li><div>10P</div><p>客销度</p></li>-->
-                    <!--<li><div>10P</div><p>适配值</p></li>-->
-                  <!--</ul>-->
-                <!--</div>-->
-              <!--</div>-->
-
-            </div>
-          </div>
-          <div class="cont-bottom">
-            <img src="../../assets/images/l_t.png" alt="">
-            <div class="center-btn-left"></div>
-            <div class="cent-top-t2">
-              <ul>
-                <li>
-                  <span>华北区</span>
-                  <span class="span1">
-                  <p class="p1"></p>
-                </span>
-                  <i class="i2">
-                    <p>500</p>
-                  </i>
-                </li>
-                <li>
-                  <span>华中区</span>
-                  <span class="span1">
-                  <p class="p1"></p>
-                </span>
-                  <i class="i2">
-                    <p>400</p>
-                  </i>
-                </li>
-                <li>
-                  <span>华东区</span>
-                  <span class="span1">
-                  <p class="p1"></p>
-                </span>
-                  <i class="i2">
-                    <p>300</p>
-                  </i>
-                </li>
-                <li>
-                  <span>华南区</span>
-                  <span class="span1">
-                  <p class="p1"></p>
-                </span>
-                  <i class="i2">
-                    <p>200</p>
-                  </i>
-                </li>
-                <li>
-                  <span>华西北区</span>
-                  <span class="span1">
-                  <p class="p1"></p>
-                </span>
-                  <i class="i2">
-                    <p>100</p>
-                  </i>
-                </li>
-                <li>
-                  <span>华西南区</span>
-                  <span class="span1">
-                  <p class="p1"></p>
-                </span>
-                  <i class="i2">
-                    <p>100</p>
-                  </i>
-                </li>
-              </ul>
-
             </div>
           </div>
         </div>
-      </el-col>
-      <el-col :span="7"  :xs="24">
-        <div class="right-box">
-          <div class="right-top"></div>
-          <div class="right-cont"></div>
-          <div class="right-right"></div>
+        <div class="center-box-btn">
+          <div class="center-btn-t1">
+            <p>全国各城市项目品牌总量</p>
+          </div>
+          <div class="center-btn-left"></div>
+          <div class="cent-top-t2">
+            <ul>
+              <li>
+                <span>华北区</span>
+                <span class="span1">
+                  <p class="p1"></p>
+                </span>
+                <i class="i2">
+                  <p>500</p>
+                </i>
+              </li>
+              <li>
+                <span>华中区</span>
+                <span class="span1">
+                  <p class="p1"></p>
+                </span>
+                <i class="i2">
+                  <p>400</p>
+                </i>
+              </li>
+              <li>
+                <span>华东区</span>
+                <span class="span1">
+                  <p class="p1"></p>
+                </span>
+                <i class="i2">
+                  <p>300</p>
+                </i>
+              </li>
+              <li>
+                <span>华南区</span>
+                <span class="span1">
+                  <p class="p1"></p>
+                </span>
+                <i class="i2">
+                  <p>200</p>
+                </i>
+              </li>
+              <li>
+                <span>华西北区</span>
+                <span class="span1">
+                  <p class="p1"></p>
+                </span>
+                <i class="i2">
+                  <p>100</p>
+                </i>
+              </li>
+              <li>
+                <span>华西南区</span>
+                <span class="span1">
+                  <p class="p1"></p>
+                </span>
+                <i class="i2">
+                  <p>100</p>
+                </i>
+              </li>
+            </ul>
+
+          </div>
         </div>
-      </el-col>
-    </el-row>
+      </div>
+
+      <!--首页右边页面布局-->
+      <div class="right-box">
+        <div class="right-top">
+          <div class="right-top-t1">
+            <p>项目预览</p>
+          </div>
+          <div class="right-img"></div>
+          <div class="right_img1"></div>
+          <span>西安鑫苑大都汇 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+          <span>楼层数：共5层</span><br>
+          <span>开始时间：2016年12月16日 &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+          <span>面积：12万平方</span>
+        </div>
+        <div class="right-cent">
+          <div class="right-cent-t2">
+            <p>客销度</p>
+          </div>
+          <p class="r2">E1：短期下调租金培育品牌经营</p>
+          <p class="r2">E2:辅助品牌经营</p>
+          <p class="r2">E3:分析品牌下降原因</p>
+          <p class="r2">E4:下调租金</p>
+          <p class="r2">E5:品牌淘汰</p>
+        </div>
+        <div class="right-bottom">
+          <div class="right-bottom-t2">
+            <p>建议措施</p>
+          </div>
+          <span class="r3">溢租率</span>
+          <span class="r3">适配值</span>
+          <p class="r4">E1：短期下调租金培育品牌经营</p>
+          <p class="r4">E2:辅助品牌经营</p>
+          <p class="r4">E3:分析品牌下降原因</p>
+          <p class="r4">E4:下调租金</p>
+          <p class="r4">E5:品牌淘汰</p>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!--<div>-->
+    <!--<div class="index-box">-->
+      <!--<el-row :gutter="20">-->
+        <!--<el-col :span="7"  :xs="24" :sm="24" :md="24" :lg="7">-->
+          <!--<div class="left-box">-->
+            <!--<div class="left-top">-->
+              <!--<div class="xing"></div>-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<span>全国各项目总量</span>-->
+              <!--<p>客流:<i>5</i><i>0</i><i>0</i>,<i>0</i><i>0</i><i>0</i>万人</p>-->
+              <!--<p>销售:<i>5</i><i>0</i><i>0</i>,<i>0</i><i>0</i><i>0</i>万元</p>-->
+            <!--</div>-->
+            <!--<div class="left-cont">-->
+              <!--<div class="xing"></div>-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="left-cont-t1">-->
+                <!--<span class="l2">全过各区域客流量排行</span>-->
+                <!--<p class="p1"><i></i><span>全国各区域客流量</span></p>-->
+                <!--<p class="p2"><i></i><span>全国各区域销售量</span></p>-->
+              <!--</div>-->
+              <!--<div class="left-cont-t2">-->
+                <!--<ul>-->
+                  <!--<li>-->
+                    <!--<i class="i1">01</i>-->
+                    <!--<span>华北区域</span>-->
+                    <!--<span class="span1">-->
+                  <!--<p class="p1"></p>-->
+                  <!--<p class="p2"></p>-->
+                <!--</span>-->
+                    <!--<i class="i2">-->
+                      <!--<p>500</p>-->
+                      <!--<p>300</p>-->
+                    <!--</i>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<i class="i1">02</i>-->
+                    <!--<span>华南区域</span>-->
+                    <!--<span class="span1">-->
+                  <!--<p class="p1"></p>-->
+                  <!--<p class="p2"></p>-->
+                <!--</span>-->
+                    <!--<i class="i2">-->
+                      <!--<p>500</p>-->
+                      <!--<p>300</p>-->
+                    <!--</i>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<i class="i1">03</i>-->
+                    <!--<span>华西南区域</span>-->
+                    <!--<span class="span1">-->
+                  <!--<p class="p1"></p>-->
+                  <!--<p class="p2"></p>-->
+                <!--</span>-->
+                    <!--<i class="i2">-->
+                      <!--<p>500</p>-->
+                      <!--<p>300</p>-->
+                    <!--</i>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<i class="i1">04</i>-->
+                    <!--<span>华西区域</span>-->
+                    <!--<span class="span1">-->
+                  <!--<p class="p1"></p>-->
+                  <!--<p class="p2"></p>-->
+                <!--</span>-->
+                    <!--<i class="i2">-->
+                      <!--<p>500</p>-->
+                      <!--<p>300</p>-->
+                    <!--</i>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<i class="i1">05</i>-->
+                    <!--<span>华中区域</span>-->
+                    <!--<span class="span1">-->
+                  <!--<p class="p1"></p>-->
+                  <!--<p class="p2"></p>-->
+                <!--</span>-->
+                    <!--<i class="i2">-->
+                      <!--<p>500</p>-->
+                      <!--<p>300</p>-->
+                    <!--</i>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                    <!--<i class="i1">06</i>-->
+                    <!--<span>华东区域</span>-->
+                    <!--<span class="span1">-->
+                  <!--<p class="p1"></p>-->
+                  <!--<p class="p2"></p>-->
+                <!--</span>-->
+                    <!--<i class="i2">-->
+                      <!--<p>500</p>-->
+                      <!--<p>300</p>-->
+                    <!--</i>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="left-btn">-->
+
+              <!--<div class="left-bottom">-->
+                <!--<img src="../../assets/images/l_t.png" alt="">-->
+                <!--<div class="xing"></div>-->
+                <!--<span class="l3">全国销售额与客流量增长趋势统计</span>-->
+                <!--<div class="left-bottom-t1">-->
+                  <!--<p class="p1"><i></i><span>全国各区域客流量</span></p>-->
+                  <!--<p class="p2"><i></i><span>全国各区域销售量</span></p>-->
+                <!--</div>-->
+                <!--<div id="main1"></div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</el-col>-->
+
+        <!--<el-col :span="10" :xs="24" :sm="24" :md="24" :lg="10">-->
+          <!--<div class="cont-box">-->
+            <!--<div class="cont-top">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="xing"></div>-->
+              <!--<span class="c1">三角理念统计</span>-->
+              <!--<div class="center-cent1">-->
+                <!--<div class="left">-->
+                  <!--<select>-->
+                    <!--<option value="华北区域">华北区域</option>-->
+                    <!--<option value="华南区域">华南区域</option>-->
+                    <!--<option value="华西南区域">华西南区域</option>-->
+                    <!--<option value="华中地区">华中地区</option>-->
+                  <!--</select>-->
+                  <!--<select>-->
+                    <!--<option value="北京">北京</option>-->
+                    <!--<option value="沈阳">沈阳</option>-->
+                    <!--<option value="上海">上海</option>-->
+                    <!--<option value="广州">广州</option>-->
+                  <!--</select>-->
+                  <!--<select>-->
+                    <!--<option value="全部项目">全部项目</option>-->
+                    <!--<option value="项目一">项目一</option>-->
+                    <!--<option value="项目二">项目二</option>-->
+                    <!--<option value="项目三">项目三</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="right">-->
+                  <!--<select>-->
+                    <!--<option value="全部楼层">全部楼层</option>-->
+                    <!--<option value="一层">一层</option>-->
+                  <!--</select>-->
+                  <!--<select>-->
+                    <!--<option value="全部业态">全部业态</option>-->
+                    <!--<option value="服装类">服装类</option>-->
+                  <!--</select>-->
+                  <!--<select>-->
+                    <!--<option value="全部品牌">全部品牌</option>-->
+                    <!--<option value="A&amp;F">A&amp;F</option>-->
+                    <!--<option value="杰克琼斯">杰克琼斯</option>-->
+                    <!--<option value="斯莱德">斯莱德</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div id="main" style="width: 240px;height:300px;"></div>-->
+              <!--</div>-->
+              <!--<div class="cent-btn-left2">优</div>-->
+              <!--&lt;!&ndash;<div class="cent-btn-right">&ndash;&gt;-->
+                <!--&lt;!&ndash;<ul>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li>溢租率</li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li>10P客销度</li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li>10P适配值</li>&ndash;&gt;-->
+                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div class="cont-bottom">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="center-btn-left"></div>-->
+              <!--<div id="main2"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</el-col>-->
+        <!--<el-col :span="7"  :xs="24" :sm="24" :md="24" :lg="7">-->
+          <!--<div class="right-box">-->
+            <!--<div class="right-top">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="xing"></div>-->
+              <!--<span class="r1">项目预览</span>-->
+              <!--<div class="right-img"></div>-->
+              <!--<div class="right_img1"></div>-->
+              <!--<span class="rx">西安鑫苑大都汇 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>-->
+              <!--<span class="rx">楼层数：共5层</span><br>-->
+              <!--<span class="rx">开始时间：2016年12月16日 &nbsp &nbsp &nbsp &nbsp &nbsp</span>-->
+              <!--<span class="rx">面积：12万平方</span>-->
+            <!--</div>-->
+            <!--<div class="right-cont">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="xing"></div>-->
+                <!--<span class="r2-1">客销度</span>-->
+              <!--<p class="r2">E1：短期下调租金培育品牌经营</p>-->
+              <!--<p class="r2">E2:辅助品牌经营</p>-->
+              <!--<p class="r2">E3:分析品牌下降原因</p>-->
+              <!--<p class="r2">E4:下调租金</p>-->
+              <!--<p class="r2">E5:品牌淘汰</p>-->
+            <!--</div>-->
+            <!--<div class="right-right">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="xing"></div>-->
+              <!--<span class="r3-1">建议措施</span>-->
+              <!--<span class="r3">溢租率</span>-->
+              <!--<span class="r3">适配值</span>-->
+              <!--<p class="r4">E1：短期下调租金培育品牌经营</p>-->
+              <!--<p class="r4">E2:辅助品牌经营</p>-->
+              <!--<p class="r4">E3:分析品牌下降原因</p>-->
+              <!--<p class="r4">E4:下调租金</p>-->
+              <!--<p class="r4">E5:品牌淘汰</p>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</el-col>-->
+      <!--</el-row>-->
+    <!--</div>-->
+  <!--</div>-->
 </template>
 <script>
   import echarts from '../../../static/js/echarts.js'
-export default {
-  components: {
+  export default {
+    components: {
 
-  },
+    },
   data () {
    return{
 
@@ -276,11 +522,13 @@ export default {
         x: 'left'
       },
       parallelAxis: [
-        {dim: 0, name: '溢租率(%)',min:-100,max:100,
+        {
+          dim: 0, name: '溢租率(%)',min:-100,max:100,color:'#ffff',
           axisLine:{
             lineStyle:{
               width:10,
               color: {
+                color:'#ffff',
                 type: 'linear',
                 x: 0,
                 y: 0,
@@ -378,18 +626,18 @@ export default {
           {
             value:[-20, 130, 3600],
             lineStyle:{
-              color:'blue'
+              color:'#fff'
             }
           },
           {
             value:[-20, null,3600],
             lineStyle:{
-              color:'blue'
+              color:'#fff'
             }
           }
         ]
       },{
-        color:'#333',
+        color:'#fff',
         type: 'parallel',
         lineStyle: {
           width: 3
@@ -398,22 +646,157 @@ export default {
           {
             value:[-45, 180, 6000],
             lineStyle:{
-              color:'red'
+              color:'yellow'
             }
           },
           {
             value:[-45, null, 6000],
             lineStyle:{
-              color:'red'
+              color:'yellow'
             }
           }
         ]
       }]
     };
-    // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 
+    var myChart1 = echarts.init(document.getElementById('main1'));
+    var option1 = {
 
+       tooltip : {
+         trigger: 'axis'
+       },
+       calculable : true,
+       xAxis : [
+         {
+           type : 'category',
+           boundaryGap : false,
+           data : ['周一','周二','周三','周四','周五','周六','周日']
+         }
+       ],
+       yAxis : [
+         {
+           type : 'value',
+           axisLabel : {
+             formatter: '{value} °C'
+           }
+         }
+       ],
+       series : [
+         {
+           name:'最高气温',
+           type:'line',
+           data:[11, 11, 15, 13, 12, 13, 10],
+           markPoint : {
+             data : [
+               {type : 'max', name: '最大值'},
+               {type : 'min', name: '最小值'}
+             ]
+           },
+           markLine : {
+             data : [
+               {type : 'average', name: '平均值'}
+             ]
+           }
+         },
+         {
+           name:'最低气温',
+           type:'line',
+           data:[1, -2, 2, 5, 3, 2, 0],
+           markPoint : {
+             data : [
+               {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
+             ]
+           },
+           markLine : {
+             data : [
+               {type : 'average', name : '平均值'}
+             ]
+           }
+         }
+       ]
+     };
+    myChart1.setOption(option1);
+
+
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    var option2 = {
+
+     tooltip : {
+       trigger: 'item'
+     },
+
+     dataRange: {
+       orient: 'horizontal',
+       min: 0,
+       max: 55000,
+       text:['高','低'],           // 文本，默认为数值文本
+       splitNumber:0
+     },
+
+     series : [
+       {
+         name: '2011全国GDP分布',
+         type: 'map',
+         mapType: 'china',
+         mapLocation: {
+           x: 'left'
+         },
+         selectedMode : 'multiple',
+         itemStyle:{
+           normal:{label:{show:true}},
+           emphasis:{label:{show:true}}
+         },
+         data:[
+           {name:'西藏', value:605.83},
+           {name:'青海', value:1670.44},
+           {name:'宁夏', value:2102.21},
+           {name:'海南', value:2522.66},
+           {name:'甘肃', value:5020.37},
+           {name:'贵州', value:5701.84},
+           {name:'新疆', value:6610.05},
+           {name:'云南', value:8893.12},
+           {name:'重庆', value:10011.37},
+           {name:'吉林', value:10568.83},
+           {name:'山西', value:11237.55},
+           {name:'天津', value:11307.28},
+           {name:'江西', value:11702.82},
+           {name:'广西', value:11720.87},
+           {name:'陕西', value:12512.3},
+           {name:'黑龙江', value:12582},
+           {name:'内蒙古', value:14359.88},
+           {name:'安徽', value:15300.65},
+           {name:'北京', value:16251.93, selected:true},
+           {name:'福建', value:17560.18},
+           {name:'上海', value:19195.69, selected:true},
+           {name:'湖北', value:19632.26},
+           {name:'湖南', value:19669.56},
+           {name:'四川', value:21026.68},
+           {name:'辽宁', value:22226.7},
+           {name:'河北', value:24515.76},
+           {name:'河南', value:26931.03},
+           {name:'浙江', value:32318.85},
+           {name:'山东', value:45361.85},
+           {name:'江苏', value:49110.27},
+           {name:'广东', value:53210.28, selected:true}
+         ]
+       },
+       {
+         name:'2011全国GDP对比',
+         type:'pie',
+         roseType : 'area',
+         tooltip: {
+           trigger: 'item',
+           formatter: "{a} <br/>{b} : {c} ({d}%)"
+         },
+         center: [document.getElementById('main').offsetWidth - 250, 225],
+         radius: [30, 120],
+
+       }
+     ],
+     animation: false
+   };
+    myChart2.setOption(option2);
   },
   filters: {
   },
@@ -424,47 +807,631 @@ export default {
 </script>
 
 <style scoped  lang="less">
-    .index-box {
+
+     /*.index-box {*/
+      /*width: 100%;*/
+      /*!*首页内容左边部分*!*/
+      /*.left-box {*/
+        /*width: 100%;*/
+        /*height: auto;*/
+        /*.left-top {*/
+          /*width: 100%;*/
+          /*height: 200px;*/
+          /*img {*/
+            /*width: 100%;*/
+            /*height: 200px;*/
+            /*margin-left: 23px;*/
+          /*}*/
+          /*p {*/
+            /*color: white;*/
+            /*margin-top: -80px;*/
+            /*text-align: center;*/
+            /*font-size: 21px;*/
+            /*i{*/
+              /*width: 20px;*/
+              /*height: 20px;*/
+              /*background: rgb(31,168,243);*/
+              /*margin-left:5px;*/
+              /*font-size: 25px;*/
+              /*border-radius: 2px;*/
+            /*}*/
+          /*}*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*top: 0px;*/
+            /*left: 47px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 3px 70px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+          /*span{*/
+            /*display: block;*/
+            /*color: #fff;*/
+            /*position: absolute;*/
+            /*top: 3px;*/
+            /*left: 65px;*/
+            /*font-size: 14px;*/
+          /*}*/
+        /*}*/
+        /*.left-cont {*/
+          /*width: 100%;*/
+          /*height: 260px;*/
+          /*!*background: yellow;*!*/
+          /*img {*/
+            /*width: 100%;*/
+            /*height: 260px;*/
+            /*margin-left: 23px;*/
+          /*}*/
+          /*.left-cont-t1 {*/
+            /*width: 100%;*/
+            /*margin-left: 45px;*/
+            /*margin-top: -240px;*/
+            /*.l2{*/
+              /*display: block;*/
+              /*color: #Fff;*/
+              /*font-size: 14px;*/
+              /*position: absolute;*/
+              /*top: 205px;*/
+              /*left: 60px;*/
+            /*}*/
+          /*}*/
+          /*.p1 {*/
+            /*float: left;*/
+            /*span {*/
+              /*float: left;*/
+              /*color: white;*/
+              /*margin-left: 5px;*/
+              /*font-size: 12px;*/
+            /*}*/
+            /*i {*/
+              /*width: 10px;*/
+              /*height: 10px;*/
+              /*margin-top: 3px;*/
+              /*display: block;*/
+              /*clear: both;*/
+              /*margin-left: 35px;*/
+              /*float: left;*/
+              /*background: yellow;*/
+            /*}*/
+          /*}*/
+          /*.p2 {*/
+            /*float: left;*/
+            /*span {*/
+              /*float: left;*/
+              /*color: white;*/
+              /*margin-left: 3px;*/
+              /*font-size: 12px;*/
+            /*}*/
+            /*i {*/
+              /*width: 10px;*/
+              /*height: 10px;*/
+              /*display: block;*/
+              /*margin-top: 3px;*/
+              /*clear: both;*/
+              /*float: left;*/
+              /*margin-left: 5px;*/
+              /*background: green;*/
+            /*}*/
+          /*}*/
+          /*.left-cont-t2 {*/
+            /*width: 100%;*/
+            /*height: 200px;*/
+            /*margin-left: 55px;*/
+            /*ul li{*/
+              /*width: 100%;*/
+              /*height: 10px;*/
+              /*margin-top: 23px;*/
+              /*.i1{*/
+                /*float: left;*/
+                /*display: block;*/
+                /*width: 25px;*/
+                /*height: 25px;*/
+                /*text-align: center;*/
+                /*font-size: 16px;*/
+                /*line-height:25px;*/
+                /*color: white;*/
+                /*background: rgba(22, 155, 213, 1);*/
+                /*border-radius: 5px;*/
+              /*}*/
+              /*span{*/
+                /*float: left;*/
+                /*display: block;*/
+                /*margin-left: 15px;*/
+                /*line-height: 25px;*/
+                /*color: white;*/
+                /*font-size: 14px;*/
+              /*}*/
+              /*.span1{*/
+                /*display: block;*/
+                /*float: left;*/
+                /*width: 90px;*/
+                /*height: 32px;*/
+                /*margin-left: 10px;*/
+                /*.p1{*/
+                  /*width: 100%;*/
+                  /*height: 5px;*/
+                  /*background: blue;*/
+                  /*margin-top: 10px;*/
+                /*}*/
+                /*.p2{*/
+                  /*width: 50%;*/
+                  /*height: 5px;*/
+                  /*background: green;*/
+                  /*margin-top: 5px;*/
+                /*}*/
+              /*}*/
+              /*.i2{*/
+                /*display: block;*/
+                /*float: right;*/
+                /*width: 40px;*/
+                /*height: 32px;*/
+                /*margin-right: 80px;*/
+                /*p{*/
+                  /*width: 100%;*/
+                  /*height:8px;*/
+                  /*margin-top: 5px;*/
+                  /*font-size: 13px;*/
+                  /*color: white;*/
+                  /*text-align: center;*/
+                /*}*/
+              /*}*/
+            /*}*/
+          /*}*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*top: 203px;*/
+            /*left: 43px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 2px 90px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+        /*}*/
+        /*.left-bottom {*/
+          /*width: 100%;*/
+          /*height: 187px;*/
+          /*margin-top: 0px;*/
+          /*img{*/
+            /*width: 100%;*/
+            /*height: 250px;*/
+            /*margin-left: 23px;*/
+          /*}*/
+          /*.left-bottom-t1{*/
+            /*width: 100%;*/
+            /*margin-top: -180px;*/
+            /*p{*/
+              /*text-align: center;*/
+              /*color: white;*/
+              /*font-size: 10px;*/
+              /*line-height: 30px;*/
+              /*margin-top: -27px;*/
+            /*}*/
+            /*.p1{*/
+              /*float: left;*/
+              /*span{*/
+                /*float: left;*/
+                /*color: white;*/
+                /*margin-left: 3px;*/
+                /*font-size: 12px;*/
+
+              /*}*/
+            /*}*/
+            /*.p1 i{*/
+              /*width: 10px;*/
+              /*height: 10px;*/
+              /*margin-top: 10px;*/
+              /*display: block;*/
+              /*clear: both;*/
+              /*float: left;*/
+              /*margin-left: 50px;*/
+              /*background: blue;*/
+            /*}*/
+            /*.p2{*/
+              /*float: left;*/
+              /*span{*/
+                /*float: left;*/
+                /*color: white;*/
+                /*margin-left: 3px;*/
+                /*font-size: 12px;*/
+              /*}*/
+            /*}*/
+            /*.p2 i{*/
+              /*width: 10px;*/
+              /*height: 10px;*/
+              /*display: block;*/
+              /*margin-top: 10px;*/
+              /*clear: both;*/
+              /*float: left;*/
+              /*background: green;*/
+            /*}*/
+          /*}*/
+          /*!*#main1{*!*/
+            /*!*position: relative;*!*/
+            /*!*overflow: hidden;*!*/
+            /*!*width: 85%;*!*/
+            /*!*height: 200px;*!*/
+            /*!*padding: 0px;*!*/
+            /*!*margin: 0px;*!*/
+            /*!*border-width: 0px;*!*/
+            /*!*cursor: crosshair;*!*/
+            /*!*left:20px;*!*/
+            /*!*top:0;*!*/
+            /*!*color:#fff;*!*/
+          /*!*}*!*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*bottom: 220px;*/
+            /*left: 36px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 3px 120px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+          /*.l3{*/
+            /*display: block;*/
+            /*color: #Fff;*/
+            /*font-size: 14px;*/
+            /*position: absolute;*/
+            /*bottom: 223px;*/
+            /*left: 50px;*/
+          /*}*/
+        /*}*/
+      /*}*/
+      /*!*首页内容中间部分*!*/
+      /*.cont-box {*/
+        /*width: 100%;*/
+        /*height: auto;*/
+        /*.cont-top {*/
+          /*width: 100%;*/
+          /*height: 300px;*/
+          /*img{*/
+            /*width: 100%;*/
+            /*height: 400px;*/
+          /*}*/
+          /*.center-cent1{*/
+            /*width: 100%;*/
+            /*margin-top: -255px;*/
+            /*select{*/
+              /*width: 90px;*/
+              /*font-size: 10px;*/
+              /*background: transparent;*/
+              /*color: white;*/
+              /*float: left;*/
+              /*margin-left: 10px;*/
+              /*margin-top: 5px;*/
+              /*position: relative;*/
+              /*left: 160px;*/
+              /*top: -130px;*/
+              /*border: none;*/
+              /*border-bottom: 1px solid #fff;*/
+              /*option{*/
+                /*background: transparent;*/
+                /*color: black;*/
+              /*}*/
+            /*}*/
+            /*.right{*/
+              /*clear: both;*/
+            /*}*/
+            /*.cent-btn{*/
+              /*width: 85%;*/
+              /*height: 130px;*/
+              /*margin-left: 80px;*/
+            /*}*/
+            /*.cent-btn-left{*/
+              /*width: 180px;*/
+              /*height: 130px;*/
+              /*position: absolute;*/
+              /*.cent-btn-left1{*/
+                /*width: 60%;*/
+                /*height: 50px;*/
+                /*position: relative;*/
+                /*top: -25px;*/
+                /*text-align: center;*/
+                /*color: white;*/
+                /*font-size: 16px;*/
+                /*line-height: 55px;*/
+                /*float: left;*/
+              /*}*/
+              /*.cent-btn-left2{*/
+                /*width: 40%;*/
+                /*height: 50px;*/
+                /*float: left;*/
+                /*color: white;*/
+                /*text-align: center;*/
+                /*font-weight: bold;*/
+                /*font-size: 50px;*/
+                /*line-height: 10px;*/
+                /*margin-top: -160px;*/
+              /*}*/
+            /*}*/
+
+            /*#main{*/
+              /*position: relative;*/
+              /*overflow: hidden;*/
+              /*width: 180px;*/
+              /*height: 200px;*/
+              /*padding: 0px;*/
+              /*margin: 0px;*/
+              /*border-width: 0px;*/
+              /*cursor: crosshair;*/
+              /*left: -110px;*/
+              /*top: -120px;*/
+              /*color:#fff;*/
+            /*}*/
+          /*}*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*top: 3px;*/
+            /*left: 420px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 3px 70px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+          /*.c1{*/
+            /*display: block;*/
+            /*color: #Fff;*/
+            /*font-size: 14px;*/
+            /*position: absolute;*/
+            /*top: 4px;*/
+            /*left: 440px;*/
+          /*}*/
+          /*.cent-btn-left2{*/
+            /*width: 40%;*/
+            /*height: 50px;*/
+            /*float: left;*/
+            /*color: white;*/
+            /*text-align: center;*/
+            /*font-weight: bold;*/
+            /*font-size: 40px;*/
+            /*line-height: 10px;*/
+            /*margin-top: -160px;*/
+          /*}*/
+          /*.cent-btn-right{*/
+            /*width: 100px;*/
+            /*height: 100px;*/
+            /*background: red;*/
+            /*margin-top: -160px;*/
+            /*margin-left: 160px;*/
+            /*ul li{*/
+              /*display: inline-block;*/
+            /*}*/
+          /*}*/
+        /*}*/
+        /*.cont-bottom {*/
+          /*width: 100%;*/
+          /*height: 302px;*/
+          /*margin-top: 100px;*/
+          /*img{*/
+            /*width: 100%;*/
+            /*height: 316px;*/
+          /*}*/
+          /*#main2{*/
+            /*position: relative;*/
+            /*overflow: hidden;*/
+            /*width: 88%;*/
+            /*height: 201px;*/
+            /*padding: 0px;*/
+            /*margin: 0px;*/
+            /*border-width: 0px;*/
+            /*cursor: crosshair;*/
+            /*left: 20px;*/
+            /*top: -212px;*/
+            /*color: #fff;*/
+          /*}*/
+        /*}*/
+      /*}*/
+      /*!*首页内容右边部分*!*/
+      /*.right-box {*/
+        /*width: 100%;*/
+        /*height: auto;*/
+        /*.right-top {*/
+          /*width: 100%;*/
+          /*height: 280px;*/
+          /*img{*/
+            /*width: 100%;*/
+            /*height: 280px;*/
+          /*}*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*top: -7px;*/
+            /*right: 275px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 3px 50px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+          /*.r1{*/
+              /*display: block;*/
+              /*color: #Fff;*/
+              /*font-size: 14px;*/
+              /*position: absolute;*/
+            /*top: -4px;*/
+            /*right: 300px;*/
+          /*}*/
+          /*.right-img{*/
+            /*width: 89%;*/
+            /*height: 200px;*/
+            /*background: url(../../assets/images/r_t.png);*/
+            /*margin-top: -260px;*/
+            /*margin-left: 10px;*/
+            /*background-size: 100% 200px;*/
+          /*}*/
+          /*.right_img1{*/
+            /*width: 15%;*/
+            /*height: 54px;*/
+            /*background: url("../../assets/images/r_t1.png");*/
+            /*margin-top: -190px;*/
+            /*margin-left: 13px;*/
+            /*background-size: 100% 54px;*/
+          /*}*/
+          /*.rx{*/
+            /*font-size: 12px;*/
+            /*color: #fff;*/
+            /*display: inline-block;*/
+            /*position: relative;*/
+            /*top:136px;*/
+            /*left: 18px;*/
+          /*}*/
+        /*}*/
+        /*.right-cont {*/
+          /*width: 100%;*/
+          /*height: 200px;*/
+          /*position: relative;*/
+          /*img{*/
+            /*width: 100%;*/
+            /*height: 200px;*/
+          /*}*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*top: 0;*/
+            /*right: 270px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 3px 50px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+          /*.r2-1{*/
+            /*display: block;*/
+            /*color: #Fff;*/
+            /*font-size: 15px;*/
+            /*position: absolute;*/
+            /*top: 3px;*/
+            /*right: 300px;*/
+          /*}*/
+            /*p{*/
+              /*text-align: center;*/
+              /*color: white;*/
+              /*font-size: 14px;*/
+              /*line-height: 30px;*/
+              /*position: relative;*/
+              /*top: -170px;*/
+            /*}*/
+        /*}*/
+        /*.right-right {*/
+          /*width: 100%;*/
+          /*height: 230px;*/
+          /*position: relative;*/
+          /*img{*/
+            /*width: 100%;*/
+            /*height: 230px;*/
+          /*}*/
+          /*.xing{*/
+            /*position: absolute;*/
+            /*top: 0;*/
+            /*right: 270px;*/
+            /*background: #169bd5;*/
+            /*height: 20px;*/
+            /*display: inline-block;*/
+            /*padding: 3px 50px;*/
+            /*transform: skew(-45deg);*/
+          /*}*/
+          /*.r3-1{*/
+            /*display: block;*/
+            /*color: #Fff;*/
+            /*font-size: 15px;*/
+            /*position: absolute;*/
+            /*top: 3px;*/
+            /*right: 290px;*/
+          /*}*/
+          /*.r3{*/
+            /*background: #24aef4;*/
+            /*display: inline-block;*/
+            /*position: relative;*/
+            /*top: -208px;*/
+            /*left: 200px;*/
+            /*padding: 6px;*/
+            /*color: #fff;*/
+            /*margin-left: 15px;*/
+            /*border-radius: 6px;*/
+            /*font-size: 13px;*/
+          /*}*/
+          /*.r4{*/
+            /*font-size: 14px;*/
+            /*color: #fff;*/
+            /*margin-top: 6px;*/
+            /*margin-left: 35px;*/
+            /*position: relative;*/
+            /*top: -206px;*/
+          /*}*/
+        /*}*/
+      /*}*/
+    /*}*/
+
+
+    /*最开始*/
+    .index-box{
       width: 100%;
-      /*首页内容左边部分*/
-      .left-box {
-        width: 100%;
+      /*首页左边样式布局样式表*/
+      .left-box{
+        width: 25%;
         height: auto;
-        .left-top {
+        float: left;
+        .left-top{
           width: 100%;
-          height: 100px;
-          img {
-            width: 100%;
-            height: 100px;
+          height:100px;
+          margin-left: 5px;
+          background-image: url("../../assets/images/l_t.png");
+          background-size:100% 100px;
+          .left-top-t1{
+            width: 190px;
+            height: 28px;
+            margin-left: 7px;
+            background: url("../../assets/images/l_t1.png");
+            p{
+              text-align: center;
+              color: white;
+              font-size: 16px;
+              line-height: 30px;
+            }
           }
-          p {
+          p{
             color: white;
-            margin-top: -50px;
+            margin-top: 10px;
             text-align: center;
           }
         }
-        .left-cont {
+        .left-cent{
           width: 100%;
-          height: 260px;
-          /*background: yellow;*/
-          img {
-            width: 100%;
-            height: 260px;
-          }
-          .left-cont-t1 {
-            width: 100%;
-            margin-left: 45px;
-            margin-top: -240px;
-          }
-          .p1 {
-            float: left;
-            span {
-              float: left;
+          height:280px;
+          margin-top: 15px;
+          margin-left: 5px;
+          background: url("../../assets/images/l_t.png");
+          background-size:100% 280px;
+          .left-top-t2{
+            width: 190px;
+            height: 28px;
+            margin-left: 7px;
+            background: url("../../assets/images/l_t1.png");
+            p{
+              text-align: center;
               color: white;
-              margin-left: 3px;
-              font-size: 12px;
+              font-size: 14px;
+              line-height: 30px;
             }
-            i {
+          }
+          .left-cent-t1{
+            width: 80%;
+            height: 30px;
+            margin-left: 45px;
+            margin-top: 15px;
+            .p1{
+              float: left;
+              span{
+                float: left;
+                color: white;
+                margin-left: 3px;
+                font-size: 12px;
+              }
+            }
+            .p1 i{
               width: 10px;
               height: 10px;
               margin-top: 3px;
@@ -472,18 +1439,18 @@ export default {
               clear: both;
               margin-left: 35px;
               float: left;
-              background: yellow;
+              background: blue;
             }
-          }
-          .p2 {
-            float: left;
-            span {
+            .p2{
               float: left;
-              color: white;
-              margin-left: 3px;
-              font-size: 12px;
+              span{
+                float: left;
+                color: white;
+                margin-left: 3px;
+                font-size: 12px;
+              }
             }
-            i {
+            .p2 i{
               width: 10px;
               height: 10px;
               display: block;
@@ -494,14 +1461,14 @@ export default {
               background: green;
             }
           }
-          .left-cont-t2 {
-            width: 100%;
+          .left-cent-t2{
+            width: 85%;
             height: 200px;
             margin-left: 25px;
             ul li{
               width: 100%;
-              height: 10px;
-              margin-top: 23px;
+              height: 30px;
+              margin-top: 2px;
               .i1{
                 float: left;
                 display: block;
@@ -546,7 +1513,6 @@ export default {
                 float: right;
                 width: 40px;
                 height: 32px;
-                margin-right: 80px;
                 p{
                   width: 100%;
                   height:8px;
@@ -559,22 +1525,29 @@ export default {
             }
           }
         }
-        .left-bottom {
+        .left-btn{
           width: 100%;
-          height: 187px;
-          img{
-            width: 100%;
-            height: 190px;
-          }
-          .left-bottom-t1{
-            width: 100%;
-            margin-top: -180px;
+          height:157px;
+          margin-left: 5px;
+          background: url("../../assets/images/l_t.png");
+          background-size:100% 157px;
+          .left-top-t3{
+            width: 65%;
+            height: 28px;
+            background: url("../../assets/images/l_t1.png");
+            background-size: 100%;
             p{
               text-align: center;
               color: white;
               font-size: 10px;
               line-height: 30px;
             }
+          }
+          .left-btn-t1{
+            width: 80%;
+            height: 30px;
+            margin-top: 3px;
+            margin-left: 38px;
             .p1{
               float: left;
               span{
@@ -587,7 +1560,7 @@ export default {
             .p1 i{
               width: 10px;
               height: 10px;
-              margin-top: 10px;
+              margin-top: 3px;
               display: block;
               clear: both;
               float: left;
@@ -607,31 +1580,57 @@ export default {
               width: 10px;
               height: 10px;
               display: block;
-              margin-top: 10px;
+              margin-top: 3px;
               clear: both;
               float: left;
               background: green;
             }
           }
+          #main1{
+            position: relative;
+            overflow: hidden;
+            width: 90%;
+            height: 100px;
+            padding: 0px;
+            margin: 0px;
+            border-width: 0px;
+            cursor: crosshair;
+            left: 10px;
+            top:-10px;
+            /*background: pink;*/
+            color:#fff;
+          }
         }
       }
-      /*首页内容中间部分*/
-      .cont-box {
-        width: 100%;
+      /*首页中间样式布局样式表*/
+      .center-box{
+        width: 50%;
         height: auto;
-        .cont-top {
+        float: left;
+        .center-box-top{
           width: 100%;
-          height: 274px;
-          background: pink;
-          img{
-            width: 100%;
-            height: 274px;
+          background-image: url("../../assets/images/l_t.png");
+          background-size:100% 100%;
+          .center-top-t1{
+            width: 190px;
+            height: 28px;
+            margin-left:15px;
+            background: url("../../assets/images/l_t1.png");
+            p{
+              text-align: center;
+              color: white;
+              font-size: 16px;
+              line-height: 30px;
+            }
           }
+          /**/
+          /**/
           .center-cent1{
-            width: 100%;
-            margin-top: -255px;
+            height: 300px;
+            margin-left: -50px;
             select{
               width: 90px;
+              height: 25px;
               font-size: 10px;
               background: transparent;
               color: white;
@@ -646,8 +1645,20 @@ export default {
                 color: black;
               }
             }
+            .left{
+              margin-left: 80px;
+            }
             .right{
+              margin-left: 80px;
               clear: both;
+            }
+            .cent-img{
+            width: 35%;
+            height: 110px;
+            background: url("../../assets/images/cent.png");
+            margin-top: 30px;
+            margin-left: 280px;
+            background-size: 100% 110px;
             }
             .cent-btn{
               width: 85%;
@@ -689,12 +1700,12 @@ export default {
               ul li{
                 display: block;
                 float: left;
-                width:50px;
-                height: 50px;
-                background: rgba(22, 155, 213, 1);
+                /*width:50px;*/
+                /*height: 50px;*/
+                /*background: rgba(22, 155, 213, 1);*/
                 margin-left: 60px;
                 margin-top: 11px;
-                border-radius: 50%;
+                /*border-radius: 50%;*/
                 div{
                   width: 30px;
                   height: 30px;
@@ -717,7 +1728,7 @@ export default {
             #main{
               position: relative;
               overflow: hidden;
-              width: 180px;
+              width: 200px;
               height: 200px;
               padding: 0px;
               margin: 0px;
@@ -730,38 +1741,209 @@ export default {
             }
           }
         }
-        .cont-bottom {
+        .center-box-btn{
           width: 100%;
-          height: 274px;
-          background: #1b6d85;
-          img{
-            width: 100%;
-            height: 274px;
+          height: 104%;
+          background-image: url("../../assets/images/l_t.png");
+          background-size:100% 104%;
+          .center-btn-t1{
+            width: 200px;
+            height: 28px;
+            margin-left:5px;
+            background: url("../../assets/images/l_t1.png");
+            background-size: 100%;
+            p{
+              text-align: center;
+              color: white;
+              font-size: 10px;
+              line-height: 30px;
+            }
           }
-
+          .center-btn-left{
+            width: 50%;
+            height:198px;
+            margin-left: 33px;
+            background:url("../../assets/images/ditu.png");
+            background-size: 100% 100%;
+          }
+          .cent-top-t2{
+            width: 85%;
+            height: 200px;
+            float: right;
+            margin-top: -209px;
+            margin-right: -300px;
+            ul li{
+              width: 100%;
+              height: 30px;
+              margin-top: 2px;
+              .i1{
+                float: left;
+                display: block;
+                width: 25px;
+                height: 25px;
+                text-align: center;
+                font-size: 16px;
+                line-height:25px;
+                color: white;
+                background: rgba(22, 155, 213, 1);
+                border-radius: 5px;
+              }
+              span{
+                float: left;
+                display: block;
+                margin-left: 15px;
+                line-height: 25px;
+                color: white;
+                font-size: 14px;
+              }
+              .span1{
+                display: block;
+                float: left;
+                width: 90px;
+                height: 32px;
+                margin-left: 10px;
+                .p1{
+                  width: 100%;
+                  height: 5px;
+                  background: blue;
+                  margin-top: 10px;
+                }
+                .p2{
+                  width: 50%;
+                  height: 5px;
+                  background: green;
+                  margin-top: 5px;
+                }
+              }
+              .i2{
+                display: block;
+                float: left;
+                width: 40px;
+                height: 32px;
+                p{
+                  width: 100%;
+                  height:8px;
+                  margin-top: 5px;
+                  font-size: 13px;
+                  color: white;
+                  text-align: center;
+                }
+              }
+            }
+          }
         }
       }
-      /*首页内容右边部分*/
-      .right-box {
-        width: 100%;
+      /*首页右边样式布局样式表*/
+      .right-box{
+        width: 25%;
         height: auto;
-        .right-top {
+        float: left;
+        .right-top{
           width: 100%;
-          height: 200px;
-          background: yellow;
+          height:220px;
+          margin-top: -5px;
+          /*margin-left: 5px;*/
+          background: url("../../assets/images/l_t.png");
+          background-size:100% 220px;
+          .right-top-t1{
+            width: 190px;
+            height: 28px;
+            margin-left: 7px;
+            background: url("../../assets/images/l_t1.png");
+            p{
+              text-align: center;
+              color: white;
+              font-size: 16px;
+              line-height: 30px;
+            }
+          }
+          .right-img{
+            width: 89%;
+            height: 140px;
+            background: url("../../assets/images/r_t.png");
+            margin-top: 2px;
+            margin-left: 10px;
+            background-size: 100% 150px;
+          }
+          .right_img1{
+            width: 15%;
+            height: 54px;
+            background: url("../../assets/images/r_t1.png");
+            margin-top: -137px;
+            margin-left: 13px;
+            background-size: 100% 54px;
+          }
         }
-        .right-cont {
-          width: 100%;
-          height: 170px;
-          background: #2e6da4;
+        span{
+          font-size: 12px;
+          color: #fff;
+          display: inline-block;
+          position: relative;
+          top:81px;
+          left: 18px;
         }
-        .right-right {
+        .right-cent{
           width: 100%;
-          height: 170px;
-          background: #5bc0de;
+          height:180px;
+          margin-top: -5px;
+          /*margin-left: 5px;*/
+          background: url("../../assets/images/l_t.png");
+          background-size:100% 180px;
+          .right-cent-t2{
+            width: 190px;
+            height: 28px;
+            margin-left: 7px;
+            background: url("../../assets/images/l_t1.png");
+            p{
+              text-align: center;
+              color: white;
+              font-size: 16px;
+              line-height: 30px;
+            }
+          }
+        }
+        .r2{
+          color: #fff;
+          margin-top: 8px;
+          margin-left: 35px;
+          font-size: 14px;
+        }
+        .right-bottom{
+          width: 100%;
+          height:175px;
+          margin-top: -5px;
+          /*margin-left: 5px;*/
+          background: url("../../assets/images/l_t.png");
+          background-size:100% 175px;
+          .right-bottom-t2{
+            width: 190px;
+            height: 28px;
+            margin-left: 7px;
+            background: url("../../assets/images/l_t1.png");
+            p{
+              text-align: center;
+              color: white;
+              font-size: 16px;
+              line-height: 30px;
+            }
+          }
+        }
+        .r3{
+          background: #24aef4;
+          display: inline-block;
+          position: relative;
+          top: 4px;
+          left: 80px;
+          padding: 6px;
+          margin-left: 10px;
+          border-radius: 10px;
+        }
+        .r4{
+          font-size: 10px;
+          color: #fff;
+          margin-top: 6px;
+          margin-left: 35px;
         }
       }
     }
-
-
 </style>

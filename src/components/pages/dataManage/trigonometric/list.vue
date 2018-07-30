@@ -16,7 +16,7 @@
 
         <el-col :span="6">
           <el-form-item label="楼层">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
+            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入楼层"></el-input>
           </el-form-item>
         </el-col><br><br><br>
 
@@ -45,13 +45,6 @@
         </el-col>
       </el-form>
     </el-row>
-
-    <!--<el-row>-->
-      <!--<el-button type="primary" style="margin-left: 30px;margin-top: 20px">溢租率</el-button>-->
-      <!--<el-button type="info" >客销度</el-button>-->
-      <!--<el-button type="info" >适配值</el-button>-->
-    <!--</el-row>-->
-
     <el-radio-group v-model="tabPosition" style="margin-top: 50px;margin-bottom:-25px;margin-left: 30px">
       <el-radio-button label="top">溢租率</el-radio-button>
       <el-radio-button label="right">客销度</el-radio-button>

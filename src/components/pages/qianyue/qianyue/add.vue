@@ -6,21 +6,6 @@
       <h3 class="title">签约信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
-
-        <!--&lt;!&ndash; <el-col :span="6"> &ndash;&gt;-->
-        <!--<el-form-item label="品牌名称">-->
-          <!--<el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入品牌名称"></el-input>-->
-        <!--</el-form-item>-->
-        <!--&lt;!&ndash; </el-col> &ndash;&gt;-->
-
-        <!--<el-col :span="7" :offset="1">-->
-          <!--开始时间：{{data.startTime}}-->
-        <!--</el-col>-->
-        <!--<el-col :span="8" :offset="1">-->
-          <!--修改时间：{{data.lastTime}}-->
-        <!--</el-col><br>-->
-
-
         <el-col :span="6">
           <el-form-item label="业态：">
             <el-select size="small" v-model="searchForm.area" placeholder=" ">
@@ -46,7 +31,7 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="区域：">
@@ -74,7 +59,7 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br><br>
 
 
         <el-col :span="6">
@@ -110,17 +95,6 @@
           </el-table-column>
         </el-table>
 
-        <!--<table class="main">-->
-          <!--<tr style="height: 20px;">-->
-            <!--<th>序号</th>-->
-            <!--<th>铺位名称</th>-->
-            <!--<th>楼层名称</th>-->
-          <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>1</td>-->
-          <!--<td>123</td>-->
-          <!--<td>一层</td></tr>-->
-        <!--</table>-->
       </div>
 
         <div class="xxk">
@@ -258,7 +232,7 @@
   .biao{
     width: 350px;
     height: 350px;
-    border: 3px solid #000;
+    border: 0px solid #fff;
     margin-left: 160px;
     el-table{
       margin-left: 10px;

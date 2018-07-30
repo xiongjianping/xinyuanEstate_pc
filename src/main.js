@@ -6,6 +6,7 @@ import router from './router'
 // import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/display.css';
 // import cors from 'cors'
 import echarts from 'echarts'
 import vueMethodsPromise from 'vue-methods-promise'

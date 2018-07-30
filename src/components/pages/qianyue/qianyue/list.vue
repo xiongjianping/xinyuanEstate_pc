@@ -4,7 +4,7 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
           <el-form-item label="区域">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入"></el-input>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入区域名称"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -32,7 +32,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="铺位名称">
+          <el-form-item label="铺位">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
             </el-select>

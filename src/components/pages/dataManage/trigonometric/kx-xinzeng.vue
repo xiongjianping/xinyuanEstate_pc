@@ -6,18 +6,6 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
 
-        <!--&lt;!&ndash; <el-col :span="6"> &ndash;&gt;-->
-        <!--<el-form-item label="铺位名称">-->
-          <!--<el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>-->
-        <!--</el-form-item>-->
-        <!--&lt;!&ndash; </el-col> &ndash;&gt;-->
-
-        <!--<el-col :span="7" :offset="1">-->
-          <!--开始时间：{{data.startTime}}-->
-        <!--</el-col>-->
-        <!--<el-col :span="8" :offset="1">-->
-          <!--修改时间：{{data.lastTime}}-->
-        <!--</el-col><br>-->
 
         <el-col :span="6">
           <el-form-item label="纬度：">
@@ -30,12 +18,12 @@
 
         <el-col :span="6">
           <el-form-item label="分类：">
-            <el-select size="small" v-model="searchForm.area" placeholder="项目">
+            <el-select size="small" v-model="searchForm.area" placeholder="分类">
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="区域：">
@@ -44,7 +32,7 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col><br><br><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="项目：">
@@ -53,7 +41,7 @@
               <el-option label="" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
 
         <el-col :span="6">
@@ -63,7 +51,7 @@
               <el-option label="B座" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
 
         <el-col :span="6">
@@ -73,7 +61,7 @@
               <el-option label="精品" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col><br><br><br><br><br>
         <el-col :span="6">
           <el-form-item label="业种：">
             <el-select size="small" v-model="searchForm.area" placeholder="川菜">
@@ -81,7 +69,7 @@
               <el-option label="火锅" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="区间最大值：">
@@ -100,8 +88,8 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6" style="color: red">
-          <el-form-item label="*每个区间的百分比数值" style="color: red;width: 100px">
+        <el-col :span="6" style="color: red; width: 165px">
+          <el-form-item label="*每个区间的百分比数值" style="color: red;width: 165px">
           </el-form-item>
         </el-col><br><br><br><br><br><br><br>
 

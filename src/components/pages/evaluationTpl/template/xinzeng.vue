@@ -11,7 +11,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="项目名称：">
+          <el-form-item label="项目：">
             <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目">
               <el-option v-for="(item,index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -24,45 +24,44 @@
         <br>
         <el-col :span="6">
           <el-form-item label="">
-            <el-select size="small" v-model="searchForm.type" placeholder="请选择类型" @change="searchList()">
+            <el-select size="small" v-model="searchForm.type" placeholder="租金帮扶" @change="searchList()">
               <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6" style="margin-left: -150px">
           <el-form-item label="">
-            <el-select size="small" v-model="sendData.type" placeholder="请选择类型">
+            <el-select size="small" v-model="sendData.type" placeholder="优秀">
               <el-option v-for="(item,index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br>
-      <div class="biao">
-        <el-table
-          :data="tableData3"
-          height="280"
-          border
-          style="width: 280px;margin: 0 auto;">
-          <el-checkbox v-model="checked">备选项</el-checkbox>
-          <el-table-column
-            prop="date"
-            label="序号">
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="类别">
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            label="帮扶内容">
-          </el-table-column>
-        </el-table>
+        </el-col><br><br>
+      <!--<div class="biao">-->
+        <!--<el-table-->
+          <!--:data="tableData3"-->
+          <!--height="280"-->
+          <!--border-->
+          <!--style="width: 280px;margin: 0 auto;">-->
+          <!--<el-checkbox v-model="checked">备选项</el-checkbox>-->
+          <!--<el-table-column-->
+            <!--prop="date"-->
+            <!--label="序号">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+            <!--prop="name"-->
+            <!--label="类别">-->
+          <!--</el-table-column>-->
+          <!--<el-table-column-->
+            <!--prop="address"-->
+            <!--label="帮扶内容">-->
+          <!--</el-table-column>-->
+        <!--</el-table>-->
 
-      </div>
+      <!--</div>-->
 
         <br>
         <br>
-        <br>
-        <br>
+
         <div class="biao">
           <el-table :data="allcontext" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
             <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>

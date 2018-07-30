@@ -1,31 +1,61 @@
 <template>
+  <!--<div class="header">-->
+    <!--<el-row :gutter="20" class="">-->
+      <!--<el-col :span="8">-->
+        <!--<div class="index-left">-->
+          <!--<ul style="margin-top: 20px">-->
+            <!--<li>-->
+              <!--<p>首页</p>-->
+            <!--</li>-->
+            <!--<li class="subMenu">项目管理</li>-->
+            <!--<li>品牌管理</li>-->
+            <!--<li>签约管理</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</el-col>-->
+      <!--<el-col :span="8">-->
+        <!--<div class="index-content">-->
+          <!--<img src="../../assets/images/logo1.png" alt="" style="width:100%;margin-top:28px;">-->
+        <!--</div>-->
+      <!--</el-col>-->
+      <!--<el-col :span="8"><div class="index-right">-->
+        <!--<ul style="margin-top: 20px">-->
+          <!--<li>数据管理</li>-->
+          <!--<li>帮扶计划</li>-->
+          <!--<li>评估模板</li>-->
+          <!--<li>系统平台</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--</el-col>-->
+    <!--</el-row>-->
+  <!--</div>-->
+
+
   <div class="header">
-    <el-row :gutter="20" class="">
-      <el-col :span="8">
-        <div class="index-left">
-          <ul style="margin-top: 20px">
-            <li><p>首页</p></li>
-            <li class="subMenu">项目管理</li>
-            <li>品牌管理</li>
-            <li>签约管理</li>
+    <div class="navList">
+      <ul class="navCont" >
+        <li     v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
+          <p @click="goLink(info, info)">{{info.name}}</p>
+          <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
+            <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}</li>
           </ul>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="index-content">
-          <img src="../../assets/images/logo1.png" alt="" style="width:100%;margin-top:28px;">
-        </div>
-      </el-col>
-      <el-col :span="8"><div class="index-right">
-        <ul style="margin-top: 20px">
-          <li>数据管理</li>
-          <li>帮扶计划</li>
-          <li>评估模板</li>
-          <li>系统平台</li>
-        </ul>
-      </div></el-col>
-    </el-row>
+        </li>
+        <li >
+          <!--<img src="../../assets/images/zhong.png" alt="" style="width:50%;margin-left:-55px;">-->
+          <img src="../../assets/images/logo1.png"  alt="" class="logos">
+        </li>
+        <li   v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
+          <p @click="goLink(info, info)">{{info.name}}</p>
+          <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
+            <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
+
+
 </template>
 <script>
   export default {
@@ -110,205 +140,200 @@
   }
 </script>
 
-<style scoped lang="less">
-  .header{
-    color: #fff;
-    margin: 0 auto;
-    /*头部左边部分*/
-    .index-left{
-      ul li{
-        display: inline-block;
-        padding:19px;
-        font-size: 14px;
-      }
-      ul li.subMenu{
-        width: 60px;
-        padding: 5px 0;
-        background: #fff;
-        color: #333;
-        border: 1px solid #ddd;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-      }
-    }
+<!--<style scoped lang="less">-->
 
-    /*头部中间部分*/
-    .index-content{
-      ul li{
-        display: inline-block;
-        padding: 19px;
-        font-size: 14px;
-      }
-    }
-    /*头部右边部分*/
-    .index-right{
-      ul li{
-        display: inline-block;
-        padding: 19px;
-        font-size: 14px;
-      }
+  <!--.header{-->
+    <!--color: #fff;-->
+    <!--margin: 0 auto;-->
+    <!--/*头部左边部分*/-->
+    <!--.index-left{-->
+      <!--ul li{-->
+        <!--display: inline-block;-->
+        <!--padding:19px;-->
+        <!--font-size: 14px;-->
+      <!--}-->
+      <!--ul li.subMenu{-->
+        <!--width: 60px;-->
+        <!--padding: 5px 0;-->
+        <!--background: #fff;-->
+        <!--color: #333;-->
+        <!--border: 1px solid #ddd;-->
+        <!--border-bottom-left-radius: 8px;-->
+        <!--border-bottom-right-radius: 8px;-->
+      <!--}-->
+    <!--}-->
+
+    <!--/*头部中间部分*/-->
+    <!--.index-content{-->
+      <!--ul li{-->
+        <!--display: inline-block;-->
+        <!--padding: 19px;-->
+        <!--font-size: 14px;-->
+      <!--}-->
+    <!--}-->
+    <!--/*头部右边部分*/-->
+    <!--.index-right{-->
+      <!--ul li{-->
+        <!--display: inline-block;-->
+        <!--padding: 19px;-->
+        <!--font-size: 14px;-->
+      <!--}-->
+    <!--}-->
+  <!--}-->
+
+<!--</style>-->
+
+
+
+<style scoped lang="less">
+
+  .logos{
+    width: 420px;
+    height: 65px;
+    margin-top: -18px;
+  }
+  .header {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 85px;
+    color: #fff;
+    z-index: 99;
+  }
+  /**/
+  .header .logo{
+    float: left;
+    width:250px;
+    height:50px;
+    text-align: center;
+    img{
+      height: 100%;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*.header {*/
-    /*position: relative;*/
-    /*box-sizing: border-box;*/
-    /*width: 100%;*/
-    /*height: 85px;*/
-    /*color: #fff;*/
-    /*z-index: 99;*/
-  /*}*/
-
-  /*.header .logo{*/
-    /*float: left;*/
-    /*width:250px;*/
-    /*height:50px;*/
-    /*text-align: center;*/
-    /*img{*/
-      /*height: 100%;*/
-    /*}*/
-  /*}*/
-
-  /*.navList{*/
-    /*width: 100%;*/
-    /*height: 32px;*/
-    /*clear: both;*/
-    /*position: relative;*/
-    /*top: 35px;*/
-    /*left: 0;*/
-    /*ul.navCont{*/
-      /*width: 1000px;*/
-      /*min-width: 1000px;*/
-      /*margin: 0 auto;*/
-      /*position: absolute;*/
-      /*top: 0;*/
-      /*left: 100px;*/
-    /*}*/
-    /*ul.subMenu{*/
-      /*position: absolute;*/
-      /*z-index: 999;*/
-      /*width: 100%;*/
-      /*background: #fff;*/
-      /*border: 1px solid #ddd;*/
-      /*border-top: none;*/
-      /*color: #333;*/
-      /*left: 0;*/
-      /*padding: 5px 0;*/
-      /*border-bottom-left-radius: 10px;*/
-      /*border-bottom-right-radius: 10px;*/
-      /*li{*/
-        /*padding: 0 10px;*/
-        /*border-bottom: 1px solid #ddd;*/
-      /*}*/
-      /*li:last-child{*/
-        /*border: none;*/
-      /*}*/
-    /*}*/
-    /*li.navLi{*/
-      /*float: left;*/
-      /*padding: 0 20px;*/
-      /*cursor: pointer;*/
-      /*height: 32px;*/
-      /*line-height: 32px;*/
-      /*font-size: 14px;*/
-      /*position: relative;*/
-      /*left: -50px;*/
-    /*}*/
-    /*li.navLi:after{*/
-      /*content: '';*/
-      /*position: absolute;*/
-      /*height: 10px;*/
-      /*width: 1px;*/
-      /*border-left: 1px solid #fff;*/
-      /*right: -2px;*/
-      /*top:11px;*/
-      /*display: block;*/
-    /*}*/
-    /*li.navLi.curLi{*/
-      /*background: #fff;*/
-      /*color: #eacb8b;*/
-      /*border-top-left-radius: 6px;*/
-      /*border-top-right-radius: 6px;*/
-    /*}*/
-    /*li.navLi.curLi:after, li.navLi:last-child:after{*/
-      /*content: '';*/
-      /*border: none;*/
-    /*}*/
-
-    /*li.navLi1{*/
-      /*float: left;*/
-      /*padding: 0 20px;*/
-      /*cursor: pointer;*/
-      /*height: 32px;*/
-      /*line-height: 32px;*/
-      /*font-size: 14px;*/
-      /*position: relative;*/
-      /*right: -770px;*/
-      /*top: -53px;*/
-    /*}*/
-    /*li.navLi1:after{*/
-      /*content: '';*/
-      /*position: absolute;*/
-      /*height: 10px;*/
-      /*width: 1px;*/
-      /*border-left: 1px solid #fff;*/
-      /*right: -2px;*/
-      /*top:11px;*/
-      /*display: block;*/
-    /*}*/
-    /*li.navLi1.curLi{*/
-      /*background: #fff;*/
-      /*color: #eacb8b;*/
-      /*border-top-left-radius: 6px;*/
-      /*border-top-right-radius: 6px;*/
-    /*}*/
-    /*li.navLi1.curLi1:after, li.navLi1:last-child:after{*/
-      /*content: '';*/
-      /*border: none;*/
-    /*}*/
-  /*}*/
-  /*.user-info {*/
-    /*float: right;*/
-    /*padding-right: 50px;*/
-    /*font-size: 12px;*/
-    /*padding-top: 25px;*/
-    /*color: #686868;*/
-  /*}*/
-  /*.date{*/
-    /*display:inline-block;*/
-    /*margin-right: 25px;*/
-  /*}*/
-  /*.breadcrumb{*/
-    /*position: absolute;*/
-    /*top: 60px;*/
-    /*left:0;*/
-    /*width: 100%;*/
-    /*height: 40px;*/
-    /*color: #333;*/
-    /*border-bottom: 1px solid #ddd;*/
-    /*z-index: 9;*/
-    /*background: #fafafa;*/
-    /*overflow: hidden;*/
-  /*}*/
-  /*.bread{*/
-    /*padding: 0 30px;*/
-    /*line-height: 40px;*/
-  /*}*/
+  /**/
+  .navList{
+    width: 100%;
+    height: 32px;
+    clear: both;
+    position: relative;
+    top: 35px;
+    left: 0;
+    ul.navCont{
+      width: 1000px;
+      min-width: 1000px;
+      margin: 0 auto;
+      position: absolute;
+      top: 0;
+      left: 100px;
+    }
+    ul.subMenu{
+      position: absolute;
+      z-index: 999;
+      width: 100%;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-top: none;
+      color: #333;
+      left: 0;
+      padding: 5px 0;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      li{
+        padding: 0 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      li:last-child{
+        border: none;
+      }
+    }
+    li.navLi{
+      float: left;
+      padding: 0 20px;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      position: relative;
+      left: -50px;
+    }
+    li.navLi:after{
+      content: '';
+      position: absolute;
+      height: 10px;
+      width: 1px;
+      border-left: 1px solid #fff;
+      right: -2px;
+      top:11px;
+      display: block;
+    }
+    li.navLi.curLi{
+      background: #fff;
+      color: #eacb8b;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    li.navLi.curLi:after, li.navLi:last-child:after{
+      content: '';
+      border: none;
+    }
+    /**/
+    li.navLi1{
+      float: left;
+      padding: 0 20px;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      position: relative;
+      right: -770px;
+      top: -53px;
+    }
+    li.navLi1:after{
+      content: '';
+      position: absolute;
+      height: 10px;
+      width: 1px;
+      border-left: 1px solid #fff;
+      right: -2px;
+      top:11px;
+      display: block;
+    }
+    li.navLi1.curLi{
+      background: #fff;
+      color: #eacb8b;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    li.navLi1.curLi1:after, li.navLi1:last-child:after{
+      content: '';
+      border: none;
+    }
+  }
+  .user-info {
+    float: right;
+    padding-right: 50px;
+    font-size: 12px;
+    padding-top: 25px;
+    color: #686868;
+  }
+  .date{
+    display:inline-block;
+    margin-right: 25px;
+  }
+  .breadcrumb{
+    position: absolute;
+    top: 60px;
+    left:0;
+    width: 100%;
+    height: 40px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    z-index: 9;
+    background: #fafafa;
+    overflow: hidden;
+  }
+  .bread{
+    padding: 0 30px;
+    line-height: 40px;
+  }
 </style>

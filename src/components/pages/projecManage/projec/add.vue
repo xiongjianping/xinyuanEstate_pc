@@ -7,17 +7,20 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
 
+      <el-col :span="6">
+        <el-form-item label="项目">
+          <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
+        </el-form-item>
+      </el-col>
 
-      <el-form-item label="项目名称">
-        <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
-      </el-form-item>
 
-
-      <el-form-item label="区域">
-        <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
-          <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
-        </el-select>
-      </el-form-item>
+        <el-col :span="6">
+          <el-form-item label="区域">
+            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
+              <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
 
       <el-col :span="6">
         <el-form-item label="公司">
@@ -25,7 +28,7 @@
             <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-      </el-col><br><br><br><br><br>
+      </el-col>
 
         <el-col :span="6">
           <el-form-item label="状态">
@@ -42,21 +45,21 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6" :offset="1">
+        <el-col :span="6" >
           <el-form-item label="部门">
             <el-select size="small" v-model="departmentId" placeholder="请选择部门" @change="getPerson()">
               <el-option v-for="(item,index) in departmentList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col><br><br><br>
 
-        <el-col :span="6" :offset="1">
+        <el-col :span="6">
           <el-form-item label="运营负责人">
             <el-select size="small" v-model="searchForm.projectHeadId" placeholder="请选择负责人">
               <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col><br><br><br><br><br>
 
       <div class="xxk">
         <button type="button" @click="goBack()">取消</button>

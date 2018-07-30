@@ -12,9 +12,9 @@
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium">
         <el-table-column align="center" type="index"  label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="num" label="业态编号" width="200"></el-table-column>
-        <el-table-column align="center" prop="name" label="业态"  width="100"></el-table-column>
-        <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
+        <el-table-column align="center" prop="num" label="业态编号" width="300"></el-table-column>
+        <el-table-column align="center" prop="name" label="业态"  width="200"></el-table-column>
+        <el-table-column align="center" prop="modifyTime" label="修改时间"  width="200"></el-table-column>
         <el-table-column align="center"  label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
@@ -74,7 +74,7 @@ export default {
       var that = this
       if (type === 1) {
         this.page = 1
-      } 
+      }
       // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
       that.$axios.get('/base/find/business/form?p=' + this.page + '&c=' + this.size).then(res => {
         that.loading = false
@@ -159,7 +159,7 @@ export default {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    width: 50%;
+    width: 66%;
     max-width: 100%;
     font-size: 14px;
     color: #606266;

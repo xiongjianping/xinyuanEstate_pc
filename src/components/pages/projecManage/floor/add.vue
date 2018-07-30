@@ -5,12 +5,13 @@
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="data">
-
-        <el-form-item label="楼层名称">
+        <el-col :span="6">
+        <el-form-item label="楼层：">
           <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入楼层名称"></el-input>
         </el-form-item>
+        </el-col>
 
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="区域：">
             <el-select size="small" v-model="data.areaId" placeholder="请选择区域" @change="getProjectList()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -18,15 +19,15 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="公司：">
             <el-select size="small" v-model="data.companyId" placeholder="请选择公司">
               <el-option v-for="(item, index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="项目：">
             <el-select size="small" v-model="data.projectId" placeholder="请选择项目" @change="getBuilding()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -34,36 +35,36 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="楼栋：">
             <el-select size="small" v-model="data.buildingId" placeholder="请选择楼栋">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="面积/平：">
             <el-input size="small" v-model="data.acreage" :maxlength="11" placeholder="请填写平米"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="位置：">
             <el-select size="small" v-model="data.location" placeholder="请选择位置">
               <el-option label="地上" value="1"></el-option>
               <el-option label="地下" value="2"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
-        <el-col :span="8">
+        <el-col :span="6">
           <el-form-item label="状态">
             <el-select size="small" v-model="data.state" placeholder="请选择状态">
               <el-option label="启用" value="true"></el-option>
               <el-option label="禁用" value="false"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
@@ -96,7 +97,7 @@
       }, (err) => {
         this.showAlert(err)
       })
-      
+
     },
     methods: {
       getProjectList(){
@@ -146,7 +147,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     margin-top: 20px;
     margin-left: 52px;
   }
