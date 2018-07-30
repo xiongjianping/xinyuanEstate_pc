@@ -7,125 +7,71 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
 
-        <!--&lt;!&ndash; <el-col :span="6"> &ndash;&gt;-->
-        <!--<el-form-item label="品牌名称">-->
-          <!--<el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入品牌名称"></el-input>-->
-        <!--</el-form-item>-->
-        <!--&lt;!&ndash; </el-col> &ndash;&gt;-->
-
-        <!--<el-col :span="7" :offset="1">-->
-          <!--开始时间：{{data.startTime}}-->
-        <!--</el-col>-->
-        <!--<el-col :span="8" :offset="1">-->
-          <!--修改时间：{{data.lastTime}}-->
-        <!--</el-col><br>-->
-
-
-        <el-col :span="6">
           <el-form-item label="业态：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="business" placeholder="请选择业态" @change="businessChanged()">
+              <el-option v-for="(item, index) in bList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
 
-        <el-col :span="6">
           <el-form-item label="业种：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="species" placeholder="请选择业种" @change="speciesChanged()">
+              <el-option v-for="(item, index) in sList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
 
-        <el-col :span="6">
           <el-form-item label="品牌：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="sendData.brandId" placeholder="请选择品牌">
+              <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
 
-        <el-col :span="6">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="area" placeholder="请选择区域" @change="areaChanged()">
+              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="公司：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-
-        <el-col :span="6">
           <el-form-item label="项目：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
 
-
-        <el-col :span="6">
-          <el-form-item label="铺位：">
-            <el-select size="small" v-model="searchForm.area" placeholder=" ">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+          <el-form-item label="楼栋：">
+            <el-select size="small" v-model="building" placeholder="请选择楼栋" @change="buildingChanged()">
+              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+
+          <el-form-item label="楼层：">
+            <el-select size="small" v-model="sendData.floorId" placeholder="请选择楼层">
+              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+
+        <el-form-item label="铺位：">
+          <el-input size="small" maxlength="11" v-model="searchForm.roomName" placeholder="请输入铺位"/>
+        </el-form-item>
 
         <el-row>
-          <el-button type="primary" class="xuan">选择</el-button>
+          <el-button type="primary" class="xuan" @click="searchList()">搜索</el-button>
         </el-row>
 
       <div class="biao">
-        <el-table
-          :data="tableData3"
-          height="280"
-          border
-          style="width: 280px">
-          <el-table-column
-            prop="date"
-            label="序号">
+        <el-table :data="resultList" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
+          <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
+          <el-table-column type="index" label="序号" style='height:50px;text-align: center'>
           </el-table-column>
-          <el-table-column
-            prop="name"
-            label="铺位名称">
+          <el-table-column prop="floorName" label="楼层名称" style='text-align: center'>
           </el-table-column>
-          <el-table-column
-            prop="address"
-            label="楼层名称">
+          <el-table-column prop="roomName" label="铺位名称" style='text-align: center'>
           </el-table-column>
         </el-table>
-
-        <!--<table class="main">-->
-          <!--<tr style="height: 20px;">-->
-            <!--<th>序号</th>-->
-            <!--<th>铺位名称</th>-->
-            <!--<th>楼层名称</th>-->
-          <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>1</td>-->
-          <!--<td>123</td>-->
-          <!--<td>一层</td></tr>-->
-        <!--</table>-->
       </div>
 
         <div class="xxk">
-          <button>取消</button>
-          <button>确定</button>
+          <button type="button" @click="goBack()">取消</button>
+          <button type="button" @click="create()">确定</button>
         </div>
 
       </el-form>
@@ -136,64 +82,98 @@
   import moment from 'moment'
   export default {
     data: () => ({
-      data: {},
+      business:'',
+      species:'',
+      area:'',
+      store:'',
+      building:'',
+      sendData: {},
+      areaList: {},
+      projectList: {},
+      buildingList: {},
+      brandList: {},
+      floorList: {},
+      storeList: {},
+      bList: {},
+      sList: {},
       loading: false,
-      searchForm: {
-        area: '',
-        company: '',
-        startTime: null
-      },
-      infoData: {},
-      size: 10,
-      dialogFormVisible: false,
-      dialogVisible: false,
-      pictureList: [],
-      picIndex: 0
+      searchForm: {},
+      resultList: [],
+      checkedList: []
     }),
     created () {
-      this.searchList(1)
+      window.$getformSelect().then((res) => {
+        this.bList = res
+      }, (err) => {})
+
+      window.$getAreaList().then((res) => {
+        this.areaList = res
+      }, (err) => {})
+
+      // this.searchList()
     },
     methods: {
-      handleSizeChange (val) {
-        this.size = val
-        this.searchList()
-      },
-      handleCurrentChange (val) {
-        this.data.page = val
-        this.searchList()
-      },
-      searchList (type) {
-        this.loading = true
-        var that = this
-        var page
-        var params = {
-          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-        }
-        if (type === 1) {
-          page = 1
-        } else {
-          page = this.data.page
-        }
-        console.log(params, page)
-        that.loading = true
-        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-        that.$axios.get('/list').then((res) => {
-          console.log(res)
-          that.loading = false
-          that.data = res
-        }).catch(function (eMsg) {
-          that.loading = false
-          that.showAlert(eMsg)
+      searchList () {
+        window.$getNoSignContract(this.searchForm).then((res) => {
+          this.resultList = res
+        }, (err) => {
+          this.showAlert(err)
         })
-
       },
-      showMessage (cont) {
-        this.$message({
-          type: 'success',
-          message: cont
+      businessChanged(){
+        window.$getSpeciesSelect(this.business).then((res) => {
+          this.sList = res
+        }, (err) => {
+          this.showAlert(err)
         })
+       
+      },
+      speciesChanged(){
+        window.$getBrandForSpecies(this.species).then((res) => {
+          this.brandList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      areaChanged(){
+        window.$getProjectListForArea(this.area).then((res) => {
+          this.projectList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      projectChanged(){
+        window.$getBuilding(this.searchForm.projectId).then((res) => {
+          this.buildingList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      buildingChanged(){
+        window.$getFloorForBuilding(this.building).then((res) => {
+          this.floorList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      changeFun(val){
+        this.checkedList = val
+      },
+      create(){
+        this.sendData.projectId = this.searchForm.projectId
+        this.sendData.roomId = []
+        for(var i = 0; i < this.checkedList.length; i++) {
+          this.sendData.roomId.push(this.checkedList[i].roomId)
+        }
+        window.$createContract(this.sendData).then((res) => {
+          this.showAlert('新增成功')
+          this.goBack()
+        }, (err) => {
+          this.showAlert(err)
+        })
+      },
+      goBack(){
+        this.$router.back(-1)
       },
       showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {

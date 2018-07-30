@@ -3,72 +3,88 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-          <el-form-item label="区域">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="项目">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="楼层">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="业态">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+          <el-form-item label="区域：">
+            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
+              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="品牌">
-            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+          <el-form-item label="项目：">
+            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="铺位名称">
-            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+          <el-form-item label="楼栋：">
+            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
+              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="楼层：">
+            <el-select size="small" v-model="searchForm.floorId" placeholder="请选择楼层">
+              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="业态：">
+            <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态"  @change="businessChanged()">
+              <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="业种：">
+            <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
+              <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="品牌：">
+            <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌">
+              <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="铺位：">
+            <el-input size="small" maxlength="11" v-model="searchForm.name" placeholder="请输入铺位"/>
           </el-form-item>
         </el-col>
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="qianyue();">签约</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="qianyue(0);">签约</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.resultList" border size="medium">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="区域"></el-table-column>
-        <el-table-column align="center" prop="area" label="城市"></el-table-column>
-        <el-table-column align="center" prop="company" label="项目"></el-table-column>
-        <el-table-column align="center" prop="projectleader" label="品牌名称"></el-table-column>
-        <el-table-column align="center" prop="operationleader" label="楼层"></el-table-column>
-        <el-table-column align="center" prop="phone" label="铺位名称"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="业态"></el-table-column>
-        <el-table-column align="center" prop="operationleader" label="业种"></el-table-column>
-        <el-table-column align="center" prop="phone" label="面积"></el-table-column>
-        <el-table-column align="center" prop="merchandiseName" label="状态">
+        <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
+        <el-table-column align="center" prop="projectName" label="项目"></el-table-column>
+        <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
+        <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
+        <el-table-column align="center" prop="roomName" label="铺位名称"></el-table-column>
+        <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
+        <el-table-column align="center" prop="businessSpeciesName" label="业种"></el-table-column>
+        <el-table-column align="center" prop="acreage" label="面积"></el-table-column>
+        <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.status === 'ENABLED'">已解约</el-button>
-            <el-button disabled  size="small" type="danger" v-if="scope.row.status === 'DISABLED'">解约</el-button>
+            <el-button disabled  size="small" type="success" v-if="scope.row.state">已签约</el-button>
+            <el-button disabled  size="small" type="danger" v-if="!scope.row.state">已解约</el-button>
           </template>
         </el-table-column>
-
         <el-table-column align="center"  label="操作" width="100">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="showDetails(scope.row.id)">解约</el-button>
+            <el-button type="text" v-on:click="breakContract(scope.row.id)" v-if="scope.row.state">解约</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,11 +93,11 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="data.page"
+          :current-page="page"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="size"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="data.count">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -93,20 +109,26 @@ export default {
   data: () => ({
     data: {},
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
-    infoData: {},
+    searchForm: {},
+    page: 1,
     size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0
+    businessList: [],
+    speciesList: [],
+    brandList:[],
+    areaList: [],
+    projectList: [],
+    buildingList: [],
+    floorList: []
   }),
   created () {
-    this.searchList(1)
+    window.$getformSelect().then((res) => {
+        this.businessList = res
+      }, (err) => {})
+
+      window.$getAreaList().then((res) => {
+        this.areaList = res
+      }, (err) => {})
+    this.searchList()
   },
   methods: {
     handleSizeChange (val) {
@@ -114,39 +136,64 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
-    searchList (type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+    searchList () {
+      window.$getBrandAllList(this.page, this.size, this.searchForm).then((res) => {
+        console.log(res)
+        this.data = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    businessChanged(){
+      window.$getSpeciesSelect(this.searchForm.businessFormId).then((res) => {
+        this.speciesList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+      
+    },
+    speciesChanged(){
+      window.$getBrandForSpecies(this.searchForm.businessSpeciesId).then((res) => {
+        this.brandList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    areaChanged(){
+      window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
+        this.projectList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    projectChanged(){
+      window.$getBuilding(this.searchForm.projectId).then((res) => {
+        this.buildingList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    buildingChanged(){
+      window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
+        this.floorList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    breakContract(id){
+      window.$breakContract(id).then((res) => {
+        this.searchList()
+      }, (err) => {
+        this.showAlert(err)
       })
     },
     //签约
-    qianyue (id) {
+    qianyue(id) {
       this.$router.push('/qianyue/qianyue/add/' + id)
     },
-
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
         confirmButtonText: '确定'
