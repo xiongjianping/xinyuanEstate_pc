@@ -7,8 +7,8 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">创建角色</el-button>
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">删除角色</el-button>
+            <el-button type="primary" size="medium" v-on:click="createPerson">创建角色</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="searchList();">删除角色</el-button> -->
             <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
             <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
           </el-form-item>
@@ -16,26 +16,43 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
-        <el-table-column align="center" type="id" prop="id" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="area" label="角色名称" ></el-table-column>
-        <el-table-column align="center" prop="company" label="级别"  ></el-table-column>
-        <el-table-column align="center" prop="startTime" label="功能权限"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="最后修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" >
-          <template slot-scope="scope">
-            <el-button type="text" v-on:click="editDetails(scope.row.id)">授权</el-button>
+      <el-table :data="jueseList" border size="medium">
+        <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
+        <el-table-column align="center" prop="name" label="角色名称" ></el-table-column>
+        <!-- <el-table-column align="center" prop="createUser" label="创建人"></el-table-column> -->
+        <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
+        <!-- <el-table-column align="center" prop="modifyUser" label="修改人"></el-table-column> -->
+        <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
+        <el-table-column align="center"  label="操作" width="250">
+          <template slot-scope="scope" >
+            <el-button type="text" v-on:click="setPermission(scope.row.id)">设置功能权限</el-button>
+            <!-- <el-button type="text" v-on:click="editDetails(scope.row.id)">角色分配</el-button> -->
           </template>
         </el-table-column>
       </el-table>
-      <div class="block">
-        <span class="demonstration"></span>
-        <el-pagination
-          layout="prev, pager, next"
-          :total="30">
-        </el-pagination>
-      </div>
     </div>
+    <el-dialog
+      title="设置权限"
+      :visible="quanxianVisible"
+      :modal=false
+      width="50%">
+      <div class="tree-wrapper">
+        <el-tree
+          :data="allMenuTree"
+          show-checkbox
+          node-key="id"
+          :default-expanded-keys="hasPermissionIdArray"
+          :props="menuTreeOptions"
+          ref="permissionTree"
+          >
+        </el-tree>
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="quanxianVisible = false">取 消</el-button>
+        <el-button type="primary" @click="finishPermission">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -50,48 +67,165 @@ export default {
       startTime: null
     },
     infoData: {},
-    size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
     pictureList: [],
-    picIndex: 0
+    picIndex: 0,
+    jueseList: [],
+    allMenuTree: [],
+    hasPermissionIdArray: [],
+    menuTreeOptions:{
+      children: 'childMenus',
+      label: 'name',
+      id: 'id'
+    },
+    quanxianVisible: false,
+    currentId: ''
   }),
   created () {
-    this.searchList(1)
+    this.searchList()
+    this.getAllMenuList()
   },
   methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
-    },
-    handleCurrentChange (val) {
-      this.data.page = val
-      this.searchList()
-    },
-    searchList (type) {
+    searchList () {
       this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
-      }
-      console.log(params, page)
-      that.loading = true
       // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+      this.$axios.get('/permission/role/all').then(res => {
+        this.loading = false
+        // console.log(res)
+        this.jueseList = res
+      }).catch(eMsg => {
+        this.loading = false
+        this.showAlert(eMsg)
       })
+    },
+    getAllMenuList () {
+      this.$axios.get('/permission/menu/all')
+        .then(res => {
+          // console.log(res)
+          this.allMenuTree = this.deepClone(res)
+        })
+    },
+    setPermission (id) {
+      this.currentId = id
+      this.$axios.get('/permission/role/menu/' + id)
+        .then(res => {
+          // console.log(res)
+          this.hasPermissionIdArray = []
+          this.deepClone(res[0].menuTree)
+          // console.log(this.hasPermissionIdArray)
+          this.quanxianVisible = true
+          this.$nextTick(() => {
+            this.$refs.permissionTree.setCheckedKeys(this.hasPermissionIdArray)
+          })
+          
+
+        })
+    },
+    getType(obj){
+       //tostring会返回对应不同的标签的构造函数
+       var toString = Object.prototype.toString;
+       var map = {
+          '[object Boolean]'  : 'boolean', 
+          '[object Number]'   : 'number', 
+          '[object String]'   : 'string', 
+          '[object Function]' : 'function', 
+          '[object Array]'    : 'array', 
+          '[object Date]'     : 'date', 
+          '[object RegExp]'   : 'regExp', 
+          '[object Undefined]': 'undefined',
+          '[object Null]'     : 'null', 
+          '[object Object]'   : 'object'
+      };
+      if(obj instanceof Element) {
+          return 'element'
+      }
+      return map[toString.call(obj)]
+    },
+    deepClone(data){
+      let type = this.getType(data)
+      let obj
+      if(type === 'array'){
+          obj = []
+      } else if(type === 'object'){
+          obj = {}
+      } else {
+          //不再具有下一层次
+          return data
+      }
+      if(type === 'array'){
+          for(let i = 0, len = data.length; i < len; i++){
+              obj.push(this.deepClone(data[i]))
+          }
+      } else if(type === 'object'){
+          for(let key in data){
+            if (key === 'id') {
+              this.hasPermissionIdArray.push(data[key])
+            }
+            obj[key] = this.deepClone(data[key])
+          }
+      }
+      return obj
+    },
+    createPerson () {
+      this.$prompt('请输入角色名称', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputPattern: /^.{0,20}$/,
+          inputErrorMessage: '名称长度不得超过20个字'
+        }).then(val => {
+          if (val.value === null  || val.value.replace(/\s/g,'') === '') {
+            this.$alert('请不要输入空字符','提示',{
+              type:'error'
+            })
+          } else {
+            this.$axios.get('/permission/save/role/' + val.value.replace(/\s/g,'')).then(res => {
+              console.log(res)
+              if (res === 'OK') {
+                this.$alert('添加成功','提示',{
+                  type:'success'
+                }).then(res => {
+                  this.searchList()
+                })
+              }
+            }).catch (err => {
+              this.$alert(err,'提示',{
+                  type:'error'
+                })
+            })
+          }
+        })
+      //this.$axios.get('/permission/save/role/')
+    },
+    finishPermission () {
+      this.getCheckedKeys();
+      let params = {
+        roleMenus:[
+          {
+            roleId: this.currentId,
+            menuIds:this.$refs.permissionTree.getCheckedKeys()
+          }
+        ]
+      }
+      this.$axios.post('permission/conf/role/menu',params)
+        .then(res => {
+          console.log(res)
+          if (res === 'OK') {
+            this.$alert('添加成功','提示',{
+              type:'success'
+            }).then(res => {
+              this.quanxianVisible = false
+              this.searchList()
+            })
+          }
+        })
+        .catch(err => {
+          this.quanxianVisible = false
+          this.showAlert(err)
+        })
+    },
+    getCheckedKeys() {
+      console.log(this.$refs.permissionTree.getCheckedKeys());
     },
     // 查看详情
     showDetails (id) {
@@ -126,7 +260,7 @@ export default {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    width: 50%;
+    width: 60%;
     max-width: 100%;
     font-size: 14px;
     color: #606266;
@@ -134,5 +268,9 @@ export default {
   }
   .block{
     float: right;
+  }
+  .tree-wrapper{
+    height: 500px;
+    overflow: auto;
   }
 </style>

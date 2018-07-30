@@ -28,7 +28,7 @@
             <span class="demonstration"></span>
             <el-pagination
               @current-change="handleCurrentChange"
-              :current-page="data.page"
+              :current-page="page"
               :page-size="size"
               layout="prev, pager, next"
               :total="data.countSize">
@@ -51,6 +51,7 @@ export default {
       startTime: null
     },
     size: 10,
+    page: 1,
     dialogFormVisible: false,
     dialogVisible: false,
     pictureList: [],
@@ -65,21 +66,17 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
     searchList (type) {
       this.loading = true
       var that = this
-      var page
       if (type === 1) {
-        page = 1
-        this.data.page = 1
-      } else {
-        page = this.data.page
-      }
+        this.page = 1
+      } 
       // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/base/find/business/form?p=' + page + '&c=' + this.size).then(res => {
+      that.$axios.get('/base/find/business/form?p=' + this.page + '&c=' + this.size).then(res => {
         that.loading = false
         that.data = res
       }).catch(function (eMsg) {

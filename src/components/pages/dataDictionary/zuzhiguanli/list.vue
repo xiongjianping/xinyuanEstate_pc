@@ -2,35 +2,38 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <div class="left">
-      <h2>总部</h2>
-      <p>北京城市公司一</p>
-      <h3>销售部</h3>
-      <p>北京城市公司二</p>
-      <h3>客服部</h3>
+      <el-tree :data="comTree" :props="comTreeOptions" @node-click="handleNodeClick"></el-tree>
     </div>
     <div class="listCont">
 
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.resultList" border size="medium">
 
-        <el-table-column align="center" type="id" prop="id" label="排序号" ></el-table-column>
-        <el-table-column align="center" prop="area" label="真实姓名" ></el-table-column>
-        <el-table-column align="center" prop="company" label="登录名称" ></el-table-column>
-        <el-table-column align="center" prop="startTime" label="电子邮箱"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="移动电话"></el-table-column>
-        <el-table-column align="center" prop="merchandiseName" label="状态">
-          <template slot-scope="scope">
+        <el-table-column align="center" type="index" label="排序号" ></el-table-column>
+        <el-table-column align="center" prop="name" label="真实姓名" ></el-table-column>
+        <el-table-column align="center" prop="userName" label="登录名称" ></el-table-column>
+        <el-table-column align="center" prop="email" label="电子邮箱"></el-table-column>
+        <el-table-column align="center" prop="phone" label="移动电话"></el-table-column>
+        <el-table-column align="center" prop="stateStr" label="状态">
+          <!-- <template slot-scope="scope">
             <el-button disabled  size="small" type="success" v-if="scope.row.status === 'ENABLED'">0</el-button>
             <el-button disabled  size="small" type="danger" v-if="scope.row.status === 'DISABLED'">1</el-button>
-          </template>
+          </template> -->
         </el-table-column>
       </el-table>
-      <div class="block">
-        <span class="demonstration"></span>
-        <el-pagination
-          layout="prev, pager, next"
-          :total="30">
-        </el-pagination>
-      </div>
+      <el-row type='flex' justify="center" v-if="data.resultList">
+        <el-col :span="16">
+          <div class="block">
+            <span class="demonstration"></span>
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page="page"
+              :page-size="size"
+              layout="prev, pager, next"
+              :total="data.countSize">
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -47,13 +50,21 @@ export default {
     },
     infoData: {},
     size: 10,
+    page:1,
     dialogFormVisible: false,
     dialogVisible: false,
     pictureList: [],
-    picIndex: 0
+    picIndex: 0,
+    comTree: [],
+    comTreeOptions: {
+      children: 'childTree',
+      label: 'name'
+    },
+    currentCompanyId: ''
   }),
   created () {
     this.searchList(1)
+    this.handleComTree()
   },
   methods: {
     handleSizeChange (val) {
@@ -61,32 +72,29 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
     searchList (type) {
       this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-      }
       if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
+        this.page = 1
       }
-      console.log(params, page)
-      that.loading = true
       // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+      this.$axios.get('tissue/find/employee/by/org/' + this.currentCompanyId + '?p=' + this.page + '&c=' + this.size).then((res) => {
+        this.loading = false
+        this.data = res
+        res.resultList.forEach(element => {
+          if (element.state) {
+            element.stateStr = '已启用'
+          } else {
+            element.stateStr = '已禁用'
+          }
+        })
+        console.log(res)
+      }).catch(eMsg => {
+        this.loading = false
+        this.showAlert(eMsg)
       })
     },
     // 查看详情
@@ -100,6 +108,71 @@ export default {
       this.$alert(cont, '温馨提示', {
         confirmButtonText: '确定'
       })
+    },
+    handleComTree () {
+      this.$axios.get('/region/find/org/tree')
+        .then(res => {
+          this.comTree = res;
+          // this.comTree = this.deepClone(res);
+          // console.log(this.comTree)
+        })
+    },
+    getType(obj){
+       //tostring会返回对应不同的标签的构造函数
+       var toString = Object.prototype.toString;
+       var map = {
+          '[object Boolean]'  : 'boolean', 
+          '[object Number]'   : 'number', 
+          '[object String]'   : 'string', 
+          '[object Function]' : 'function', 
+          '[object Array]'    : 'array', 
+          '[object Date]'     : 'date', 
+          '[object RegExp]'   : 'regExp', 
+          '[object Undefined]': 'undefined',
+          '[object Null]'     : 'null', 
+          '[object Object]'   : 'object'
+      };
+      if(obj instanceof Element) {
+          return 'element'
+      }
+      return map[toString.call(obj)]
+    },
+    deepClone(data){
+      let type = this.getType(data)
+      let obj
+      if(type === 'array'){
+          obj = []
+      } else if(type === 'object'){
+          obj = {}
+      } else {
+          //不再具有下一层次
+          return data
+      }
+      if(type === 'array'){
+          for(let i = 0, len = data.length; i < len; i++){
+              obj.push(this.deepClone(data[i]))
+          }
+      } else if(type === 'object'){
+          for(let key in data){
+            if (key === 'name') {
+              obj['label'] = this.deepClone(data[key])
+            } else if (key === 'childTree') {
+              obj['children'] = this.deepClone(data[key])
+            } else {
+              obj[key] = this.deepClone(data[key])
+            }
+          }
+      }
+      return obj
+    },
+    handleNodeClick (data) {
+      console.log(data)
+      this.currentCompanyId = data.id
+      this.searchList(1)
+      // this.$axios.get('tissue/find/employee/by/org/' + data.id + '?p=' + '1' + '&c=10')
+      //   .then(res => {
+      //     console.log(res)
+      //   })
     }
   }
 }
@@ -111,8 +184,10 @@ export default {
     background: #fff;
   }
   .left{
-    width: 200px;
-    height: 100%;
+    width: 400px;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: rgb(242,242,242);
     float: left;
     margin-left: 50px;

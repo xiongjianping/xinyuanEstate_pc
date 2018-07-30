@@ -29,21 +29,23 @@ window.XMLHttpRequest.withCredentials = true
 // Vue.prototype.$imgUrl = 'http://125.94.45.180:8063/storage/upload' // 测试环境图片上传地址
 // Vue.prototype.$imgUrl = 'http://120.78.210.69:8063/storage/upload' // 园区购图片上传地址
 
+Vue.prototype.helpTypeList = window.$helpTypeList = [{ name: '租金帮扶', id: 1 }, { name: '活动支持', id: 2 }, { name: '点位宣传支持', id: 3 }, { name: '品牌及会员', id: 4 }, { name: '其他', id: 5 }]
+
 
 var alert = require('element-ui').MessageBox.alert
 
-    // var tokenBugNum = 0
-    // var tokenBug = function(eMsg) {
-    //     if (tokenBugNum === 1) {
-    //         alert(eMsg, '温馨提示', {
-    //             confirmButtonText: '确定',
-    //             callback: action => {
-    //                 router.push('/login')
-    //                 tokenBugNum = 0
-    //             }
-    //         })
-    //     }
-    // }
+// var tokenBugNum = 0
+// var tokenBug = function(eMsg) {
+//     if (tokenBugNum === 1) {
+//         alert(eMsg, '温馨提示', {
+//             confirmButtonText: '确定',
+//             callback: action => {
+//                 router.push('/login')
+//                 tokenBugNum = 0
+//             }
+//         })
+//     }
+// }
 
 // axios.interceptors.response.use(function(response) {
 //     // 处理对响应数据
@@ -61,7 +63,6 @@ var alert = require('element-ui').MessageBox.alert
 //     })
 // })
 // Vue.prototype.$axios = axios;
-
 Vue.use(ElementUI);
 /* eslint-disable no-new */
 new Vue({

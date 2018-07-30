@@ -80,20 +80,11 @@ export default {
   data: () => ({
     data: {},
     loading: false,
-    searchForm: {
-      // area: '',
-      // company: '',
-      // startTime: null
-    },
+    searchForm: {},
     areaList:[],
     floorList: [],
-    infoData: {},
     page: 1,
-    size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0
+    size: 10
   }),
   created () {
     this.searchList()

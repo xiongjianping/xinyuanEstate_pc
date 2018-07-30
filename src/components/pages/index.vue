@@ -85,13 +85,18 @@
                   <p class="p1"></p>
                   <p class="p2"></p>
                 </span>
-                  <i class="i2">
-                    <p>500</p>
-                    <p>300</p>
-                  </i>
-                </li>
-              </ul>
-            </div>
+
+                <i class="i2">
+                  <p>500</p>
+                  <p>300</p>
+                </i>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="left-btn">
+          <div class="left-top-t3">
+            <p>全国销售额与客流量增长趋势统计</p>
           </div>
           <div class="left-bottom">
             <img src="../../assets/images/l_t.png" alt="">
@@ -100,6 +105,7 @@
               <p class="p2"><i></i><span>全国各区域销售量</span></p>
             </div>
           </div>
+        </div>
         </div>
       </el-col>
       <el-col :span="10" :xs="24">

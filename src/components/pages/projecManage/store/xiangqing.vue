@@ -5,43 +5,42 @@
       <i class="hengxian"></i>
 
       <el-row class="detailsInfo" :gutter="30" style="margin-left: 40px">
-        <h3 class="biaoti">铺位编号：1102C</h3>
-        <el-col :span="7" :offset="1">
-          {{data.projectName}}
-        </el-col><br>
-        <el-col :span="3" :offset="1">
+        <h3 class="biaoti">铺位名：{{data.projectName}}</h3>
+
+        <el-col :span="6" :offset="1">
           区域：{{data.areaName}}
         </el-col>
-        <el-col :span="3" :offset="1">
+
+        <el-col :span="6" :offset="1">
           公司：{{data.companyName}}
         </el-col>
 
-        <el-col :span="3" :offset="1">
-          所属项目：{{data.companyName}}
+        <el-col :span="6" :offset="1">
+          所属项目：{{data.projectName}}
         </el-col><br>
 
-        <el-col :span="3" :offset="1">
-          楼栋：{{data.companyName}}
+        <el-col :span="6" :offset="1">
+          楼栋：{{data.buildingName}}
         </el-col>
 
         <el-col :span="3" :offset="1">
-          楼层：{{data.companyName}}
+          楼层：{{data.floorName}}
         </el-col>
 
-        <el-col :span="3" :offset="1">
+        <el-col :span="6" :offset="1">
           面积/平：{{data.acreage}}
         </el-col><br>
 
 
-        <el-col :span="3" :offset="1">
-          状态：<span v-if="!data.state">签约中</span><span v-if="data.state">启用</span>
+        <el-col :span="6" :offset="1">
+          状态：<span v-if="!data.state">禁用</span><span v-if="data.state">启用</span>
         </el-col>
 
 
       </el-row>
 
       <div class="xxk">
-        <button>返回</button>
+        <button type="button" @click="goBack()">返回</button>
       </div>
     </div>
 
@@ -51,41 +50,24 @@
 
   export default {
     data: () => ({
-      id:'',
-      data: {
-        unitList: []
-      },
-      loading: false,
-      size: 10
+      data: {},
+      loading: false
     }),
     created () {
       this.getData()
     },
     methods: {
       getData () {
-        window.$getProjectDetails(this.$route.params.id).then((res) => {
+        window.$getStoreDetails(this.$route.params.id).then((res) => {
           this.loading = false
-          console.log(res)
           this.data = res
         }, (err) => {
           this.loading = false
           this.showAlert(err)
         })
       },
-      handleCurrentChange (val) {
-        this.data.unitList.page = val
-        this.searchList()
-      },
-      searchList (type) {
-        this.loading = true
-        // this.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + this.size, params).then((res) => {
-        this.$axios.get('/list').then((res) => {
-          this.loading = false
-          this.data = res
-        }).catch((eMsg) => {
-          this.loading = false
-          this.showAlert(eMsg)
-        })
+      goBack(){
+        this.$router.back(-1)
       },
       showAlert (cont) {
         this.$alert(cont, '温馨提示', {

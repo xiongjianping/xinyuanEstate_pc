@@ -4,21 +4,20 @@
 
     <el-row class="searchBox" :gutter="30">
 
-      <el-form label-width="100px" :model="searchForm">
+      <el-form label-width="100px" :model="searchData">
         <el-col :span="6">
           <el-form-item label="类别：">
-            <el-select size="small" v-model="searchForm.area" placeholder="租金帮扶">
-              <el-option label="  " value="null"></el-option>
-              <el-option label=" " value="null"></el-option>
+            <el-select size="small" v-model="searchData.type" placeholder="租金帮扶">
+              <el-option v-for="(item, index) in typeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br><br><br>
         <p style="margin-left: 100px;">帮扶内容：</p>
-        <el-input type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
+        <el-input v-model="data.context" type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
         </el-input>
         <div class="xxk">
-          <button>取消</button>
-          <button>新增</button>
+          <button type="button" @click="goBack()">取消</button>
+          <button type="button" @click="create()">新增</button>
         </div>
       </el-form>
     </el-row>
@@ -29,63 +28,23 @@
   export default {
     data: () => ({
       data: {},
+      searchData:{},
       loading: false,
-      searchForm: {
-        area: '',
-        company: '',
-        startTime: null
-      },
-      infoData: {},
-      size: 10,
-      dialogFormVisible: false,
-      dialogVisible: false,
-      pictureList: [],
-      picIndex: 0
+      typeList: window.$helpTypeList
     }),
-    created () {
-      this.searchList(1)
+    created(){
     },
     methods: {
-      handleSizeChange (val) {
-        this.size = val
-        this.searchList()
-      },
-      handleCurrentChange (val) {
-        this.data.page = val
-        this.searchList()
-      },
-      searchList (type) {
-        this.loading = true
-        var that = this
-        var page
-        var params = {
-          publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-          merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-          startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
-        }
-        if (type === 1) {
-          page = 1
-        } else {
-          page = this.data.page
-        }
-        console.log(params, page)
-        that.loading = true
-        // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-        that.$axios.get('/list').then((res) => {
-          console.log(res)
-          that.loading = false
-          that.data = res
-        }).catch(function (eMsg) {
-          that.loading = false
-          that.showAlert(eMsg)
+      create(){
+        window.$createHelpContent(this.data).then((res) => {
+          this.showAlert('新增成功')
+          this.goBack()
+        }, (err) => {
+          this.showAlert(err)
         })
-
       },
-      showMessage (cont) {
-        this.$message({
-          type: 'success',
-          message: cont
-        })
+      goBack(){
+        this.$router.back(-1)
       },
       showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
