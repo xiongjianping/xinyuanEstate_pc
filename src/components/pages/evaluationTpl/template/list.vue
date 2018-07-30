@@ -3,13 +3,13 @@
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="6">
-
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.area" placeholder="全部" @change="changeArea()">
               <el-option v-for="(item,index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="6">
           <el-form-item label="项目名称">
             <el-select size="small" v-model="searchForm.pro" placeholder="全部">

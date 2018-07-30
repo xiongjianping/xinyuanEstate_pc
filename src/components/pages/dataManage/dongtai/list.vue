@@ -7,7 +7,6 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
-
         <el-col :span="7">
           <el-form-item label="数据涵盖起止时间" label-width="150px">
             <el-date-picker
@@ -28,7 +27,6 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
@@ -36,30 +34,26 @@
             <el-button type="primary" size="medium" v-on:click="searchList(1);">导出</el-button>
             <el-button type="primary" size="medium" v-on:click="xiugai(1);">修改</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">固定成本</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
 
-    <!--<el-radio-group v-model="tabPosition" style="margin-top: 50px;margin-bottom:-25px;margin-left: 30px">-->
-      <!--<el-radio-button label="top">固定成本</el-radio-button>-->
-      <!--<el-radio-button label="right">客销度</el-radio-button>-->
-      <!--<el-radio-button label="bottom">适配值</el-radio-button>-->
-    <!--</el-radio-group>-->
-
-
     <div>
       <el-radio-group v-model="radio3">
-        <el-radio-button label="上海" style="user-select: none;"></el-radio-button>
-        <el-radio-button label="北京"></el-radio-button>
-        <el-radio-button label="广州"></el-radio-button>
-        <el-radio-button label="深圳"></el-radio-button>
+        <el-radio-button label="固定成本" style="margin-top: 50px;margin-bottom:-35px;margin-left: 30px;user-select: none;"></el-radio-button>
+        <el-radio-button label="客销度"></el-radio-button>
+        <el-radio-button label="适配值"></el-radio-button>
       </el-radio-group>
     </div>
 
 
     <div class="listCont">
-      <!--<div class="tabs"></div>-->
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="projectName" label="纬度"></el-table-column>
@@ -92,6 +86,7 @@
         </el-pagination>
       </div>
     </div>
+
 
   </div>
 </template>
@@ -170,6 +165,7 @@ export default {
     }
   }
 }
+
 </script>
 <style scoped  lang="less">
   .tabs{
@@ -181,12 +177,13 @@ export default {
       display: inline-block;
     }
   }
+
   .mainContent{
     width: 100%;
     height: 100%;
     background: #fff;
   }
-.el-date-editor.el-input, .el-date-editor.el-input__inner{
-  width: 100%;
-}
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
 </style>

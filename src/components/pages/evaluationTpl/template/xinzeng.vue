@@ -47,20 +47,19 @@
           <el-checkbox v-model="checked">备选项</el-checkbox>
           <el-table-column
             prop="date"
-            label="序号" style='height:50px;text-align: center'>
+            label="序号">
           </el-table-column>
           <el-table-column
             prop="name"
-            label="类别"style='text-align: center'>
+            label="类别">
           </el-table-column>
           <el-table-column
             prop="address"
-            label="帮扶内容"style='text-align: center'>
+            label="帮扶内容">
           </el-table-column>
         </el-table>
 
       </div>
-
         <div class="xxk">
           <button>取消</button>
           <button>新增</button>
@@ -196,30 +195,15 @@
   .biao{
     width: 350px;
     height: 350px;
-    border: 3px solid #000;
+    border: 0px solid #fff;
     margin-left: 160px;
-    el-table{
+    el-table-column{
       margin-top: 50px;
+      text-align: center;
     }
-    /*.main{*/
-      /*width: 280px;*/
-      /*height: 280px;*/
-      /*border: 1px solid #000;*/
-      /*margin: 0 auto;*/
-      /*margin-top: 10px;*/
-      /*tr{*/
-        /*height: 20px;*/
-        /*border: 1px solid #CCC;*/
-        /*background: red;*/
-      /*}*/
-      /*!*th,tr,td{*!*/
-        /*!*height: 20px;*!*/
-        /*!*border: 1px solid #ccc;*!*/
-        /*!*border-collapse: collapse;*!*/
-        /*!*text-align: center;*!*/
-      /*!*}*!*/
-    /*}*/
   }
-
+tr,th{
+  text-align: center;
+}
 
 </style>

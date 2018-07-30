@@ -15,6 +15,7 @@
             <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
           </el-form-item>
         </el-col>
+
       </el-form>
     </el-row>
     <div class="listCont">
@@ -31,10 +32,12 @@
           </template>
         </el-table-column>
       </el-table>
+
       <div class="paginationCont">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="data.page" :page-sizes="[10, 20, 50, 100]" :page-size="size" layout="total, sizes, prev, pager, next, jumper" :total="data.count">
         </el-pagination>
       </div>
+
     </div>
   </div>
 </template>

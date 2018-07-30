@@ -17,7 +17,6 @@ Vue.prototype.helpSearchproject = window.$helpSearchproject = function(id) {
   })
 }
 
-
 //项目帮扶搜索查询(post)
 
 Vue.prototype.helpScarchAll = window.$helpScarchAll = function(params) {
@@ -34,7 +33,7 @@ Vue.prototype.helpScarchAll = window.$helpScarchAll = function(params) {
 }
 
 
-//帮扶内容   
+//帮扶内容
 
 Vue.prototype.helpContent = window.$helpContent = function(params) {
   return new Promise(function(resolve, reject) {
@@ -48,16 +47,4 @@ Vue.prototype.helpContent = window.$helpContent = function(params) {
       });
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -27,8 +27,6 @@
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增</el-button>
-            <!-- <el-button type="primary" size="medium" v-on:click="showDetails(0);">编辑</el-button>
-            <el-button type="primary" size="medium" v-on:click="xiangqing(0);">详情</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>

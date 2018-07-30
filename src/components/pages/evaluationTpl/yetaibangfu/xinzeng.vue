@@ -217,29 +217,11 @@
   .biao{
     width: 350px;
     height: 350px;
-    border: 3px solid #000;
+    border: 0px solid #fff;
     margin-left: 160px;
     el-table{
       margin-top: 50px;
     }
-    /*.main{*/
-      /*width: 280px;*/
-      /*height: 280px;*/
-      /*border: 1px solid #000;*/
-      /*margin: 0 auto;*/
-      /*margin-top: 10px;*/
-      /*tr{*/
-        /*height: 20px;*/
-        /*border: 1px solid #CCC;*/
-        /*background: red;*/
-      /*}*/
-      /*!*th,tr,td{*!*/
-        /*!*height: 20px;*!*/
-        /*!*border: 1px solid #ccc;*!*/
-        /*!*border-collapse: collapse;*!*/
-        /*!*text-align: center;*!*/
-      /*!*}*!*/
-    /*}*/
   }
 
 
