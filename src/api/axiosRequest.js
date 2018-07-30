@@ -552,3 +552,117 @@ Vue.prototype.deleteBrand = window.$deleteBrand = function(id) {
             });
     })
 }
+
+
+/*
+ * 签约管理
+ *
+ * 获取所有品牌列表(POST)
+ */
+
+Vue.prototype.getAllBrand = window.$getAllBrand = function() {
+    return new Promise(function(resolve, reject) {
+        axios.get('/brand/brand/all')
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 签约管理
+ *
+ * 新增签约(POST)
+ */
+Vue.prototype.createContract = window.$createContract = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/contract/add/contract', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 签约管理
+ *
+ * 通过项目id和铺位id查询未签约品牌列表(POST)
+ */
+
+Vue.prototype.getNoSignContract = window.$getNoSignContract = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/region/find/room/by/project', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 签约管理
+ *
+ * 通过业种获取品牌列表(GET)
+ */
+
+Vue.prototype.getBrandForSpecies = window.$getBrandForSpecies = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/brand/find/brand/by/businessSpecies/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 签约管理
+ *
+ * 品牌列表(POST)
+ */
+
+Vue.prototype.getBrandAllList = window.$getBrandAllList = function(p, c, params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/contract/contract/list?p=' + p + '&c=' + c, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 签约管理
+ *
+ * 解约(GET)
+ */
+
+Vue.prototype.breakContract = window.$breakContract = function(id) {
+    return new Promise(function(resolve, reject) {
+        axios.get('/contract/dispel/contract/' + id)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}

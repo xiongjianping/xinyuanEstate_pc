@@ -84,6 +84,7 @@
           <template slot-scope="scope">
             <el-button disabled  size="small" type="success" v-if="scope.row.state === 1">启用</el-button>
             <el-button disabled  size="small" type="danger" v-if="scope.row.state === 2">禁用</el-button>
+            <el-button disabled  size="small" type="success" v-if="scope.row.state === 3">签约中</el-button>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
@@ -171,6 +172,9 @@ export default {
     //详情
     xiangqing(id){
       this.$router.push('/projecManage/store/xiangqing/' + id)
+    },
+    showDetails(id){
+      this.$router.push('/projecManage/store/add/' + id)
     },
     showAlert: function (cont) {
       this.$alert(cont, '温馨提示', {
