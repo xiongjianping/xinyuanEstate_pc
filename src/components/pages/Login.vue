@@ -47,18 +47,14 @@ export default {
     }
   },
   created () {
-    // this.$axios.get('/shop/userauth/Session').then((res) => {
-    //   this.session = res
-    // }).catch(function (eMsg) {
-    //   this.showAlert(eMsg)
-    // })
-
-    console.log(window.location.href)
-    var urlArr = window.location.href.split('=')
-    var userName = urlArr[urlArr.length - 1]
-    console.log(urlArr)
-    console.log(userName)
-    this.submitForm(userName)
+    var urlArr = window.location.href.split('&')
+    for(var i = 0; i < urlArr.length; i++){
+      if(urlArr[i].indexOf('userName') > 0){
+        var arr = urlArr[i].split('=')
+        var userName = arr[arr.length - 1]
+        this.submitForm(userName)
+      }
+    }
   },
   methods: {
     submitForm (formName) {

@@ -52,19 +52,7 @@
         <el-table-column align="center" prop="ts" label="提升"></el-table-column>
         <el-table-column align="center" prop="hl" label="合理"></el-table-column>
         <el-table-column align="center" prop="ks" label="亏损"></el-table-column>
-
       </el-table>
-      <div class="paginationCont">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="data.countSize">
-        </el-pagination>
-      </div>
     </div>
   </div>
 </template>
@@ -92,14 +80,6 @@ export default {
     this.searchList()
   },
   methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
-    },
-    handleCurrentChange (val) {
-      this.page = val
-      this.searchList()
-    },
     searchList() {
       window.$helpFloorContent(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
