@@ -41,7 +41,7 @@
           <el-form-item label="开始时间">
             <el-date-picker
               size="small"
-              format="yyyy-MM-dd" 
+              format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
               v-model="searchForm.createTimeBegin"
               type="datetime"
@@ -53,7 +53,7 @@
           <el-form-item label="至 " label-width="40px">
             <el-date-picker
               size="small"
-              format="yyyy-MM-dd" 
+              format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
               v-model="searchForm.createTimeEnd"
               type="datetime"
@@ -187,7 +187,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

@@ -7,55 +7,70 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
 
+          <el-col :span="6">
           <el-form-item label="业态：">
             <el-select size="small" v-model="business" placeholder="请选择业态" @change="businessChanged()">
               <el-option v-for="(item, index) in bList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-
+          </el-col>
+        <el-col :span="6">
           <el-form-item label="业种：">
             <el-select size="small" v-model="species" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in sList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
+        <el-col :span="6">
 
           <el-form-item label="品牌：">
             <el-select size="small" v-model="sendData.brandId" placeholder="请选择品牌">
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
 
+        <el-col :span="6">
           <el-form-item label="区域：">
             <el-select size="small" v-model="area" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
 
+        <el-col :span="6">
           <el-form-item label="项目：">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
 
+        <el-col :span="6">
           <el-form-item label="楼栋：">
             <el-select size="small" v-model="building" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
 
+        <el-col :span="6">
           <el-form-item label="楼层：">
             <el-select size="small" v-model="sendData.floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
 
+        <el-col :span="6">
         <el-form-item label="铺位：">
           <el-input size="small" maxlength="11" v-model="searchForm.roomName" placeholder="请输入铺位"/>
         </el-form-item>
+        </el-col>
 
         <el-row>
           <el-button type="primary" class="xuan" @click="searchList()">搜索</el-button>
-        </el-row>
+        </el-row><br>
 
       <div class="biao">
         <el-table :data="resultList" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
@@ -186,8 +201,8 @@
 </script>
 <style scoped  lang="less">
   .xuan{
-    margin-left: 15px;
-    margin-top: 20px;
+    margin-left: 170px;
+    margin-top: 40px;
   }
   .mainContent{
     width: 100%;
@@ -202,7 +217,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: -7px;
     margin-top: 20px;
     margin-left: 52px;
   }

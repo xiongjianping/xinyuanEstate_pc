@@ -31,10 +31,10 @@
           </el-form-item>
         </el-col><br><br><br><br><br>
 
-        <el-col :span="4" :offset="2">
+        <el-col :span="6" >
           开始时间：{{data.startTime}}
         </el-col>
-        <el-col :span="4" :offset="3">
+        <el-col :span="6" :offset="1">
           修改人：李某某
         </el-col>
         <el-col :span="6" style="margin-top: -30px">

@@ -32,7 +32,7 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="项目：">
@@ -61,7 +61,7 @@
               <el-option label="精品" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br>
         <el-col :span="6">
           <el-form-item label="业种：">
             <el-select size="small" v-model="searchForm.area" placeholder="川菜">
@@ -80,7 +80,7 @@
         <el-col :span="4" style="color: red">
           <el-form-item label="*区间最大值" style="color: red">
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="增长百分比：">
@@ -91,7 +91,7 @@
         <el-col :span="6" style="color: red; width: 165px">
           <el-form-item label="*每个区间的百分比数值" style="color: red;width: 165px">
           </el-form-item>
-        </el-col><br><br><br><br><br><br><br>
+        </el-col><br><br><br><br><br><br><br><br><br>
 
 
         <div class="xxk">
