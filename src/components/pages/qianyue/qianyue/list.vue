@@ -15,7 +15,6 @@
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
->>>>>>> 0313542611733363b31d95a7ec6349fe1e1d3978
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -217,7 +216,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 120%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

@@ -14,7 +14,7 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br><br> <br>
         <el-col :span="5" :offset="2">
           开始时间：{{data.startTime}}
         </el-col>

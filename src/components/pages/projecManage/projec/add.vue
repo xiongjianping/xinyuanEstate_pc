@@ -59,7 +59,7 @@
               <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br><br><br><br><br>
 
       <div class="xxk">
         <button type="button" @click="goBack()">取消</button>

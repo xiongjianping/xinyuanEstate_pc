@@ -58,7 +58,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="状态">
+          <el-form-item label="状态：">
             <el-select size="small" v-model="data.state" placeholder="请选择状态">
               <el-option label="启用" value="true"></el-option>
               <el-option label="禁用" value="false"></el-option>
