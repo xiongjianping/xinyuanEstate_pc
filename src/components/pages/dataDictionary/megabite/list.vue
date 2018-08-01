@@ -2,7 +2,7 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="类别">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
@@ -10,7 +10,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="名称">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
           </el-form-item>
@@ -27,7 +27,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
 
         <el-table-column align="center" prop="projectName" label="分类"></el-table-column>

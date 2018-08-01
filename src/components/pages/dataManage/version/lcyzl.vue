@@ -2,12 +2,12 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="20">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
-          <el-form-item label="版本名称">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
+        <el-col :span="5">
+          <el-form-item label="版本">
+            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目">
             <el-select v-model="value" placeholder="请选择">
               <el-option
@@ -20,7 +20,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="楼层">
             <el-select v-model="value" placeholder="">
               <el-option
@@ -62,7 +62,7 @@
     </el-row>
     <div class="listCont">
 
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" prop="id" label="序号"></el-table-column>
         <el-table-column align="center" prop="area" label="版本"></el-table-column>
         <el-table-column align="center" prop="area" label="项目名称"></el-table-column>
@@ -162,7 +162,10 @@ export default {
     editDetails (id) {
       this.$router.push('/dataManage/version/details/' + id)
     },
-
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:50px;font-size:15px'
+    }
   }
 }
 </script>

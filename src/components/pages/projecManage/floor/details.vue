@@ -1,10 +1,10 @@
-<template>
+  <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox" :gutter="30">
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
-      <el-form label-width="100px" :model="data">
+      <el-form label-width="100px" :model="data" >
         <el-col :span="6">
         <el-form-item label="楼层：">
           <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
@@ -49,7 +49,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="状态">
+          <el-form-item label="状态：">
             <el-select size="small" v-model="data.state" placeholder="请选择状态">
               <el-option v-for="(item,index) in stateList" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
@@ -159,7 +159,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: 3px;
     margin-top: 20px;
     margin-left: 52px;
   }

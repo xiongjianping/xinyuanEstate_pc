@@ -2,7 +2,7 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中" >
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="区域：">
             <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
               <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -10,7 +10,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目：">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
               <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -27,13 +27,13 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
         <el-table-column align="center" prop="floorName" label="楼层名称"></el-table-column>
         <el-table-column align="center" prop="yx" label="优秀"></el-table-column>
         <el-table-column align="center" prop="lh" label="良好"></el-table-column>
-        <el-table-column align="center" prop="ts" label="提升"></el-table-column>
+        <el-table-column align="left" prop="ts" label="提升"></el-table-column>
         <el-table-column align="center" prop="hl" label="合理"></el-table-column>
         <el-table-column align="center" prop="ks" label="亏损"></el-table-column>
       </el-table>
@@ -104,7 +104,10 @@ export default {
     xinzeng(id){
       this.$router.push("/evaluationTpl/yetaibangfu/xinzeng/"+id)
     },
-
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
+    }
   }
 }
 </script>

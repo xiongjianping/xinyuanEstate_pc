@@ -6,7 +6,7 @@
     </div>
     <div class="listCont">
 
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
 
         <el-table-column align="center" type="index" label="排序号" ></el-table-column>
         <el-table-column align="center" prop="name" label="真实姓名" ></el-table-column>
@@ -169,6 +169,10 @@ export default {
       //   .then(res => {
       //     console.log(res)
       //   })
+    },
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:50px;font-size:15px'
     }
   }
 }
