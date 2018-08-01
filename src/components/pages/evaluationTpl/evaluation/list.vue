@@ -10,6 +10,7 @@
           </el-form-item>
         </el-col>
 
+
         <el-col :span="6">
           <el-form-item label="项目：">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="changeProject()">
@@ -112,11 +113,7 @@ export default {
     xinzeng(id){
       this.$router.push("/evaluationTpl/evaluation/xinzeng/"+id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 </script>

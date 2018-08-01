@@ -133,18 +133,14 @@ export default {
           }
         })
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 </script>
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

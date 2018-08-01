@@ -6,7 +6,6 @@
       <h3 class="title">签约信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
-
           <el-col :span="6">
           <el-form-item label="业态：">
             <el-select size="small" v-model="business" placeholder="请选择业态" @change="businessChanged()">
@@ -14,6 +13,7 @@
             </el-select>
           </el-form-item>
           </el-col>
+
         <el-col :span="6">
           <el-form-item label="业种：">
             <el-select size="small" v-model="species" placeholder="请选择业种" @change="speciesChanged()">
@@ -73,14 +73,11 @@
         </el-row><br>
 
       <div class="biao">
-        <el-table :data="resultList" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
+        <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
           <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
-          <el-table-column type="index" label="序号" style='height:50px;text-align: center'>
-          </el-table-column>
-          <el-table-column prop="floorName" label="楼层名称" style='text-align: center'>
-          </el-table-column>
-          <el-table-column prop="roomName" label="铺位名称" style='text-align: center'>
-          </el-table-column>
+          <el-table-column type="index" label="序号"></el-table-column>
+          <el-table-column prop="floorName" label="楼层名称" ></el-table-column>
+          <el-table-column prop="roomName" label="铺位名称" ></el-table-column>
         </el-table>
 
       </div>
@@ -142,7 +139,6 @@
         }, (err) => {
           this.showAlert(err)
         })
-
       },
       speciesChanged(){
         window.$getBrandForSpecies(this.species).then((res) => {
@@ -191,10 +187,9 @@
       goBack(){
         this.$router.back(-1)
       },
-      showAlert: function (cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
+      rowClass({ row, rowIndex}) {
+        console.log(rowIndex) //表头行标号为0
+        return 'height:20px;font-size:15px;background:red'
       }
     }
   }
@@ -256,9 +251,7 @@
     height: 350px;
     border: 0px solid #fff;
     margin-left: 160px;
-    el-table{
-      margin-left: 10px;
-    }
+
     /*.main{*/
       /*width: 280px;*/
       /*height: 280px;*/

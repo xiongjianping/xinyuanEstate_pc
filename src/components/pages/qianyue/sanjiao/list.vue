@@ -2,23 +2,23 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="区域">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目">
             <el-input size="small" v-model="searchForm.projectName1" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="楼层">
             <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入楼层"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.area" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
@@ -26,7 +26,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="品牌">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
@@ -34,7 +34,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="铺位">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
@@ -51,7 +51,7 @@
     </el-row>
 
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="projectName" label="溢租率"></el-table-column>
         <el-table-column align="center" prop="area" label="客销度"></el-table-column>
@@ -129,10 +129,9 @@ export default {
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
     }
   }
 }

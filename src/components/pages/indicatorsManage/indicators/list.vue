@@ -2,26 +2,26 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="品牌">
             <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="getSpeciesList()">
               <el-option v-for="(item, index) in formList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业种">
             <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col><br><br><br>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="开始时间" label-width="100px">
             <el-date-picker
               size="small"
@@ -33,7 +33,7 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="至" label-width="100px">
             <el-date-picker
               format="yyyy-MM-dd"
@@ -54,7 +54,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium"  :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="name" label="品牌名称"></el-table-column>
         <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
@@ -167,19 +167,18 @@ export default {
         this.showAlert(err)
       })
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
     }
   }
 }
 </script>
 <style scoped  lang="less">
   .mainContent{
-    width: 100%;
-    height: 120%;
-    background: #fff;
+      width: 100%;
+      height: 120%;
+      background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;

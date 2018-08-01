@@ -31,6 +31,7 @@
             <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
           </template>
         </el-table-column>
+
         <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
         <el-table-column align="center" label="操作" width="100">
           <template slot-scope="scope">
@@ -110,11 +111,7 @@ export default {
     xinzeng(id){
       this.$router.push('/evaluationTpl/bangfuneirong/xinzeng/'+id);
     },
-    showAlert: function(cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 

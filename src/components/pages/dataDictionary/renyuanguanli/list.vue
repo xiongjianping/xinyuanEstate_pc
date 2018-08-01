@@ -228,7 +228,7 @@ export default {
           console.log('role', jueseCurrent)
           this.jueseVisible = true
       })
-      
+
     },
     clickJuese (item) {
       item.checked = !item.checked
@@ -291,24 +291,20 @@ export default {
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    },
+
     getType(obj){
        //tostring会返回对应不同的标签的构造函数
        var toString = Object.prototype.toString;
        var map = {
-          '[object Boolean]'  : 'boolean', 
-          '[object Number]'   : 'number', 
-          '[object String]'   : 'string', 
-          '[object Function]' : 'function', 
-          '[object Array]'    : 'array', 
-          '[object Date]'     : 'date', 
-          '[object RegExp]'   : 'regExp', 
+          '[object Boolean]'  : 'boolean',
+          '[object Number]'   : 'number',
+          '[object String]'   : 'string',
+          '[object Function]' : 'function',
+          '[object Array]'    : 'array',
+          '[object Date]'     : 'date',
+          '[object RegExp]'   : 'regExp',
           '[object Undefined]': 'undefined',
-          '[object Null]'     : 'null', 
+          '[object Null]'     : 'null',
           '[object Object]'   : 'object'
       };
       if(obj instanceof Element) {
@@ -344,7 +340,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

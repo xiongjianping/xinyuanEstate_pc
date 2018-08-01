@@ -4,7 +4,6 @@
     <div class="detailsContent">
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
-
       <el-row class="detailsInfo" :gutter="30" style="margin-left: 40px">
         <h3 class="biaoti">{{data.projectName}}</h3>
         <el-col :span="3" :offset="1">
@@ -39,6 +38,7 @@
     </div>
 
   </div>
+
 </template>
 <script>
 
@@ -65,13 +65,7 @@ export default {
     goBack(){
       this.$router.back(-1)
     },
-    showAlert (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
   }
-
 }
 </script>
 <style scoped  lang="less">

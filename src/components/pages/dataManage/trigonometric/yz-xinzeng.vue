@@ -7,7 +7,7 @@
       <el-form label-width="100px" :model="searchForm">
 
         <el-col :span="6">
-          <el-form-item label="纬度：">
+          <el-form-item label="维度：">
             <el-select size="small" v-model="searchForm.area" placeholder=客销度>
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
@@ -172,11 +172,7 @@
           message: cont
         })
       },
-      showAlert: function (cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+
     }
   }
 </script>

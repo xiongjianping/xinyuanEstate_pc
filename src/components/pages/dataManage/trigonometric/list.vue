@@ -54,7 +54,7 @@
     <div class="listCont">
       <el-table :data="data.list" border size="medium">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="projectName" label="纬度"></el-table-column>
+        <el-table-column align="center" prop="projectName" label="维度"></el-table-column>
         <el-table-column align="center" prop="area" label="对象"></el-table-column>
         <el-table-column align="center" prop="company" label="项目名称"></el-table-column>
         <el-table-column align="center" prop="startTime" label="业态"></el-table-column>
@@ -154,11 +154,7 @@ export default {
     yzl (id) {
       this.$router.push('/dataManage/trigonometric/yz-xinzeng/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 </script>

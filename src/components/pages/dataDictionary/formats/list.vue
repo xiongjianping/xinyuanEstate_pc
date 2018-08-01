@@ -38,6 +38,7 @@
         </el-col>
       </el-row>
     </div>
+
     <el-dialog
       title="提示"
       :visible="yetaiVisible"
@@ -54,6 +55,7 @@
           :value="item.id">
         </el-option>
       </el-select>
+
       <div class="content-input">
         <el-input v-model="addContent" maxlength='20' placeholder="请输入内容"></el-input>
       </div>
@@ -172,11 +174,7 @@ export default {
       this.addContent = ''
 
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 </script>
