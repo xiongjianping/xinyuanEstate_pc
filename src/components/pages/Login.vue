@@ -58,8 +58,11 @@ export default {
   },
   methods: {
     submitForm (formName) {
+      var params = {
+        userName: formName
+      }
       const self = this
-      window.$login(formName).then((res) => {
+      window.$login(params).then((res) => {
         window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
         // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
         this.$router.replace('/index')

@@ -282,19 +282,20 @@
               <div class="xing"></div>
               <img src="../../assets/images/l_t.png" alt="">
               <span>全国各项目总量</span>
-              <p>客流:<i>5</i><i>0</i><i>0</i>,<i>0</i><i>0</i><i>0</i>万人</p>
-              <p>销售:<i>5</i><i>0</i><i>0</i>,<i>0</i><i>0</i><i>0</i>万元</p>
+              <p>客流:<i>{{countryPassengerFlow}}</i>万人</p>
+              <p>销售:<i>{{countrySalesVolume}}</i>万元</p>
             </div>
             <div class="left-cont">
               <div class="xing"></div>
               <img src="../../assets/images/l_t.png" alt="">
               <div class="left-cont-t1">
                 <span class="l2">全过各区域客流量排行</span>
-                <p class="p1"><i></i><span>全国各区域客流量</span></p>
-                <p class="p2"><i></i><span>全国各区域销售量</span></p>
-              </div>
+                <!-- <p class="p1"><i></i><span>全国各区域客流量</span></p>
+                <p class="p2"><i></i><span>全国各区域销售量</span></p> -->
+              </div>  
               <div class="left-cont-t2">
-                <ul>
+                <div id="main3" style="width: 100%;height: 200px;z-index: 99999"></div>
+                <!-- <ul>
                   <li>
                     <i class="i1">01</i>
                     <span>华北区域</span>
@@ -367,7 +368,7 @@
                       <p>300</p>
                     </i>
                   </li>
-                </ul>
+                </ul> -->
               </div>
             </div>
             <div class="left-btn">
@@ -498,25 +499,29 @@
     },
   data () {
    return{
-
+     areaList:{},
+     countryPassengerFlow:'',
+     countrySalesVolume:'',
    }
   },
   created(){
-   /* this.$http.post("http://123.207.169.220:8080/tissue/employee/login", {
-      "userName": "admin",
-      "userPassword": "admin"
-    })
-      .then((data) => {
-        this.arrs = data.body;
-        window.Vue.http.headers.common['accessToken'] = data.body.data.accessToken;
-      })
-    this.$http.post("http://123.207.169.220:8080/region/find/project/list?p=1&c=10", {})
-      .then((data) => {
-        // console.log(data)
-        this.arrs2 = data.body;
-      })*/
+    window.$getAreaList().then((res) => {
+      this.areaList = res
+    }, (err) => {console.log(err)})
+
+    // 查询全国客流量
+    this.$axios.get('/dayguest/find/passengerflowall/list')
+        .then(res => {
+          this.countryPassengerFlow = res
+        }, (err) => {console.log(err)})
+    // 查询全国销售额
+    this.$axios.get('/dayguest/find/saleroomall/list')
+        .then(res => {
+          this.countrySalesVolume = res
+        }, (err) => {console.log(err)})
   },
   mounted () {
+    this.getAaa()
     var myChart = echarts.init(document.getElementById('main'));
     var option = {
       legend: {
@@ -805,12 +810,107 @@
       animation: false
     };
     myChart2.setOption(option2);
+
+   
   },
   filters: {
 
   },
   methods: {
+    getAaa(){
+      console.log('取接口')
+      this.$axios.get('/pctriangle/find/salepassengerflow/all')
+        .then(res => {
+          this.passengerFlowList = res
 
+          var areaNameList =[]
+          var seriesList = [
+            {
+              name: '全国各区域客流量',
+              type: 'bar',
+              label: seriesLabel,
+              data: []
+            },
+            {
+              name: '全国各区域销售量',
+              type: 'bar',
+              label: seriesLabel,
+              data: []
+            }
+          ]
+          var params
+          for(var i = 0; i<this.passengerFlowList.length; i++){
+            areaNameList.push(this.passengerFlowList[i].areaName)
+            seriesList[0].data.push(this.passengerFlowList[i].passengerFlow)
+            seriesList[1].data.push(this.passengerFlowList[i].saleroom)
+          }
+
+          var myChart3 = echarts.init(document.getElementById('main3'));
+          var valueNameList = ['全国各区域客流量', '全国各区域销售量']
+
+          var seriesLabel = {
+            normal: {
+                show: true,
+                textBorderColor: '#fff',
+                textBorderWidth: 2
+            }
+        }
+          var option3 = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: valueNameList
+            },
+            grid: {
+                left: 50
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'value',
+                name: 'Days',
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            yAxis: {
+                type: 'category',
+                inverse: true,
+                data: areaNameList
+            },
+            series: seriesList
+            // [
+            //     {
+            //         name: 'City Alpha',
+            //         type: 'bar',
+            //         data: [165, 170, 30],
+            //         label: seriesLabel
+            //     },
+            //     {
+            //         name: 'City Beta',
+            //         type: 'bar',
+            //         label: seriesLabel,
+            //         data: [150, 105, 110]
+            //     },
+            //     {
+            //         name: 'City Gamma',
+            //         type: 'bar',
+            //         label: seriesLabel,
+            //         data: [220, 82, 63]
+            //     }
+            // ]
+        }
+        myChart3.setOption(option3)
+        }, (err) => {console.log(err)})
+    }
   }
 }
 </script>
