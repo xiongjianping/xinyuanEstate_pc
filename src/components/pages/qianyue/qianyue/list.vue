@@ -2,58 +2,56 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
-
+        <el-col :span="5">
           <el-form-item label="区域：">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目：">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="楼栋：">
             <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="楼层：">
             <el-select size="small" v-model="searchForm.floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业态：">
             <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态"  @change="businessChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业种：">
             <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-
+        <el-col :span="5">
           <el-form-item label="品牌：">
             <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌">
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="铺位：">
             <el-input size="small" maxlength="11" v-model="searchForm.name" placeholder="请输入铺位"/>
           </el-form-item>
@@ -68,7 +66,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目"></el-table-column>
@@ -76,7 +74,7 @@
         <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
         <el-table-column align="center" prop="roomName" label="铺位名称"></el-table-column>
         <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
-        <el-table-column align="center" prop="businessSpeciesName" label="业种"></el-table-column>
+        <el-table-column align="left" prop="businessSpeciesName" label="业种"></el-table-column>
         <el-table-column align="center" prop="acreage" label="面积"></el-table-column>
         <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
@@ -196,10 +194,9 @@ export default {
     qianyue(id) {
       this.$router.push('/qianyue/qianyue/add/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
     }
   }
 }

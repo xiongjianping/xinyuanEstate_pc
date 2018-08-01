@@ -14,7 +14,7 @@
         <el-col :span="6">
           <el-form-item label="区域：">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="getProjectList()">
-              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+              <el-option v-for="(item, index) in areaList" :key ="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -134,11 +134,7 @@
           this.showAlert(err)
         })
       },
-      showAlert: function (cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+
     }
   }
 </script>

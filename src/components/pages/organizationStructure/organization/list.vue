@@ -18,7 +18,7 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="模板分类">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入 "></el-input>
+            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
 
@@ -37,7 +37,6 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入 "></el-input>
           </el-form-item>
         </el-col>
-
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
@@ -65,7 +64,6 @@
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.id)">详情</el-button>
             <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
-            <!--<el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>-->
             <el-button type="text" v-if="scope.row.status == 'ENABLED'" v-on:click="showDetails(scope.row)">禁用</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
           </template>
@@ -150,13 +148,6 @@ export default {
     xiangqing(id){
       this.$router.push('/organizationStructure/organization/details/' + id)
     },
-
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
-
   }
 }
 </script>

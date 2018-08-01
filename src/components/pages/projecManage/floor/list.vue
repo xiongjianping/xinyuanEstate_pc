@@ -2,7 +2,7 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -10,12 +10,12 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="方位">
             <el-select size="small" v-model="searchForm.location" placeholder="请选择位置">
               <el-option label="地上" value="1"></el-option>
@@ -32,7 +32,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="floorList" border size="medium">
+      <el-table :data="floorList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
@@ -143,10 +143,9 @@ export default {
         this.showAlert(err)
       })
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
     }
   }
 }

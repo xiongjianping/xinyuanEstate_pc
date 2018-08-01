@@ -2,7 +2,7 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="getProjectList()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -10,26 +10,26 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="公司">
             <el-select size="small" v-model="searchForm.companyId" placeholder="请选择公司">
               <el-option v-for="(item, index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="铺位名称">
+        <el-col :span="5">
+          <el-form-item label="铺位">
             <el-input size="small" v-model="searchForm.roomName" :maxlength="30" placeholder="请输入铺位名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="状态">
             <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
               <el-option label="启用" value="1"></el-option>
@@ -37,7 +37,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="7">
+        <el-col :span="5">
           <el-form-item label="开始时间">
             <el-date-picker
               size="small"
@@ -49,7 +49,7 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="4" :offset="1">
           <el-form-item label="至 " label-width="40px">
             <el-date-picker
               size="small"
@@ -71,7 +71,7 @@
 
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
         <!--<el-table-column align="center" prop="company" label="公司"></el-table-column>-->
@@ -176,10 +176,9 @@ export default {
     showDetails(id){
       this.$router.push('/projecManage/store/add/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
     }
   }
 }

@@ -1,4 +1,5 @@
 <template>
+
   <!--<div class="header">-->
     <!--<el-row :gutter="20" class="">-->
       <!--<el-col :span="8">-->
@@ -34,13 +35,13 @@
   <div class="header">
     <div class="navList">
       <ul class="navCont" >
-        <li     v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
+        <li  v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
             <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}</li>
           </ul>
         </li>
-        <li >
+        <li>
           <!--<img src="../../assets/images/zhong.png" alt="" style="width:50%;margin-left:-55px;">-->
           <img src="../../assets/images/logo1.png"  alt="" class="logos">
         </li>
@@ -180,10 +181,7 @@
       <!--}-->
     <!--}-->
   <!--}-->
-
 <!--</style>-->
-
-
 
 <style scoped lang="less">
 

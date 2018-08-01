@@ -104,11 +104,7 @@ export default {
     xinzeng(id){
       this.$router.push("/evaluationTpl/template/xinzeng/"+id)
     },
-    showAlert: function(cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 

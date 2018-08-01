@@ -186,11 +186,7 @@ export default {
     spz(id){
       this.$router.push('/dataManage/version/spz/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+
   }
 }
 </script>
