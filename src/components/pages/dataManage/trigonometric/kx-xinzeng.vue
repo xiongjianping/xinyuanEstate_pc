@@ -163,7 +163,11 @@
           message: cont
         })
       },
-
+showAlert: function (cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
     }
   }
 </script>

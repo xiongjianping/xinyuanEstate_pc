@@ -36,6 +36,13 @@
             </el-select>
           </el-form-item>
         </el-col><br><br>
+        <el-col :span="6" >
+          <el-form-item label="业务类型：">
+            <el-select size="small" v-model="sendData.helpType" placeholder="请选择业务类型">
+              <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col><br><br><br><br><br><br>
       <!--<div class="biao">-->
         <!--<el-table-->
           <!--:data="tableData3"-->
@@ -99,6 +106,7 @@ export default {
     allArea: {},
     allProject: {},
     helpTypeList: window.$helpTypeList,
+    businessTypeList:window.$businessTypeList,
     checkList: [],
     evaluateTypeList: [
       { type: 'yx', typename: "优秀" },
@@ -152,7 +160,11 @@ export default {
         this.showAlert(err)
       })
     },
-
+showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 

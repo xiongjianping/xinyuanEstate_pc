@@ -393,25 +393,13 @@
               <img src="../../assets/images/l_t.png" alt="">
               <div class="xing"></div>
               <span class="c1">三角理念统计</span>
-              <div class="center-cent1">
+              <el-form :model="searchForm" class="center-cent1">
                 <div class="left">
-                  <select>
-                    <option value="华北区域">华北区域</option>
-                    <option value="华南区域">华南区域</option>
-                    <option value="华西南区域">华西南区域</option>
-                    <option value="华中地区">华中地区</option>
+                  <select @change="getProjectList()" v-model="searchForm.areaId" placeholder="请选择区域">
+                    <option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></option>
                   </select>
-                  <select>
-                    <option value="北京">北京</option>
-                    <option value="沈阳">沈阳</option>
-                    <option value="上海">上海</option>
-                    <option value="广州">广州</option>
-                  </select>
-                  <select>
-                    <option value="全部项目">全部项目</option>
-                    <option value="项目一">项目一</option>
-                    <option value="项目二">项目二</option>
-                    <option value="项目三">项目三</option>
+                  <select v-model="searchForm.projectId" placeholder="请选择项目" @change="forProjectDetails()">
+                    <option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></option>
                   </select>
                 </div>
                 <div class="right">
@@ -431,7 +419,7 @@
                   </select>
                 </div>
                 <div id="main" style="width: 240px;height:300px;"></div>
-              </div>
+              </el-form>
               <div class="cent-btn-left2">优</div>
               <div class="cent-btn-right">
                 <ul>
@@ -499,7 +487,10 @@
     },
   data () {
    return{
+     searchForm:{},
      areaList:{},
+     projectList:{},
+     projectDetail:'',
      countryPassengerFlow:'',
      countrySalesVolume:'',
    }
@@ -507,6 +498,7 @@
   created(){
     window.$getAreaList().then((res) => {
       this.areaList = res
+      console.log(this.areaList)
     }, (err) => {console.log(err)})
 
     // 查询全国客流量
@@ -915,7 +907,24 @@
         }
         myChart3.setOption(option3)
         }, (err) => {console.log(err)})
-    }
+    },
+    getProjectList(){
+       window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
+         this.projectList = res
+         console.log(this.projectList)
+       })
+    },
+    forProjectDetails(){
+      $axios.get('/pctriangle/find/project/by/' + this.searchForm.projectId).then((res) => {
+        this.projectDetail = res
+        console.log(this.projectDetail)
+      })
+    },
+    showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 </script>

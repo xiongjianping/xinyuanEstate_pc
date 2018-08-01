@@ -12,7 +12,6 @@ axios.defaults.timeout = 10000
 
 async function requestInterceptor(config) {
     let token = window.localStorage.getItem('xinyuan_accesstoken')
-    console.log('token: ' + token)
     config.headers['ACCESS-TOKEN'] = token
     return config
 }

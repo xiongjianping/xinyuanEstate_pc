@@ -38,8 +38,8 @@
         </el-col><br><br>
 
         <el-col :span="6" >
-          <el-form-item label="类型：">
-            <el-select size="small" v-model="searchForm.type" placeholder="请选择类型"  @change="searchList()">
+          <el-form-item label="帮扶类型：">
+            <el-select size="small" v-model="searchForm.type" placeholder="请选择帮扶类型"  @change="searchList()">
               <el-option v-for="(item, index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -48,6 +48,13 @@
           <el-form-item label="评价：">
             <el-select size="small" v-model="sendData.type" placeholder="请选择评价">
               <el-option v-for="(item, index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" >
+          <el-form-item label="业务类型：">
+            <el-select size="small" v-model="sendData.helpType" placeholder="请选择业务类型">
+              <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -101,6 +108,7 @@
       { type: 'hl', typename: "合理" },
       { type: 'ks', typename: "亏损" }
     ],
+    businessTypeList:window.$businessTypeList,
     allcontext: [],
     contentListPostData: {},
     checked: ''
@@ -158,9 +166,14 @@
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
       return 'height:20px;font-size:15px'
-    }
+    },
+    showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
-  }
+}
 </script>
 <style scoped  lang="less">
   .xuan{

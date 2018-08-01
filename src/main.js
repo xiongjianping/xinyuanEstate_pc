@@ -31,7 +31,7 @@ window.XMLHttpRequest.withCredentials = true
 // Vue.prototype.$imgUrl = 'http://120.78.210.69:8063/storage/upload' // 园区购图片上传地址
 
 Vue.prototype.helpTypeList = window.$helpTypeList = [{ name: '租金帮扶', id: 1 }, { name: '活动支持', id: 2 }, { name: '点位宣传支持', id: 3 }, { name: '品牌及会员', id: 4 }, { name: '其他', id: 5 }]
-
+Vue.prototype.businessTypeList = window.$businessTypeList = [{ name: '溢租率', id: 1 }, { name: '客销度', id: 2 }, { name: '适配值', id: 3 }]
 
 var alert = require('element-ui').MessageBox.alert
 

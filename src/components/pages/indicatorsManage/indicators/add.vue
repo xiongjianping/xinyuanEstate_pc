@@ -86,7 +86,11 @@ export default {
     goBack(){
       this.$router.back(-1)
     },
-
+showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 </script>
