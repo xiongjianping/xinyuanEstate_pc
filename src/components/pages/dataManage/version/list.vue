@@ -2,13 +2,13 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="20">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
-          <el-form-item label="版本名称">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
+        <el-col :span="5">
+          <el-form-item label="版本">
+            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="纬度">
+        <el-col :span="5">
+          <el-form-item label="维度">
             <el-select v-model="value" placeholder="请选择">
               <el-option
                 v-for="item in options"
@@ -19,7 +19,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="7">
+        <el-col :span="6">
           <el-form-item label="数据涵盖起止时间" label-width="150px">
             <el-date-picker
               size="small"
@@ -29,7 +29,7 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="4">
           <el-form-item label="至" label-width="50px">
             <el-date-picker
               size="small"
@@ -61,7 +61,7 @@
     </el-radio-group>
 
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" prop="id" label="序号"></el-table-column>
         <el-table-column align="center" prop="area" label="纬度"></el-table-column>
         <el-table-column align="center" prop="area" label="业态"></el-table-column>
@@ -186,7 +186,10 @@ export default {
     spz(id){
       this.$router.push('/dataManage/version/spz/' + id)
     },
-
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:50px;font-size:15px'
+    }
   }
 }
 </script>

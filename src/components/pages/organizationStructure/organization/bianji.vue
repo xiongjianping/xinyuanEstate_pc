@@ -29,12 +29,12 @@
               <el-option label="请选择" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br><br>
 
-        <el-col :span="6" >
+        <el-col :span="6" :offset="1">
           开始时间：{{data.startTime}}
         </el-col>
-        <el-col :span="6" :offset="1">
+        <el-col :span="5">
           修改人：李某某
         </el-col>
         <el-col :span="6" style="margin-top: -30px">
@@ -50,7 +50,7 @@
         </el-row>
 
         <div class="listCont" style="margin-left: 50px">
-          <el-table :data="data.list" border size="medium">
+          <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
             <el-table-column align="center" prop="id" label="序号"></el-table-column>
             <el-table-column align="center" prop="area" label="编号"></el-table-column>
             <el-table-column align="center" prop="company" label="指标名称"></el-table-column>
@@ -150,7 +150,10 @@
           message: cont
         })
       },
-
+      rowClass({ row, rowIndex}) {
+        console.log(rowIndex) //表头行标号为0
+        return 'height:50px;font-size:15px'
+      }
     }
   }
 </script>

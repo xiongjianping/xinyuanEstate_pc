@@ -15,7 +15,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.list" border size="medium">
+      <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="id" prop="id" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="area" label="业态编号" width="200"></el-table-column>
         <el-table-column align="center" prop="company" label="业态"  width="100"></el-table-column>
@@ -99,7 +99,10 @@ export default {
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
     },
-
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
+    }
   }
 }
 </script>

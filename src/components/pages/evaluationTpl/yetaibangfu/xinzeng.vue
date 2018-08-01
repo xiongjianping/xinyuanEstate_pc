@@ -57,10 +57,10 @@
 
       <div class="biao">
         <el-table :data="allcontext" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
-          <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
-          <el-table-column type="index" label="序号" style='height:50px;text-align: center'>
+          <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
+          <el-table-column type="index" label="序号"align="center">
           </el-table-column>
-          <el-table-column prop="type" label="类别" style='text-align: center'>
+          <el-table-column prop="type" label="类别"align="center">
             <template slot-scope="scope">
               <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金帮扶</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 2">活动支持</el-button>
@@ -69,7 +69,7 @@
               <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
             </template>
           </el-table-column>
-          <el-table-column prop="context" label="帮扶内容" style='text-align: center'>
+          <el-table-column prop="context" label="帮扶内容" align="center">
           </el-table-column>
         </el-table>
       </div>

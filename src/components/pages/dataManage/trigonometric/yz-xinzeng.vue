@@ -22,7 +22,7 @@
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="区域：">
@@ -40,7 +40,7 @@
               <el-option label="" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
 
         <el-col :span="6">
@@ -50,7 +50,7 @@
               <el-option label="B座" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
 
         <el-col :span="6">
@@ -68,38 +68,33 @@
               <el-option label="火锅" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
-          <el-form-item label="优秀">
+          <el-form-item label="优秀：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="良好">
+          <el-form-item label="良好：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
         <el-col :span="6">
-          <el-form-item label="提升">
+          <el-form-item label="提升：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="合理">
+          <el-form-item label="合理：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
         <el-col :span="6">
-          <el-form-item label="亏损">
+          <el-form-item label="亏损：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
           </el-form-item>
         </el-col><br><br><br><br><br>
-
-
-
-
-
         <div class="xxk">
           <button>取消</button>
           <button>确定</button>
@@ -190,7 +185,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: 3px;
     margin-top: 20px;
     margin-left: 52px;
   }

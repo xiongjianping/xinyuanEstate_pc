@@ -6,6 +6,7 @@
       <h3 class="title">签约信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
+
           <el-col :span="6">
           <el-form-item label="业态：">
             <el-select size="small" v-model="business" placeholder="请选择业态" @change="businessChanged()">
@@ -21,8 +22,8 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
 
+        <el-col :span="6">
           <el-form-item label="品牌：">
             <el-select size="small" v-model="sendData.brandId" placeholder="请选择品牌">
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -74,10 +75,10 @@
 
       <div class="biao">
         <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
-          <el-table-column type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
-          <el-table-column type="index" label="序号"></el-table-column>
-          <el-table-column prop="floorName" label="楼层名称" ></el-table-column>
-          <el-table-column prop="roomName" label="铺位名称" ></el-table-column>
+          <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
+          <el-table-column align="center" type="index" label="序号"></el-table-column>
+          <el-table-column align="center" prop="floorName" label="楼层名称" ></el-table-column>
+          <el-table-column align="center" prop="roomName" label="铺位名称" ></el-table-column>
         </el-table>
 
       </div>
@@ -189,7 +190,7 @@
       },
       rowClass({ row, rowIndex}) {
         console.log(rowIndex) //表头行标号为0
-        return 'height:20px;font-size:15px;background:red'
+        return 'height:50px;font-size:15px;'
       }
     }
   }
@@ -242,7 +243,7 @@
       outline: none;
       position: relative;
       left:500px;
-      top: 50px;
+      top: -100px;
       margin-left: 20px;
     }
   }

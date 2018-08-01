@@ -4,20 +4,20 @@
       <h3 class="title">基本信息</h3>
       <i class="hengxian"></i>
       <el-row class="detailsInfo" :gutter="30">
-        <el-col :span="7" :offset="1">
+        <el-col :span="7" :offset="2">
           {{data.projectName}}
         </el-col>
-        <el-col :span="7" :offset="1">
+        <el-col :span="7" :offset="2">
           模板名称：{{data.area}}
-        </el-col><br><br>
-        <el-col :span="7" :offset="1">
+        </el-col><br>
+        <el-col :span="7" :offset="2">
           模板编号：{{data.company}}
-        </el-col><br><br>
+        </el-col><br>
 
-        <el-col :span="7" :offset="1">
+        <el-col :span="7" :offset="2">
           模板分类：{{data.startTime}}
-        </el-col><br><br>
-        <el-col :span="4" :offset="1">
+        </el-col><br>
+        <el-col :span="4" :offset="2">
           开始时间：{{data.lastTime}}
         </el-col>
         <el-col :span="4" :offset="1">
@@ -26,10 +26,7 @@
         <el-col :span="4" :offset="1">
           状态：<span v-if="data.status === 'DISABLED'">停用</span><span v-if="data.status === 'ENABLED'">启用</span>
         </el-col>
-
-
-      </el-row><br>
-
+      </el-row>
     </div>
 
     <div class="detailsContent">
@@ -50,7 +47,6 @@
             <template slot-scope="scope">
               <el-button type="text" v-on:click="showDetails(scope.row.id)">详情</el-button>
               <el-button type="text" v-on:click="editDetails(scope.row.id)">编辑</el-button>
-              <!--<el-button type="text" v-if="scope.row.status == 'DISABLED'" v-on:click="showDetails(scope.row)">启用</el-button>-->
               <el-button type="text" v-if="scope.row.status == 'ENABLED'" v-on:click="showDetails(scope.row)">禁用</el-button>
               <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
             </template>
@@ -101,7 +97,6 @@ export default {
         this.showAlert(eMsg)
       })
     },
-
   }
 }
 
@@ -126,11 +121,15 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 140%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }
+  .listCont{
+    margin-top: -150px;
+    margin-left: 70px;
+  }
 
 </style>
