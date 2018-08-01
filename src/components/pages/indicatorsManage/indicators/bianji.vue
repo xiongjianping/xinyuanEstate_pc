@@ -7,7 +7,7 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="data">
         <el-col :span="6">
-        <el-form-item label="品牌">
+        <el-form-item label="品牌：">
           <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
         </el-form-item>
         </el-col>

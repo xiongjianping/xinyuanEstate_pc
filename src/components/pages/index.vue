@@ -521,7 +521,8 @@
     var option = {
       legend: {
         data:['流量','降雨量'],
-        x: 'left'
+        x: 'left',
+        color:'#fff'
       },
       parallelAxis: [
         {
@@ -536,7 +537,8 @@
                 y: 0,
                 x2: 0,
                 y2: 1,
-                colorStops: [{
+                colorStops: [
+                  {
                   offset: 0, color: 'blue' // 0% 处的颜色
                 }, {
                   offset: 0.33, color: 'green' // 100% 处的颜色
@@ -562,7 +564,8 @@
                 y: 0,
                 x2: 0,
                 y2: 1,
-                colorStops: [{
+                colorStops: [
+                  {
                   offset: 0, color: 'blue' // 0% 处的颜色
                 }, {
                   offset: 0.25, color: 'green' // 100% 处的颜色
@@ -578,7 +581,7 @@
             }
           }
         },
-        {dim: 2, name: '适配度',min:0,max:8000,
+        {dim: 2, name: '适配度',min:0,max:8000,color:"red",
           axisLine:{
             textStyle:{
               opacity:0.5
@@ -591,7 +594,8 @@
                 y: 0,
                 x2: 0,
                 y2: 1,
-                colorStops: [{
+                colorStops: [
+                  {
                   offset: 0, color: 'blue' // 0% 处的颜色
                 }, {
                   offset: 0.33, color: 'green' // 100% 处的颜色
@@ -647,6 +651,7 @@
         data: [
           {
             value:[-45, 180, 6000],
+
             lineStyle:{
               color:'yellow'
             }

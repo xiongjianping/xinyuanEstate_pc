@@ -8,21 +8,13 @@
 
 
         <el-col :span="6">
-          <el-form-item label="纬度：">
+          <el-form-item label="维度：">
             <el-select size="small" v-model="searchForm.area" placeholder=项目>
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
-        <el-col :span="5" :offset="2">
-          开始时间：{{data.startTime}}
         </el-col>
-
-        <el-col :span="5" :offset="1">
-          修改时间：{{data.startTime}}
-        </el-col><br><br><br>
-
 
         <el-col :span="6">
           <el-form-item label="业态：">
@@ -39,18 +31,19 @@
               <el-option label="火锅" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="毛利率：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
+
         <el-col :span="6">
           <el-form-item label="客单价：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col>
         <el-col :span="6">
           <el-form-item label="溢租率：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
@@ -60,7 +53,14 @@
           <el-form-item label="适配值：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br>
+        <el-col :span="6" :offset="1">
+          开始时间：{{data.startTime}}
+        </el-col>
+
+        <el-col :span="5" :offset="1">
+          修改时间：{{data.startTime}}
+        </el-col><br><br><br><br><br><br><br>
 
 
 

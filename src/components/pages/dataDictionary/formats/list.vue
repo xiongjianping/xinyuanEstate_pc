@@ -11,7 +11,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" prop="id" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
         <el-table-column align="center" prop="name" label="业种"></el-table-column>
@@ -174,7 +174,10 @@ export default {
       this.addContent = ''
 
     },
-
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
+    }
   }
 }
 </script>

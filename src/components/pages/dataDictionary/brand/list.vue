@@ -10,7 +10,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index"  label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="num" label="业态编号" width="300"></el-table-column>
         <el-table-column align="center" prop="name" label="业态"  width="200"></el-table-column>
@@ -133,7 +133,10 @@ export default {
           }
         })
     },
-
+    rowClass({ row, rowIndex}) {
+      console.log(rowIndex) //表头行标号为0
+      return 'height:20px;font-size:15px'
+    }
   }
 }
 </script>

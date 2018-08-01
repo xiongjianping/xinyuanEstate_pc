@@ -1,7 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <el-row class="searchBox" :gutter="30">
-      <el-form label-width="100px" :model="searchForm">
+    <el-row class="searchBox" :gutter="30" >
+      <el-form label-width="100px" :model="searchForm" >
         <el-col :span="5">
           <el-form-item label="品牌">
             <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>

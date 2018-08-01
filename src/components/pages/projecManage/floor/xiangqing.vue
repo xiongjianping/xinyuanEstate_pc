@@ -22,11 +22,11 @@
         </el-col>
 
 
-        <el-col :span="3" :offset="1">
+        <el-col :span="3" :offset="1" style="width: 210px">
         面积/平：{{data.acreage}}
       </el-col>
 
-        <el-col :span="3" :offset="1">
+        <el-col :span="3">
           方位：<span v-if="data.location === 1">楼上</span><span v-if="data.location === 2">楼下</span>
         </el-col><br>
 
@@ -38,10 +38,10 @@
           修改人：{{data.modifyUserName}}
         </el-col><br>
 
-        <el-col :span="3" :offset="1">
+        <el-col :span="3" :offset="1" style="width: 400px">
           最后一次修改时间：{{data.modifyTime}}
         </el-col>
-        <el-col :span="3" :offset="1">
+        <el-col :span="3" :offset="1" style="width: 400px">
           开始时间：{{data.createTime}}
         </el-col>
       </el-row>
@@ -80,7 +80,7 @@ export default {
     goBack(){
       this.$router.back(-1)
     },
-   
+
   }
 
 }

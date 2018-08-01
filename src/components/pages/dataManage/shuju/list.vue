@@ -2,36 +2,36 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="区域">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入区域"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="项目">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="楼层">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入项目负责人"></el-input>
+            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.area" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="业种">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="品牌">
             <el-select size="small" v-model="searchForm.company" placeholder="请选择">
               <el-option label="请选择" value="null"></el-option>
@@ -179,6 +179,7 @@ export default {
 }
 </script>
 <style scoped  lang="less">
+
   .tabs{
     width: 100%;
     height:50px;
@@ -190,7 +191,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

@@ -8,20 +8,20 @@
 
 
         <el-col :span="6">
-          <el-form-item label="纬度：">
+          <el-form-item label="维度：">
             <el-select size="small" v-model="searchForm.area" placeholder=项目>
               <el-option label="  " value="null"></el-option>
               <el-option label=" " value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br> <br>
+        </el-col><br><br><br><br>
         <el-col :span="5" :offset="2">
           开始时间：{{data.startTime}}
         </el-col>
 
         <el-col :span="5" :offset="1">
           修改时间：{{data.startTime}}
-        </el-col><br><br><br>
+        </el-col><br><br>
 
 
         <el-col :span="6">
@@ -39,7 +39,7 @@
               <el-option label="火锅" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="毛利率：">
@@ -50,7 +50,7 @@
           <el-form-item label="客单价：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col><br><br><br><br><br>
+        </el-col><br><br><br>
         <el-col :span="6">
           <el-form-item label="溢租率：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
@@ -152,7 +152,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: 3px;
     margin-top: 20px;
     margin-left: 52px;
   }

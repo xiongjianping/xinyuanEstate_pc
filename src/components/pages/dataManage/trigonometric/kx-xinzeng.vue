@@ -7,7 +7,7 @@
       <el-form label-width="100px" :model="searchForm">
 
 
-        <el-col :span="6">
+        <el-col :span="6" >
           <el-form-item label="维度：">
             <el-select size="small" v-model="searchForm.area" placeholder=客销度>
               <el-option label="  " value="null"></el-option>
@@ -69,7 +69,7 @@
               <el-option label="火锅" value="null"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col><br><br><br>
 
         <el-col :span="6">
           <el-form-item label="区间最大值：">
@@ -77,23 +77,20 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="4" style="color: red">
+        <el-col :span="4" style="color: red" >
           <el-form-item label="*区间最大值" style="color: red">
           </el-form-item>
-        </el-col><br><br><br>
+        </el-col>
 
-        <el-col :span="6">
+        <el-col :span="6"  :offset="1" >
           <el-form-item label="增长百分比：">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
 
-        <el-col :span="6" style="color: red; width: 165px">
-          <el-form-item label="*每个区间的百分比数值" style="color: red;width: 165px">
-          </el-form-item>
-        </el-col><br><br><br><br><br><br><br><br><br>
 
-
+        <span style="display:block;margin-top: 30px;font-size: 14px;color:#333;">*每个区间的百分比数值</span>
+        <br><br><br><br><br><br><br><br><br><br><br>
         <div class="xxk">
           <button>取消</button>
           <button>确定</button>
@@ -175,6 +172,7 @@
     width: 100%;
     height: 100%;
     background: #fff;
+
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;
@@ -184,7 +182,7 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
+    margin-bottom: 3px;
     margin-top: 20px;
     margin-left: 52px;
   }
@@ -218,6 +216,5 @@
       margin-left: 20px;
     }
   }
-
 
 </style>

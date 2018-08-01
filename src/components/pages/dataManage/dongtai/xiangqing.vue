@@ -8,11 +8,11 @@
         <el-col :span="5" :offset="1">
           版本名称：{{data.area}}
         </el-col>
-        <el-col :span="5" :offset="1">
+        <el-col :span="5" >
           编号：{{data.company}}
         </el-col>
 
-        <el-col :span="4" :offset="1">
+        <el-col :span="4" >
           开始时间：{{data.lastTime}}
         </el-col><br><br>
         <el-col :span="4" :offset="1">
@@ -38,7 +38,7 @@
 
       <div class="listCont">
 
-        <el-table :data="data.unitList.list" border size="medium" style="margin-top: 10px">
+        <el-table :data="data.unitList.list" border size="medium" :header-cell-style="rowClass" style="margin-top: 10px">
 
           <el-table-column align="center" prop="id" label="序号"></el-table-column>
           <el-table-column align="center" prop="floor" label="品牌名称"></el-table-column>
@@ -94,7 +94,10 @@
           this.showAlert(eMsg)
         })
       },
-
+      rowClass({ row, rowIndex}) {
+        console.log(rowIndex) //表头行标号为0
+        return 'height:50px;font-size:15px;'
+      }
     }
   }
 
