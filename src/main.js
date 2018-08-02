@@ -32,6 +32,8 @@ window.XMLHttpRequest.withCredentials = true
 
 Vue.prototype.helpTypeList = window.$helpTypeList = [{ name: '租金帮扶', id: 1 }, { name: '活动支持', id: 2 }, { name: '点位宣传支持', id: 3 }, { name: '品牌及会员', id: 4 }, { name: '其他', id: 5 }]
 Vue.prototype.businessTypeList = window.$businessTypeList = [{ name: '溢租率', id: 1 }, { name: '客销度', id: 2 }, { name: '适配值', id: 3 }]
+Vue.prototype.dimensionList = window.$dimensionList = [{ name: '项目', id: 1 }, { name: '楼层', id: 2 }, { name: '业态', id: 3 }]
+Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.3.33:8080'
 
 var alert = require('element-ui').MessageBox.alert
 

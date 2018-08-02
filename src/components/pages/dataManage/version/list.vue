@@ -4,22 +4,66 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="版本">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
+            <el-input size="small" v-model="searchForm.standardVerssionName" :maxlength="30" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="维度">
-            <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
+          <el-form-item label="业务类型">
+            <el-select v-model="searchForm.businessType" placeholder="请选择业务类型">
+              <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+
+        <el-col :span="5">
+          <el-form-item label="维度" v-if="searchForm.businessType === 1 || searchForm.businessType === 3">
+            <el-select v-model="searchForm.dimensionType" placeholder="请选择维度" @change="dimensionChange">
+              <el-option v-for="(item, index) in dimensionList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5" v-if="searchForm.businessType === 2 || searchForm.dimensionType">
+          <el-form-item label="区域">
+            <el-select v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
+              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5">
+          <el-form-item label="项目" v-if="searchForm.businessType === 2 || searchForm.dimensionType" >
+            <el-select v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5" v-if="searchForm.businessType != 2 && searchForm.dimensionType === 2">
+          <el-form-item label="楼栋">
+            <el-select v-model="searchForm.buildingId" placeholder="请选择楼层" @change="getFloorList()">
+              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5" v-if="searchForm.businessType != 2 && searchForm.dimensionType === 2">
+          <el-form-item label="楼层">
+            <el-select v-model="searchForm.floorId" placeholder="请选择楼层">
+              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5"  v-if="searchForm.businessType != 2 && searchForm.dimensionType === 3">
+          <el-form-item label="业态">
+            <el-select v-model="searchForm.conditionId" placeholder="请选择业态">
+              <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <!-- <el-col :span="6">
           <el-form-item label="数据涵盖起止时间" label-width="150px">
             <el-date-picker
               size="small"
@@ -38,52 +82,49 @@
               placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <input name="导入" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="xinzeng();">导入</el-button> -->
             <el-button type="primary" size="medium" v-on:click="bianji(1);">编辑</el-button>
-            <el-button type="primary" size="medium" v-on:click="xm_yzl(1);">项目溢租率</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="xm_yzl(1);">项目溢租率</el-button>
             <el-button type="primary" size="medium" v-on:click="lc_yzl(1);">楼层溢租率</el-button>
             <el-button type="primary" size="medium" v-on:click="yt_yzl(1);">业态溢租率</el-button>
             <el-button type="primary" size="medium" v-on:click="kxd(1);">客销度</el-button>
-            <el-button type="primary" size="medium" v-on:click="spz(1);">适配值</el-button>
+            <el-button type="primary" size="medium" v-on:click="spz(1);">适配值</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
 
-    <el-radio-group v-model="tabPosition" style="margin-top: 50px;margin-bottom:-25px;margin-left: 30px">
-      <el-radio-button label="top">溢租率</el-radio-button>
-      <el-radio-button label="right">客销度</el-radio-button>
-      <el-radio-button label="bottom">适配值</el-radio-button>
-    </el-radio-group>
-
     <div class="listCont">
-      <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" prop="id" label="序号"></el-table-column>
-        <el-table-column align="center" prop="area" label="纬度"></el-table-column>
-        <el-table-column align="center" prop="area" label="业态"></el-table-column>
-        <el-table-column align="center" prop="area" label="业种"></el-table-column>
-        <el-table-column align="center" prop="area" label="毛利率"></el-table-column>
-        <el-table-column align="center" prop="area" label="客单价"></el-table-column>
-        <el-table-column align="center" prop="area" label="溢租率"></el-table-column>
-        <el-table-column align="center" prop="area" label="客销度"></el-table-column>
-        <el-table-column align="center" prop="area" label="适配值"></el-table-column>
-        <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" width="200">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+        <el-table-column align="center" type="index" label="序号"></el-table-column>
+        <el-table-column align="center" prop="standardVerssionName" label="版本"></el-table-column>
+        <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+        <el-table-column v-if="searchForm.businessType === 2" align="center" prop="contractName" label="品牌名称"></el-table-column>
+        <el-table-column v-if="searchForm.businessType != 2 && searchForm.dimensionType === 2" align="center" prop="floorName" label="楼层名称"></el-table-column>
+        <el-table-column v-if="searchForm.businessType === 2 || searchForm.dimensionType === 3" align="center" prop="conditionName" label="业态名称"></el-table-column>
+        <el-table-column v-if="searchForm.businessType === 2" align="center" prop="grossRate" label="毛利率"></el-table-column>
+        <el-table-column v-if="searchForm.businessType === 2" align="center" prop="perSale" label="客单价"></el-table-column>
+        <el-table-column v-if="searchForm.businessType === 1" align="center" prop="rent" label="溢租率"></el-table-column>
+        <el-table-column v-if="searchForm.businessType === 3" align="center" prop="fitted" label="适配值"></el-table-column>
+        <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
+        <!-- <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
       <div class="paginationCont">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="data.page"
+          :current-page="page"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="size"
           layout="total, sizes, prev, pager, next, jumper"
@@ -98,17 +139,21 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    businessTypeList: window.$businessTypeList,
+    dimensionList: window.$dimensionList,
+    businessList: [],
+    areaList: [],
+    projectList: [],
+    buildingList:[],
+    floorList: [],
     data: {
 
     },
     loading: false,
     activeName: 'first',
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
+    searchForm: {},
     infoData: {},
+    page: 1,
     size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
@@ -116,9 +161,54 @@ export default {
     picIndex: 0
   }),
   created () {
-    this.searchList(1)
+    window.$getAreaList().then((res) => {
+      this.areaList = res
+    }, (err) => {
+      this.showAlert(err)
+    })
   },
   methods: {
+    areaChanged(){
+      this.page = 1
+      this.size = 10
+      window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
+        this.projectList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    projectChanged(){
+      this.page = 1
+      this.size = 10
+      if(this.searchForm.dimensionType === 2){// 获取楼栋
+        window.$getBuilding(this.searchForm.projectId).then((res) => {
+          this.buildingList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      } else if(this.searchForm.dimensionType === 3){// 获取业态
+        window.$getBusinessListForProject(this.searchForm.projectId).then((res) => {
+          this.businessList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+      }
+      
+    },
+    getFloorList(){
+      this.page = 1
+      this.size = 10
+      window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
+        this.floorList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    dimensionChange() {
+      this.page = 1
+      this.size = 10
+      this.data = {}
+    },
     toggleTab: function(tab) {
       this.currentTab = tab; // tab 为当前触发标签页的组件名
     },
@@ -130,32 +220,63 @@ export default {
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
-    searchList (type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
+    searchList () {
+      let url = ''
+      if(this.searchForm.businessType === 1){// 溢租率列表接口
+        if(this.searchForm.dimensionType === 1){
+          url = '/standardprojectrent/find/standardprojectrent/list'
+        } else if(this.searchForm.dimensionType === 2) {
+          url = '/standardfloorrent/find/standardfloorrent/list'
+        } else if(this.searchForm.dimensionType === 3) {
+          url = '/standardconditionrent/find/standardconditionrent/list'
+        }
+      } else if(this.searchForm.businessType === 3){// 适配值
+        if(this.searchForm.dimensionType === 1){
+          url = '/standardprojectfitted/find/standardprojectfitted/list'
+        } else if(this.searchForm.dimensionType === 2) {
+          url = '/standardfloorfitted/find/standardfloorfitted/list'
+        } else if(this.searchForm.dimensionType === 3) {
+          url = '/standardconditionfitted/find/standardconditionrent/list'
+        }
+      } else if(this.searchForm.businessType === 2){
+        url = '/standardbrandsale/find/standardbrandsale/list'
       }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
+
+      this.$axios.post(url + '?p=' + this.page + '&c=' + this.size, this.searchForm).then((res) => {
+        this.data = res
+        console.log(res)
+      }, (err) => {this.showAlert(err)})
+    },
+    fileUpload(e){
+      if(!this.searchForm.businessType){
+        this.showAlert('请选择业务类型')
+        return false
       }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
+      let url = this.searchForm.businessType === 1 ? '/standimport/excel/standrentimport/sheet' : (this.searchForm.businessType === 2 ? '/standimport/excel/standguestimport/sheet' : '/standimport/excel/standfittedimport/sheet')
+      window.$fileUpload(e, url).then((res) => {
+        this.showAlert('导入成功')
+      }, (err) =>{this.showAlert(err)})
+    },
+    exportExl(){
+      if(!this.searchForm.businessType){
+        this.showAlert('请选择业务类型')
+        return false
+      }
+      if(!this.searchForm.projectId){
+        this.showAlert('请选择项目')
+        return false
+      }
+      let url = this.searchForm.businessType === 1 ? '/standardexport/excel/yzl' : (this.searchForm.businessType === 2 ? '/standardexport/excel' : '/standardexport/excel/spz')
+      window.$exportExls(url, this.searchForm.projectId).then((res) => {
+        console.log(res)
+        let link = document.createElement('a')
+        link.href = res
+        link.click()
+      }, (err) => {
+        this.showAlert(err)
       })
     },
     // 查看详情
