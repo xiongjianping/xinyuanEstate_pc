@@ -666,3 +666,61 @@ Vue.prototype.breakContract = window.$breakContract = function(id) {
             });
     })
 }
+
+/*
+ * 导入
+ */
+
+Vue.prototype.fileUpload = window.$fileUpload = function(e, url) {
+    let params = new FormData() //创建form对象
+    params.append('file', e.target.files[0]) //通过append向form对象添加数据
+    return new Promise(function(resolve, reject) {
+        axios.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 导出
+ */
+
+Vue.prototype.exportExls = window.$exportExls = function(url, id) {
+    let params = {
+        projectId: id
+    }
+    return new Promise(function(resolve, reject) {
+        axios.post(url, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+/*
+ * 通过项目获取业态
+ */
+Vue.prototype.getBusinessListForProject = window.$getBusinessListForProject = function(id) {
+    var params = {
+        projectId: id
+    }
+    return new Promise(function(resolve, reject) {
+        axios.post('/pctriangle/find/Conditionlist/project', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error)
+                reject(error)
+            })
+    })
+}

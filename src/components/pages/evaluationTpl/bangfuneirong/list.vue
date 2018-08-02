@@ -114,7 +114,12 @@ export default {
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
       return 'height:20px;font-size:15px'
-    }
+    },
+    showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 
@@ -129,5 +134,8 @@ export default {
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner {
   width: 100%;
+}
+.el-table .cell {
+  white-space: pre-line;
 }
 </style>

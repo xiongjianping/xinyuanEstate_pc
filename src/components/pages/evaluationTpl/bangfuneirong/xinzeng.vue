@@ -13,7 +13,7 @@
           </el-form-item>
         </el-col><br><br><br><br><br>
         <p style="margin-left: 100px;">帮扶内容：</p>
-        <el-input v-model="data.context" type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
+        <el-input v-model="searchData.context" type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
         </el-input>
         <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
@@ -27,7 +27,6 @@
   import moment from 'moment'
   export default {
     data: () => ({
-      data: {},
       searchData:{},
       loading: false,
       typeList: window.$helpTypeList
@@ -36,7 +35,7 @@
     },
     methods: {
       create(){
-        window.$createHelpContent(this.data).then((res) => {
+        window.$createHelpContent(this.searchData).then((res) => {
           this.showAlert('新增成功')
           this.goBack()
         }, (err) => {
@@ -46,7 +45,11 @@
       goBack(){
         this.$router.back(-1)
       },
-
+showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
     }
   }
 </script>

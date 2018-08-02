@@ -121,7 +121,11 @@ export default {
     editDetails (id) {
       this.$router.push('/projecManage/edit/' + id)
     },
-
+showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 </script>

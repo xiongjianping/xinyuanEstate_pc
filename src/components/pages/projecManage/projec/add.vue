@@ -40,7 +40,7 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="面积/平：">
+          <el-form-item label="面积/平">
             <el-input size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
@@ -59,12 +59,25 @@
               <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br><br><br>
+        </el-col> </br></br></br></br></br></br></br>
 
-      <div class="xxk">
+        <el-col class="uploadFiles">
+          <el-upload class="upload-demo" action="http://192.168.3.33:8080/file/upload/localhost"
+                    :show-file-list="false"
+                    :on-success="handleSuccess"
+                    :on-remove="handleRemove">
+                    <div class="avatar-uploader-icon" v-if="searchForm.projectImages.length > 0" v-for="(item, index) in searchForm.projectImages">
+                      <span class="delete-icon" @click="deleteImg(item)"></span>
+                      <img style="width:100px; height:100px" :src="item"/>
+                    </div>
+                    <i v-if="searchForm.projectImages.length < 6" class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+         </el-col>
+
+       <el-col :span="14" class="xxk">
         <button type="button" @click="goBack()">取消</button>
         <button type="button" @click="create()">确定</button>
-      </div>
+       </el-col>
 
       </el-form>
     </el-row>
@@ -75,13 +88,16 @@
 export default {
   data: () => ({
     loading: false,
-    searchForm: {},
+    searchForm: {
+      projectImages: []
+    },
     areaList: [],
     companyList: [],
     departmentList: [],
     projectHeadList: [],
     pictureList: [],
-    departmentId:''
+    departmentId:'',
+    uploadFileUrl: window.$baseUrl
   }),
   created () {
     // this.searchList(1)
@@ -98,6 +114,14 @@ export default {
     })
   },
   methods: {
+    handleSuccess(file){
+      console.log(file)
+      this.searchForm.projectImages.push(file.data)
+      console.log(this.searchForm.projectImages)
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
     getDepartment(){
       window.$getDepartments(this.searchForm.companyId).then((res) => {
         this.departmentList = res
@@ -114,9 +138,12 @@ export default {
         this.showAlert(err)
       })
     },
+    deleteImg(){
+      for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
+        this.searchForm.projectImages.slice(i, 1)
+      }
+    },
     create(){
-      this.searchForm.projectImages = []
-      console.log(this.searchForm)
       window.$createProject(this.searchForm).then((res) => {
         console.log(res)
         this.searchForm = {}
@@ -129,7 +156,11 @@ export default {
     goBack(){
       this.$router.back(-1)
     },
-
+showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 </script>
@@ -181,6 +212,46 @@ export default {
       margin-left: 20px;
     }
   }
+  .uploadFiles{
+    width: 100%
+  }
+  .delete-icon{
+  width: 20px;
+  height: 20px;
+  // background: url(../images/deleteicon.jpg) no-repeat;
+  // background-size: 100%;
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: block
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    margin: 5px;
+    font-size: 28px;
+    color: #000;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+    float: left;
+    background-color: #d9d9d9
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 
+    .img{
+      width: 100px;
+      height: 100px;
+    }
 
 </style>

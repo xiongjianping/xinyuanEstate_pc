@@ -70,7 +70,6 @@ export default {
       this.loading = true
       window.$getFloorDetails(this.$route.params.id).then((res) => {
         this.loading = false
-        console.log(res)
         this.data = res
       }, (err) => {
         this.loading = false
@@ -80,9 +79,12 @@ export default {
     goBack(){
       this.$router.back(-1)
     },
-
+    showAlert (cont) {
+      this.$alert(cont, '温馨提示', {
+        confirmButtonText: '确定'
+      })
+    }
   }
-
 }
 </script>
 <style scoped  lang="less">

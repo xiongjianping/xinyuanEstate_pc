@@ -78,7 +78,7 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="data.page"
+          :current-page="page"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="size"
           layout="total, sizes, prev, pager, next, jumper"
@@ -86,8 +86,6 @@
         </el-pagination>
       </div>
     </div>
-
-
   </div>
 </template>
 <script>
@@ -102,6 +100,7 @@ export default {
       startTime: null
     },
     infoData: {},
+    page: 1,
     size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
@@ -161,7 +160,12 @@ export default {
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
       return 'height:20px;font-size:15px'
-    }
+    },
+    showAlert: function (cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 

@@ -513,6 +513,7 @@
             <p>销售:<i>{{countrySalesVolume}}</i>万元</p>
           </div>
 
+<!--<<<<<<< HEAD-->
         </div>
         <div class="left-cont " >
           <div class="xing"></div>
@@ -520,6 +521,58 @@
             <span class="l2">全过各区域客流量排行</span>
             <!-- <p class="p1"><i></i><span>全国各区域客流量</span></p>
             <p class="p2"><i></i><span>全国各区域销售量</span></p> -->
+<!--=======-->
+        <!--<el-col :span="10" :xs="24" :sm="24" :md="24" :lg="10">-->
+          <!---->
+          <!--<div class="cont-box">-->
+            <!--<div class="cont-top">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="xing"></div>-->
+              <!--<span class="c1">三角理念统计</span>-->
+              <!--<el-form :model="searchForm" class="center-cent1">-->
+                <!--<div class="left">-->
+                  <!--<select @change="getProjectList()" v-model="searchForm.areaId" placeholder="请选择区域">-->
+                    <!--<option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></option>-->
+                  <!--</select>-->
+                  <!--<select v-model="searchForm.projectId" placeholder="请选择项目" @change="forProjectDetails()">-->
+                    <!--<option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="right">-->
+                  <!--<select>-->
+                    <!--<option value="全部楼层">全部楼层</option>-->
+                    <!--<option value="一层">一层</option>-->
+                  <!--</select>-->
+                  <!--<select>-->
+                    <!--<option value="全部业态">全部业态</option>-->
+                    <!--<option value="服装类">服装类</option>-->
+                  <!--</select>-->
+                  <!--<select>-->
+                    <!--<option value="全部品牌">全部品牌</option>-->
+                    <!--<option value="A&amp;F">A&amp;F</option>-->
+                    <!--<option value="杰克琼斯">杰克琼斯</option>-->
+                    <!--<option value="斯莱德">斯莱德</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div id="main" style="width: 240px;height:300px;"></div>-->
+              <!--</el-form>-->
+              <!--<div class="cent-btn-left2">优</div>-->
+              <!--<div class="cent-btn-right">-->
+                <!--<ul>-->
+                  <!--<li>溢租率</li>-->
+                  <!--<li>客销度</li>-->
+                  <!--<li>适配值</li>-->
+                <!--</ul>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="cont-bottom">-->
+              <!--<img src="../../assets/images/l_t.png" alt="">-->
+              <!--<div class="xing"></div>-->
+              <!--<sapn class="c2">全国各城市项目品牌总量</sapn>-->
+              <!--<div class="center-btn-left"></div>-->
+              <!--&lt;!&ndash;<div id="main2" style="width: 200px;height: 200px"></div>&ndash;&gt;-->
+            <!--</div>-->
+<!--&gt;>>>>>> ae0cb3a6b510e1dd412d164dcda278a0d7e99a76-->
           </div>
           <div class="left-cont-t2">
             <!--<div style="height: 100px;background: red"  class="col-lg-4 col-lg-12"></div>-->
@@ -716,7 +769,10 @@
 
   data () {
    return{
+     searchForm:{},
      areaList:{},
+     projectList:{},
+     projectDetail:'',
      countryPassengerFlow:'',
      countrySalesVolume:'',
      china: []
@@ -725,6 +781,7 @@
   created(){
     window.$getAreaList().then((res) => {
       this.areaList = res
+      console.log(this.areaList)
     }, (err) => {console.log(err)})
 
     // 查询全国客流量
@@ -1059,7 +1116,24 @@
         }
         myChart3.setOption(option3)
         }, (err) => {console.log(err)})
-    }
+    },
+    getProjectList(){
+       window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
+         this.projectList = res
+         console.log(this.projectList)
+       })
+    },
+    forProjectDetails(){
+      $axios.get('/pctriangle/find/project/by/' + this.searchForm.projectId).then((res) => {
+        this.projectDetail = res
+        console.log(this.projectDetail)
+      })
+    },
+    showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
 </script>
