@@ -62,16 +62,16 @@
         </el-col> </br></br></br></br></br></br></br>
 
         <el-col class="uploadFiles">
-          <el-upload class="upload-demo" action="http://192.168.3.33:8080/file/upload/localhost"
-                    :show-file-list="false"
+          <el-upload action="http://192.168.3.33:8080/file/upload/localhost"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
                     :on-success="handleSuccess"
                     :on-remove="handleRemove">
-                    <div class="avatar-uploader-icon" v-if="searchForm.projectImages.length > 0" v-for="(item, index) in searchForm.projectImages">
-                      <span class="delete-icon" @click="deleteImg(item)"></span>
-                      <img style="width:100px; height:100px" :src="item"/>
-                    </div>
-                    <i v-if="searchForm.projectImages.length < 6" class="el-icon-plus avatar-uploader-icon"></i>
+                    <i class="el-icon-plus"></i>
           </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
          </el-col>
 
        <el-col :span="14" class="xxk">
@@ -91,6 +91,8 @@ export default {
     searchForm: {
       projectImages: []
     },
+    dialogImageUrl: '',
+    dialogVisible: false,
     areaList: [],
     companyList: [],
     departmentList: [],
@@ -115,12 +117,22 @@ export default {
   },
   methods: {
     handleSuccess(file){
-      console.log(file)
       this.searchForm.projectImages.push(file.data)
-      console.log(this.searchForm.projectImages)
+    },
+    handlePictureCardPreview(file){
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
     },
     handleRemove(file, fileList) {
-        console.log(file, fileList);
+        console.log(file.response.data);
+        console.log(this.searchForm.projectImages)
+        for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
+          if(this.searchForm.projectImages[i] === file.response.data){
+            console.log(i)
+            this.searchForm.projectImages.splice(i, 1)
+          }
+        }
+        console.log(this.searchForm.projectImages)
       },
     getDepartment(){
       window.$getDepartments(this.searchForm.companyId).then((res) => {
@@ -214,39 +226,6 @@ showAlert(cont) {
   }
   .uploadFiles{
     width: 100%
-  }
-  .delete-icon{
-  width: 20px;
-  height: 20px;
-  // background: url(../images/deleteicon.jpg) no-repeat;
-  // background-size: 100%;
-  }
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    display: block
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    margin: 5px;
-    font-size: 28px;
-    color: #000;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-    float: left;
-    background-color: #d9d9d9
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
   }
 
     .img{
