@@ -45,7 +45,7 @@ Vue.prototype.getAreaList = window.$getAreaList = function() {
             .then((res) => {
                 resolve(res)
             })
-            .catch((error) => {
+            .catch((error) =>{
                 console.log(error);
                 reject(error)
             });
@@ -181,6 +181,7 @@ Vue.prototype.getDepartments = window.$getDepartments = function(companyId) {
  *
  * 通过部门获取人员(GET)
  */
+
 Vue.prototype.getPersion = window.$getPersion = function(departmentId) {
     return new Promise(function(resolve, reject) {
         axios.get('/tissue/find/employee/by/company/' + departmentId)

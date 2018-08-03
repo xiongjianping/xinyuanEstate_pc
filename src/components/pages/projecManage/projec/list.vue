@@ -2,6 +2,7 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm">
+
         <el-col :span="5">
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="getProjectList()">
@@ -9,6 +10,7 @@
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="项目">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
@@ -31,7 +33,6 @@
         </el-form-item>
         </el-col>
       </el-form>
-
     </el-row>
 
 
@@ -263,7 +264,7 @@ export default {
 
   .mainContent{
     width: 100%;
-    height: 100%;
+    height: 130%;
     background: #fff;
   }
   .dd{

@@ -53,6 +53,21 @@
     </div>
 
 
+    <div id="app" class="box">
+      <ul class="tabs clearfix">
+        <li v-for="(tab,index) in tabsName">
+          <a href="#" class="tab-link" @click="tabsSwitch(index)" v-bind:class="{active:tab.isActive}">{{tab.name}}</a>
+        </li>
+      </ul>
+
+      <div class="cards">
+        <div class="tab-card" style="display: block;">这里是HTML教程</div>
+        <div class="tab-card">欢迎来到CSS模块</div>
+        <div class="tab-card">嗨，这里是Vue</div>
+      </div>
+    </div>
+
+
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>

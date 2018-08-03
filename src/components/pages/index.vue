@@ -502,6 +502,7 @@
         <!--</el-col>-->
       <!--</el-row>-->
 <!--</div>-->
+
 <div id="box">
     <div class="col-xs-12 col-md-4 col-lg-3" style="padding: 0">
       <div class="left-box">
@@ -656,8 +657,10 @@
         <div class="left-bottom">
           <div class="xing"></div>
           <span>全国销售额与客流量增长趋势统计</span>
-          <p class="p1"><i></i><span>全国各区域客流量</span></p>
-          <p class="p2"><i></i><span>全国各区域销售量</span></p>
+          <div class="lx">
+            <p class="p1"><i></i><span>全国各区域客流量</span></p>
+            <p class="p2"><i></i><span>全国各区域销售量</span></p>
+          </div>
           <div id="main1" style="width: 300px;height:240px"></div>
         </div>
       </div>
@@ -1014,10 +1017,7 @@
        ]
      };
     myChart1.setOption(option1);
-
-
   },
-
 
   filters: {
 
@@ -1226,12 +1226,7 @@
     display: block;
     color:#fff;
   }
-  .left-bottom .left-bottom-t1 p{
-    position: absolute;
-    top:10px;
-    left: 0;
-    display: inline-block;
-  }
+
   .left-bottom #main1{
       position: absolute;
       bottom:-15px;
@@ -1242,6 +1237,11 @@
       cursor: crosshair;
       color:#fff;
     }
+  .left-bottom .lx{
+    position: relative;
+    top: 0;
+    left: 0;
+  }
      /*首页中上*/
   .cont-top{
     width: 100%;
@@ -1417,7 +1417,7 @@
     /*background: red;*/
     background: url("../../assets/images/l_t.png")no-repeat;
     background-size: 100% 100%;
-    min-width: 320px;
+    min-width: 300px;
     position: relative;
   }
   .right-bottom .xing{
@@ -1440,7 +1440,7 @@
   .right-bottom .r3{
     position: relative;
     top: 35px;
-    left: 180px;
+    left: 170px;
     color: #FFF;
     border-radius: 5px;
     padding: 5px;
@@ -1454,13 +1454,8 @@
     /*line-height: 30px;*/
     position: relative;
     top: 60px;
-    left: 20px;
+    left: 15px;
   }
-
-
-
-
-
 
 
   /*.index-box {*/

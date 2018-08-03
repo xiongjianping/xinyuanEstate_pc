@@ -233,7 +233,7 @@
     border: 0px solid #fff;
     margin-left: 160px;
     el-table{
-      margin-top: 50px;
+      margin-top: 100px;
     }
   }
 
