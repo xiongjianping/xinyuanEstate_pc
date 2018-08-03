@@ -74,13 +74,13 @@
             <input name="导入" type="file" @change="fileUpload" />
             <!-- <el-button type="primary" size="medium" v-on:click="searchList(1);">导入</el-button> -->
             <el-button type="primary" size="medium" v-on:click="exportFile();">导出</el-button>
-            <el-button type="primary" size="medium" v-on:click="xiugai(1);">修改</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="xiugai(1);">修改</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">固定成本</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
-            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
+            <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>
@@ -109,12 +109,12 @@
             <el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center"  label="操作" width="100">
+        <!-- <el-table-column align="center"  label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
       <div class="paginationCont">
         <el-pagination
@@ -190,7 +190,7 @@ export default {
         this.showAlert('请选择业务类型')
         return false
       }
-
+      // let url = '/excel/excel/import/sheet'
       let url = this.businessType === 1 ? '/importexcel/excel/rentimport/sheet' : (this.businessType === 2 ? '/importexcel/excel/guestimport/sheet' : '/importexcel/excel/fittedimport/sheet')
       window.$fileUpload(e, url).then((res) => {
         this.showAlert('导入成功')
