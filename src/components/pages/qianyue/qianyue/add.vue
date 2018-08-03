@@ -1,7 +1,6 @@
 <template>
   <!--签约-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-
     <el-row class="searchBox" :gutter="30">
       <h3 class="title">签约信息</h3>
       <i class="hengxian"></i>
@@ -48,8 +47,8 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="楼栋：">
-            <el-select size="small" v-model="building" placeholder="请选择楼栋" @change="buildingChanged()">
+          <el-form-item label="楼栋：" :span="5">
+            <el-select size="small"   v-model="building" placeholder="请选择楼栋" clearable  @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -63,15 +62,16 @@
           </el-form-item>
         </el-col>
 
+
         <el-col :span="6">
-        <el-form-item label="铺位：">
-          <el-input size="small" maxlength="11" v-model="searchForm.roomName" placeholder="请输入铺位"/>
-        </el-form-item>
+          <el-form-item label="铺位：">
+            <el-input size="small" maxlength="11" v-model="searchForm.roomName" placeholder="请输入铺位"/>
+          </el-form-item>
         </el-col>
 
-        <el-row>
+        <el-col>
           <el-button type="primary" class="xuan" @click="searchList()">搜索</el-button>
-        </el-row><br>
+        </el-col><br><br><br><br>
 
       <div class="biao">
         <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
@@ -80,7 +80,6 @@
           <el-table-column align="center" prop="floorName" label="楼层名称" ></el-table-column>
           <el-table-column align="center" prop="roomName" label="铺位名称" ></el-table-column>
         </el-table>
-
       </div>
 
         <div class="xxk">

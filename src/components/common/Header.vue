@@ -31,7 +31,6 @@
     <!--</el-row>-->
   <!--</div>-->
 
-
   <div class="header">
     <div class="navList">
       <ul class="navCont" >
@@ -42,7 +41,6 @@
           </ul>
         </li>
         <li>
-          <!--<img src="../../assets/images/zhong.png" alt="" style="width:50%;margin-left:-55px;">-->
           <img src="../../assets/images/logo1.png"  alt="" class="logos">
         </li>
         <li   v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
