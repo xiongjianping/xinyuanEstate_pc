@@ -64,6 +64,7 @@
         <el-col class="uploadFiles">
           <el-upload action="http://192.168.3.33:8080/file/upload/localhost"
                     list-type="picture-card"
+                    :limit=6
                     :on-preview="handlePictureCardPreview"
                     :on-success="handleSuccess"
                     :on-remove="handleRemove">

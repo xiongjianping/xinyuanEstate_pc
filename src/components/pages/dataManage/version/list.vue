@@ -7,6 +7,7 @@
             <el-input size="small" v-model="searchForm.standardVerssionName" :maxlength="30" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="业务类型">
             <el-select v-model="searchForm.businessType" placeholder="请选择业务类型">
@@ -112,6 +113,7 @@
         <el-table-column v-if="searchForm.businessType === 2" align="center" prop="perSale" label="客单价"></el-table-column>
         <el-table-column v-if="searchForm.businessType === 1" align="center" prop="rent" label="溢租率"></el-table-column>
         <el-table-column v-if="searchForm.businessType === 3" align="center" prop="fitted" label="适配值"></el-table-column>
+        <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
         <!-- <el-table-column align="center"  label="操作" width="200">
           <template slot-scope="scope">
@@ -258,6 +260,9 @@ export default {
       let url = this.searchForm.businessType === 1 ? '/standimport/excel/standrentimport/sheet' : (this.searchForm.businessType === 2 ? '/standimport/excel/standguestimport/sheet' : '/standimport/excel/standfittedimport/sheet')
       window.$fileUpload(e, url).then((res) => {
         this.showAlert('导入成功')
+        this.page = 1
+        this.size = 10
+        this.searchList()
       }, (err) =>{this.showAlert(err)})
     },
     exportExl(){

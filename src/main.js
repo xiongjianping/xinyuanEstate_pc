@@ -25,48 +25,17 @@ window.Vue = Vue
 
 Vue.config.productionTip = false
 window.XMLHttpRequest.withCredentials = true
-    // axios.defaults.baseURL = 'http://125.94.37.240:8096' // 测试2
-    // axios.defaults.baseURL = 'http://120.78.210.69:8096' // 园区购
-
-// Vue.prototype.$imgUrl = 'http://125.94.45.180:8063/storage/upload' // 测试环境图片上传地址
-// Vue.prototype.$imgUrl = 'http://120.78.210.69:8063/storage/upload' // 园区购图片上传地址
 
 Vue.prototype.helpTypeList = window.$helpTypeList = [{ name: '租金帮扶', id: 1 }, { name: '活动支持', id: 2 }, { name: '点位宣传支持', id: 3 }, { name: '品牌及会员', id: 4 }, { name: '其他', id: 5 }]
 Vue.prototype.businessTypeList = window.$businessTypeList = [{ name: '溢租率', id: 1 }, { name: '客销度', id: 2 }, { name: '适配值', id: 3 }]
 Vue.prototype.dimensionList = window.$dimensionList = [{ name: '项目', id: 1 }, { name: '楼层', id: 2 }, { name: '业态', id: 3 }]
+Vue.prototype.businessTypeList2 = window.$businessTypeList2 = [{ name: '溢租率', id: 1 }, { name: '客销度', id: 2 }, { name: '适配值', id: 3 }]
+Vue.prototype.dimensionList2 = window.$dimensionList2 = [{ name: '项目', id: 1 }, { name: '楼层', id: 2 }, { name: '品牌', id: 3 }]
+
 Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.3.33:8080'
 
 var alert = require('element-ui').MessageBox.alert
 
-// var tokenBugNum = 0
-// var tokenBug = function(eMsg) {
-//     if (tokenBugNum === 1) {
-//         alert(eMsg, '温馨提示', {
-//             confirmButtonText: '确定',
-//             callback: action => {
-//                 router.push('/login')
-//                 tokenBugNum = 0
-//             }
-//         })
-//     }
-// }
-
-// axios.interceptors.response.use(function(response) {
-//     // 处理对响应数据
-//     if (response.data.code === '0' || response.data.code === 0) {
-//         return response.data.data
-//     } else if (response.data.code === 'SHOPA_10001' || response.data.code === 'ST_LO10008' || response.data.code === 'SHOP_10057') {
-//         tokenBugNum++
-//         tokenBug(response.data.msg)
-//     } else {
-//         return Promise.reject(response.data.msg)
-//     }
-// }, function() {
-//     alert('登录过期，请重新登录', '温馨提示', {
-//         confirmButtonText: '确定'
-//     })
-// })
-// Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 /* eslint-disable no-new */
 new Vue({
