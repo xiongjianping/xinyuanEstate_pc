@@ -71,8 +71,8 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <input name="导入" type="file" @change="fileUpload" />
-            <!-- <el-button type="primary" size="medium" v-on:click="searchList(1);">导入</el-button> -->
+            <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
+            <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportFile();">导出</el-button>
             <!-- <el-button type="primary" size="medium" v-on:click="xiugai(1);">修改</el-button>
             <el-button type="primary" size="medium" v-on:click="xiangqing(1);">详情</el-button>
@@ -156,6 +156,9 @@ export default {
     }, (err) => {console.log(err)})
   },
   methods: {
+    importFile(){
+      document.getElementById('fileUpload_input').click()
+    },
     areaChange(){
       window.$getProjectListForArea(this.exportExlsData.areaId).then((res) => {
         this.projectList = res
@@ -272,5 +275,11 @@ export default {
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;
+  }
+  .uploadInput{
+    top:0px;
+    width: 0;
+    height: 100%;
+    visibility: hidden;
   }
 </style>
