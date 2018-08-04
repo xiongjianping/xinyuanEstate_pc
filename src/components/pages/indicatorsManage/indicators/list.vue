@@ -1,7 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <el-row class="searchBox" :gutter="30" >
-      <el-form label-width="100px" :model="searchForm" >
+    <el-row class="searchBox" :gutter="30">
+      <el-form label-width="100px" :model="searchForm" class="formStyle">
         <el-col :span="5">
           <el-form-item label="品牌">
             <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
@@ -20,28 +20,18 @@
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br>
+        </el-col>
+      </el-form>
+      <el-form class="formStyle">
         <el-col :span="5">
           <el-form-item label="开始时间" label-width="100px">
-            <el-date-picker
-              size="small"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              v-model="searchForm.createTimeBegin"
-              type="date"
-              placeholder="选择日期">
+            <el-date-picker size="small" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="searchForm.createTimeBegin" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="5">
           <el-form-item label="至" label-width="100px">
-            <el-date-picker
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              size="small"
-              v-model="searchForm.createTimeEnd"
-              type="date"
-              placeholder="选择日期">
+            <el-date-picker format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.createTimeEnd" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -54,7 +44,7 @@
       </el-form>
     </el-row>
     <div class="listCont">
-      <el-table :data="data.resultList" border size="medium"  :header-cell-style="rowClass">
+      <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="name" label="品牌名称"></el-table-column>
         <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
@@ -70,11 +60,11 @@
         <!-- <el-table-column align="center" prop="company" label="修改人"></el-table-column> -->
         <el-table-column align="center" prop="state" label="状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.state === 1">签约</el-button>
-            <el-button disabled  size="small" type="danger" v-if="scope.row.state === 2">停用</el-button>
+            <el-button disabled size="small" type="success" v-if="scope.row.state === 1">签约</el-button>
+            <el-button disabled size="small" type="danger" v-if="scope.row.state === 2">停用</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center"  label="操作" width="200">
+        <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="bianji(scope.row.id)">编辑</el-button>
             <el-button type="text" v-on:click="deleteBrand(scope.row.id)">删除</el-button>
@@ -82,14 +72,7 @@
         </el-table-column>
       </el-table>
       <div class="paginationCont">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="data.countSize">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page" :page-sizes="[10, 20, 50, 100]" :page-size="size" layout="total, sizes, prev, pager, next, jumper" :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -110,7 +93,7 @@ export default {
     page: 1,
     size: 10
   }),
-  created () {
+  created() {
     this.searchList()
     window.$getformSelect().then((res) => {
       this.formList = res
@@ -119,22 +102,22 @@ export default {
     })
   },
   methods: {
-    getSpeciesList(){
+    getSpeciesList() {
       window.$getSpeciesSelect(this.searchForm.businessFormId).then((res) => {
         this.speciesList = res
       }, (err) => {
         this.showAlert(err)
       })
     },
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.size = val
       this.searchList()
     },
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.page = val
       this.searchList()
     },
-    searchList () {
+    searchList() {
       this.loading = true
       window.$getBrandList(this.page, this.size, this.searchForm).then((res) => {
         this.loading = false
@@ -145,18 +128,18 @@ export default {
       })
     },
     //新增项目
-    xinzeng(id){
+    xinzeng(id) {
       this.$router.push('/indicatorsManage' + '/indicators/add/' + id)
     },
     //编辑
-    bianji (id) {
+    bianji(id) {
       this.$router.push('/indicatorsManage/indicators/bianji/' + id)
     },
-    deleteBrand(id){
+    deleteBrand(id) {
       this.loading = true
       window.$deleteBrand(id).then((res) => {
-        for(var i = this.data.resultList.length - 1; i >= 0; i--){
-          if(this.data.resultList[i].id === id){
+        for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+          if (this.data.resultList[i].id === id) {
             this.data.resultList.splice(i, 1)
             this.loading = false
             return false
@@ -167,25 +150,33 @@ export default {
         this.showAlert(err)
       })
     },
-    rowClass({ row, rowIndex}) {
+    rowClass({ row, rowIndex }) {
       console.log(rowIndex) //表头行标号为0
       return 'height:20px;font-size:15px'
     },
     showAlert(cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+      this.$alert(cont, '温馨提示', {
+        confirmButtonText: '确定'
+      })
+    }
   }
 }
+
 </script>
-<style scoped  lang="less">
-  .mainContent{
-      width: 100%;
-      height: 120%;
-      background: #fff;
-  }
-.el-date-editor.el-input, .el-date-editor.el-input__inner{
+<style scoped lang="less">
+.mainContent {
+  width: 100%;
+  height: 120%;
+  background: #fff;
+}
+
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
   width: 100%;
 }
+
+.formStyle {
+  height: 66px;
+}
+
 </style>
