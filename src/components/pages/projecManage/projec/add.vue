@@ -7,47 +7,48 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
 
-      <el-col :span="6">
-        <el-form-item label="项目">
-          <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
-        </el-form-item>
-      </el-col>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="项目">
+            <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          </el-form-item>
+        </el-col>
 
+
+          <el-col :span="6">
+            <el-form-item label="区域">
+              <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
+                <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
         <el-col :span="6">
-          <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
-              <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-form-item label="公司">
+            <el-select size="small" v-model="searchForm.companyId" placeholder="请选择公司" @change="getDepartment()">
+              <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
-      <el-col :span="6">
-        <el-form-item label="公司">
-          <el-select size="small" v-model="searchForm.companyId" placeholder="请选择公司" @change="getDepartment()">
-            <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="状态">
-            <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
-              <el-option label="启用" value="true"></el-option>
-              <el-option label="禁用" value="false"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        
-
+          <el-col :span="6">
+            <el-form-item label="状态">
+              <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
+                <el-option label="启用" value="true"></el-option>
+                <el-option label="禁用" value="false"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+      </el-row>
+      
+      <el-row>
         <el-col :span="6" >
           <el-form-item label="部门">
             <el-select size="small" v-model="departmentId" placeholder="请选择部门" @change="getPerson()">
               <el-option v-for="(item,index) in departmentList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br>
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="运营负责人">
@@ -61,8 +62,9 @@
           <el-form-item label="面积/平">
             <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
-        </el-col></br></br></br></br></br></br></br>
-
+        </el-col>
+      </el-row>
+      <el-row>
         <el-col class="uploadFiles">
          <el-upload :action="getUploadUrl()"
                     list-type="picture-card"
@@ -76,11 +78,18 @@
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
          </el-col>
+      </el-row>
 
-       <el-col :span="14" class="xxk">
-        <button type="button" @click="goBack()">取消</button>
-        <button type="button" @click="create()">确定</button>
-       </el-col>
+      <el-row class="f-tac mt40">
+        <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
+        <el-button type="primary" @click="create()">确定</el-button>
+      </el-row>
+     <!--  <el-row>
+        <el-col :span="14" class="xxk">
+          <button type="button" @click="goBack()">取消</button>
+          <button type="button" @click="create()">确定</button>
+        </el-col>
+      </el-row> -->
 
       </el-form>
     </el-row>
@@ -200,8 +209,8 @@ export default {
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: 52px;
   }
   .el-form-item__label {

@@ -3,6 +3,7 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="sendData">
+        <el-row>
         <el-col :span="6">
           <el-form-item label="区域：">
             <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
@@ -17,32 +18,30 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <el-col :span="6">
-          <el-form-item label="">
+          <el-form-item label="帮扶类型：">
             <el-select size="small" v-model="searchForm.type" placeholder="租金帮扶" @change="searchList()">
               <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6" style="margin-left: -150px">
-          <el-form-item label="">
+        </el-row>
+        <el-row>
+        <el-col :span="6">
+          <el-form-item label="评价：">
             <el-select size="small" v-model="sendData.type" placeholder="优秀">
               <el-option v-for="(item,index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br>
+        </el-col>
         <el-col :span="6" >
           <el-form-item label="业务类型：">
             <el-select size="small" v-model="sendData.helpType" placeholder="请选择业务类型">
               <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col><br><br><br><br><br><br>
+        </el-col>
+      </el-row>
       <!--<div class="biao">-->
         <!--<el-table-->
           <!--:data="tableData3"-->
@@ -87,10 +86,14 @@
             </el-table-column>
           </el-table>
         </div>
-        <div class="xxk">
+        <el-row class="f-tac">
+          <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
+          <el-button type="primary" @click="create()">新增</el-button>
+        </el-row>
+       <!-- <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
           <button type="button" @click="create()">新增</button>
-        </div>
+           </div> -->
       </el-form>
     </el-row>
   </div>
@@ -187,8 +190,8 @@ showAlert(cont) {
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: 52px;
   }
   .el-form-item__label {
@@ -222,11 +225,10 @@ showAlert(cont) {
     }
   }
   .biao{
-    width: 350px;
+    width: 100%;
     height: 350px;
     border: 0px solid #fff;
-    margin-left: 160px;
-    el-table-column{
+    .el-table-column{
       margin-top: 50px;
       text-align: center;
     }

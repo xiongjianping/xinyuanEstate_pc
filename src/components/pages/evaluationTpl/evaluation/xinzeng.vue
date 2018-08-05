@@ -5,60 +5,63 @@
     <el-row class="searchBox" :gutter="30">
 
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
-          <el-form-item label="区域：">
-            <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
-              <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="区域：">
+              <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
+                <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="项目：">
-            <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目" @change="changeProject()">
-              <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+          <el-col :span="6">
+            <el-form-item label="项目：">
+              <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目" @change="changeProject()">
+                <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="楼栋：">
-            <el-select size="small" v-model="building" placeholder="请选择楼栋" @change="changeBuilding()">
-              <el-option v-for="(item, index) in allBuilding" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+          <el-col :span="6">
+            <el-form-item label="楼栋：">
+              <el-select size="small" v-model="building" placeholder="请选择楼栋" @change="changeBuilding()">
+                <el-option v-for="(item, index) in allBuilding" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="6" >
-          <el-form-item label="楼层：">
-            <el-select size="small" v-model="sendData.floorId" placeholder="请选择楼层">
-              <el-option v-for="(item, index) in allFloor" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br>
-
-        <el-col :span="6" >
-          <el-form-item label="帮扶类型：">
-            <el-select size="small" v-model="searchForm.type" placeholder="请选择帮扶类型"  @change="searchList()">
-              <el-option v-for="(item, index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6" >
-          <el-form-item label="评价：">
-            <el-select size="small" v-model="sendData.type" placeholder="请选择评价">
-              <el-option v-for="(item, index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6" >
-          <el-form-item label="业务类型：">
-            <el-select size="small" v-model="sendData.helpType" placeholder="请选择业务类型">
-              <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      <div class="biao">
+          <el-col :span="6" >
+            <el-form-item label="楼层：">
+              <el-select size="small" v-model="sendData.floorId" placeholder="请选择楼层">
+                <el-option v-for="(item, index) in allFloor" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6" >
+            <el-form-item label="帮扶类型：">
+              <el-select size="small" v-model="searchForm.type" placeholder="请选择帮扶类型"  @change="searchList()">
+                <el-option v-for="(item, index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6" >
+            <el-form-item label="评价：">
+              <el-select size="small" v-model="sendData.type" placeholder="请选择评价">
+                <el-option v-for="(item, index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6" >
+            <el-form-item label="业务类型：">
+              <el-select size="small" v-model="sendData.helpType" placeholder="请选择业务类型">
+                <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <div class="biao mt20">
         <el-table :data="allcontext" height="280" border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
           <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
           <el-table-column type="index" label="序号" align="center">
@@ -76,11 +79,14 @@
           </el-table-column>
         </el-table>
       </div>
-
-        <div class="xxk">
+      <el-row class="f-tac">
+        <el-button type="primary" class="mr15" @click="goBack()">取消</el-button>
+        <el-button type="primary" @click="create()">新增</el-button>
+      </el-row>
+      <!--   <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
           <button type="button" @click="create()">新增</button>
-        </div>
+        </div> -->
 
       </el-form>
     </el-row>
@@ -193,8 +199,8 @@
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: 52px;
   }
   .el-form-item__label {
@@ -228,11 +234,10 @@
     }
   }
   .biao{
-    width: 350px;
+    width:100%;
     height: 350px;
     border: 0px solid #fff;
-    margin-left: 160px;
-    el-table{
+    .el-table{
       margin-top: 100px;
     }
   }
