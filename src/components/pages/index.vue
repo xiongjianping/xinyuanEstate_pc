@@ -1,5 +1,5 @@
 <template>
-  <div id="box">
+  <!--   <div id="box">
     <div class="col-xs-12 col-md-4 col-lg-3" style="padding: 0">
       <div class="left-box">
         <div class="left-top">
@@ -115,11 +115,188 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="g_ct">
+    <el-row>
+      <el-col :span="6">
+        <div class="left_1 mb10">
+          <div class="title_bg  tit_left1"></div>
+          <span class="title_txt">全国各项目总量</span>
+          <div class="lzi">
+            <p>销售：<i>{{countrySalesVolume}}</i><em>万元</em></p>
+            <p>客流：<i>{{countryPassengerFlow}}</i><em>万人次</em></p>
+          </div>
+        </div>
+        <div class="left_2 mb10">
+          <div class="title_bg tit_left2"></div>
+          <span class="title_txt">全过各区域客流量排行</span>
+          <div class="left_echars2">
+            <div id="main3"></div>
+          </div>
+        </div>
+        <div class="left_3">
+          <div class="title_bg tit_left3"></div>
+          <span class="title_txt">全国销售额与客流量增长趋势统计</span>
+          <div class="left_echars3">
+            <div id="main1"></div>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="center_1 mb20">
+          <div class="title_bg tit_center1"></div>
+          <span class="title_txt">三角理念统计</span>
+          <div class="select_ct">
+            <div class="f-tac mt10">
+              <m-select :tabs="tabs" :clicked="clicked1" v-on:childTab="tabClick1"></m-select>
+              <m-select :tabs="tabs" :clicked="clicked2" v-on:childTab="tabClick2"></m-select>
+              <m-select :tabs="tabs" :clicked="clicked3" v-on:childTab="tabClick3"></m-select>
+            </div>
+            <div class="f-tac mt10">
+              <m-select :tabs="tabs" :clicked="clicked4" v-on:childTab="tabClick4"></m-select>
+              <m-select :tabs="tabs" :clicked="clicked5" v-on:childTab="tabClick5"></m-select>
+              <m-select :tabs="tabs" :clicked="clicked6" v-on:childTab="tabClick6"></m-select>
+            </div>
+          </div>
+          <div class="center_echars1">
+            <div id="main"></div>
+          </div>
+          <div class="g_notes f-pr">
+            <h2>优</h2>
+            <div class="notes_list f-cb">
+              <span><i>1000</i>溢租率</span>
+              <span><i>200</i>客销度</span>
+              <span><i>300</i>适配值</span>
+            </div>
+          </div>
+        </div>
+        <div class="center_2 f-cb">
+          <div class="center_echars2 f-fl f-tac">
+              <!-- <div id="china"></div> -->
+              <img src="../../assets/images/ditu.png" alt="" alt="">
+          </div>
+          <div class="f-fr g_place">
+            <ul class="pt25">
+              <li>
+                <b>华北区</b>
+                <span>
+                   <el-progress :percentage="100" :show-text="false"></el-progress>
+                </span>
+                <em>500</em>
+              </li>
+              <li>
+                <b>华北区</b>
+                <span>
+                  <el-progress :percentage="100" :show-text="false"></el-progress>
+                </span>
+                <em>500</em>
+              </li>
+              <li>
+                <b>华中区</b>
+                <span>
+                  <el-progress :percentage="80" :show-text="false"></el-progress>
+                </span>
+                <em>400</em>
+              </li>
+              <li>
+                <b>华东区</b>
+                <span>
+                  <el-progress :percentage="50" :show-text="false"></el-progress>
+                </span>
+                <em>300</em>
+              </li>
+              <li>
+                <b>华南区</b>
+                <span>
+                  <el-progress :percentage="15" :show-text="false"></el-progress>
+                </span>
+                <em>200</em>
+              </li>
+              <li>
+                <b>华西北区</b>
+                <span>
+                  <el-progress :percentage="15" :show-text="false"></el-progress>
+                </span>
+                <em>100</em>
+              </li>
+              <li>
+                <b>华西南区</b>
+                <span>
+                  <el-progress :percentage="15" :show-text="false"></el-progress>
+                </span>
+                <em>100</em>
+              </li>
+            </ul>
+            <el-row class="mt20 mb10 f-tac">
+              <el-button type="primary" size="small">智能推送</el-button>
+            </el-row>
+            <el-row class="f-tac">
+              <el-button type="primary" size="small">自助招商</el-button>
+            </el-row>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="6">
+        <div class="right_1 mb10">
+          <div class="title_bg tit_right1"></div>
+          <span class="title_txt">项目预览</span>
+          <swiper :options="swiperOption" ref="mySwiper" class="mySwiper_list">
+            <swiper-slide>
+                <div class="img">
+                    <img src="../../assets/images/r_t.png" alt="">
+                </div>
+                <div class="swiper_txt">
+                  <div class="f-cb">
+                    <p class="f-fl">西安鑫苑大都汇</p>
+                    <p class="f-fr f-tar">楼层数：共5层</p>
+                  </div>
+                  <div class="f-cb">
+                    <p class="f-fl">开业时间：2016年12月16日</p>
+                    <p class="f-fr f-tar">面积：12万平方</p>
+                  </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="img">
+                    <img src="../../assets/images/r_t.png" alt="">
+                </div>
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </div>
+        <div class="right_2 mb10">
+          <div class="title_bg tit_right1"></div>
+          <span class="title_txt">客销度</span>
+          <div class="g_text">
+              E1:短期下调租金培育品牌经营
+              E2:辅助品牌经营
+              E3:分析品牌下降原因
+              E4:下调租金
+              E5:品牌淘汰
+          </div>
+        </div>
+        <div class="right_3">
+          <div class="title_bg tit_right1"></div>
+          <span class="title_txt">建设措施</span>
+          <el-row class="f-tac">
+            <el-button type="primary" size="small" class="mr15">溢租率</el-button>
+            <el-button type="primary" size="small">适配值</el-button>
+          </el-row>
+          <div class="g_text">
+              E1:短期下调租金培育品牌经营
+              E2:辅助品牌经营
+              E3:分析品牌下降原因
+              E4:下调租金
+              E5:品牌淘汰
+          </div>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
 import echarts from '../../../static/js/echarts.js'
-
+// import china from '../../components/options/china.js';
 export default {
 
   data() {
@@ -147,7 +324,45 @@ export default {
       projectDetail: '',
       countryPassengerFlow: '',
       countrySalesVolume: '',
-      china: []
+      china: [],
+      tabs: [{
+          tab_id: 1,
+          tab_name: '近1个月'
+        },
+        {
+          tab_id: 2,
+          tab_name: '近3个月'
+        },
+        {
+          tab_id: 3,
+          tab_name: '近6个月'
+        },
+        {
+          tab_id: 4,
+          tab_name: '1年以内'
+        },
+        {
+          tab_id: 5,
+          tab_name: '1年以上'
+        }
+      ],
+      clicked1: false,
+      clicked2: false,
+      clicked3: false,
+      clicked4: false,
+      clicked5: false,
+      clicked6: false,
+      swiperOption: {
+        // 如果需要分页器
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+          renderBullet: function (index, className) {
+            return '<span class="' + className + '">' + (index + 1) + '</span>';
+          },
+        },
+        initialSlide:0
+      }
     }
   },
   created() {
@@ -167,33 +382,32 @@ export default {
         this.countrySalesVolume = res
       }, (err) => { console.log(err) })
   },
+  watch:{
+  },
   mounted() {
     this.getAaa()
+    //中国地图
+    // var myChart_china = echarts.init(document.getElementById('china'))
+    // china( myChart_china)
     var myChart = echarts.init(document.getElementById('main'));
     var option = {
       textStyle: {
         color: "white"
       },
-
       legend: {
         data: ['流量', '降雨量'],
         x: 'left',
-
       },
       parallelAxis: [
-
         {
           dim: 0,
           name: '溢租率(%)',
           min: -100,
           max: 100,
           axisLine: {
-
             lineStyle: {
-
               width: 10,
               color: {
-
                 type: 'linear',
                 x: 0,
                 y: 0,
@@ -297,10 +511,10 @@ export default {
         }
       ],
       parallel: { // 这是『坐标系』的定义
-        left: '8%', // 平行坐标系的位置设置
-        right: '8%',
-        bottom: '20%',
-        top: '20%',
+        left: '10%', // 平行坐标系的位置设置
+        right: '25%',
+        bottom: '10%',
+        top: '15%',
         parallelAxisDefault: { // 『坐标轴』的公有属性可以配置在这里避免重复书写
           type: 'value',
           nameLocation: 'end',
@@ -352,11 +566,26 @@ export default {
 
     var myChart1 = echarts.init(document.getElementById('main1'));
     var option1 = {
+      color: ['#ce4b4b', '#00ac82'],
       textStyle: {
         color: "white"
       },
       tooltip: {
         trigger: 'axis'
+      },
+      legend: {
+        data: ['全国各区域客流量', '全国各区域销售量'],
+        left: 'right',
+        top: 10,
+        textStyle: {
+          color: '#fff'
+        }
+      },
+      grid: {
+        left: '20%',
+        right: '15%',
+        bottom: '15%',
+        top: '25%'
       },
       calculable: true,
       xAxis: [{
@@ -371,7 +600,7 @@ export default {
         }
       }],
       series: [{
-          name: '最高气温',
+          name: '全国各区域客流量',
           type: 'line',
           data: [11, 11, 15, 13, 12, 13, 10],
           markPoint: {
@@ -387,7 +616,7 @@ export default {
           }
         },
         {
-          name: '最低气温',
+          name: '全国各区域销售量',
           type: 'line',
           data: [1, -2, 2, 5, 3, 2, 0],
           markPoint: {
@@ -404,11 +633,17 @@ export default {
       ]
     };
     myChart1.setOption(option1);
+
+    // setTimeout( () => {
+    //   myChart.resize()
+    //   myChart1.resize()
+    //   myChart3.resize()
+    // },0)
   },
 
-  filters: {
+  // filters: {
 
-  },
+  // },
   methods: {
     getAaa() {
       this.$axios.get('/pctriangle/find/salepassengerflow/all')
@@ -420,18 +655,18 @@ export default {
               name: '全国各区域客流量',
               type: 'bar',
               label: seriesLabel,
-              data: []
+              data: [],
             },
             {
               name: '全国各区域销售量',
               type: 'bar',
               label: seriesLabel,
-              data: []
+              data: [],
             }
           ]
           var params
           for (var i = 0; i < this.passengerFlowList.length; i++) {
-            areaNameList.push(this.passengerFlowList[i].areaName)
+            areaNameList.push(i + 1 + ' ' + this.passengerFlowList[i].areaName)
             seriesList[0].data.push(this.passengerFlowList[i].passengerFlow)
             seriesList[1].data.push(this.passengerFlowList[i].saleroom)
           }
@@ -447,6 +682,7 @@ export default {
             }
           }
           var option3 = {
+            color: ['#66a4e3', '#58d24c'],
             tooltip: {
               trigger: 'axis',
               axisPointer: {
@@ -454,50 +690,58 @@ export default {
               }
             },
             legend: {
-              data: valueNameList
+              data: valueNameList,
+              left: 'right',
+              top: 10,
+              textStyle: {
+                color: '#fff'
+              }
             },
             grid: {
-              left: 50
-            },
-            toolbox: {
-              show: true,
-              feature: {
-                saveAsImage: {}
-              }
+              left: '6%',
+              right: '4%',
+              bottom: '3%',
+              top: '8%'
             },
             xAxis: {
               type: 'value',
               name: 'Days',
               axisLabel: {
                 formatter: '{value}'
-              }
+              },
+              axisLine: {
+                show: false,
+              },
+              splitLine: {
+                show: false,
+              },
+              axisTick: {
+                show: false
+              },
             },
             yAxis: {
               type: 'category',
               inverse: true,
-              data: areaNameList
+              axisLine: {
+                show: false,
+              },
+              splitLine: {
+                show: false,
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                show: true,
+                textStyle: {
+                  color: '#fff',
+                  fontSize: 14,
+                  align: 'left'
+                }
+              },
+              data: areaNameList,
             },
             series: seriesList
-            // [
-            //     {
-            //         name: 'City Alpha',
-            //         type: 'bar',
-            //         data: [165, 170, 30],
-            //         label: seriesLabel
-            //     },
-            //     {
-            //         name: 'City Beta',
-            //         type: 'bar',
-            //         label: seriesLabel,
-            //         data: [150, 105, 110]
-            //     },
-            //     {
-            //         name: 'City Gamma',
-            //         type: 'bar',
-            //         label: seriesLabel,
-            //         data: [220, 82, 63]
-            //     }
-            // ]
           }
           myChart3.setOption(option3)
         }, (err) => { console.log(err) })
@@ -521,421 +765,251 @@ export default {
       this.$alert(cont, '温馨提示', {
         confirmButtonText: '确定'
       })
-    }
+    },
+    tabClick1(id,isClicked) {
+      this.clicked1=isClicked
+      this.clicked2=false
+      this.clicked3=false
+      this.clicked4=false
+      this.clicked5=false
+      this.clicked6=false
+    },
+    tabClick2(id,isClicked) {
+      this.clicked2=isClicked
+      this.clicked1=false
+      this.clicked3=false
+      this.clicked4=false
+      this.clicked5=false
+      this.clicked6=false
+    },
+    tabClick3(id,isClicked) {
+      this.clicked3=isClicked
+      this.clicked1=false
+      this.clicked2=false
+      this.clicked4=false
+      this.clicked5=false
+      this.clicked6=false
+    },
+    tabClick4(id,isClicked) {
+      this.clicked4=isClicked
+      this.clicked1=false
+      this.clicked2=false
+      this.clicked3=false
+      this.clicked5=false
+      this.clicked6=false
+    },
+    tabClick5(id,isClicked) {
+      this.clicked5=isClicked
+      this.clicked1=false
+      this.clicked2=false
+      this.clicked3=false
+      this.clicked4=false
+      this.clicked6=false
+    },
+    tabClick6(id,isClicked) {
+      this.clicked6=isClicked
+      this.clicked1=false
+      this.clicked2=false
+      this.clicked3=false
+      this.clicked4=false
+      this.clicked5=false
+    },
   }
 }
 
 </script>
 <style scoped lang="less">
-/*首页左上*/
+.g_ct {
+  height: 100%;
+  position: relative;
+  padding: 0 50px;
+  box-sizing: border-box;
+}
 
-.left-top {
+.left_1,
+.left_3,
+.right_2,
+.right_3 {
+  padding: 10px 15px;
+  box-sizing: border-box;
   width: 100%;
-  height: 250px;
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 350px;
+  min-height: 250px;
   position: relative;
 }
 
-.left-top .xing {
+.left_2,
+.right_1 {
+  padding: 10px 15px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 350px;
+  position: relative;
+}
+
+.left_1,
+.left_3 {
+  background: url("../../assets/images/left.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+.left_2 {
+  background: url("../../assets/images/left.png")no-repeat;
+  background-size: 100% 100%;
+}
+
+.right_1 {
+  background: url("../../assets/images/left.png")no-repeat;
+  background-size: 100% 100%;
+}
+
+.right_2,
+.right_3 {
+  background: url("../../assets/images/left.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+.center_1 {
+  min-height: 450px;
+  background: url("../../assets/images/center_1.png")no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.center_2 {
+  min-height: 402px;
+  background: url("../../assets/images/center_2.png")no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.title_bg {
   background: #169bd5;
   height: 20px;
   display: inline-block;
-  padding: 3px 70px;
   transform: skew(-45deg);
   position: absolute;
   top: 0;
   left: 20px;
-}
-
-.left-top span {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
   color: #fff;
-}
-
-.left-top .lzi {
-  color: white;
-  text-align: center;
-  font-size: 23px;
-  position: relative;
-  top: 100px;
-}
-
-.left-top .lzi i {
-  background: #1fa8f3;
-  padding: 1px;
-  border-radius: 2px;
-}
-
-/*首页左中*/
-
-.left-cont {
-  width: 100%;
-  height: 250px;
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 350px;
-  position: relative;
-}
-
-.left-cont .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 80px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.left-cont span {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
-  color: #fff;
-}
-
-
-/*首页左下*/
-
-.left-bottom {
-  width: 100%;
-  height: 250px;
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 350px;
-  position: relative;
-}
-
-.left-bottom .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 120px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.left-bottom span {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
-  color: #fff;
-}
-
-.left-bottom #main1 {
-  position: absolute;
-  bottom: -15px;
-  left: 20px;
-  overflow: hidden;
-  width: 85%;
-  height: 200px;
-  cursor: crosshair;
-  color: #fff;
-}
-
-.left-bottom .lx {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-
-/*首页中上*/
-
-.cont-top {
-  width: 100%;
-  height: 400px;
-  /*background: red;*/
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 300px;
-  position: relative;
-}
-
-.cont-top .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 70px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.cont-top span {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
-  color: #fff;
-}
-
-.cont-top .center-cent1 {
-  position: absolute;
-  top: 20px;
-  left: 200px;
-}
-
-.cont-top .center-cent1 select {
-  border: none;
-  border-bottom: 1px solid #fff;
-  background: none;
-  color: #ede0e0;
-  width: 95px;
-  border-radius: 0px;
-  margin-top: 5px;
-}
-
-.cont-top #main {
-  position: absolute;
-  top: 21%;
-  left: 28%;
-  overflow: hidden;
-  width: 300px;
-  height: 300px;
-}
-
-.cont-top .cent-btn-left2 {
-  position: absolute;
-  bottom: 50px;
-  left: 100px;
-  color: #FFF;
-  font-size: 50px;
-}
-
-.cont-top .cent-btn-right {
-  position: absolute;
-  left: 28%;
-  width: 300px;
-  bottom: 13%;
-  color: #FFF;
-}
-
-.cont-top .cent-btn-right div {
-  display: inline-block;
-  font-size: 16px;
-  width: 32%;
-}
-
-.cont-top .cent-btn-right div:nth-child(1) {
-  position: absolute;
-  left: 0;
-}
-
-.cont-top .cent-btn-right div:nth-child(2) {
-  position: absolute;
-  left: 43%;
-}
-
-.cont-top .cent-btn-right div:nth-child(3) {
-  position: absolute;
-  left: 85%;
-}
-
-/*首页中下*/
-
-.cont-bottom {
-  width: 100%;
-  height: 370px;
-  /*background: red;*/
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 300px;
-  position: relative;
-}
-
-.cont-bottom .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 90px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.cont-bottom span {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
-  color: #fff;
-}
-
-
-
-/*首页右上*/
-
-.right-top {
-  width: 100%;
-  height: 280px;
-  /*background: red;*/
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 320px;
-  position: relative;
-}
-
-.right-top .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 50px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.right-top .r1 {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
-  color: #fff;
-}
-
-.right-top .right-img {
-  width: 89%;
-  height: 200px;
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  background: url("../../assets/images/r_t.png")no-repeat;
-  background-size: 100% 100%;
-}
-
-.right-top .zi {
-  position: absolute;
-  bottom: 10px;
-  left: 12px;
-  color: #fff;
-  font-size: 12px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*首页右中*/
-
-.right-cont {
-  width: 100%;
-  height: 230px;
-  /*background: red;*/
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 320px;
-  position: relative;
-}
-
-.right-cont .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 30px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.right-cont span {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  display: block;
-  color: #fff;
-}
-
-.right-cont p {
-  text-align: center;
-  color: white;
   font-size: 14px;
-  /*line-height: 30px;*/
-  position: relative;
-  top: 40px;
+  z-index:99;
+  &.tit_left1 {
+    padding: 3px 70px;
+  }
+  &.tit_left2 {
+    padding: 3px 80px;
+  }
+  &.tit_left3 {
+    padding: 3px 120px;
+  }
+  &.tit_center1 {
+    padding: 3px 70px;
+  }
+  &.tit_right1 {
+    padding: 3px 50px;
+  }
 }
 
-
-/*首页右下*/
-
-.right-bottom {
-  width: 100%;
-  height: 250px;
-  /*background: red;*/
-  background: url("../../assets/images/l_t.png")no-repeat;
-  background-size: 100% 100%;
-  min-width: 300px;
-  position: relative;
-}
-
-.right-bottom .xing {
-  background: #169bd5;
-  height: 20px;
-  display: inline-block;
-  padding: 3px 40px;
-  transform: skew(-45deg);
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-.right-bottom .r3-1 {
+.title_txt {
   position: absolute;
   top: 0;
   left: 30px;
   display: block;
   color: #fff;
-}
-
-.right-bottom .r3 {
-  position: relative;
-  top: 35px;
-  left: 170px;
-  color: #FFF;
-  border-radius: 5px;
-  padding: 5px;
-  width: 100px;
-  height: 20px;
-  background: #24aef4;
-}
-
-.right-bottom p {
-  color: white;
   font-size: 14px;
-  /*line-height: 30px;*/
-  position: relative;
-  top: 60px;
-  left: 15px;
+  z-index: 999;
+}
+
+.left_1 {
+  .lzi {
+    color: #fff;
+    font-size: 22px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-left: 20%;
+    display: inline-block;
+    height: 112px;
+    i {
+      padding: 5px;
+      border-radius: 3px;
+      margin: 0 15px 0 5px;
+      font-size: 30px;
+      background: -webkit-linear-gradient(#23acf4, #0146ad, #23acf4);
+      /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(#23acf4, #0146ad, #23acf4);
+      /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(#23acf4, #0146ad, #23acf4);
+      /* Firefox 3.6 - 15 */
+      background: linear-gradient(#23acf4, #0146ad, #23acf4);
+      /* 标准的语法 */
+    }
+    em {
+      font-size: 16px;
+    }
+  }
+}
+
+.left_2 {
+  .left_echars2,
+  #main3 {
+    width: 100%;
+    min-height: 330px;
+  }
+}
+
+.left_3 {
+  .left_echars3,
+  #main1 {width: 100%; min-height: 230px; }
+}
+
+.center_1 {
+  .center_echars1,
+  #main {margin:0 auto; width: 400px; min-height: 280px; }
+  h2{position: absolute;font-size: 36px;color: #fff;margin:0 0 20px 10%;}
+  .notes_list{width: 420px;margin:0 auto;padding-right: 40px;
+    span{color: #fff;font-size: 14px;float: left;width:33.33%;text-align: center;}
+    i{display: block;}
+  }
+}
+.center_2{
+  .center_echars2{width: 65%;height: 382px;line-height: 382px;
+    img{max-width: 100%;height: auto;}
+  }
+  #china{height: 382px;}
+  .g_place{width: 35%;
+    li{overflow: hidden;color: #fff;line-height: 30px;}
+    b{width: 28%;float: left;font-weight: 400;}
+    span{width: 50%;float: left;padding-top: 12px;
+      s{display:inline-block;vertical-align: middle;;height: 5px;background-color: #fff;border-radius: 1px;}
+    }
+    em{float: left;padding-left: 10px;display: inline-block;}
+  }
+}
+
+.right_1{padding-top: 30px;
+  .mySwiper_list{height: 310px;}
+  .swiper_txt{color: #fff;margin:20px 3% 0;font-size: 12px;}
+  .img{height: 225px;margin:0 auto;text-align: center;
+    img{width: auto;height: 100%;}
+  }
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets{top: 0;right: 5%;left: auto;bottom: auto;}
+.swiper-pagination{text-align: right;}
+.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet{margin:0;}
+
+.right_2 {
+  .g_text{padding:30px 40px;color: #fff;font-size: 14px;line-height: 26px;}
+}
+.right_3 {padding-top: 30px;
+  .g_text{padding:20px 40px;color: #fff;font-size: 14px;line-height: 26px;}
 }
 </style>
