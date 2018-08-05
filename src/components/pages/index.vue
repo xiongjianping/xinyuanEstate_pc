@@ -150,17 +150,18 @@
             <div class="f-tac mt10">
               <m-select v-if="areaList.length > 0" :tabs="areaList" :clicked="clicked1" v-on:childTab="tabClick1"></m-select>
               <m-select v-if="projectList.length > 0" :tabs="projectList" :clicked="clicked2" v-on:childTab="tabClick2"></m-select>
-              <m-select :tabs="tabs" :clicked="clicked3" v-on:childTab="tabClick3"></m-select>
+              <m-select v-if="typeId === 1 && buildingList.length > 0" :tabs="buildingList" :clicked="clicked3" v-on:childTab="tabClick3"></m-select>
+              <m-select v-if="typeId != 1 && conditionList.length > 0"  :tabs="conditionList" :clicked="clicked5" v-on:childTab="tabClick5"></m-select>
             </div>
             <div class="f-tac mt10">
-              <m-select :tabs="tabs" :clicked="clicked4" v-on:childTab="tabClick4"></m-select>
-              <m-select :tabs="tabs" :clicked="clicked5" v-on:childTab="tabClick5"></m-select>
-              <m-select :tabs="tabs" :clicked="clicked6" v-on:childTab="tabClick6"></m-select>
+              <m-select v-if="typeId === 1 && floorList.length > 0"  :tabs="floorList" :clicked="clicked4" v-on:childTab="tabClick4"></m-select>
+              <m-select v-if="typeId === 3 && megabiteList.length > 0"  :tabs="megabiteList" :clicked="clicked8" v-on:childTab="tabClick8"></m-select>
+              <m-select v-if="typeId === 3 && brandList.length > 0"  :tabs="brandList" :clicked="clicked6" v-on:childTab="tabClick6"></m-select>
             </div>
           </div>
           <div class="f-tac mt10 r-tab">
-              <m-select :tabs="types" :clicked="clicked7" v-on:childTab="tabClick7"></m-select>
-            </div>
+            <m-select :tabs="types" :clicked="clicked7" v-on:childTab="tabClick7"></m-select>
+          </div>
           <div class="center_echars1">
             <div id="main"></div>
           </div>
@@ -320,6 +321,8 @@ export default {
       megabiteList:{},
       brandId:'',
       brandList:{},
+      typeId: 1,
+      triangData:{},
       projectTypeList: [{
           name: '项目',
           id: 1
@@ -381,6 +384,7 @@ export default {
       clicked5: false,
       clicked6: false,
       clicked7: false,
+      clicked8: false,
       swiperOption: {
         // 如果需要分页器
         pagination: {
@@ -398,7 +402,7 @@ export default {
   created() {
     window.$getAreaList().then((res) => {
       this.areaList = res
-      console.log(this.areaList)
+      this.areaChangedForFloor(res[0].id)
     }, (err) => { console.log(err) })
 
     // 查询全国客流量
@@ -420,7 +424,25 @@ export default {
           myChart1.resize()
           this.myChart3.resize()
         }
-      }
+      },
+    projectList(val){
+      this.projectList = val
+    },
+    buildingList(val){
+      this.buildingList = val
+    },
+    floorList(val){
+      this.floorList = val
+    },
+    conditionList(val){
+      this.conditionList = val
+    },
+    megabiteList(val){
+      this.megabiteList = val
+    },
+    brandList(val){
+      this.brandList = val
+    },
   },
   mounted() {
     window.onresize = () => {
@@ -682,52 +704,56 @@ export default {
     myChart1.setOption(option1);
   },
   methods: {
-    getProjectList(areaId){
-      window.$getProjectListForArea(areaId).then(res => {
-        this.projectList =  res
-        console.log(this.projectList)
-      }, err => {console.log(err)})
-    },
-    getBuildingList(projectId){
-      window.$getBuilding(projectId).then(res => {
-        this.buildingList = res
-      }, err => {console.log(err)})
-    },
-    getFloorList(buildingId){
-      window.$getFloorForBuilding(buildingId).then(res => {
-        this.floorList = res
-      }, err => {console.log(err)})
-    },
-    getConditionList(projectId){
-      window.$getBusinessListForProject(projectId).then(res => {
-        this.conditionList = res
-      }, err => {console.log(err)})
-    },
-    getMegaviteList(conditionId){
-      window.$getSpeciesSelect(conditionId).then(res => {
-        this.megabiteList = res
-      }, err => {console.log(err)})
-    },
-    getBrandList(megabiteId){
-      window.$getBrandForSpecies(megabiteId).then(res => {
-        this.brandList = res
-      }, err => {console.log(err)})
-    },
+    // getProjectList(areaId){
+    //   window.$getProjectListForArea(areaId).then(res => {
+    //     this.projectList =  res
+    //     console.log(this.projectList)
+    //   }, err => {console.log(err)})
+    // },
+    // getBuildingList(projectId){
+    //   window.$getBuilding(projectId).then(res => {
+    //     this.buildingList = res
+    //   }, err => {console.log(err)})
+    // },
+    // getFloorList(buildingId){
+    //   window.$getFloorForBuilding(buildingId).then(res => {
+    //     this.floorList = res
+    //   }, err => {console.log(err)})
+    // },
+    // getConditionList(projectId){
+    //   window.$getBusinessListForProject(projectId).then(res => {
+    //     this.conditionList = res
+    //   }, err => {console.log(err)})
+    // },
+    // getMegaviteList(conditionId){
+    //   window.$getSpeciesSelect(conditionId).then(res => {
+    //     this.megabiteList = res
+    //   }, err => {console.log(err)})
+    // },
+    // getBrandList(megabiteId){
+    //   window.$getBrandForSpecies(megabiteId).then(res => {
+    //     this.brandList = res
+    //   }, err => {console.log(err)})
+    // },
     getTriangleValue(type){
       var params = {
         projectId: this.projectId
       }
+      var url = ''
       if(type === 1){
         params.floorId = this.floorId
+        url = '/pctriangle/find/trianglefloor/byfloorId'
       } else if(type === 2){
+        url = '/pctriangle/find/trianglecondition/byconditionId'
         params.conditionId = this.conditionId
       } else if(type === 3){
+        url = '/pctriangle/find/trianglebrand/byBrandId'
         params.majoId = this.megabiteId
         params.brandId = this.brandId
       }
 
-      this.$axios.post('/pctriangle/find/trianglefloor/byfloorId', params).then(res => {
-
+      this.$axios.post(url, params).then(res => {
+        this.triangData = res
       }, err => {console.log(err)})
     },
     getAaa() {
@@ -853,11 +879,17 @@ export default {
       this.clicked5=false
       this.clicked6=false
       this.clicked7=false
+      this.clicked8=false
       
-      this.areaId = this.areaList[index].id
-      this.getProjectList(this.areaId)
+      if(this.typeId === 1){
+        this.areaChangedForFloor(this.areaList[index].id)
+      } else if(this.typeId === 2){
+        this.areaChangedForCondition(this.areaList[index].id)
+      } else if(this.typeId === 3){
+        this.areaChangedForBrand(this.areaList[index].id)
+      }
     },
-    tabClick2(id,isClicked) {
+    tabClick2(index,isClicked) {
       this.clicked2=isClicked
       this.clicked1=false
       this.clicked3=false
@@ -865,8 +897,17 @@ export default {
       this.clicked5=false
       this.clicked6=false
       this.clicked7=false
+      this.clicked8=false
+
+      if(this.typeId === 1){
+        this.projectChangedForFloor(this.projectList[index].id)
+      } else if(this.typeId === 2){
+        this.projectChangedForCondition(this.projectList[index].id)
+      } else if(this.typeId === 3){
+        this.projectChangedForBrand(this.projectList[index].id)
+      }
     },
-    tabClick3(id,isClicked) {
+    tabClick3(index,isClicked) {
       this.clicked3=isClicked
       this.clicked1=false
       this.clicked2=false
@@ -874,8 +915,11 @@ export default {
       this.clicked5=false
       this.clicked6=false
       this.clicked7=false
+      this.clicked8=false
+
+      this.buildingChanged(this.buildingList[index].id)
     },
-    tabClick4(id,isClicked) {
+    tabClick4(index,isClicked) {
       this.clicked4=isClicked
       this.clicked1=false
       this.clicked2=false
@@ -883,8 +927,15 @@ export default {
       this.clicked5=false
       this.clicked6=false
       this.clicked7=false
+      this.clicked8=false
+
+      if(this.typeId === 2){
+        this.conditionChangedForCondition(this.conditionList[index].id)
+      } else if(this.typeId === 3){
+        this.projectChangedForBrand(this.conditionList[index].id)
+      }
     },
-    tabClick5(id,isClicked) {
+    tabClick5(index,isClicked) {
       this.clicked5=isClicked
       this.clicked1=false
       this.clicked2=false
@@ -892,8 +943,11 @@ export default {
       this.clicked4=false
       this.clicked6=false
       this.clicked7=false
+      this.clicked8=false
+
+      this.floorChanged(this.floorList[index].id)
     },
-    tabClick6(id,isClicked) {
+    tabClick6(index,isClicked) {
       this.clicked6=isClicked
       this.clicked1=false
       this.clicked2=false
@@ -901,8 +955,11 @@ export default {
       this.clicked4=false
       this.clicked5=false
       this.clicked7=false
+      this.clicked8=false
+
+      this.megabiteChangedForBrand(this.megabiteList[index].id)
     },
-    tabClick7(id,isClicked) {
+    tabClick7(index,isClicked) {
       this.clicked7=isClicked
       this.clicked1=false
       this.clicked2=false
@@ -910,7 +967,152 @@ export default {
       this.clicked4=false
       this.clicked5=false
       this.clicked6=false
+      this.clicked8=false
+
+      this.typeId = this.types[index].id
     },
+    tabClick8(index,isClicked) {
+      this.clicked8=isClicked
+      this.clicked1=false
+      this.clicked2=false
+      this.clicked3=false
+      this.clicked4=false
+      this.clicked5=false
+      this.clicked6=false
+      this.clicked7=false
+
+      this.brandChangedForBrand(this.brandList[index].id)
+    },
+    areaChangedForFloor(areaId){ // 区域改变
+      this.areaId = areaId
+      window.$getProjectListForArea(this.areaId).then(res => {
+        this.projectList =  res
+        this.projectId = res[0].id
+        window.$getBuilding(this.projectId).then(res => {
+          this.buildingList = res
+          this.buildingId = res[0].id
+          window.$getFloorForBuilding(this.buildingId).then(res => {
+            this.floorList = res
+            this.floorId = res[0].id
+            this.getTriangleValue(1)
+          }, err => {console.log(err)})
+        }, err => {console.log(err)})
+      }, err => {console.log(err)})
+    },
+    projectChangedForFloor(projectId){ // 项目改变
+      this.projectId = projectId
+      window.$getBuilding(this.projectId).then(res => {
+        this.buildingList = res
+        this.buildingId = res[0].id
+        window.$getFloorForBuilding(this.buildingId).then(res => {
+          this.floorList = res
+          this.floorId = res[0].id
+          this.getTriangleValue(1)
+        }, err => {console.log(err)})
+      }, err => {console.log(err)})
+    },
+    buildingChanged(buildingId){ // 楼栋改变
+      this.buildingId = buildingId
+      window.$getFloorForBuilding(this.buildingId).then(res => {
+          this.floorList = res
+          this.floorId = res[0].id
+          this.getTriangleValue(1)
+        }, err => {console.log(err)})
+    },
+    floorChanged(){ // 楼层改变
+      window.$getFloorForBuilding(this.buildingId).then(res => {
+          this.floorList = res
+          this.floorId = res[0].id
+          this.getTriangleValue(1)
+        }, err => {console.log(err)})
+    },
+    areaChangedForCondition(areaId){
+      this.areaId = areaId
+      window.$getProjectListForArea(areaId).then(res => {
+        this.projectList =  res
+        this.projectId = res[0].id
+        window.$getBusinessListForProject(projectId).then(res => {
+          this.conditionList = res
+          this.conditionId = res[0].id
+          this.getTriangleValue(2)
+        }, err => {console.log(err)})
+      }, err => {console.log(err)})
+    },
+    projectChangedForCondition(projectId){
+      this.projectId = projectId
+      window.$getBusinessListForProject(projectId).then(res => {
+          this.conditionList = res
+          this.conditionId = res[0].id
+          this.getTriangleValue(2)
+        }, err => {console.log(err)})
+    },
+    conditionChangedForCondition(conditionId){
+      this.conditionId = conditionId
+      this.getTriangleValue(2)
+    },
+    areaChangedForBrand(areaId){
+      this.areaId = areaId
+      window.$getProjectListForArea(areaId).then(res => {
+        this.projectList =  res
+        this.projectId = res[0].id
+        window.$getBusinessListForProject(projectId).then(res => {
+          this.conditionList = res
+          this.conditionId = res[0].id
+          window.$getSpeciesSelect(conditionId).then(res => {
+            this.megabiteList = res
+            this.megabiteId = res[0].id
+            window.$getBrandForSpecies(megabiteId).then(res => {
+              this.brandList = res
+              this.brandId = res[0].id
+              this.getTriangleValue(3)
+            }, err => {console.log(err)})
+          }, err => {console.log(err)})
+        }, err => {console.log(err)})
+      }, err => {console.log(err)})
+    },
+    projectChangedForBrand(projectId){
+      this.projectId = projectId
+      window.$getBusinessListForProject(projectId).then(res => {
+        this.conditionList = res
+        this.conditionId = res[0].id
+        window.$getSpeciesSelect(conditionId).then(res => {
+          this.megabiteList = res
+          this.megabiteId = res[0].id
+          window.$getBrandForSpecies(megabiteId).then(res => {
+            this.brandList = res
+            this.brandId = res[0].id
+            this.getTriangleValue(3)
+          }, err => {console.log(err)})
+        }, err => {console.log(err)})
+      }, err => {console.log(err)})
+    },
+    conditionChangedForBrand(conditionId){
+      this.conditionId = conditionId
+      window.$getSpeciesSelect(conditionId).then(res => {
+        this.megabiteList = res
+        this.megabiteId = res[0].id
+        window.$getBrandForSpecies(megabiteId).then(res => {
+          this.brandList = res
+          this.brandId = res[0].id
+          this.getTriangleValue(3)
+        }, err => {console.log(err)})
+      }, err => {console.log(err)})
+    },
+    megabiteChangedForBrand(megabiteId){
+      this.megabiteId = megabiteId
+      window.$getBrandForSpecies(megabiteId).then(res => {
+        this.brandList = res
+        this.brandId = res[0].id
+        this.getTriangleValue(3)
+      }, err => {console.log(err)})
+    },
+    brandChangedForBrand(){
+      window.$getBrandForSpecies(megabiteId).then(res => {
+        this.brandList = res
+        this.brandId = res[0].id
+        this.getTriangleValue(3)
+      }, err => {console.log(err)})
+    }
   }
 }
 
