@@ -11,11 +11,11 @@
     </el-row>
 
     <el-dialog title="修改" :visible.sync="dialogFormVisible">
-      <el-form :model="newCompany">
-        <el-form-item label="业态名称" :label-width="formLabelWidth">
+      <el-form>
+        <el-form-item label="业态名称">
           <el-input v-model="changedName"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="父公司" :label-width="formLabelWidth">
+        <!-- <el-form-item label="父公司">
           <el-select v-model="newCompany.parentId" placeholder="添加父公司">
             <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
@@ -29,10 +29,10 @@
     
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index"  label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="name" label="业态"  width="200"></el-table-column>
-        <el-table-column align="center" prop="modifyTime" label="修改时间"  width="200"></el-table-column>
-        <el-table-column align="center"  label="操作" width="100">
+        <el-table-column align="center" type="index"  label="序号" width="80"></el-table-column>
+        <el-table-column align="center" prop="name" label="业态"  width="250"></el-table-column>
+        <el-table-column align="center" prop="modifyTime" label="修改时间"  width="250"></el-table-column>
+        <el-table-column align="center"  label="操作" width="150">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
             <el-button type="text" v-on:click="deleteDetails(scope.row.id)">删除</el-button>
@@ -166,7 +166,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
@@ -182,24 +182,28 @@ export default {
     // height: 150%;
     background: #fff;
   }
+  th{
+    height: 50px;
+  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }
 
   .el-table{
-    position: relative;
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    width: 66%;
-    max-width: 100%;
-    font-size: 14px;
-    color: #606266;
-    margin: 0 auto;
-  }
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 66%;
+  max-width: 100%;
+  font-size: 14px;
+  color: #606266;
+  margin: 0 auto;
+}
   .block{
     float: right;
   }

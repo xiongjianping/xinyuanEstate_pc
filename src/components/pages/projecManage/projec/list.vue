@@ -247,7 +247,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert (cont) {
       this.$alert(cont, '温馨提示', {
@@ -274,69 +274,4 @@ export default {
     background: #e7cb8a;
     margin-bottom: 5px;
   }
-
-
-
-
-  /*头部*/
-  /*.tou{*/
-    /*background: #fff;*/
-    /*width: 100%;*/
-    /*height:70px;*/
-    /*position: relative;*/
-    /*top: 0;*/
-    /*left: 0;*/
-  /*}*/
-  /*.tou_left img{*/
-    /*width: 240px;*/
-    /*height:70px;*/
-    /*margin-left: 50px;*/
-  /*}*/
-  /*.tou_right {*/
-    /*width: 200px;*/
-    /*float: right;*/
-    /*color: #000;*/
-    /*position: absolute;*/
-    /*bottom:10px;*/
-    /*right: 120px;*/
-    /*p{*/
-      /*font-size: 14px;*/
-    /*}*/
-    /*.deng{*/
-      /*width: 100px;*/
-      /*position: absolute;*/
-      /*top: 0;*/
-      /*right: -90px;*/
-      /*font-size: 14px;*/
-      /*span{*/
-        /*padding: 3px;*/
-        /*color: orange;*/
-      /*}*/
-    /*}*/
-
-  /*}*/
-
-  /*导航*/
-  /*.navList{*/
-    /*background: #159cd4;*/
-    /*height: 40px;*/
-    /*line-height: 40px;*/
-    /*border-top: 5px solid #e7cb8a;*/
-    /*ul{*/
-      /*margin-left: 60px;*/
-    /*}*/
-    /*ul li{*/
-      /*display: inline-block;*/
-      /*padding: 3px;*/
-      /*font-size: 14px;*/
-      /*color: #fff;*/
-    /*}*/
-    /*ul li.navli{*/
-      /*background: #fff;*/
-      /*color: #159cd4;*/
-      /*border-top-left-radius: 6px;*/
-      /*border-top-right-radius: 6px;*/
-      /*}*/
-  /*}*/
-
 </style>
