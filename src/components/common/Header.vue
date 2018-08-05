@@ -139,14 +139,16 @@ export default {
 .header {
   box-sizing: border-box;
   width: 100%;
+  min-width: 1366px;
+  margin:0 auto;
   height: 100px;
   line-height: 100px;
   color: #fff;
-  z-index: 99;
   text-align: center;
   position: fixed;
   background: url("../../assets/images/nav_bg.jpg") repeat top center;
   background-size: 100% 100%;
+  z-index: 9999;
 }
 
 .header .logo {
