@@ -167,7 +167,11 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList () {
+    searchList (type) {
+      if(type === 1){
+        this.page = 1
+      }
+
       that.$axios.post('/pctriangle/find/findTriangle/byCQRS?p=' + this.page + '&c=' + this.size, searchForm).then((res) => {
         that.loading = false
         that.data = res
@@ -207,7 +211,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

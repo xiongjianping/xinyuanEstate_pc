@@ -24,7 +24,7 @@
 
         <el-col :span="6">
           <el-form-item label="品牌：">
-            <el-select size="small" v-model="sendData.brandId" placeholder="请选择品牌">
+            <el-select size="small" v-model="brandId" placeholder="请选择品牌">
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -56,7 +56,7 @@
 
         <el-col :span="6">
           <el-form-item label="楼层：">
-            <el-select size="small" v-model="sendData.floorId" placeholder="请选择楼层">
+            <el-select size="small" v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -112,7 +112,9 @@
       loading: false,
       searchForm: {},
       resultList: [],
-      checkedList: []
+      checkedList: [],
+      brandId:'',
+      floorId:''
     }),
     created () {
       window.$getformSelect().then((res) => {
@@ -134,6 +136,8 @@
         })
       },
       businessChanged(){
+        this.species = ''
+        this.brandId = ''
         window.$getSpeciesSelect(this.business).then((res) => {
           this.sList = res
         }, (err) => {
@@ -141,6 +145,7 @@
         })
       },
       speciesChanged(){
+        this.brandId = ''
         window.$getBrandForSpecies(this.species).then((res) => {
           this.brandList = res
         }, (err) => {
@@ -148,6 +153,9 @@
         })
       },
       areaChanged(){
+        this.searchForm.projectId = ''
+        this.building = ''
+        this.floorId = ''
         window.$getProjectListForArea(this.area).then((res) => {
           this.projectList = res
         }, (err) => {
@@ -155,6 +163,8 @@
         })
       },
       projectChanged(){
+        this.building = ''
+        this.floorId = ''
         window.$getBuilding(this.searchForm.projectId).then((res) => {
           this.buildingList = res
         }, (err) => {
@@ -162,6 +172,7 @@
         })
       },
       buildingChanged(){
+        this.floorId = ''
         window.$getFloorForBuilding(this.building).then((res) => {
           this.floorList = res
         }, (err) => {
@@ -173,7 +184,9 @@
       },
       create(){
         this.sendData.projectId = this.searchForm.projectId
+        this.sendData.brandId = this.brandId
         this.sendData.roomId = []
+        this.sendData.floorId = this.floorId
         for(var i = 0; i < this.checkedList.length; i++) {
           this.sendData.roomId.push(this.checkedList[i].roomId)
         }
@@ -206,7 +219,7 @@
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

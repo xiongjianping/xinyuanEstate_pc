@@ -37,7 +37,7 @@
 
         <el-col :span="6">
           <el-form-item label="面积/平：">
-            <el-input size="small" v-model="data.acreage" :maxlength="11" placeholder=" "></el-input>
+            <el-input type="number" size="small" v-model="data.acreage" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -103,7 +103,16 @@
             this.areaList = res
             window.$getFloorDetails(this.$route.params.id).then((res) => {
               this.data = res
-              this.getProjectList()
+              window.$getProjectListForArea(this.data.areaId).then((res) => {
+                this.projectList = res
+                window.$getBuilding(this.data.projectId).then((res) => {
+                  this.buildingList = res
+                }, (err) => {
+                  this.showAlert(err)
+                })
+              }, (err) => {
+                this.showAlert(err)
+              })
             }, (err) => {
               this.showAlert(err)
             })
@@ -112,14 +121,16 @@
           })
       },
       getProjectList(){
+        this.data.projectId = ''
+        this.data.buildingId = ''
         window.$getProjectListForArea(this.data.areaId).then((res) => {
           this.projectList = res
-          this.getBuilding()
         }, (err) => {
           this.showAlert(err)
         })
       },
       getBuilding(){
+        this.data.buildingId = ''
         window.$getBuilding(this.data.projectId).then((res) => {
           this.buildingList = res
         }, (err) => {
@@ -152,7 +163,7 @@ showAlert(cont) {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

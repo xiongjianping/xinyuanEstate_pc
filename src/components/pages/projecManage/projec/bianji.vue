@@ -39,7 +39,7 @@
 
         <el-col :span="6">
           <el-form-item label="面积/平：">
-            <el-input size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
+            <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
           </el-form-item>
         </el-col>
 
@@ -114,23 +114,36 @@
           this.loading = false
           this.searchForm = res
           this.departmentId = res.deptId
-          this.getDepartment()
+
+          window.$getDepartments(this.searchForm.companyId).then((res) => {
+            this.departmentList = res
+          }, (err) => {
+            this.showAlert(err)
+          })
+
+          window.$getPersion(this.departmentId).then((res) => {
+            this.projectHeadList = res
+          }, (err) => {
+            this.showAlert(err)
+          })
         }, (err) => {
           this.loading = false
           this.showAlert(err)
         })
       },
       getDepartment(){
+        this.departmentId = ''
+        this.searchForm.projectHeadId = ''
         // 查询部门
         window.$getDepartments(this.searchForm.companyId).then((res) => {
           this.departmentList = res
-          this.getPerson()
         }, (err) => {
           this.showAlert(err)
         })
+        
       },
       getPerson(){
-        // 查询人员
+        this.searchForm.projectHeadId = ''
         window.$getPersion(this.departmentId).then((res) => {
           this.projectHeadList = res
         }, (err) => {
@@ -138,11 +151,13 @@
         })
       },
       edit(){
-        console.log(this.searchForm)
+        this.loading = true
         window.$editProject(this.searchForm).then((res) => {
+          this.loading = false
           this.showAlert('编辑成功')
           this.goBack()
         }, (err) => {
+          this.loading = false
           this.showAlert(err)
         })
       },
@@ -160,7 +175,7 @@ showAlert(cont) {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

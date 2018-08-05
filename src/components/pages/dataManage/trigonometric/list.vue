@@ -29,7 +29,7 @@
 
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+            <el-select v-model="projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -53,7 +53,7 @@
 
         <el-col :span="5">
           <el-form-item label="业态" v-if="different === 3">
-            <el-select v-model="searchForm.conditionId" placeholder="请选择业态">
+            <el-select v-model="conditionId" placeholder="请选择业态">
               <el-option v-for="(item, index) in bList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -61,7 +61,7 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
             <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
@@ -125,14 +125,12 @@ export default {
     sList:{},
     data: {},
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
+    searchForm: {},
     infoData: {},
     page: 1,
     size: 10,
+    conditionId:'',
+    projectId:''
   }),
   created () {
     window.$getAreaList().then((res) => {
@@ -144,19 +142,24 @@ export default {
       document.getElementById('fileUpload_input').click()
     },
     areaChanged(){
+      this.projectId = ''
+      if(this.different ===3 ){
+        this.conditionId = ''
+      }
+
       window.$getProjectListForArea(this.areaId).then((res) => {
         this.projectList = res
       }, (err) => {this.showAlert(err)})
     },
     projectChanged(){
       if(this.different === 2){
-        window.$getBuilding(this.searchForm.projectId).then((res) => {
+        window.$getBuilding(this.projectId).then((res) => {
           this.buildingList = res
         }, (err) => {
           this.showAlert(err)
         })
       } else if(this.different === 3){
-        window.$getBusinessListForProject(this.searchForm.projectId).then((res) => {
+        window.$getBusinessListForProject(this.projectId).then((res) => {
           this.bList = res
         }, (err) => {this.showAlert(err)})
       }
@@ -187,12 +190,12 @@ export default {
       //   this.showAlert('请选择业务类型')
       //   return false
       // }
-      if(!this.searchForm.projectId){
+      if(!this.projectId){
         this.showAlert('请选择项目')
         return false
       }
       let url = this.businessId === 1 ? '' : (this.businessId === 2 ? '/standardexport/excel/qjszkxd' : '')
-      window.$exportExls(url, this.searchForm.projectId).then((res) => {
+      window.$exportExls(url, this.projectId).then((res) => {
         console.log(res)
         let link = document.createElement('a')
         link.href = res
@@ -209,7 +212,16 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList(){
+    searchList(type){
+      if(type === 1){
+        this.page =1
+      }
+
+      this.searchForm.projectId = this.projectId
+      if(this.different === 3) {
+        this.searchForm.conditionId = this.conditionId
+      }
+
       this.$axios.post('/conditionguestinterval/find/conditionguestinterval/list?p=' + this.page + '&c=' + this.size, this.searchForm).then((res) => {
         this.data = res
       }).catch(function (eMsg) {
@@ -253,7 +265,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

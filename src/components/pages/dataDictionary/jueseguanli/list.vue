@@ -249,7 +249,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 150%;
+    // height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

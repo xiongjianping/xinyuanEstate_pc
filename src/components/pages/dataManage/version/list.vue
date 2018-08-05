@@ -34,7 +34,7 @@
 
         <el-col :span="5">
           <el-form-item label="项目" v-if="searchForm.businessType === 2 || searchForm.dimensionType" >
-            <el-select v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+            <el-select v-model="projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -50,7 +50,7 @@
 
         <el-col :span="5" v-if="searchForm.businessType != 2 && searchForm.dimensionType === 2">
           <el-form-item label="楼层">
-            <el-select v-model="searchForm.floorId" placeholder="请选择楼层">
+            <el-select v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -58,7 +58,7 @@
 
         <el-col :span="5"  v-if="searchForm.businessType != 2 && searchForm.dimensionType === 3">
           <el-form-item label="业态">
-            <el-select v-model="searchForm.conditionId" placeholder="请选择业态">
+            <el-select v-model="conditionId" placeholder="请选择业态">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -86,7 +86,7 @@
         </el-col> -->
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
             <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
@@ -158,7 +158,10 @@ export default {
     dialogFormVisible: false,
     dialogVisible: false,
     pictureList: [],
-    picIndex: 0
+    picIndex: 0,
+    floorId:'',
+    conditionId:'',
+    projectId:''
   }),
   created () {
     window.$getAreaList().then((res) => {
@@ -174,6 +177,10 @@ export default {
     areaChanged(){
       this.page = 1
       this.size = 10
+      this.projectId = ''
+      this.searchForm.buildingId = ''
+      this.floorId = ''
+      this.conditionId = ''
       window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
         this.projectList = res
       }, (err) => {
@@ -183,14 +190,17 @@ export default {
     projectChanged(){
       this.page = 1
       this.size = 10
+      this.searchForm.buildingId = ''
+      this.floorId = ''
+      this.conditionId = ''
       if(this.searchForm.dimensionType === 2){// 获取楼栋
-        window.$getBuilding(this.searchForm.projectId).then((res) => {
+        window.$getBuilding(this.projectId).then((res) => {
           this.buildingList = res
         }, (err) => {
           this.showAlert(err)
         })
       } else if(this.searchForm.dimensionType === 3){// 获取业态
-        window.$getBusinessListForProject(this.searchForm.projectId).then((res) => {
+        window.$getBusinessListForProject(this.projectId).then((res) => {
           this.businessList = res
         }, (err) => {
           this.showAlert(err)
@@ -201,6 +211,7 @@ export default {
     getFloorList(){
       this.page = 1
       this.size = 10
+      this.floorId = ''
       window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
         this.floorList = res
       }, (err) => {
@@ -226,22 +237,30 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList () {
+    searchList (type) {
+      if(type === 1){
+        this.page =1
+      }
+
       let url = ''
       if(this.searchForm.businessType === 1){// 溢租率列表接口
         if(this.searchForm.dimensionType === 1){
           url = '/standardprojectrent/find/standardprojectrent/list'
         } else if(this.searchForm.dimensionType === 2) {
+          this.searchForm.floorId = this.floorId
           url = '/standardfloorrent/find/standardfloorrent/list'
         } else if(this.searchForm.dimensionType === 3) {
+          this.searchForm.conditionId = this.conditionId
           url = '/standardconditionrent/find/standardconditionrent/list'
         }
       } else if(this.searchForm.businessType === 3){// 适配值
         if(this.searchForm.dimensionType === 1){
           url = '/standardprojectfitted/find/standardprojectfitted/list'
         } else if(this.searchForm.dimensionType === 2) {
+          this.searchForm.floorId = this.floorId
           url = '/standardfloorfitted/find/standardfloorfitted/list'
         } else if(this.searchForm.dimensionType === 3) {
+          this.searchForm.conditionId = this.conditionId
           url = '/standardconditionfitted/find/standardconditionrent/list'
         }
       } else if(this.searchForm.businessType === 2){
@@ -271,12 +290,12 @@ export default {
         this.showAlert('请选择业务类型')
         return false
       }
-      if(!this.searchForm.projectId){
+      if(!this.projectId){
         this.showAlert('请选择项目')
         return false
       }
       let url = this.searchForm.businessType === 1 ? '/standardexport/excel/yzl' : (this.searchForm.businessType === 2 ? '/standardexport/excel' : '/standardexport/excel/spz')
-      window.$exportExls(url, this.searchForm.projectId).then((res) => {
+      window.$exportExls(url, this.projectId).then((res) => {
         console.log(res)
         let link = document.createElement('a')
         link.href = res
@@ -354,7 +373,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

@@ -85,7 +85,11 @@ export default {
         window.$getBrandDetails(this.$route.params.id).then((res) => {
           this.loading = false
           this.data = res
-          this.getSpeciesList()
+          window.$getSpeciesSelect(this.data.businessFormId).then((res) => {
+            this.speciesList = res
+          }, (err) => {
+            this.showAlert(err)
+          })
         }, (err) => {
           this.loading = false
           this.showAlert(err)
@@ -95,6 +99,7 @@ export default {
       })
     },
     getSpeciesList(){
+      this.data.businessSpeciesId = ''
       window.$getSpeciesSelect(this.data.businessFormId).then((res) => {
         this.speciesList = res
       }, (err) => {
@@ -126,7 +131,7 @@ showAlert(cont) {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

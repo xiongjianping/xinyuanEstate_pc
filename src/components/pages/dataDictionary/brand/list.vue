@@ -30,7 +30,6 @@
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index"  label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="num" label="业态编号" width="300"></el-table-column>
         <el-table-column align="center" prop="name" label="业态"  width="200"></el-table-column>
         <el-table-column align="center" prop="modifyTime" label="修改时间"  width="200"></el-table-column>
         <el-table-column align="center"  label="操作" width="100">
@@ -180,7 +179,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 150%;
+    // height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

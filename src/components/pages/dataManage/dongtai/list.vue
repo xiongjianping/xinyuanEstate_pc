@@ -16,6 +16,16 @@
           </el-form-item>
         </el-col>
 
+        
+
+        <el-col :span="6">
+          <el-form-item label="时间">
+              <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+
         <el-col :span="5">
           <el-form-item label="维度" v-if="businessType === 2" >
             <el-select v-model="searchForm.different" placeholder="请选择维度">
@@ -24,39 +34,14 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="5">
-          <el-form-item label="开始时间">
-            <el-date-picker
-              size="small"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              v-model="searchForm.createTimeBegin"
-              type="datetime"
-              placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="4" :offset="1">
-          <el-form-item label="至 " label-width="40px">
-            <el-date-picker
-              size="small"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              v-model="searchForm.createTimeEnd"
-              type="datetime"
-              placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-
         <el-dialog title="导出" :visible.sync="dialogFormVisible">
           <el-form :model="exportExlsData">
-            <el-form-item label="区域" :label-width="formLabelWidth">
+            <el-form-item label="区域">
               <el-select v-model="exportExlsData.areaId" placeholder="请选择区域" @change="areaChange()">
                 <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="项目" :label-width="formLabelWidth">
+            <el-form-item label="项目">
               <el-select v-model="exportExlsData.projectId" placeholder="请选择项目">
                 <el-option v-for="(item,index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -70,7 +55,7 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
             <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportFile();">导出</el-button>
@@ -145,7 +130,8 @@ export default {
     size: 10,
     dialogFormVisible: false,
     pictureList: [],
-    picIndex: 0
+    picIndex: 0,
+    value6:[]
   }),
   created () {
     window.$getAreaList().then((res) => {
@@ -199,25 +185,41 @@ export default {
     businessTypeChange(){
       this.page = 1
       this.size = 10
-      this.searchList()
     },
     handleSizeChange (val) {
       this.size = val
       this.searchList()
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
-    searchList () {
+    searchList (type) {
+
+      if(type === 1){
+        this.page =1
+      }
+      
       let url = ''
-        
+      if(this.value6){
+        this.searchForm.createTimeBegin = this.value6[0]
+        this.searchForm.createTimeBegin = this.value6[1]
+      }
       if(this.businessType === 1){
         url = '/rantverssion/find/rantverssion/list'
       } else if(this.businessType === 2){
-        url = '/guestverssion/find/guestverssion/list'
+        if(!this.searchForm.different){
+          this.showAlert('请选择维度')
+          return false
+        } else {
+          url = '/guestverssion/find/guestverssion/list'
+        }
       } else if(this.businessType === 3){
         url = '/fittedverssion/find/fittedverssion/list'
+      }
+
+      if(type === 1){
+        this.page = 1
       }
 
       if(this.businessType === 1 || this.businessType === 2 || this.businessType === 3 ){
@@ -267,7 +269,7 @@ export default {
 
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

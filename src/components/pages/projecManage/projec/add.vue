@@ -39,11 +39,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="面积/平">
-            <el-input size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
-          </el-form-item>
-        </el-col>
+        
 
         <el-col :span="6" >
           <el-form-item label="部门">
@@ -55,11 +51,17 @@
 
         <el-col :span="6">
           <el-form-item label="运营负责人">
-            <el-select size="small" v-model="searchForm.projectHeadId" placeholder="请选择负责人">
+            <el-select size="small" v-model="projectHeadId" placeholder="请选择负责人">
               <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col> </br></br></br></br></br></br></br>
+        </el-col> 
+        
+        <el-col :span="6">
+          <el-form-item label="面积/平">
+            <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
+          </el-form-item>
+        </el-col></br></br></br></br></br></br></br>
 
         <el-col class="uploadFiles">
          <el-upload :action="getUploadUrl()"
@@ -100,6 +102,7 @@ export default {
     projectHeadList: [],
     pictureList: [],
     departmentId:'',
+    projectHeadId:'',
     uploadFileUrl: window.$baseUrl
   }),
   created () {
@@ -128,17 +131,16 @@ export default {
       this.dialogVisible = true
     },
     handleRemove(file, fileList) {
-        console.log(file.response.data);
-        console.log(this.searchForm.projectImages)
         for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
           if(this.searchForm.projectImages[i] === file.response.data){
             console.log(i)
             this.searchForm.projectImages.splice(i, 1)
           }
         }
-        console.log(this.searchForm.projectImages)
       },
     getDepartment(){
+      this.departmentId = ''
+      this.projectHeadId = ''
       window.$getDepartments(this.searchForm.companyId).then((res) => {
         this.departmentList = res
         console.log(res)
@@ -147,6 +149,7 @@ export default {
       })
     },
     getPerson(){
+      this.projectHeadId = ''
       window.$getPersion(this.departmentId).then((res) => {
         this.projectHeadList = res
         console.log(res)
@@ -160,30 +163,33 @@ export default {
       }
     },
     create(){
+      this.loading = true
+      this.searchForm.projectHeadId = this.projectHeadId
       window.$createProject(this.searchForm).then((res) => {
-        console.log(res)
+        this.loading = false
         this.searchForm = {}
         this.showAlert('创建成功')
         this.goBack()
       }, (err) => {
+        this.loading = false
         this.showAlert(err)
       })
     },
     goBack(){
       this.$router.back(-1)
     },
-showAlert(cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+    showAlert(cont) {
+      this.$alert(cont, '温馨提示', {
+        confirmButtonText: '确定'
+      })
+    }
   }
 }
 </script>
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

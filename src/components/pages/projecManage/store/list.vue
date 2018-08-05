@@ -19,7 +19,7 @@
         </el-col>
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
+            <el-select size="small" v-model="projectId" placeholder="请选择项目">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -37,33 +37,17 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="开始时间">
-            <el-date-picker
-              size="small"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              v-model="searchForm.createTimeBegin"
-              type="datetime"
-              placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
+        <el-col :span="6">
+        <el-form-item label="时间">
+            <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item>
         </el-col>
-        <el-col :span="4" :offset="1">
-          <el-form-item label="至 " label-width="40px">
-            <el-date-picker
-              size="small"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              v-model="searchForm.createTimeEnd"
-              type="datetime"
-              placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
+
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="showDetails(0);">新增</el-button>
           </el-form-item>
         </el-col>
@@ -112,15 +96,17 @@ export default {
   data: () => ({
     data: {},
     loading: false,
+    projectId:'',
     searchForm: {},
     areaList:[],
     companyList: [],
     projectList: [],
     page: 1,
-    size: 10
+    size: 10,
+    value6: []
   }),
   created () {
-    this.searchList()
+    this.searchList(1)
     window.$getAreaList().then((res) => {
       this.areaList = res
     }, (err) => {
@@ -135,6 +121,7 @@ export default {
 
   methods: {
     getProjectList(){
+      this.projectId = ''
       window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
         this.projectList = res
       }, (err) => {
@@ -149,8 +136,16 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList () {
+    searchList (type) {
       this.loading = true
+      this.searchForm.projectId = this.projectId
+      this.searchForm.createTimeBegin = this.value6[0]
+      this.searchForm.createTimeEnd = this.value6[1]
+
+      if(type === 1){
+        this.page = 1
+      }
+
       window.$getStoreList(this.page, this.size, this.searchForm)
       .then((res) => {
         this.loading = false
@@ -188,7 +183,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 150%;
+    // height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

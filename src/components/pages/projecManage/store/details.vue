@@ -54,7 +54,7 @@
 
         <el-col :span="6">
           <el-form-item label="面积/平：">
-            <el-input size="small" v-model="data.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
+            <el-input type="number" size="small" v-model="data.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
           </el-form-item>
         </el-col>
 
@@ -96,6 +96,10 @@
         {
           name: '禁用',
           id: 2
+        },
+        {
+          name: '签约中',
+          id: 3
         }
       ]
     }),
@@ -113,7 +117,21 @@
             this.areaList = res
             window.$getStoreDetails(this.$route.params.id).then((res) => {
               this.data = res
-              this.getProjectList()
+              window.$getProjectListForArea(this.data.areaId).then((res) => {
+                this.projectList = res
+                window.$getBuilding(this.data.projectId).then((res) => {
+                  this.buildingList = res
+                  window.$getFloorForBuilding(this.data.buildingId).then((res) => {
+                    this.floorList = res
+                  }, (err) => {
+                    this.showAlert(err)
+                  })
+                }, (err) => {
+                  this.showAlert(err)
+                })
+              }, (err) => {
+                this.showAlert(err)
+              })
             }, (err) => {
               this.showAlert(err)
             })
@@ -122,22 +140,26 @@
           })
       },
       getProjectList(){
+        this.data.projectId = ''
+        this.data.buildingId = ''
+        this.data.floorId =''
         window.$getProjectListForArea(this.data.areaId).then((res) => {
           this.projectList = res
-          this.getBuilding()
         }, (err) => {
           this.showAlert(err)
         })
       },
       getBuilding(){
+        this.data.buildingId = ''
+        this.data.floorId =''
         window.$getBuilding(this.data.projectId).then((res) => {
           this.buildingList = res
-          this.getFloor()
         }, (err) => {
           this.showAlert(err)
         })
       },
       getFloor(){
+        this.data.floorId =''
         window.$getFloorForBuilding(this.data.buildingId).then((res) => {
           this.floorList = res
         }, (err) => {
@@ -145,10 +167,13 @@
         })
       },
       edit(){
+        this.loading = true
         window.$editStore(this.data).then((res) => {
+          this.loading = false
           this.showAlert('修改成功')
           this.goBack()
         }, (err) => {
+          this.loading = false
           this.showAlert(err)
         })
       },
@@ -166,7 +191,7 @@ showAlert(cont) {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

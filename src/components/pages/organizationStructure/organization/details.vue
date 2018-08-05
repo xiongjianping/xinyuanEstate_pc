@@ -126,7 +126,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 140%;
+    // height: 140%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

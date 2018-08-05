@@ -5,29 +5,23 @@
 
         <el-col :span="5">
           <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="getProjectList()">
+            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
               <el-option v-for="(item,index) in options" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="5">
-          <el-form-item label="项目">
-            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
-              <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称" style="width:250px"></el-input>
-            </el-select>
+          <el-form-item label="时间">
+              <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd">
+            </el-date-picker>
           </el-form-item>
-        </el-col>
-        <el-col :span="5">
-        <el-form-item label="时间">
-            <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
-        </el-form-item>
         </el-col>
 
         <el-col :span="24" class="text-center">
         <el-form-item label-width="0">
-        <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+        <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
         <el-button type="primary" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
         <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
         </el-form-item>
@@ -39,7 +33,7 @@
     <el-dialog title="新增公司" :visible.sync="dialogFormVisible">
       <el-form :model="newCompany">
         <el-form-item label="公司名称" :label-width="formLabelWidth">
-          <el-input v-model="newCompany.name"></el-input>
+          <el-input v-model="newCompany.name" maxlength="20"></el-input>
         </el-form-item>
         <el-form-item label="父公司" :label-width="formLabelWidth">
           <el-select v-model="newCompany.parentId" placeholder="添加父公司">
@@ -161,11 +155,12 @@ export default {
       }, (err) => {
         console.log(err)
       })
-    this.searchList()
+    this.searchList(1)
   },
 
   methods: {
     showCreateCompany(){
+      this.newCompany = {}
       this.dialogFormVisible = true
       window.$getCompanyAll().then((res) => {
         this.companyList = res
@@ -176,10 +171,10 @@ export default {
     createCompany(){
       if(this.checkCompanyInfo()){
         window.$createCompany(this.newCompany).then((res) => {
-          this.$message('新增成功');
+          this.showAlert('新增成功');
           this.dialogFormVisible = false
         }, (err) => {
-          this.$message(err);
+          this.showAlert(err);
         })
       }
     },
@@ -194,15 +189,24 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList () {
-    window.$getProjectList(this.page, this.size, this.searchForm)
-      .then((res) => {
-        console.log(res)
-        this.data = res
-        this.projectList = this.data.resultList
-      }, (err) => {
-        console.log(err)
-      })
+    searchList (type) {
+      if(this.value6){
+          this.searchForm.createTimeBegin = this.value6[0]
+          this.searchForm.createTimeEnd = this.value6[1]
+      }
+
+      if(type === 1){
+        this.page = 1
+      }
+
+      window.$getProjectList(this.page, this.size, this.searchForm)
+        .then((res) => {
+          console.log(res)
+          this.data = res
+          this.projectList = this.data.resultList
+        }, (err) => {
+          console.log(err)
+        })
     },
     // 查看详情
     showDetails (id) {
@@ -261,7 +265,7 @@ export default {
 
   .mainContent{
     width: 100%;
-    height: 130%;
+    // height: 130%;
     background: #fff;
   }
   .dd{

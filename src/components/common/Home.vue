@@ -45,6 +45,7 @@ export default {
   /*overflow-x: hidden;*/
 /*}*/
   .content{
-    height: 87%;
+    height: 100%;
+    background: #fff
   }
 </style>
