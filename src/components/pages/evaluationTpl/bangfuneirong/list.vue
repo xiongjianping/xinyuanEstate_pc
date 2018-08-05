@@ -20,7 +20,6 @@
     </el-row>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-
         <el-table-column align="center" type="index"  prop='id'  label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="type" label="类别">
           <template slot-scope="scope">
@@ -31,7 +30,6 @@
             <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
           </template>
         </el-table-column>
-
         <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
         <el-table-column align="center" label="操作" width="100">
           <template slot-scope="scope">
@@ -39,19 +37,15 @@
             <el-button type="text" v-on:click="deleteContent(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
-
+      </el-table>
       <div class="paginationCont">
         <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="page"
-        :page-sizes="[10, 20, 50, 100]"
-        :page-size="size"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="data.countSize">
+          @current-change="handleCurrentChange"
+          :current-page="page"
+          layout="prev, pager, next"
+          :total="data.countSize">
         </el-pagination>
       </div>
-      </el-table>
     </div>
   </div>
 </template>

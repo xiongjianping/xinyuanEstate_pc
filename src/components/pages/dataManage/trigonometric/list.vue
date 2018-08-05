@@ -98,12 +98,9 @@
       </el-table>
       <div class="paginationCont">
         <el-pagination
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="size"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="prev, pager, next"
           :total="data.count">
         </el-pagination>
       </div>

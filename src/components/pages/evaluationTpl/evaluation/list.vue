@@ -69,6 +69,14 @@
         <el-table-column align="center" prop="hl" label="合理"></el-table-column>
         <el-table-column align="center" prop="ks" label="亏损"></el-table-column>
       </el-table>
+      <div class="paginationCont">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="page"
+          layout="prev, pager, next"
+          :total="data.countSize">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
