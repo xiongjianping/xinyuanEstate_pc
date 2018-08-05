@@ -77,8 +77,8 @@
         </div>
 
         <div class="xxk">
-          <button>取消</button>
-          <button>确定</button>
+          <button type="button">取消</button>
+          <button type="button">确定</button>
         </div>
 
       </el-form>
@@ -104,7 +104,7 @@
       picIndex: 0
     }),
     created () {
-      this.searchList(1)
+      // this.searchList(1)
     },
     methods: {
       handleSizeChange (val) {

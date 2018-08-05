@@ -53,8 +53,8 @@
           </el-table-column>
         </el-table>
         <div class="xxk">
-          <button>取消</button>
-          <button>确定</button>
+          <button type="button">取消</button>
+          <button type="button">确定</button>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@ export default {
     size: 10
   }),
   created () {
-    this.getData()
+    // this.getData()
   },
   methods: {
     getData () {
