@@ -155,8 +155,8 @@
             </div>
             <div class="f-tac mt10">
               <m-select v-if="typeId === 1 && floorList.length > 0"  :tabs="floorList" :clicked="clicked4" v-on:childTab="tabClick4"></m-select>
-              <m-select v-if="typeId === 3 && megabiteList.length > 0"  :tabs="megabiteList" :clicked="clicked8" v-on:childTab="tabClick8"></m-select>
-              <m-select v-if="typeId === 3 && brandList.length > 0"  :tabs="brandList" :clicked="clicked6" v-on:childTab="tabClick6"></m-select>
+              <m-select v-if="typeId === 3 && megabiteList.length > 0"  :tabs="megabiteList" :clicked="clicked6" v-on:childTab="tabClick6"></m-select>
+              <m-select v-if="typeId === 3 && brandList.length > 0"  :tabs="brandList" :clicked="clicked8" v-on:childTab="tabClick8"></m-select>
             </div>
           </div>
           <div class="f-tac mt10 r-tab">
@@ -168,9 +168,9 @@
           <div class="g_notes f-pr">
             <h2>优</h2>
             <div class="notes_list f-cb">
-              <span><i>1000</i>溢租率</span>
-              <span><i>200</i>客销度</span>
-              <span><i>300</i>适配值</span>
+              <span><i>{{triangData.triangleRent}}</i>溢租率</span>
+              <span><i>{{triangData.triangleGuest}}</i>客销度</span>
+              <span><i>{{triangData.triangleFitted}}</i>适配值</span>
             </div>
           </div>
         </div>
@@ -249,49 +249,45 @@
                 <div class="img">
                     <img src="../../assets/images/r_t.png" alt="">
                 </div>
-                <div class="swiper_txt">
-                  <div class="f-cb">
-                    <p class="f-fl">西安鑫苑大都汇</p>
-                    <p class="f-fr f-tar">楼层数：共5层</p>
-                  </div>
-                  <div class="f-cb">
-                    <p class="f-fl">开业时间：2016年12月16日</p>
-                    <p class="f-fr f-tar">面积：12万平方</p>
-                  </div>
-                </div>
+                
             </swiper-slide>
             <swiper-slide>
                 <div class="img">
                     <img src="../../assets/images/r_t.png" alt="">
                 </div>
             </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
+            <!-- <div class="swiper-pagination" slot="pagination"></div> -->
           </swiper>
+          <div class="swiper_txt">
+            <div class="f-cb">
+              <p class="f-fl">西安鑫苑大都汇</p>
+              <p class="f-fr f-tar">楼层数：共5层</p>
+            </div>
+            <div class="f-cb">
+              <p class="f-fl">开业时间：2016年12月16日</p>
+              <p class="f-fr f-tar">面积：12万平方</p>
+            </div>
+          </div>
         </div>
         <div class="right_2 mb10">
           <div class="title_bg tit_right1"></div>
           <span class="title_txt">客销度</span>
           <div class="g_text">
-              E1:短期下调租金培育品牌经营
-              E2:辅助品牌经营
-              E3:分析品牌下降原因
-              E4:下调租金
-              E5:品牌淘汰
+              {{triangData.guestContent}}
           </div>
         </div>
         <div class="right_3">
           <div class="title_bg tit_right1"></div>
           <span class="title_txt">建设措施</span>
           <el-row class="f-tac">
-            <el-button type="primary" size="small" class="mr15">溢租率</el-button>
-            <el-button type="primary" size="small">适配值</el-button>
+            <el-button type="primary" size="small" class="mr15" @click="triangType = 1">溢租率</el-button>
+            <el-button type="primary" size="small" @click="triangType = 2">适配值</el-button>
           </el-row>
-          <div class="g_text">
-              E1:短期下调租金培育品牌经营
-              E2:辅助品牌经营
-              E3:分析品牌下降原因
-              E4:下调租金
-              E5:品牌淘汰
+          <div class="g_text" v-if="triangType === 1">
+              {{triangData.rentContent}}
+          </div>
+          <div class="g_text" v-if="triangType === 2">
+              {{triangData.fittedContent}}
           </div>
         </div>
       </el-col>
@@ -305,7 +301,9 @@ export default {
 
   data() {
     return {
+      triangType:1,
       myChart3:{},
+      myChart:{},
       searchForm: {},
       areaId:'',
       areaList: {},
@@ -419,9 +417,15 @@ export default {
   watch:{
     screenWidth (val) {
       this.screenWidth = val
-      myChart.resize()
+      this.myChart.resize()
       myChart1.resize()
       this.myChart3.resize()
+    },
+    triangData(val) {
+      var option = this.getOption()
+
+    this.myChart = echarts.init(document.getElementById('main'))
+    this.myChart.setOption(option); 
     },
     projectList(val){
       this.projectList = val
@@ -450,189 +454,11 @@ export default {
       return (() => {
           window.screenWidth = document.body.clientWidth
           this.screenWidth = window.screenWidth
-          myChart.resize()
+          this.myChart.resize()
           myChart1.resize()
           this.myChart3.resize()
       })()
     }
-    this.getAaa()
-    //中国地图
-    // var myChart_china = echarts.init(document.getElementById('china'))
-    // china( myChart_china)
-    var myChart = echarts.init(document.getElementById('main'));
-    var option = {
-      textStyle: {
-        color: "white"
-      },
-      legend: {
-        data: ['流量', '降雨量'],
-        x: 'left',
-      },
-      parallelAxis: [
-        {
-          dim: 0,
-          name: '溢租率(%)',
-          min: -100,
-          max: 100,
-          axisLine: {
-            lineStyle: {
-              width: 10,
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [{
-                    offset: 0,
-                    color: 'blue',
-
-                  }, {
-                    offset: 0.33,
-                    color: 'green' // 100% 处的颜色
-                  },
-                  {
-                    offset: 0.66,
-                    color: 'yellow' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'red' // 0% 处的颜色
-                  }
-                ],
-                globalCoord: true // 缺省为 false
-              }
-            },
-          }
-        },
-        {
-          dim: 1,
-          name: '客销度',
-          min: -50,
-          max: 200,
-          axisLine: {
-            lineStyle: {
-              width: 10,
-              color: {
-                type: '',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [{
-                    offset: 0,
-                    color: 'blue' // 0% 处的颜色
-                  }, {
-                    offset: 0.25,
-                    color: 'green' // 100% 处的颜色
-                  },
-                  {
-                    offset: 0.5,
-                    color: 'yellow' // 0% 处的颜色
-                  },
-                  {
-                    offset: 0.75,
-                    color: 'white' // 0% 处的颜色
-                  }
-                ],
-                globalCoord: true // 缺省为 false
-              }
-            }
-          }
-        },
-        {
-          dim: 2,
-          name: '适配值',
-          min: 0,
-          max: 8000,
-          color: "red",
-          axisLine: {
-            textStyle: {
-              opacity: 0.5
-            },
-            lineStyle: {
-              width: 10,
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [{
-                    offset: 0,
-                    color: 'blue' // 0% 处的颜色
-                  }, {
-                    offset: 0.33,
-                    color: 'green' // 100% 处的颜色
-                  },
-                  {
-                    offset: 0.66,
-                    color: 'yellow' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'red' // 0% 处的颜色
-                  }
-                ],
-                globalCoord: false // 缺省为 false
-              }
-            }
-          }
-        }
-      ],
-      parallel: { // 这是『坐标系』的定义
-        left: '10%', // 平行坐标系的位置设置
-        right: '25%',
-        bottom: '10%',
-        top: '15%',
-        parallelAxisDefault: { // 『坐标轴』的公有属性可以配置在这里避免重复书写
-          type: 'value',
-          nameLocation: 'end',
-          nameGap: 20,
-          opacity: 0.6,
-        }
-      },
-      series: [{
-        type: 'parallel',
-        lineStyle: {
-          width: 3
-        },
-        data: [{
-            value: [-20, 130, 3600],
-            lineStyle: {
-              color: '#fff'
-            }
-          },
-          {
-            value: [-20, null, 3600],
-            lineStyle: {
-              color: '#fff'
-            }
-          }
-        ]
-      }, {
-        color: '#fff',
-        type: 'parallel',
-        lineStyle: {
-          width: 3
-        },
-        data: [{
-            value: [-45, 180, 6000],
-
-            lineStyle: {
-              color: 'yellow'
-            }
-          },
-          {
-            value: [-45, null, 6000],
-            lineStyle: {
-              color: 'yellow'
-            }
-          }
-        ]
-      }]
-    };
-    myChart.setOption(option);
 
     var myChart1 = echarts.init(document.getElementById('main1'));
     var option1 = {
@@ -703,39 +529,16 @@ export default {
       ]
     };
     myChart1.setOption(option1);
+
+    this.getAaa()
+    //中国地图
+    // var myChart_china = echarts.init(document.getElementById('china'))
+    // china( myChart_china)
+    this.myChart = echarts.init(document.getElementById('main'))
+    var option = this.getOption()
+    this.myChart.setOption(option)
   },
   methods: {
-    // getProjectList(areaId){
-    //   window.$getProjectListForArea(areaId).then(res => {
-    //     this.projectList =  res
-    //     console.log(this.projectList)
-    //   }, err => {console.log(err)})
-    // },
-    // getBuildingList(projectId){
-    //   window.$getBuilding(projectId).then(res => {
-    //     this.buildingList = res
-    //   }, err => {console.log(err)})
-    // },
-    // getFloorList(buildingId){
-    //   window.$getFloorForBuilding(buildingId).then(res => {
-    //     this.floorList = res
-    //   }, err => {console.log(err)})
-    // },
-    // getConditionList(projectId){
-    //   window.$getBusinessListForProject(projectId).then(res => {
-    //     this.conditionList = res
-    //   }, err => {console.log(err)})
-    // },
-    // getMegaviteList(conditionId){
-    //   window.$getSpeciesSelect(conditionId).then(res => {
-    //     this.megabiteList = res
-    //   }, err => {console.log(err)})
-    // },
-    // getBrandList(megabiteId){
-    //   window.$getBrandForSpecies(megabiteId).then(res => {
-    //     this.brandList = res
-    //   }, err => {console.log(err)})
-    // },
     getTriangleValue(type){
       var params = {
         projectId: this.projectId
@@ -753,9 +556,180 @@ export default {
         params.brandId = this.brandId
       }
 
-      this.$axios.post(url, params).then(res => {
+      this.$axios.post(url, params).then((res) => {
+        console.log(res)
         this.triangData = res
-      }, err => {console.log(err)})
+      }, (err) => {console.log(err)})
+    },
+    getOption(){
+      return  {
+      textStyle: {
+        color: "white"
+      },
+      parallelAxis: [
+        {
+          dim: 0,
+          name: '溢租率(%)',
+          min: this.triangData.intervalRent.ks,
+          max: this.triangData.intervalRent.yx,
+          axisLine: {
+            lineStyle: {
+              width: 10,
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0,
+                    color: 'blue',
+
+                  }, {
+                    offset: 0.33,
+                    color: 'green' // 100% 处的颜色
+                  },
+                  {
+                    offset: 0.66,
+                    color: 'yellow' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: 'red' // 0% 处的颜色
+                  }
+                ],
+                globalCoord: true // 缺省为 false
+              }
+            },
+          }
+        },
+        {
+          dim: 1,
+          name: '客销度',
+          min: this.triangData.intervalGuest.ks,
+          max: this.triangData.intervalGuest.yx,
+          axisLine: {
+            lineStyle: {
+              width: 10,
+              color: {
+                type: '',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0,
+                    color: 'blue' // 0% 处的颜色
+                  }, {
+                    offset: 0.25,
+                    color: 'green' // 100% 处的颜色
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'yellow' // 0% 处的颜色
+                  },
+                  {
+                    offset: 0.75,
+                    color: 'white' // 0% 处的颜色
+                  }
+                ],
+                globalCoord: true // 缺省为 false
+              }
+            }
+          }
+        },
+        {
+          dim: 2,
+          name: '适配值',
+          min: this.triangData.intervalFitted.ks,
+          max: this.triangData.intervalFitted.yx,
+          color: "red",
+          axisLine: {
+            textStyle: {
+              opacity: 0.5
+            },
+            lineStyle: {
+              width: 10,
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0,
+                    color: 'blue' // 0% 处的颜色
+                  }, {
+                    offset: 0.33,
+                    color: 'green' // 100% 处的颜色
+                  },
+                  {
+                    offset: 0.66,
+                    color: 'yellow' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: 'red' // 0% 处的颜色
+                  }
+                ],
+                globalCoord: false // 缺省为 false
+              }
+            }
+          }
+        }
+      ],
+      parallel: { // 这是『坐标系』的定义
+        left: '10%', // 平行坐标系的位置设置
+        right: '25%',
+        bottom: '10%',
+        top: '15%',
+        parallelAxisDefault: { // 『坐标轴』的公有属性可以配置在这里避免重复书写
+          type: 'value',
+          nameLocation: 'end',
+          nameGap: 20,
+          opacity: 0.6,
+        }
+      },
+      series: [{
+        type: 'parallel',
+        lineStyle: {
+          width: 3
+        },
+        data: [{
+            value: [this.triangData.standardRent, this.triangData.standardGuest, this.triangData.standardFitted],
+            lineStyle: {
+              color: '#fff'
+            }
+          },
+          {
+            value: [this.triangData.standardRent, null, this.triangData.standardFitted],
+            lineStyle: {
+              color: '#fff'
+            }
+          }
+        ]
+      }, {
+        color: '#fff',
+        type: 'parallel',
+        lineStyle: {
+          width: 3
+        },
+        data: [{
+            value: [this.triangData.triangleRent, this.triangData.triangleGuest, this.triangData.triangleFitted],
+
+            lineStyle: {
+              color: 'yellow'
+            }
+          },
+          {
+            value: [this.triangData.triangleRent, null, this.triangData.triangleFitted],
+            lineStyle: {
+              color: 'yellow'
+            }
+          }
+        ]
+      }]
+    }
     },
     getAaa() {
       this.$axios.get('/pctriangle/find/salepassengerflow/all')
@@ -945,7 +919,11 @@ export default {
       this.clicked7=false
       this.clicked8=false
 
-      this.floorChanged(this.floorList[index].id)
+      if(this.typeId === 2) {
+        this.conditionChangedForCondition(this.conditionList[index].id)
+      } else if(this.typeId === 3){
+        this.conditionChangedForBrand(this.conditionList[index].id)
+      }
     },
     tabClick6(index,isClicked) {
       this.clicked6=isClicked
@@ -956,7 +934,6 @@ export default {
       this.clicked5=false
       this.clicked7=false
       this.clicked8=false
-
       this.megabiteChangedForBrand(this.megabiteList[index].id)
     },
     tabClick7(index,isClicked) {
@@ -1032,10 +1009,10 @@ export default {
     },
     areaChangedForCondition(areaId){
       this.areaId = areaId
-      window.$getProjectListForArea(areaId).then(res => {
+      window.$getProjectListForArea(this.areaId).then(res => {
         this.projectList =  res
         this.projectId = res[0].id
-        window.$getBusinessListForProject(projectId).then(res => {
+        window.$getBusinessListForProject(this.projectId).then(res => {
           this.conditionList = res
           this.conditionId = res[0].id
           this.getTriangleValue(2)
@@ -1044,7 +1021,7 @@ export default {
     },
     projectChangedForCondition(projectId){
       this.projectId = projectId
-      window.$getBusinessListForProject(projectId).then(res => {
+      window.$getBusinessListForProject(this.projectId).then(res => {
           this.conditionList = res
           this.conditionId = res[0].id
           this.getTriangleValue(2)
@@ -1056,16 +1033,16 @@ export default {
     },
     areaChangedForBrand(areaId){
       this.areaId = areaId
-      window.$getProjectListForArea(areaId).then(res => {
+      window.$getProjectListForArea(this.areaId).then(res => {
         this.projectList =  res
         this.projectId = res[0].id
-        window.$getBusinessListForProject(projectId).then(res => {
+        window.$getBusinessListForProject(this.projectId).then(res => {
           this.conditionList = res
           this.conditionId = res[0].id
-          window.$getSpeciesSelect(conditionId).then(res => {
+          window.$getSpeciesSelect(this.conditionId).then(res => {
             this.megabiteList = res
             this.megabiteId = res[0].id
-            window.$getBrandForSpecies(megabiteId).then(res => {
+            window.$getBrandForSpecies(this.megabiteId).then(res => {
               this.brandList = res
               this.brandId = res[0].id
               this.getTriangleValue(3)
@@ -1076,13 +1053,13 @@ export default {
     },
     projectChangedForBrand(projectId){
       this.projectId = projectId
-      window.$getBusinessListForProject(projectId).then(res => {
+      window.$getBusinessListForProject(this.projectId).then(res => {
         this.conditionList = res
-        this.conditionId = res[0].id
-        window.$getSpeciesSelect(conditionId).then(res => {
+        this.conditionId = this.conditionList[0].id
+        window.$getSpeciesSelect(this.conditionId).then(res => {
           this.megabiteList = res
           this.megabiteId = res[0].id
-          window.$getBrandForSpecies(megabiteId).then(res => {
+          window.$getBrandForSpecies(this.megabiteId).then(res => {
             this.brandList = res
             this.brandId = res[0].id
             this.getTriangleValue(3)
@@ -1092,10 +1069,10 @@ export default {
     },
     conditionChangedForBrand(conditionId){
       this.conditionId = conditionId
-      window.$getSpeciesSelect(conditionId).then(res => {
+      window.$getSpeciesSelect(this.conditionId).then(res => {
         this.megabiteList = res
         this.megabiteId = res[0].id
-        window.$getBrandForSpecies(megabiteId).then(res => {
+        window.$getBrandForSpecies(this.megabiteId).then(res => {
           this.brandList = res
           this.brandId = res[0].id
           this.getTriangleValue(3)
@@ -1104,19 +1081,16 @@ export default {
     },
     megabiteChangedForBrand(megabiteId){
       this.megabiteId = megabiteId
-      window.$getBrandForSpecies(megabiteId).then(res => {
+      window.$getBrandForSpecies(this.megabiteId).then(res => {
         this.brandList = res
         this.brandId = res[0].id
         this.getTriangleValue(3)
       }, err => {console.log(err)})
     },
-    brandChangedForBrand(){
-      window.$getBrandForSpecies(megabiteId).then(res => {
-        this.brandList = res
-        this.brandId = res[0].id
-        this.getTriangleValue(3)
-      }, err => {console.log(err)})
-    }
+    brandChangedForBrand(brandId){
+      this.brandId = brandId
+      this.getTriangleValue(3)
+    },
   }
 }
 
@@ -1299,8 +1273,8 @@ export default {
 
 .right_1{padding-top: 30px;
   .mySwiper_list{height: 310px;}
-  .swiper_txt{color: #fff;margin:20px 3% 0;font-size: 12px;}
-  .img{height: 225px;margin:0 auto;text-align: center;
+  .swiper_txt{color: #fff;margin:-45px 3% 0;font-size: 16px;}
+  .img{height: 250px;margin:0 auto;text-align: center;
     img{width: auto;height: 100%;}
   }
 }
