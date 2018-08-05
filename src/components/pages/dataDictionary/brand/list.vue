@@ -29,10 +29,10 @@
     
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index"  label="序号" width="80"></el-table-column>
-        <el-table-column align="center" prop="name" label="业态"  width="250"></el-table-column>
-        <el-table-column align="center" prop="modifyTime" label="修改时间"  width="250"></el-table-column>
-        <el-table-column align="center"  label="操作" width="150">
+        <el-table-column align="center" type="index"  label="序号"></el-table-column>
+        <el-table-column align="center" prop="name" label="业态"></el-table-column>
+        <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
+        <el-table-column align="center"  label="操作">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
             <el-button type="text" v-on:click="deleteDetails(scope.row.id)">删除</el-button>
@@ -189,7 +189,7 @@ export default {
   width: 30%;
 }
 
-  .el-table{
+.el-table{
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -198,7 +198,7 @@ export default {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  width: 66%;
+  // width: 66%;
   max-width: 100%;
   font-size: 14px;
   color: #606266;

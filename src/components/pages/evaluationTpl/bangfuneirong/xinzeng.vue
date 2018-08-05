@@ -5,20 +5,34 @@
     <el-row class="searchBox" :gutter="30">
 
       <el-form label-width="100px" :model="searchData">
-        <el-col :span="6">
-          <el-form-item label="类别：">
-            <el-select size="small" v-model="searchData.type" placeholder="租金帮扶">
-              <el-option v-for="(item, index) in typeList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br><br><br><br>
-        <p style="margin-left: 100px;">帮扶内容：</p>
-        <el-input v-model="searchData.context" type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
-        </el-input>
-        <div class="xxk">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="类别：">
+              <el-select size="small" v-model="searchData.type" placeholder="租金帮扶">
+                <el-option v-for="(item, index) in typeList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="帮扶内容：">
+              <el-input v-model="searchData.context" type="textarea" autosize placeholder="请输入内容">
+              </el-input>
+            </el-form-item>
+          <!-- <p style="margin-left: 100px;">帮扶内容：</p>
+          <el-input v-model="searchData.context" type="textarea" autosize placeholder="请输入内容" style="margin-left: 170px; width:800px">
+          </el-input> -->
+          </el-col>
+        </el-row>
+        <el-row class="f-tac">
+          <el-button type="primary" class="mr15" @click="goBack()">取消</el-button>
+          <el-button type="primary" @click="create()">新增</el-button>
+        </el-row>
+        <!-- <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
           <button type="button" @click="create()">新增</button>
-        </div>
+        </div> -->
       </el-form>
     </el-row>
   </div>
@@ -71,8 +85,8 @@ showAlert(cont) {
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: 52px;
   }
   .el-form-item__label {

@@ -15,12 +15,9 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder=""></el-input>
           </el-form-item>
         </el-col>
-
-
-
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
+            <el-button type="primary" class="mr25" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="resetForm();">新增</el-button>
           </el-form-item>
         </el-col>

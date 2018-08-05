@@ -16,11 +16,11 @@
     </el-row>
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="id" prop="id" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="area" label="业态编号" width="200"></el-table-column>
-        <el-table-column align="center" prop="company" label="业态"  width="100"></el-table-column>
+        <el-table-column align="center" type="id" prop="id" label="序号"></el-table-column>
+        <el-table-column align="center" prop="area" label="业态编号"></el-table-column>
+        <el-table-column align="center" prop="company" label="业态" ></el-table-column>
         <el-table-column align="center" prop="startTime" label="修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" width="100">
+        <el-table-column align="center"  label="操作">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="editDetails(scope.row.id)">修改</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
@@ -129,7 +129,7 @@ export default {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    width: 50%;
+    // width: 50%;
     max-width: 100%;
     font-size: 14px;
     color: #606266;

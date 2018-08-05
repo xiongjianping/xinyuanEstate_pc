@@ -61,10 +61,10 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
+            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
             <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
-            <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
+            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportExl()">导出</el-button>
             <!-- <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
             <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button> -->
           </el-form-item>

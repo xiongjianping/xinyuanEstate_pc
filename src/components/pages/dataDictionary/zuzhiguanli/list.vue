@@ -1,11 +1,9 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-
-    <div class="left">
-      <el-tree :data="comTree" :props="comTreeOptions" @node-click="handleNodeClick"></el-tree>
-    </div>
-    <div class="listCont">
-
+    <div class="listCont f-cb">
+      <div class="left">
+        <el-tree :data="comTree" :props="comTreeOptions" @node-click="handleNodeClick"></el-tree>
+      </div>
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
 
         <el-table-column align="center" type="index" label="排序号" ></el-table-column>
@@ -185,7 +183,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    // height: 150%;
+    min-height: 100%;
     background: #fff;
   }
   .left{
@@ -224,8 +222,8 @@ export default {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    width: 50%;
-    max-width: 100%;
+    width: 60%;
+    // max-width: 100%;
     font-size: 14px;
     color: #606266;
     margin: 0 auto;
