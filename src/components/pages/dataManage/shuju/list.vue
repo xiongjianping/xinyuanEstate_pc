@@ -31,8 +31,9 @@
             </div>
             <a class="rightText">动态三角形_客销度导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(1);">导出</el-button>
-          </el-col> <br/>
+            <input id="fileUpload_input1" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(1);">导出</el-button>
+          </el-col> <br/><br/>
           <!-- <el-checkbox v-model="checked">选择导入导出</el-checkbox><br> -->
           <el-col :span="16" :offset="1">
             <div class="leftText">
@@ -40,8 +41,9 @@
             </div>
             <a class="rightText">标准三角形_客销度导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(2);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
-          </el-col>
+            <input id="fileUpload_input2" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+          </el-col><br/><br/>
         </el-row>
 
         <h3 class="title">每月导入</h3>
@@ -53,8 +55,9 @@
             </div>
             <a class="rightText">动态三角形_溢租率导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(3);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(3);">导出</el-button>
-          </el-col>
+            <input id="fileUpload_input3" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(3);">导出</el-button>
+          </el-col><br/><br/>
         </el-row>
 
         <h3 class="title">每季导入</h3>
@@ -66,8 +69,9 @@
             </div>
             <a class="rightText">动态三角形_适配值导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(4);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(4);">导出</el-button>
-          </el-col>
+            <input id="fileUpload_input4" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(4);">导出</el-button>
+          </el-col><br/><br/>
         </el-row>
 
         <h3 class="title">其他导入</h3>
@@ -79,23 +83,26 @@
             </div>
             <a class="rightText">区间设置_客销度导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(5);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(5);">导出</el-button>
-          </el-col> <br/>
+            <input id="fileUpload_input5" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(5);">导出</el-button>
+          </el-col> <br/><br/>
           <el-col :span="16" :offset="1">
             <div class="leftText">
             标准三角形适配值导入：
             </div>
             <a class="rightText">标准三角形_适配值导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(6);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(6);">导出</el-button>
-          </el-col> <br/>
+            <input id="fileUpload_input6" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(6);">导出</el-button>
+          </el-col> <br/><br/>
           <el-col :span="16" :offset="1">
             <div class="leftText">
             标准三角形溢租率导入：
             </div>
             <a class="rightText">标准三角形_溢租率导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(7);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(7);">导出</el-button>
+            <input id="fileUpload_input7" class="uploadInput" type="file" @change="fileUpload" />
+            <el-button type="primary" size="medium" v-on:click="exportFile(7);">导出</el-button>
           </el-col>
         </el-row>
       </div>
@@ -112,12 +119,7 @@ export default {
     data: {},
     loading: false,
     searchForm: {},
-    infoData: {},
-    size: 10,
-    dialogFormVisible: false,
-    dialogVisible: false,
-    pictureList: [],
-    picIndex: 0
+    upUrl: ''
   }),
   created () {
     window.$getAreaList().then(res => {
@@ -128,6 +130,7 @@ export default {
   },
   methods: {
     areaChanged(){
+       this.searchForm = {}
        window.$getProjectListForArea(this.areaId).then(res => {
          this.projectList = res
        }, err => {
@@ -135,32 +138,45 @@ export default {
        })
     },
     importFile (type) {
-      if(!searchForm.projectId){
+      if(!this.searchForm.projectId){
         this.showAlert('请选择项目')
+        return false
       }
 
-      let url = ''
       if(type === 1){
-        url = '/importexcel/excel/guestimport/sheet'
+        this.upUrl = '/importexcel/excel/guestimport/sheet'
+        document.getElementById('fileUpload_input1').click()
       } else if(type === 2){
-        url = '/standimport/excel/standguestimport/sheet'
+        this.upUrl = '/standimport/excel/standguestimport/sheet'
+        document.getElementById('fileUpload_input2').click()
       } else if(type === 3){
-        url = '/importexcel/excel/rentimport/sheet'
-      } else if(type === 3){
-        url = '/importexcel/excel/rentimport/sheet'
+        this.upUrl = '/importexcel/excel/rentimport/sheet'
+        document.getElementById('fileUpload_input3').click()
       } else if(type === 4){
-        url = '/importexcel/excel/fittedimport/sheet'
+        this.upUrl = '/importexcel/excel/fittedimport/sheet'
+        document.getElementById('fileUpload_input4').click()
       } else if(type === 5){
-        url = ''
+        this.upUrl = '/intervalimportexcel/excel/intervalguestimport/sheet'
+        document.getElementById('fileUpload_input5').click()
       } else if(type === 6){
-        url = ''
+        this.upUrl = '/standimport/excel/standfittedimport/sheet'
+        document.getElementById('fileUpload_input6').click()
       } else if(type === 7){
-        url = ''
+        this.upUrl = '/standimport/excel/standrentimport/sheet'
+        document.getElementById('fileUpload_input7').click()
       } 
+
+      
+    },
+    fileUpload(e){
+      window.$fileUpload(e, this.upUrl).then((res) => {
+        this.showAlert('导入成功')
+      }, (err) =>{this.showAlert(err)})
     },
     exportFile (type) {
-      if(!searchForm.projectId){
+      if(!this.searchForm.projectId){
         this.showAlert('请选择项目')
+        return false
       }
 
       let url = ''
@@ -173,12 +189,21 @@ export default {
       } else if(type === 4){
         url = '/standardexport/excel/dtspz'
       } else if(type === 5){
-        url = ''
+        url = '/standardexport/excel/qjszkxd'
       } else if(type === 6){
-        url = ''
+        url = '/standardexport/excel/spz'
       } else if(type === 7){
-        url = ''
+        url = '/standardexport/excel/yzl'
       } 
+
+      window.$exportExls(url, this.searchForm.projectId).then((res) => {
+        console.log(res)
+        let link = document.createElement('a')
+        link.href = res
+        link.click()
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
 showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
@@ -215,10 +240,13 @@ showAlert: function (cont) {
   display: inline-block;
   width: 20%;
 }
+.uploadInput{
+    top:0px;
+    width: 0;
+    height: 100%;
+    visibility: hidden;
+  }
 .importButton{
   margin-left: 40px
-}
-.exportButton{
-  
 }
 </style>

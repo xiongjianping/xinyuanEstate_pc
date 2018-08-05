@@ -16,7 +16,7 @@
             <span class="l2">全过各区域客流量排行</span>
           </div>
           <div class="left-cont-t2">
-            <div id="main3"></div>
+            <div id="main3" style="width: 300px;height:240px"></div>
           </div>
         </div>
         <div class="left-bottom">
@@ -411,7 +411,6 @@ export default {
   },
   methods: {
     getAaa() {
-      console.log('取接口')
       this.$axios.get('/pctriangle/find/salepassengerflow/all')
         .then(res => {
           this.passengerFlowList = res

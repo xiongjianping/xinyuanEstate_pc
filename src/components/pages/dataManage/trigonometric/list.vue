@@ -177,7 +177,7 @@ export default {
       //   return false
       // }
 
-      let url = this.businessId === 1 ? '/standimport/excel/standrentimport/sheet' : (this.businessId === 2 ? '/intervalimportexcel/excel/intervalguestimport/sheet' : '/standimport/excel/standfittedimport/sheet')
+      let url = this.businessId === 1 ? '' : (this.businessId === 2 ? '/intervalimportexcel/excel/intervalguestimport/sheet' : '')
       window.$fileUpload(e, url).then((res) => {
         this.showAlert('导入成功')
         this.page = 1
@@ -194,7 +194,7 @@ export default {
         this.showAlert('请选择项目')
         return false
       }
-      let url = this.businessId === 1 ? '/standardexport/excel/yzl' : (this.businessId === 2 ? '/standardexport/excel/qjszkxd' : '/standardexport/excel/spz')
+      let url = this.businessId === 1 ? '' : (this.businessId === 2 ? '/standardexport/excel/qjszkxd' : '')
       window.$exportExls(url, this.searchForm.projectId).then((res) => {
         console.log(res)
         let link = document.createElement('a')
