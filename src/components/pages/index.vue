@@ -417,22 +417,23 @@ export default {
       }, (err) => { console.log(err) })
   },
   watch:{
-    watch: {
-        screenWidth (val) {
-        this.screenWidth = val
-          myChart.resize()
-          myChart1.resize()
-          this.myChart3.resize()
-        }
-      },
+    screenWidth (val) {
+      this.screenWidth = val
+      myChart.resize()
+      myChart1.resize()
+      this.myChart3.resize()
+    },
     projectList(val){
       this.projectList = val
+      console.log(this.projectList)
     },
     buildingList(val){
       this.buildingList = val
+      console.log(this.buildingList)
     },
     floorList(val){
       this.floorList = val
+      console.log(this.floorList)
     },
     conditionList(val){
       this.conditionList = val
@@ -880,7 +881,6 @@ export default {
       this.clicked6=false
       this.clicked7=false
       this.clicked8=false
-      
       if(this.typeId === 1){
         this.areaChangedForFloor(this.areaList[index].id)
       } else if(this.typeId === 2){
@@ -988,13 +988,17 @@ export default {
       window.$getProjectListForArea(this.areaId).then(res => {
         this.projectList =  res
         this.projectId = res[0].id
+        console.log(res[0].id)
         window.$getBuilding(this.projectId).then(res => {
           this.buildingList = res
           this.buildingId = res[0].id
           window.$getFloorForBuilding(this.buildingId).then(res => {
-            this.floorList = res
-            this.floorId = res[0].id
-            this.getTriangleValue(1)
+            if(res!=''){
+              this.floorList = res
+              this.floorId = res[0].id
+              console.log(res[0].id)
+              this.getTriangleValue(1)
+            }
           }, err => {console.log(err)})
         }, err => {console.log(err)})
       }, err => {console.log(err)})

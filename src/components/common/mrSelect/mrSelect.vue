@@ -1,11 +1,11 @@
 <template>
   <div class="g_select">
     <div class="select_result" @click="showTabs()">
-      {{selectItem.name}}
+      {{tabs[selectedTime].name}}
       <span :class="isClicked?'up-corner':'down-corner'"></span>
     </div>
     <ul class="select_list" v-if="isClicked">
-      <li v-for="(item, index) in tabs" :key="index" @click="tabClick(index,item)">{{item.name}}</li>
+      <li v-for="(item, index) in tabs" :key="item.id" @click="tabClick(index,item)">{{item.name}}</li>
     </ul>
   </div>
 </template>
@@ -16,11 +16,14 @@ export default {
   data() {
     return {
       selectedTime: 0,
-      selectItem: this.tabs[0],
+      //selectItem: this.tabs[0],
       isClicked:this.clicked
     }
   },
   watch: {
+    tabs(val){
+      this.tabs=val
+    },
     clicked(val) {
       this.isClicked = val;
     },
@@ -35,14 +38,14 @@ export default {
       }else{
         this.isClicked = true;
       }
-      this.$emit("childTab",this.selectItem,this.isClicked);
+      this.$emit("childTab",this.selectedTime,this.isClicked);
     },
     tabClick(index, item) {
       //点击事件
       this.selectItem = item;
       this.selectedTime = index;
       this.showTabs()
-      this.$emit("childTab",index,this.isClicked);
+      //this.$emit("childTab",index,this.isClicked);
     }
   },
   mounted() {
