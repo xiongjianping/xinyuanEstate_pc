@@ -31,7 +31,7 @@
             </div>
             <a class="rightText">动态三角形_客销度导入.xlsx</a>
             <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(1);">导出</el-button>
           </el-col> <br/>
           <!-- <el-checkbox v-model="checked">选择导入导出</el-checkbox><br> -->
           <el-col :span="16" :offset="1">
@@ -39,7 +39,7 @@
             毛利率、客单价导入：
             </div>
             <a class="rightText">标准三角形_客销度导入.xlsx</a>
-            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(2);">导入</el-button>
             <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
           </el-col>
         </el-row>
@@ -52,8 +52,8 @@
             固定成本导入：
             </div>
             <a class="rightText">动态三角形_溢租率导入.xlsx</a>
-            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(3);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(3);">导出</el-button>
           </el-col>
         </el-row>
 
@@ -65,8 +65,8 @@
             适配值导入：
             </div>
             <a class="rightText">动态三角形_适配值导入.xlsx</a>
-            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(4);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(4);">导出</el-button>
           </el-col>
         </el-row>
 
@@ -78,24 +78,24 @@
             客销度区间导入：
             </div>
             <a class="rightText">区间设置_客销度导入.xlsx</a>
-            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(5);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(5);">导出</el-button>
           </el-col> <br/>
           <el-col :span="16" :offset="1">
             <div class="leftText">
             标准三角形适配值导入：
             </div>
             <a class="rightText">标准三角形_适配值导入.xlsx</a>
-            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(6);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(6);">导出</el-button>
           </el-col> <br/>
           <el-col :span="16" :offset="1">
             <div class="leftText">
             标准三角形溢租率导入：
             </div>
             <a class="rightText">标准三角形_溢租率导入.xlsx</a>
-            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
-            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(7);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(7);">导出</el-button>
           </el-col>
         </el-row>
       </div>
@@ -139,18 +139,46 @@ export default {
         this.showAlert('请选择项目')
       }
 
-      if(type){
-        
-      }
+      let url = ''
+      if(type === 1){
+        url = '/importexcel/excel/guestimport/sheet'
+      } else if(type === 2){
+        url = '/standimport/excel/standguestimport/sheet'
+      } else if(type === 3){
+        url = '/importexcel/excel/rentimport/sheet'
+      } else if(type === 3){
+        url = '/importexcel/excel/rentimport/sheet'
+      } else if(type === 4){
+        url = '/importexcel/excel/fittedimport/sheet'
+      } else if(type === 5){
+        url = ''
+      } else if(type === 6){
+        url = ''
+      } else if(type === 7){
+        url = ''
+      } 
     },
     exportFile (type) {
       if(!searchForm.projectId){
         this.showAlert('请选择项目')
       }
 
-      if(type){
-        
-      }
+      let url = ''
+      if(type === 1){
+        url = '/standardexport/excel/dtkxd'
+      } else if(type === 2){
+        url = '/standardexport/excel'
+      } else if(type === 3){
+        url = '/standardexport/excel/dtyzl'
+      } else if(type === 4){
+        url = '/standardexport/excel/dtspz'
+      } else if(type === 5){
+        url = ''
+      } else if(type === 6){
+        url = ''
+      } else if(type === 7){
+        url = ''
+      } 
     },
 showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
