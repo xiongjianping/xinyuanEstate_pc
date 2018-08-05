@@ -7,42 +7,47 @@
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="data">
 
+       <el-row>
         <el-col :span="6">
-        <el-form-item label="品牌：">
-          <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
-        </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item label="业态：">
-            <el-select size="small" v-model="data.businessFormId" placeholder="请选择业态" @change="getSpeciesList()">
-              <el-option v-for="(item, index) in formList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+          <el-form-item label="品牌：">
+            <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
           </el-form-item>
-        </el-col>
+          </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="业种：">
-            <el-select size="small" v-model="data.businessSpeciesId" placeholder="请选择业种">
-              <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+          <el-col :span="6">
+            <el-form-item label="业态：">
+              <el-select size="small" v-model="data.businessFormId" placeholder="请选择业态" @change="getSpeciesList()">
+                <el-option v-for="(item, index) in formList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="经营方式：">
-            <el-select size="small" v-model="data.brandType" placeholder="请选择经营方式">
-              <el-option label="直营" value="1"></el-option>
-              <el-option label="代理" value="2"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col><br><br><br><br><br>
+          <el-col :span="6">
+            <el-form-item label="业种：">
+              <el-select size="small" v-model="data.businessSpeciesId" placeholder="请选择业种">
+                <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
+          <el-col :span="6">
+            <el-form-item label="经营方式：">
+              <el-select size="small" v-model="data.brandType" placeholder="请选择经营方式">
+                <el-option label="直营" value="1"></el-option>
+                <el-option label="代理" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+       </el-row>
 
-      <div class="xxk">
+        <el-row class="f-tac mt40">
+          <el-button type="primary" class="mr15" @click="goBack()">取消</el-button>
+          <el-button type="primary" @click="create()">确定</el-button>
+        </el-row>
+      <!-- <div class="xxk">
         <button type="button" @click="goBack()">取消</button>
         <button type="button" @click="create()">确定</button>
-      </div>
+      </div> -->
 
       </el-form>
     </el-row>
@@ -108,8 +113,8 @@ showAlert(cont) {
     margin-top: 45px;
   }
   .el-form-item{
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: 52px;
   }
   .el-form-item__label {
