@@ -42,8 +42,9 @@ Vue.prototype.dimensionList = window.$dimensionList = [{ name: '项目', id: 1 }
 Vue.prototype.businessTypeList2 = window.$businessTypeList2 = [{ name: '溢租率', id: 1 }, { name: '客销度', id: 2 }, { name: '适配值', id: 3 }]
 Vue.prototype.dimensionList2 = window.$dimensionList2 = [{ name: '项目', id: 1 }, { name: '楼层', id: 2 }, { name: '品牌', id: 3 }]
 
-// Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.3.33:8080'
-Vue.prototype.baseUrl = window.$baseUrl = 'http://10.17.9.134:8080'
+// Vue.prototype.baseUrl = window.$baseUrl = 'http://10.17.9.134:8080' // 本地
+Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.3.33:8080' // 测试
+// Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.0.55:8080' // 生产
 
 var alert = require('element-ui').MessageBox.alert
 
