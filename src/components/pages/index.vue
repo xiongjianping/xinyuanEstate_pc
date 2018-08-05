@@ -129,7 +129,7 @@
         </div>
         <div class="left_2 mb10">
           <div class="title_bg tit_left2"></div>
-          <span class="title_txt">全过各区域客流量排行</span>
+          <span class="title_txt">全国各区域客流量排行</span>
           <div class="left_echars2">
             <div id="main3"></div>
           </div>
