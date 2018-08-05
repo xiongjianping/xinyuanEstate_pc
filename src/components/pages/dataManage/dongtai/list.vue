@@ -10,7 +10,7 @@
 
         <el-col :span="5">
           <el-form-item label="业务类型">
-            <el-select v-model="businessType" placeholder="请选择业务类型" @change="businessTypeChange()">
+            <el-select  size="small" v-model="businessType" placeholder="请选择业务类型" @change="businessTypeChange()">
               <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -20,7 +20,7 @@
 
         <el-col :span="6">
           <el-form-item label="时间">
-              <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
+              <el-date-picker  size="small" v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
                 value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
@@ -28,7 +28,7 @@
 
         <el-col :span="5">
           <el-form-item label="维度" v-if="businessType === 2" >
-            <el-select v-model="searchForm.different" placeholder="请选择维度">
+            <el-select  size="small" v-model="searchForm.different" placeholder="请选择维度">
               <el-option v-for="(item, index) in dimensionTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

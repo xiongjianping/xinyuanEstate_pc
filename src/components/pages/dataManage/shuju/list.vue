@@ -4,7 +4,7 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
-            <el-select v-model="areaId" placeholder="请选择区域" @change="areaChanged()">
+            <el-select size="small" v-model="areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -12,7 +12,7 @@
 
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select v-model="searchForm.projectId" placeholder="请选择项目">
+            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

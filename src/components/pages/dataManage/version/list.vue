@@ -10,7 +10,7 @@
 
         <el-col :span="5">
           <el-form-item label="业务类型">
-            <el-select v-model="searchForm.businessType" placeholder="请选择业务类型">
+            <el-select size="small" v-model="searchForm.businessType" placeholder="请选择业务类型">
               <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>

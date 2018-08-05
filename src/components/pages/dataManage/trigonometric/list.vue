@@ -5,7 +5,7 @@
 
         <el-col :span="5">
           <el-form-item label="业务类型">
-            <el-select v-model="businessId" placeholder="请选择区域" @change="areaChanged()">
+            <el-select  size="small" v-model="businessId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -13,7 +13,7 @@
 
         <el-col :span="5">
           <el-form-item label="维度" v-if="businessId === 2" >
-            <el-select v-model="different" placeholder="请选择维度">
+            <el-select  size="small" v-model="different" placeholder="请选择维度">
               <el-option v-for="(item, index) in dimensionList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -21,7 +21,7 @@
 
         <el-col :span="5">
           <el-form-item label="区域">
-            <el-select v-model="areaId" placeholder="请选择区域" @change="areaChanged()">
+            <el-select  size="small" v-model="areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -29,7 +29,7 @@
 
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select v-model="projectId" placeholder="请选择项目" @change="projectChanged()">
+            <el-select  size="small" v-model="projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
