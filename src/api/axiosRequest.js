@@ -617,7 +617,7 @@ Vue.prototype.getNoSignContract = window.$getNoSignContract = function(params) {
  * 通过业种获取品牌列表(GET)
  */
 
-Vue.prototype.getBrandForSpecies = window.$getBrandForSpecies = function(id) {
+Vue.prototype.getBrandForSpecies = window.$getBrandForSpecies = async function(id) {
     return new Promise(function(resolve, reject) {
         axios.get('/brand/find/brand/by/businessSpecies/' + id)
             .then((res) => {
@@ -636,7 +636,7 @@ Vue.prototype.getBrandForSpecies = window.$getBrandForSpecies = function(id) {
  * 品牌列表(POST)
  */
 
-Vue.prototype.getBrandAllList = window.$getBrandAllList = function(p, c, params) {
+Vue.prototype.getBrandAllList = window.$getBrandAllList = async function(p, c, params) {
     return new Promise(function(resolve, reject) {
         axios.post('/contract/contract/list?p=' + p + '&c=' + c, params)
             .then((res) => {
@@ -655,7 +655,7 @@ Vue.prototype.getBrandAllList = window.$getBrandAllList = function(p, c, params)
  * 解约(GET)
  */
 
-Vue.prototype.breakContract = window.$breakContract = function(id) {
+Vue.prototype.breakContract = window.$breakContract = async function(id) {
     return new Promise(function(resolve, reject) {
         axios.get('/contract/dispel/contract/' + id)
             .then((res) => {
@@ -672,7 +672,7 @@ Vue.prototype.breakContract = window.$breakContract = function(id) {
  * 导入
  */
 
-Vue.prototype.fileUpload = window.$fileUpload = function(e, url) {
+Vue.prototype.fileUpload = window.$fileUpload = async function(e, url) {
     let params = new FormData() //创建form对象
     params.append('file', e.target.files[0]) //通过append向form对象添加数据
     return new Promise(function(resolve, reject) {
@@ -691,7 +691,7 @@ Vue.prototype.fileUpload = window.$fileUpload = function(e, url) {
  * 导出
  */
 
-Vue.prototype.exportExls = window.$exportExls = function(url, id) {
+Vue.prototype.exportExls = window.$exportExls = async function(url, id) {
     let params = {
         projectId: id
     }
