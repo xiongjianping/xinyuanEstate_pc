@@ -4,45 +4,17 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入区域"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="项目">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="楼层">
-            <el-input size="small" v-model="searchForm.projectleader" :maxlength="30" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="业态">
-            <el-select size="small" v-model="searchForm.area" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="业种">
-            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="品牌">
-            <el-select size="small" v-model="searchForm.company" placeholder="请选择">
-              <el-option label="请选择" value="null"></el-option>
+            <el-select v-model="areaId" placeholder="请选择区域" @change="areaChanged()">
+              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0" style="margin-left:180px; margin-top:-62px">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">导入</el-button>
-            <el-button type="primary" size="medium" v-on:click="searchList(2);">导出</el-button>
+        <el-col :span="5">
+          <el-form-item label="项目">
+            <el-select v-model="searchForm.projectId" placeholder="请选择项目">
+              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
       </el-form>
@@ -53,62 +25,80 @@
         <h3 class="title">每日导入</h3>
         <i></i>
         <el-row class="detailsInfo" :gutter="30">
-          <el-col :span="7" :offset="1">
-            {{data.projectName}}
-          </el-col><br>
-          <el-col :span="4" :offset="1">
-            客流销售导入：{{data.area}}
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            客流、销售导入：
+            </div>
+            <a class="rightText">动态三角形_客销度导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+          </el-col> <br/>
+          <!-- <el-checkbox v-model="checked">选择导入导出</el-checkbox><br> -->
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            毛利率、客单价导入：
+            </div>
+            <a class="rightText">标准三角形_客销度导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
           </el-col>
-          <el-checkbox v-model="checked">选择导入导出</el-checkbox><br>
-          <el-col :span="4" :offset="1">
-            毛利率、客单价导入：{{data.area}}
-          </el-col>
-          <el-checkbox v-model="checked">选择导入导出</el-checkbox>
         </el-row>
 
         <h3 class="title">每月导入</h3>
         <i></i>
         <el-row class="detailsInfo" :gutter="30">
-          <el-col :span="7" :offset="1">
-            {{data.projectName}}
-          </el-col><br>
-          <el-col :span="4" :offset="1">
-            固定成本导入：{{data.area}}
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            固定成本导入：
+            </div>
+            <a class="rightText">动态三角形_溢租率导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
           </el-col>
-          <el-checkbox v-model="checked">选择导入导出</el-checkbox><br>
         </el-row>
 
         <h3 class="title">每季导入</h3>
         <i></i>
         <el-row class="detailsInfo" :gutter="30">
-          <el-col :span="7" :offset="1">
-            {{data.projectName}}
-          </el-col><br>
-          <el-col :span="4" :offset="1">
-            适配值导入：{{data.area}}
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            适配值导入：
+            </div>
+            <a class="rightText">动态三角形_适配值导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
           </el-col>
-          <el-checkbox v-model="checked">选择导入导出</el-checkbox><br>
+        </el-row>
+
+        <h3 class="title">其他导入</h3>
+        <i></i>
+        <el-row class="detailsInfo" :gutter="30">
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            客销度区间导入：
+            </div>
+            <a class="rightText">区间设置_客销度导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+          </el-col> <br/>
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            标准三角形适配值导入：
+            </div>
+            <a class="rightText">标准三角形_适配值导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+          </el-col> <br/>
+          <el-col :span="16" :offset="1">
+            <div class="leftText">
+            标准三角形溢租率导入：
+            </div>
+            <a class="rightText">标准三角形_溢租率导入.xlsx</a>
+            <el-button class="importButton" type="primary" size="medium" v-on:click="importFile(1);">导入</el-button>
+            <el-button class="exportButton" type="primary" size="medium" v-on:click="exportFile(2);">导出</el-button>
+          </el-col>
         </el-row>
       </div>
-      <el-checkbox-group
-        v-model="checkedCities1"
-        :min="1"
-        :max="2">
-        <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-      </el-checkbox-group>
-
-      <!--<div class="paginationCont">-->
-        <!--<el-pagination-->
-          <!--@size-change="handleSizeChange"-->
-          <!--@current-change="handleCurrentChange"-->
-          <!--:current-page="data.page"-->
-          <!--:page-sizes="[10, 20, 50, 100]"-->
-          <!--:page-size="size"-->
-          <!--layout="total, sizes, prev, pager, next, jumper"-->
-          <!--:total="data.count">-->
-        <!--</el-pagination>-->
-      <!--</div>-->
-
     </div>
   </div>
 </template>
@@ -116,13 +106,12 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    areaId: '',
+    areaList: {},
+    projectList: {},
     data: {},
     loading: false,
-    searchForm: {
-      area: '',
-      company: '',
-      startTime: null
-    },
+    searchForm: {},
     infoData: {},
     size: 10,
     dialogFormVisible: false,
@@ -131,48 +120,37 @@ export default {
     picIndex: 0
   }),
   created () {
-    this.searchList(1)
+    window.$getAreaList().then(res => {
+      this.areaList = res
+    }, err => {
+      this.showAlert(err)
+    })
   },
   methods: {
-    handleSizeChange (val) {
-      this.size = val
-      this.searchList()
+    areaChanged(){
+       window.$getProjectListForArea(this.areaId).then(res => {
+         this.projectList = res
+       }, err => {
+         this.showAlert(err)
+       })
     },
-    handleCurrentChange (val) {
-      this.data.page = val
-      this.searchList()
-    },
-    searchList (type) {
-      this.loading = true
-      var that = this
-      var page
-      var params = {
-        publishedName: that.searchForm.publishedName ? that.searchForm.publishedName : null,
-        merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
-        startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
+    importFile (type) {
+      if(!searchForm.projectId){
+        this.showAlert('请选择项目')
       }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
+
+      if(type){
+        
       }
-      console.log(params, page)
-      that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
-      that.$axios.get('/list').then((res) => {
-        that.loading = false
-        that.data = res
-      }).catch(function (eMsg) {
-        that.loading = false
-        that.showAlert(eMsg)
-      })
     },
-    // 查看详情
-    showDetails (id) {
-      this.$router.push('/projecManage/shuju/details/' + id)
-    },
-    editDetails (id) {
-      this.$router.push('/projecManage/shuju/edit/' + id)
+    exportFile (type) {
+      if(!searchForm.projectId){
+        this.showAlert('请选择项目')
+      }
+
+      if(type){
+        
+      }
     },
 showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
@@ -183,7 +161,6 @@ showAlert: function (cont) {
 }
 </script>
 <style scoped  lang="less">
-
   .tabs{
     width: 100%;
     height:50px;
@@ -200,5 +177,20 @@ showAlert: function (cont) {
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
+}
+.leftText{
+  width: 30%;
+  display: inline-block;
+  margin-left: 10%;
+}
+.rightText{
+  display: inline-block;
+  width: 20%;
+}
+.importButton{
+  margin-left: 40px
+}
+.exportButton{
+  
 }
 </style>

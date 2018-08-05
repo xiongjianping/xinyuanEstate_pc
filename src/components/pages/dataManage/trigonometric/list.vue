@@ -62,10 +62,11 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <input name="导入" type="file" @change="fileUpload" />
+            <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
+            <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
-            <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
-            <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>
@@ -142,6 +143,9 @@ export default {
     }, (err) => {console.log(err)})
   },
   methods: {
+    importFile(){
+      document.getElementById('fileUpload_input').click()
+    },
     areaChanged(){
       window.$getProjectListForArea(this.areaId).then((res) => {
         this.projectList = res
@@ -255,9 +259,14 @@ export default {
     height: 100%;
     background: #fff;
   }
-.el-date-editor.el-input, .el-date-editor.el-input__inner{
-  width: 100%;
-}
-
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
+  .uploadInput{
+    top:0px;
+    width: 0;
+    height: 100%;
+    visibility: hidden;
+  }
 
 </style>
