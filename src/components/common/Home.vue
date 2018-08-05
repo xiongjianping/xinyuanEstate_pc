@@ -45,7 +45,9 @@ export default {
   /*overflow-x: hidden;*/
 /*}*/
   .content{
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 100px;
     height: 100%;
-    background: #fff
   }
 </style>
