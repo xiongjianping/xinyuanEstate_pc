@@ -139,7 +139,7 @@ export default {
 .header {
   box-sizing: border-box;
   width: 100%;
-  min-width: 1366px;
+  min-width: 1300px;
   margin:0 auto;
   height: 100px;
   line-height: 100px;
@@ -154,6 +154,7 @@ export default {
 .header .logo {
   display: inline-block;
   width: 35%;
+  vertical-align: middle;
 }
 
 .navList {

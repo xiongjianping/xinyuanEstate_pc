@@ -9,15 +9,13 @@
 
          <el-col :span="6">
         <el-form-item label="模板名称">
-          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入模板名称"  ></el-input>
+          <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入模板名称"></el-input>
         </el-form-item>
          </el-col>
 
         <el-col :span="6">
         <el-form-item label="模板编号">
-          <el-input
-            placeholder="请输入模板编号"
-            clearable  >
+          <el-input size="small" placeholder="请输入模板编号" clearable  >
           </el-input>
         </el-form-item>
         </el-col>
