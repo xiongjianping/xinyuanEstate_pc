@@ -362,7 +362,8 @@ export default {
           },
         },
         initialSlide:0
-      }
+      },
+      screenWidth: document.body.clientWidth
     }
   },
   created() {
@@ -383,8 +384,25 @@ export default {
       }, (err) => { console.log(err) })
   },
   watch:{
+    watch: {
+        screenWidth (val) {
+        this.screenWidth = val
+          myChart.resize()
+          myChart1.resize()
+          myChart3.resize()
+        }
+      }
   },
   mounted() {
+    window.onresize = () => {
+      return (() => {
+          window.screenWidth = document.body.clientWidth
+          this.screenWidth = window.screenWidth
+          myChart.resize()
+          myChart1.resize()
+          myChart3.resize()
+      })()
+    }
     this.getAaa()
     //中国地图
     // var myChart_china = echarts.init(document.getElementById('china'))

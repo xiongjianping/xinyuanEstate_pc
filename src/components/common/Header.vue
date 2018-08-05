@@ -147,6 +147,7 @@ export default {
   position: fixed;
   background: url("../../assets/images/nav_bg.jpg") repeat top center;
   background-size: 100% 100%;
+  z-index: 9999;
 }
 
 .header .logo {
