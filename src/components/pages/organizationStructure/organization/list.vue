@@ -39,10 +39,10 @@
         </el-col>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="">新增</el-button>
-            <el-button type="primary" size="medium" v-on:click="bianji(0);">编辑</el-button>
-            <el-button type="primary" size="medium" v-on:click="xiangqing(0);">详情</el-button>
+            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="">新增</el-button>
+            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="bianji(0);">编辑</el-button>
+            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="xiangqing(0);">详情</el-button>
           </el-form-item>
         </el-col>
       </el-form>

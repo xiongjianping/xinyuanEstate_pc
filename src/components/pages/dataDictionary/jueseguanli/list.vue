@@ -17,13 +17,13 @@
     </el-row>
     <div class="listCont">
       <el-table :data="jueseList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
+        <el-table-column align="center" type="index" label="序号"></el-table-column>
         <el-table-column align="center" prop="name" label="角色名称" ></el-table-column>
         <!-- <el-table-column align="center" prop="createUser" label="创建人"></el-table-column> -->
         <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <!-- <el-table-column align="center" prop="modifyUser" label="修改人"></el-table-column> -->
         <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
-        <el-table-column align="center"  label="操作" width="250">
+        <el-table-column align="center"  label="操作">
           <template slot-scope="scope" >
             <el-button type="text" v-on:click="setPermission(scope.row.id)">设置功能权限</el-button>
             <!-- <el-button type="text" v-on:click="editDetails(scope.row.id)">角色分配</el-button> -->
@@ -264,7 +264,7 @@ export default {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    width: 60%;
+    // width: 60%;
     max-width: 100%;
     font-size: 14px;
     color: #606266;

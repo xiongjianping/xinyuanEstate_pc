@@ -23,13 +23,13 @@
     </el-row>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" label="序号" width="80"></el-table-column>
-        <el-table-column align="center" prop="name" label="姓名" width="120"></el-table-column>
-        <el-table-column align="center" prop="userName" label="用户名" width="200"></el-table-column>
-        <el-table-column align="center" prop="phone" label="联系电话" width="200"></el-table-column>
-        <el-table-column align="center" prop="email" label="邮箱" width="250"></el-table-column>
+        <el-table-column align="center" type="index" label="序号"></el-table-column>
+        <el-table-column align="center" prop="name" label="姓名"></el-table-column>
+        <el-table-column align="center" prop="userName" label="用户名"></el-table-column>
+        <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
+        <el-table-column align="center" prop="email" label="邮箱"></el-table-column>
         <el-table-column align="center" prop="stateStr" label="状态" ></el-table-column>
-        <el-table-column align="center"  label="操作" width="300">
+        <el-table-column align="center"  label="操作">
           <template slot-scope="scope">
             <el-button type="text"  @click="alertshujuDialog(scope.row.id)">数据权限分配</el-button>
             <el-button type="text"  @click="alertjueseDialog(scope.row.id)">角色权限分配</el-button>
@@ -363,8 +363,8 @@ showAlert: function (cont) {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  width: 66%;
-  max-width: 100%;
+  // width: 66%;
+  // max-width: 100%;
   font-size: 14px;
   color: #606266;
   margin: 0 auto;

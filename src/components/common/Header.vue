@@ -157,7 +157,9 @@ export default {
 }
 
 .navList {
-  ul{display: inline-block;margin-bottom: 0;vertical-align: middle;}
+  height: 100px;
+  line-height: 100px;
+  ul.navCont,ul.navCont2{display: inline-block;margin-bottom: 0;margin-top: 34px;vertical-align: top;}
   p{margin-bottom: 0;}
   // ul.navCont {
   //   width: 382px;
@@ -175,6 +177,7 @@ export default {
     width: 100%;
     background: #fff;
     border: 1px solid #ddd;
+    box-sizing: border-box;
     border-top: none;
     color: #333;
     left: 0;
