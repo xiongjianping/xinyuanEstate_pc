@@ -63,7 +63,7 @@ export default {
     currentCompanyId: ''
   }),
   created () {
-    this.searchList(1)
+    // this.searchList(1)
     this.handleComTree()
   },
   methods: {

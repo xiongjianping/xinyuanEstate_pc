@@ -56,7 +56,7 @@ export default {
     picIndex: 0
   }),
   created () {
-    this.searchList(1)
+    // this.searchList(1)
   },
   methods: {
     handleSizeChange (val) {

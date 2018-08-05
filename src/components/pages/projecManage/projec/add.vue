@@ -62,7 +62,7 @@
         </el-col> </br></br></br></br></br></br></br>
 
         <el-col class="uploadFiles">
-          <el-upload action="http://192.168.3.33:8080/file/upload/localhost"
+         <el-upload :action="getUploadUrl()"
                     list-type="picture-card"
                     :limit=6
                     :on-preview="handlePictureCardPreview"
@@ -117,6 +117,9 @@ export default {
     })
   },
   methods: {
+    getUploadUrl(){
+      return window.$baseUrl + '/file/upload/localhost'
+    },
     handleSuccess(file){
       this.searchForm.projectImages.push(file.data)
     },

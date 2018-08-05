@@ -87,10 +87,11 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <input name="导入" type="file" @change="fileUpload" />
+            <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
+            <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
             <!-- <el-button type="primary" size="medium" v-on:click="xinzeng();">导入</el-button> -->
-            <el-button type="primary" size="medium" v-on:click="bianji(1);">编辑</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="bianji(1);">编辑</el-button> -->
             <!-- <el-button type="primary" size="medium" v-on:click="xm_yzl(1);">项目溢租率</el-button>
             <el-button type="primary" size="medium" v-on:click="lc_yzl(1);">楼层溢租率</el-button>
             <el-button type="primary" size="medium" v-on:click="yt_yzl(1);">业态溢租率</el-button>
@@ -124,12 +125,9 @@
       </el-table>
       <div class="paginationCont">
         <el-pagination
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="size"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="prev, pager, next"
           :total="data.count">
         </el-pagination>
       </div>
@@ -170,6 +168,9 @@ export default {
     })
   },
   methods: {
+    importFile(){
+      document.getElementById('fileUpload_input').click()
+    },
     areaChanged(){
       this.page = 1
       this.size = 10
@@ -359,4 +360,10 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }
+.uploadInput{
+    top:0px;
+    width: 0;
+    height: 100%;
+    visibility: hidden;
+  }
 </style>

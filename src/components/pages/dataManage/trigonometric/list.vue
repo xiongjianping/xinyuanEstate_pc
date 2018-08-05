@@ -62,10 +62,11 @@
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <input name="导入" type="file" @change="fileUpload" />
+            <el-button id="fileUpload_button" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
+            <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
             <el-button type="primary" size="medium" v-on:click="exportExl()">导出</el-button>
-            <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
-            <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button>
+            <!-- <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
+            <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button> -->
           </el-form-item>
         </el-col>
       </el-form>
@@ -97,12 +98,9 @@
       </el-table>
       <div class="paginationCont">
         <el-pagination
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="size"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="prev, pager, next"
           :total="data.count">
         </el-pagination>
       </div>
@@ -142,6 +140,9 @@ export default {
     }, (err) => {console.log(err)})
   },
   methods: {
+    importFile(){
+      document.getElementById('fileUpload_input').click()
+    },
     areaChanged(){
       window.$getProjectListForArea(this.areaId).then((res) => {
         this.projectList = res
@@ -173,7 +174,7 @@ export default {
       //   return false
       // }
 
-      let url = this.businessId === 1 ? '/standimport/excel/standrentimport/sheet' : (this.businessId === 2 ? '/intervalimportexcel/excel/intervalguestimport/sheet' : '/standimport/excel/standfittedimport/sheet')
+      let url = this.businessId === 1 ? '' : (this.businessId === 2 ? '/intervalimportexcel/excel/intervalguestimport/sheet' : '')
       window.$fileUpload(e, url).then((res) => {
         this.showAlert('导入成功')
         this.page = 1
@@ -190,7 +191,7 @@ export default {
         this.showAlert('请选择项目')
         return false
       }
-      let url = this.businessId === 1 ? '/standardexport/excel/yzl' : (this.businessId === 2 ? '/standardexport/excel/qjszkxd' : '/standardexport/excel/spz')
+      let url = this.businessId === 1 ? '' : (this.businessId === 2 ? '/standardexport/excel/qjszkxd' : '')
       window.$exportExls(url, this.searchForm.projectId).then((res) => {
         console.log(res)
         let link = document.createElement('a')
@@ -255,9 +256,14 @@ export default {
     height: 100%;
     background: #fff;
   }
-.el-date-editor.el-input, .el-date-editor.el-input__inner{
-  width: 100%;
-}
-
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
+  .uploadInput{
+    top:0px;
+    width: 0;
+    height: 100%;
+    visibility: hidden;
+  }
 
 </style>

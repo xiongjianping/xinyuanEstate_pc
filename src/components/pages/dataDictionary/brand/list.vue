@@ -9,6 +9,24 @@
         </el-col>
       </el-form>
     </el-row>
+
+    <el-dialog title="修改" :visible.sync="dialogFormVisible">
+      <el-form :model="newCompany">
+        <el-form-item label="业态名称" :label-width="formLabelWidth">
+          <el-input v-model="changedName"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="父公司" :label-width="formLabelWidth">
+          <el-select v-model="newCompany.parentId" placeholder="添加父公司">
+            <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editName()">确 定</el-button>
+      </div>
+    </el-dialog>
+    
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index"  label="序号" width="50"></el-table-column>
@@ -43,6 +61,8 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    changedId: '',
+    changedName: '',
     data: {},
     loading: false,
     searchForm: {
@@ -101,8 +121,20 @@ export default {
       })
     },
     editDetails (id) {
-      // this.$router.push('/projecManage/edit/' + id)
-
+      this.dialogFormVisible = true
+      this.changedId = id
+    },
+    editName(){
+      var params = {
+        id: this.changedId,
+        name: this.changedName
+      }
+      this.$axios.post('/base/edit/business/form', params).then((res) => {
+        this.dialogFormVisible = false
+        this.changedName = ''
+        this.showAlert('修改成功')
+        this.searchList(1)
+      }, (err) => {this.showAlert(err)})
     },
     addDetail(){
       this.$prompt('请输入业态名称', '提示', {
