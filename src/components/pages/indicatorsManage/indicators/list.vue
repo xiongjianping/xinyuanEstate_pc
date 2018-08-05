@@ -32,6 +32,13 @@
           </el-date-picker>
         </el-form-item>
         </el-col>
+
+        <el-col :span="24" class="text-center">
+          <el-form-item label-width="0">
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="xinzeng(0);">新增</el-button>
+          </el-form-item>
+        </el-col>
       </el-form>
     </el-row>
     <div class="listCont">

@@ -123,7 +123,7 @@
           <div class="title_bg  tit_left1"></div>
           <span class="title_txt">全国各项目总量</span>
           <div class="lzi">
-            <p>销售：<i>{{countrySalesVolume}}</i><em>万元</em></p>
+            <p class="mb30">销售：<i>{{countrySalesVolume}}</i><em>万元</em></p>
             <p>客流：<i>{{countryPassengerFlow}}</i><em>万人次</em></p>
           </div>
         </div>
@@ -148,8 +148,8 @@
           <span class="title_txt">三角理念统计</span>
           <div class="select_ct">
             <div class="f-tac mt10">
-              <m-select :tabs="tabs" :clicked="clicked1" v-on:childTab="tabClick1"></m-select>
-              <m-select :tabs="tabs" :clicked="clicked2" v-on:childTab="tabClick2"></m-select>
+              <m-select v-if="areaList.length > 0" :tabs="areaList" :clicked="clicked1" v-on:childTab="tabClick1"></m-select>
+              <m-select v-if="projectList.length > 0" :tabs="projectList" :clicked="clicked2" v-on:childTab="tabClick2"></m-select>
               <m-select :tabs="tabs" :clicked="clicked3" v-on:childTab="tabClick3"></m-select>
             </div>
             <div class="f-tac mt10">
@@ -158,6 +158,9 @@
               <m-select :tabs="tabs" :clicked="clicked6" v-on:childTab="tabClick6"></m-select>
             </div>
           </div>
+          <div class="f-tac mt10 r-tab">
+              <m-select :tabs="types" :clicked="clicked7" v-on:childTab="tabClick7"></m-select>
+            </div>
           <div class="center_echars1">
             <div id="main"></div>
           </div>
@@ -301,9 +304,22 @@ export default {
 
   data() {
     return {
+      myChart3:{},
       searchForm: {},
+      areaId:'',
       areaList: {},
+      projectId:'',
       projectList: {},
+      buildingId:'',
+      buildingList:{},
+      floorId:'',
+      floorList:{},
+      conditionId:'',
+      conditionList:'',
+      megabiteId:'',
+      megabiteList:{},
+      brandId:'',
+      brandList:{},
       projectTypeList: [{
           name: '项目',
           id: 1
@@ -325,6 +341,18 @@ export default {
       countryPassengerFlow: '',
       countrySalesVolume: '',
       china: [],
+      types:[{
+          id:1,
+          name:'楼层'
+        },
+        {
+          id:2,
+          name:'业态'
+        },
+        {
+          id:3,
+          name:'品牌'
+        }],
       tabs: [{
           tab_id: 1,
           tab_name: '近1个月'
@@ -352,6 +380,7 @@ export default {
       clicked4: false,
       clicked5: false,
       clicked6: false,
+      clicked7: false,
       swiperOption: {
         // 如果需要分页器
         pagination: {
@@ -389,7 +418,7 @@ export default {
         this.screenWidth = val
           myChart.resize()
           myChart1.resize()
-          myChart3.resize()
+          this.myChart3.resize()
         }
       }
   },
@@ -400,7 +429,7 @@ export default {
           this.screenWidth = window.screenWidth
           myChart.resize()
           myChart1.resize()
-          myChart3.resize()
+          this.myChart3.resize()
       })()
     }
     this.getAaa()
@@ -455,7 +484,7 @@ export default {
         },
         {
           dim: 1,
-          name: '客销率',
+          name: '客销度',
           min: -50,
           max: 200,
           axisLine: {
@@ -490,7 +519,7 @@ export default {
         },
         {
           dim: 2,
-          name: '适配度',
+          name: '适配值',
           min: 0,
           max: 8000,
           color: "red",
@@ -651,23 +680,61 @@ export default {
       ]
     };
     myChart1.setOption(option1);
-
-    // setTimeout( () => {
-    //   myChart.resize()
-    //   myChart1.resize()
-    //   myChart3.resize()
-    // },0)
   },
-
-  // filters: {
-
-  // },
   methods: {
+    getProjectList(areaId){
+      window.$getProjectListForArea(areaId).then(res => {
+        this.projectList =  res
+        console.log(this.projectList)
+      }, err => {console.log(err)})
+    },
+    getBuildingList(projectId){
+      window.$getBuilding(projectId).then(res => {
+        this.buildingList = res
+      }, err => {console.log(err)})
+    },
+    getFloorList(buildingId){
+      window.$getFloorForBuilding(buildingId).then(res => {
+        this.floorList = res
+      }, err => {console.log(err)})
+    },
+    getConditionList(projectId){
+      window.$getBusinessListForProject(projectId).then(res => {
+        this.conditionList = res
+      }, err => {console.log(err)})
+    },
+    getMegaviteList(conditionId){
+      window.$getSpeciesSelect(conditionId).then(res => {
+        this.megabiteList = res
+      }, err => {console.log(err)})
+    },
+    getBrandList(megabiteId){
+      window.$getBrandForSpecies(megabiteId).then(res => {
+        this.brandList = res
+      }, err => {console.log(err)})
+    },
+    getTriangleValue(type){
+      var params = {
+        projectId: this.projectId
+      }
+      if(type === 1){
+        params.floorId = this.floorId
+      } else if(type === 2){
+        params.conditionId = this.conditionId
+      } else if(type === 3){
+        params.majoId = this.megabiteId
+        params.brandId = this.brandId
+      }
+
+      this.$axios.post('/pctriangle/find/trianglefloor/byfloorId', params).then(res => {
+
+      }, err => {console.log(err)})
+    },
     getAaa() {
       this.$axios.get('/pctriangle/find/salepassengerflow/all')
         .then(res => {
           this.passengerFlowList = res
-
+          console.log(this.passengerFlowList)
           var areaNameList = []
           var seriesList = [{
               name: '全国各区域客流量',
@@ -689,7 +756,7 @@ export default {
             seriesList[1].data.push(this.passengerFlowList[i].saleroom)
           }
 
-          var myChart3 = echarts.init(document.getElementById('main3'));
+          this.myChart3 = echarts.init(document.getElementById('main3'));
           var valueNameList = ['全国各区域客流量', '全国各区域销售量']
 
           var seriesLabel = {
@@ -761,14 +828,8 @@ export default {
             },
             series: seriesList
           }
-          myChart3.setOption(option3)
+          this.myChart3.setOption(option3)
         }, (err) => { console.log(err) })
-    },
-    getProjectList() {
-      window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
-        this.projectList = res
-        console.log(this.projectList)
-      })
     },
     forProjectDetails() {
       $axios.get('/pctriangle/find/project/by/' + this.searchForm.projectId).then((res) => {
@@ -784,13 +845,17 @@ export default {
         confirmButtonText: '确定'
       })
     },
-    tabClick1(id,isClicked) {
+    tabClick1(index,isClicked) {
       this.clicked1=isClicked
       this.clicked2=false
       this.clicked3=false
       this.clicked4=false
       this.clicked5=false
       this.clicked6=false
+      this.clicked7=false
+      
+      this.areaId = this.areaList[index].id
+      this.getProjectList(this.areaId)
     },
     tabClick2(id,isClicked) {
       this.clicked2=isClicked
@@ -799,6 +864,7 @@ export default {
       this.clicked4=false
       this.clicked5=false
       this.clicked6=false
+      this.clicked7=false
     },
     tabClick3(id,isClicked) {
       this.clicked3=isClicked
@@ -807,6 +873,7 @@ export default {
       this.clicked4=false
       this.clicked5=false
       this.clicked6=false
+      this.clicked7=false
     },
     tabClick4(id,isClicked) {
       this.clicked4=isClicked
@@ -815,6 +882,7 @@ export default {
       this.clicked3=false
       this.clicked5=false
       this.clicked6=false
+      this.clicked7=false
     },
     tabClick5(id,isClicked) {
       this.clicked5=isClicked
@@ -823,6 +891,7 @@ export default {
       this.clicked3=false
       this.clicked4=false
       this.clicked6=false
+      this.clicked7=false
     },
     tabClick6(id,isClicked) {
       this.clicked6=isClicked
@@ -831,6 +900,16 @@ export default {
       this.clicked3=false
       this.clicked4=false
       this.clicked5=false
+      this.clicked7=false
+    },
+    tabClick7(id,isClicked) {
+      this.clicked7=isClicked
+      this.clicked1=false
+      this.clicked2=false
+      this.clicked3=false
+      this.clicked4=false
+      this.clicked5=false
+      this.clicked6=false
     },
   }
 }
@@ -1029,5 +1108,9 @@ export default {
 }
 .right_3 {padding-top: 30px;
   .g_text{padding:20px 40px;color: #fff;font-size: 14px;line-height: 26px;}
+}
+.r-tab{
+    position: absolute;
+    right: 50px;
 }
 </style>
