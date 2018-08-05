@@ -25,7 +25,7 @@
         </el-col>
         <el-col :span="5">
           <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.floorId" placeholder="请选择楼层">
+            <el-select size="small" v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -59,7 +59,7 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="qianyue(0);">签约</el-button>
           </el-form-item>
         </el-col>
@@ -115,7 +115,9 @@ export default {
     areaList: [],
     projectList: [],
     buildingList: [],
-    floorList: []
+    floorList: [],
+    floorId:'',
+    brandId:''
   }),
   created () {
     window.$getformSelect().then((res) => {
@@ -125,7 +127,7 @@ export default {
       window.$getAreaList().then((res) => {
         this.areaList = res
       }, (err) => {})
-    this.searchList()
+    this.searchList(1)
   },
   methods: {
     handleSizeChange (val) {
@@ -136,7 +138,14 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList () {
+    searchList (type) {
+      this.searchForm.brandId = this.brandId
+      this.searchForm.floorId = this.floorId
+
+      if(type === 1){
+        this.page = 1
+      }
+
       window.$getBrandAllList(this.page, this.size, this.searchForm).then((res) => {
         console.log(res)
         this.data = res
@@ -145,6 +154,8 @@ export default {
       })
     },
     businessChanged(){
+      this.searchForm.businessSpeciesId = ''
+      this.brandId = ''
       window.$getSpeciesSelect(this.searchForm.businessFormId).then((res) => {
         this.speciesList = res
       }, (err) => {
@@ -153,6 +164,7 @@ export default {
 
     },
     speciesChanged(){
+      this.brandId = ''
       window.$getBrandForSpecies(this.searchForm.businessSpeciesId).then((res) => {
         this.brandList = res
       }, (err) => {
@@ -160,6 +172,9 @@ export default {
       })
     },
     areaChanged(){
+      this.searchForm.projectId = ''
+      this.searchForm.buildingId = ''
+      this.floorId = ''
       window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
         this.projectList = res
       }, (err) => {
@@ -167,6 +182,8 @@ export default {
       })
     },
     projectChanged(){
+      this.searchForm.buildingId = ''
+      this.floorId = ''
       window.$getBuilding(this.searchForm.projectId).then((res) => {
         this.buildingList = res
       }, (err) => {
@@ -174,6 +191,7 @@ export default {
       })
     },
     buildingChanged(){
+       this.floorId = ''
       window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
         this.floorList = res
       }, (err) => {
@@ -193,7 +211,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert(cont) {
         this.$alert(cont, '温馨提示', {
@@ -215,7 +233,7 @@ export default {
   }
   .mainContent{
     width: 100%;
-    height: 120%;
+    // height: 120%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

@@ -2,11 +2,13 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
       <el-form label-width="100px" :model="searchForm" class="formStyle">
+
         <el-col :span="5">
           <el-form-item label="品牌">
             <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="getSpeciesList()">
@@ -14,32 +16,21 @@
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="业种">
-            <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种">
+            <el-select size="small" v-model="businessSpeciesId" placeholder="请选择业种">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-      </el-form>
-      <el-form class="formStyle">
-        <el-col :span="5">
-          <el-form-item label="开始时间" label-width="100px">
-            <el-date-picker size="small" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="searchForm.createTimeBegin" type="date" placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="至" label-width="100px">
-            <el-date-picker format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.createTimeEnd" type="date" placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="xinzeng(0);">新增</el-button>
-          </el-form-item>
+
+        <el-col :span="6">
+        <el-form-item label="时间">
+            <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item>
         </el-col>
       </el-form>
     </el-row>
@@ -95,10 +86,12 @@ export default {
     speciesList: [],
     formList: [],
     page: 1,
-    size: 10
+    size: 10,
+    value6: [],
+    businessSpeciesId:''
   }),
   created() {
-    this.searchList()
+    this.searchList(1)
     window.$getformSelect().then((res) => {
       this.formList = res
     }, (err) => {
@@ -107,6 +100,7 @@ export default {
   },
   methods: {
     getSpeciesList() {
+      this.businessSpeciesId = ''
       window.$getSpeciesSelect(this.searchForm.businessFormId).then((res) => {
         this.speciesList = res
       }, (err) => {
@@ -121,8 +115,18 @@ export default {
       this.page = val
       this.searchList()
     },
-    searchList() {
+    searchList(type) {
       this.loading = true
+      if(this.value6){
+          this.searchForm.createTimeBegin = this.value6[0]
+          this.searchForm.createTimeEnd = this.value6[1]
+      }
+
+      if(type === 1){
+        this.page = 1
+      }
+
+      this.searchForm.businessSpeciesId = this.businessSpeciesId
       window.$getBrandList(this.page, this.size, this.searchForm).then((res) => {
         this.loading = false
         this.data = res
@@ -156,7 +160,7 @@ export default {
     },
     rowClass({ row, rowIndex }) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert(cont) {
       this.$alert(cont, '温馨提示', {
@@ -170,7 +174,7 @@ export default {
 <style scoped lang="less">
 .mainContent {
   width: 100%;
-  height: 120%;
+  // height: 120%;
   background: #fff;
 }
 

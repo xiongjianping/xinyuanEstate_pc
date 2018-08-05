@@ -86,6 +86,7 @@ export default {
       startTime: null
     },
     infoData: {},
+    page: 1,
     size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
@@ -113,10 +114,8 @@ export default {
         merchandise: that.searchForm.merchandise ? that.searchForm.merchandise : null,
         startTime: that.searchForm.startTime ? moment(new Date(that.searchForm.startTime).getTime()).format('YYYY-MM-DD HH:mm:ss') : null
       }
-      if (type === 1) {
-        page = 1
-      } else {
-        page = this.data.page
+      if(type === 1){
+        this.page =1
       }
       console.log(params, page)
       that.loading = true
@@ -156,7 +155,7 @@ showAlert: function (cont) {
   }
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

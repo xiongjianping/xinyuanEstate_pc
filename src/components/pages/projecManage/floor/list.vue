@@ -25,7 +25,7 @@
         </el-col>
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增</el-button>
           </el-form-item>
         </el-col>
@@ -84,7 +84,7 @@ export default {
     size: 10
   }),
   created () {
-    this.searchList()
+    this.searchList(1)
     window.$getAreaList().then((res) => {
       this.areaList = res
     }, (err) => {
@@ -102,6 +102,10 @@ export default {
     },
     searchList (type) {
       this.loading = true
+      if(type === 1) {
+        this.page = 1
+      }
+
       window.$getFloorList(this.page, this.size, this.searchForm)
       .then((res) => {
         this.loading = false
@@ -142,7 +146,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert(cont) {
         this.$alert(cont, '温馨提示', {
@@ -155,7 +159,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

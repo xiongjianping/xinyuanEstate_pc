@@ -29,7 +29,7 @@
 
         <el-col :span="5">
           <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.floorId" placeholder="请选择楼层">
+            <el-select size="small" v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in allFloor" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -45,7 +45,7 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
           </el-form-item>
         </el-col>
@@ -84,6 +84,7 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    floorId:'',
     data:{},
     building: '',
     loading: false,
@@ -102,10 +103,19 @@ export default {
       }, (err) => {
         this.showAlert(err)
       }),
-    this.searchList()
+    this.searchList(1)
   },
   methods: {
-    searchList() {
+    handleCurrentChange(){
+      this.page = 1
+      this.searchList()
+    },
+    searchList(type) {
+      if(type === 1){
+        this.page = 1
+      }
+
+      this.searchForm.floorId = this.floorId
       window.$helpFloorContent(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
       }, (err) => {
@@ -113,16 +123,22 @@ export default {
       })
     },
     changeArea() {
+      this.searchForm.projectId = ''
+      this.building = ''
+      this.floorId = ''
       window.$helpSearchproject(this.searchForm.areaId).then((res) => {
         this.allProject = res;
       }, (err) => {})
     },
     changeProject(){
+      this.building = ''
+      this.floorId = ''
       window.$getBuilding(this.searchForm.projectId).then((res) => {
         this.allBuilding = res;
       }, (err) => {})
     },
     changeBuilding(){
+      this.floorId = ''
       window.$getFloorForBuilding(this.building).then((res) => {
         this.allFloor = res;
       }, (err) => {})
@@ -139,7 +155,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert(cont) {
         this.$alert(cont, '温馨提示', {
@@ -152,7 +168,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

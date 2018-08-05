@@ -6,29 +6,31 @@
       <i class="hengxian"></i>
       <el-row class="detailsInfo" :gutter="30" style="margin-left: 40px">
         <h3 class="biaoti">{{data.projectName}}</h3>
-        <el-col :span="3" :offset="1">
+        <el-col :span="5" :offset="1">
           区域：{{data.areaName}}
         </el-col>
-        <el-col :span="3" :offset="1">
+        <el-col :span="5" :offset="1">
           公司：{{data.companyName}}
         </el-col>
-        <el-col :span="3" :offset="1">
+        <el-col :span="5" :offset="1">
           面积/平：{{data.acreage}}
         </el-col>
-        <el-col :span="7" :offset="1">
+        <el-col :span="5" :offset="1">
           状态：<span v-if="!data.state">停用</span><span v-if="data.state">启用</span>
         </el-col>
-        <el-col :span="4" :offset="1">
-          文件：<img class="imgList" v-for="img in data.projectImages" :src="img"/>
-        </el-col><br><br>
-        <el-col :span="7" :offset="1">
+        
+        <el-col :span="5" :offset="1">
           开始时间：{{data.createTime}}
         </el-col>
-        <el-col :span="7" :offset="1">
+        <el-col :span="5" :offset="1">
           最后一次修改时间：{{data.modifyTime}}
         </el-col>
-        <el-col :span="7" :offset="1">
+        <el-col :span="5" :offset="1">
           修改人：{{data.projectAuditName}}
+        </el-col><br/><br/><br/>
+
+        <el-col :span="20" :offset="1">
+          <img class="imgList" v-for="img in data.projectImages" :src="img"/>
         </el-col>
       </el-row>
 
@@ -76,11 +78,12 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
     .imgList{
-      width: 10%;
-      height: 10%;
+      width: 140px;
+      height: 140px;
+      padding: 5px;
     }
   }
 

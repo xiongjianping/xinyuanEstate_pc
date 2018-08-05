@@ -101,7 +101,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
@@ -114,7 +114,7 @@ export default {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

@@ -46,7 +46,7 @@
 
         <el-col :span="6">
           <el-form-item label="楼层：">
-            <el-select size="small" v-model="searchForm.floorId" placeholder="请选择楼层">
+            <el-select size="small" v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -86,7 +86,8 @@
       companyList: [],
       projectList: [],
       buildingList: [],
-      floorList: []
+      floorList: [],
+      floorId:''
     }),
     created () {
       window.$getAreaList().then((res) => {
@@ -103,6 +104,7 @@
     },
     methods: {
       create(){
+        this.searchForm.floorId = this.floorId
         window.$createStore(this.searchForm).then((res) => {
           this.showAlert('添加成功')
           this.goBack()
@@ -114,6 +116,7 @@
         this.$router.back(-1)
       },
       getFloorList(){
+        this.floorId = ''
         window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
           this.floorList = res
         }, (err) => {
@@ -121,6 +124,8 @@
         })
       },
       getBuildingList(){
+        this.searchForm.buildingId = ''
+        this.floorId = ''
         window.$getBuilding(this.searchForm.projectId).then((res) => {
           this.buildingList = res
         }, (err) => {
@@ -128,6 +133,9 @@
         })
       },
       getProjectList(){
+        this.searchForm.projectId = ''
+        this.searchForm.buildingId = ''
+        this.floorId = ''
         window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
           this.projectList = res
         }, (err) => {
@@ -145,7 +153,7 @@ showAlert(cont) {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 100%;
+    // height: 100%;
     background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{

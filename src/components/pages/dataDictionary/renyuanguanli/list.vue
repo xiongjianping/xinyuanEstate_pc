@@ -16,7 +16,6 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-
             <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
           </el-form-item>
         </el-col>
@@ -24,11 +23,11 @@
     </el-row>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
-        <el-table-column align="center" prop="name" label="姓名" ></el-table-column>
-        <el-table-column align="center" prop="userName" label="用户名" ></el-table-column>
-        <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
-        <el-table-column align="center" prop="email" label="邮箱" ></el-table-column>
+        <el-table-column align="center" type="index" label="序号" width="80"></el-table-column>
+        <el-table-column align="center" prop="name" label="姓名" width="120"></el-table-column>
+        <el-table-column align="center" prop="userName" label="用户名" width="200"></el-table-column>
+        <el-table-column align="center" prop="phone" label="联系电话" width="200"></el-table-column>
+        <el-table-column align="center" prop="email" label="邮箱" width="250"></el-table-column>
         <el-table-column align="center" prop="stateStr" label="状态" ></el-table-column>
         <el-table-column align="center"  label="操作" width="300">
           <template slot-scope="scope">
@@ -336,7 +335,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
 showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
@@ -349,11 +348,26 @@ showAlert: function (cont) {
 <style scoped  lang="less">
   .mainContent{
     width: 100%;
-    height: 150%;
+    // height: 150%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
+}
+.el-table{
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 66%;
+  max-width: 100%;
+  font-size: 14px;
+  color: #606266;
+  margin: 0 auto;
 }
 .el-dialog{
   ul{

@@ -129,9 +129,7 @@ export default {
       } else {
         page = this.data.page
       }
-      console.log(params, page)
       that.loading = true
-      // that.$axios.post('/shop/Appraise/queryAll?p=' + page + '&c=' + that.size, params).then((res) => {
       that.$axios.get('/list').then((res) => {
         console.log(res)
         that.loading = false

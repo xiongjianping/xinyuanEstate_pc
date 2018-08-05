@@ -10,6 +10,7 @@
         </el-col>
       </el-form>
     </el-row>
+
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" prop="id" label="序号" width="50"></el-table-column>
@@ -64,12 +65,39 @@
         <el-button type="primary" @click="addYezhong">确 定</el-button>
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="修改"
+      :visible="dialogFormVisible"
+      width="40%"
+      :modal=false
+      :show-close=false>
+      <el-select
+        v-model="newCompany.businessFormId"
+        placeholder="请选择业态">
+        <el-option
+          v-for="item in yetaiList"
+          :key="item.value"
+          :label="item.name"
+          :value="item.id">
+        </el-option>
+      </el-select>
+
+      <div class="content-input">
+        <el-input v-model="newCompany.name" maxlength='20' placeholder="请输入名称"></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editYezhong">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
 import moment from 'moment'
 export default {
   data: () => ({
+    newCompany:{},
     data: {},
     loading: false,
     searchForm: {
@@ -123,6 +151,14 @@ export default {
         })
       }
     },
+    editYezhong(){
+      this.$axios.post('/base/edit/business/species', this.newCompany).then((res) => {
+        this.newCompany = {}
+        this.dialogFormVisible = false
+        this.showAlert('修改成功')
+        this.searchList(1)
+      }, (err) => {this.showAlert(err)})
+    },
     handleCurrentChange (val) {
       this.data.page = val
       this.searchList()
@@ -163,10 +199,11 @@ export default {
     },
     // 查看详情
     showDetails (id) {
-      // this.$router.push('/projecManage/details/' + id)
+      this.dialogFormVisible = true
     },
     editDetails (id) {
-      // this.$router.push('/projecManage/edit/' + id)
+      this.newCompany.id = id
+      this.dialogFormVisible = true
     },
     addDetail () {
       this.yetaiVisible = true;
@@ -176,7 +213,7 @@ export default {
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
@@ -189,7 +226,7 @@ export default {
 <style  lang="less">
   .mainContent{
     width: 100%;
-    height: 200%;
+    // height: 200%;
     background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

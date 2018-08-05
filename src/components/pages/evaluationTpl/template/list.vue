@@ -12,7 +12,7 @@
 
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select size="small" v-model="searchForm.projectId" placeholder="全部">
+            <el-select size="small" v-model="projectId" placeholder="全部">
               <el-option v-for="(item,index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -28,7 +28,7 @@
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList();">搜索</el-button>
+            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <el-button type="primary" size="medium" v-on:click="xinzeng();">新增</el-button>
           </el-form-item>
         </el-col>
@@ -74,10 +74,11 @@ export default {
     size: 10,
     allArea: {},
     allProject: {},
-businessTypeList:window.$businessTypeList,
+    businessTypeList:window.$businessTypeList,
+    projectId:''
   }),
   created() {
-    this.searchList()
+    this.searchList(1)
     window.$getAreaList().then((res) => {
       this.allArea = res;
       console.log(this.allArea)
@@ -93,7 +94,14 @@ businessTypeList:window.$businessTypeList,
       this.page = val
       this.searchList()
     },
-    searchList() {
+    searchList(type) {
+
+      if(type === 1){
+        this.page = 1
+      }
+
+
+      this.searchForm.projectId = this.projectId
       window.$helpScarchAll(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
       }, (err) => {
@@ -109,6 +117,7 @@ businessTypeList:window.$businessTypeList,
     },
     //change区域方法
     changeArea() {
+      this.projectId = ''
       window.$helpSearchproject(this.searchForm.areaId).then((res) => {
         this.allProject = res;
       }, (err) => {})
@@ -119,7 +128,7 @@ businessTypeList:window.$businessTypeList,
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
-      return 'height:20px;font-size:15px'
+      return 'height:50px;font-size:15px'
     },
     showAlert (cont) {
       this.$alert(cont, '温馨提示', {
@@ -133,7 +142,7 @@ businessTypeList:window.$businessTypeList,
 <style scoped lang="less">
 .mainContent {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background: #fff;
 }
 
