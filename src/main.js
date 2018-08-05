@@ -9,13 +9,23 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
 // import cors from 'cors'
 import echarts from 'echarts'
+//中国地图
+import "echarts/map/js/china.js"
+
 import vueMethodsPromise from 'vue-methods-promise'
 import babelPolyfill from 'babel-polyfill'
-import './assets/css/index.css'
+// import './assets/css/index.css'
+
 // import './mock/mockData.js' // 调试接口时需要注释
 import './components/js/comaxios.js'
 import './api/axiosRequest.js'
 import './api/helpPlan.js'
+//组件
+import './components/common/mrSelect/components.js'
+import _ from 'lodash'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
+require('swiper/dist/css/swiper.css')
 
 
 import VueResource from 'vue-resource'

@@ -39,9 +39,7 @@
           </ul>
         </li>
       </ul>
-      <div class="logo">
-        <img src="../../assets/images/logo1.png" alt="" class="logos">
-      </div>
+      <img src="../../assets/images/logo_Q.png" alt="" class="logo">
       <ul class="navCont2">
         <li v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
@@ -139,43 +137,36 @@ export default {
 </script>
 <style scoped lang="less">
 .header {
-  position: relative;
   box-sizing: border-box;
   width: 100%;
-  height: 85px;
+  height: 100px;
+  line-height: 100px;
   color: #fff;
   z-index: 99;
+  text-align: center;
+  position: fixed;
+  background: url("../../assets/images/nav_bg.jpg") repeat top center;
+  background-size: 100% 100%;
 }
 
 .header .logo {
-  width: 400px;
-  height: 50px;
-  text-align: center;
-  position: absolute;
-  left: 33%;
-  top: -10%;
-  img {
-    height: 100%;
-  }
+  display: inline-block;
+  width: 35%;
 }
 
 .navList {
-  width: 100%;
-  height: 50%;
-  clear: both;
-  position: relative;
-  top: 30px;
-  left: 0;
-  ul.navCont {
-    width: 382px;
-    position: absolute;
-    left: 8%;
-  }
-  ul.navCont2 {
-    width: 410px;
-    position: absolute;
-    left: 64%;
-  }
+  ul{display: inline-block;margin-bottom: 0;vertical-align: middle;}
+  p{margin-bottom: 0;}
+  // ul.navCont {
+  //   width: 382px;
+  //   position: absolute;
+  //   left: 8%;
+  // }
+  // ul.navCont2 {
+  //   width: 410px;
+  //   position: absolute;
+  //   left: 64%;
+  // }
   ul.subMenu {
     position: absolute;
     z-index: 999;
