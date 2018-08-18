@@ -1,6 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
+      <h3 id="title">数据维护</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
@@ -164,9 +165,9 @@ export default {
       } else if(type === 7){
         this.upUrl = '/standimport/excel/standrentimport/sheet'
         document.getElementById('fileUpload_input7').click()
-      } 
+      }
 
-      
+
     },
     fileUpload(e){
       window.$fileUpload(e, this.upUrl).then((res) => {
@@ -194,7 +195,7 @@ export default {
         url = '/standardexport/excel/spz'
       } else if(type === 7){
         url = '/standardexport/excel/yzl'
-      } 
+      }
 
       window.$exportExls(url, this.searchForm.projectId).then((res) => {
         console.log(res)

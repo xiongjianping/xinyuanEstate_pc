@@ -1,6 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
+      <h3 id="title">模板管理</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="模板名称">
@@ -47,6 +48,8 @@
         </el-col>
       </el-form>
     </el-row>
+    <p class="t"></p>
+    <div class="biaoti1">模板管理</div>
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" prop="projectName" label="模板名称"></el-table-column>

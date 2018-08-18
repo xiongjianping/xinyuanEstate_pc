@@ -1,10 +1,8 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
+      <h3 id="title">区间公司</h3><br>
       <el-form label-width="100px" :model="searchForm">
-
-
-
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
@@ -14,6 +12,8 @@
         </el-col>
       </el-form>
     </el-row>
+    <p class="t"></p>
+    <div class="biaoti1">区间公司</div>
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="id" prop="id" label="序号"></el-table-column>

@@ -343,7 +343,7 @@ html,body,#app,.wrapper{
   //background-image:-ms-linear-gradient(bottom,#FFF,rgba(81, 233, 255, 0.4));
   //background-image:linear-gradient(bottom,#FFF, rgba(81, 233, 255, 0.4));
   //background-repeat: repeat-x;
-  box-shadow:-1px 5px 14px #0b98ff;
+  //box-shadow:-1px 5px 14px #0b98ff;
   .hengxian{
     background: #cccccc;
     width: 80%;
@@ -352,6 +352,19 @@ html,body,#app,.wrapper{
     margin-left: 111px;
     margin-top: -4px;
   }
+  #title{
+    width: 96%;
+    height: 30px;
+    border-bottom: 1px solid #CCc;
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: -15px;
+  }
+}
+
+.el-input--small .el-input__inner{
+  height: 27px;
 }
 .listCont{
   padding: 30px;
@@ -406,7 +419,7 @@ html,body,#app,.wrapper{
   text-align: right;
 }
 .text-center{
-  text-align: center;
+  text-align: right;
 }
 
 .el-table--medium td, .el-table--medium th{
@@ -423,7 +436,7 @@ html,body,#app,.wrapper{
 .el-table__header-wrapper th{
   height: 60px;
   color: #000;
-  background: #f0f9fe;
+  background: #e0e0e0;
 }
 .el-table td, .el-table th.is-leaf,.el-table td, .el-table th.is-leaf, .el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed{
   border-color: #d7d7d7;
@@ -436,7 +449,23 @@ html,body,#app,.wrapper{
 }
 .el-input__inner{
   border-radius: 8px;
-  border: 1px solid #9a9a9a;
+  border: 1px solid #4484a1;
+}
+.el-select .el-input .el-select__caret{
+  width: 26px;
+  background: #eaeaea;
+  height: 25px;
+  line-height: 25px;
+  position: absolute;
+  left: -23px;
+  top: 9px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  color: #c0c4cc;
+  font-size: 14px;
+  //transform: rotateZ(180deg);
+  cursor: pointer;
+  border-right:1px solid #4484a1;
 }
 
 //#app{
@@ -452,3 +481,38 @@ html,body,#app,.wrapper{
 //}
 
 .mainContent {min-height: 100%;}
+.t{
+  width: 95%;
+  height: 1px;
+  background: #ccc;
+  margin: 0 auto;
+  position: relative;
+  top: 50px;
+}
+.el-table{
+  position: relative;
+  top: 10px;
+}
+.biaoti1{
+  width: 100px;
+  height: 40px;
+  background: white;
+  position: relative;
+  left: 34px;
+  top: 11px;
+  text-align: center;
+  line-height: 40px;
+  border: 1px solid #ccc;
+  border-top-right-radius: 5px ;
+  border-top-left-radius: 5px ;
+  border-bottom: none;
+  font-size: 15px;
+  font-weight: 800;
+  color: #2e6da4;
+}
+.el-range-editor--small.el-input__inner{
+  height:27px;
+}
+.el-input--prefix .el-input__inner{
+  height: 27px;
+}

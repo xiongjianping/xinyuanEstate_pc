@@ -1,8 +1,8 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
-      <el-form label-width="100px" :model="searchForm">
-
+      <h3 id="title">项目管理</h3><br>
+      <el-form label-width="100px" :model ="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
@@ -29,7 +29,8 @@
       </el-form>
     </el-row>
 
-
+    <p class="t"></p>
+    <div class="biaoti1">项目管理</div>
     <el-dialog title="新增公司" :visible.sync="dialogFormVisible">
       <el-form :model="newCompany">
         <el-form-item label="公司名称" :label-width="formLabelWidth">
@@ -78,7 +79,6 @@
         </el-pagination>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -210,7 +210,6 @@ export default {
     },
     // 查看详情
     showDetails (id) {
-      console.log(id)
       this.$router.push('/projecManage/projec/details/' + id)
     },
     //新增项目
@@ -262,6 +261,7 @@ export default {
 /*.el-date-editor.el-input, .el-date-editor.el-input__inner{*/
   /*width: 100%;*/
 /*}*/
+
 
   .mainContent{
     width: 100%;

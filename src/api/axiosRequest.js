@@ -592,6 +592,8 @@ Vue.prototype.createContract = window.$createContract = function(params) {
     })
 }
 
+
+
 /*
  * 签约管理
  *

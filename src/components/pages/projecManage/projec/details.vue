@@ -18,7 +18,7 @@
         <el-col :span="5" :offset="1">
           状态：<span v-if="!data.state">停用</span><span v-if="data.state">启用</span>
         </el-col>
-        
+
         <el-col :span="5" :offset="1">
           开始时间：{{data.createTime}}
         </el-col>
@@ -37,8 +37,8 @@
       <div class="xxk">
         <button @click="goBack()">返回</button>
       </div>
-    </div>
 
+    </div>
   </div>
 
 </template>

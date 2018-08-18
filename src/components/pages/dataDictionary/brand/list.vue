@@ -1,6 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
+      <h3 id="title">业态管理</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
@@ -26,7 +27,8 @@
         <el-button type="primary" @click="editName()">确 定</el-button>
       </div>
     </el-dialog>
-    
+    <p class="t"></p>
+    <div class="biaoti1">业态管理</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index"  label="序号"></el-table-column>
