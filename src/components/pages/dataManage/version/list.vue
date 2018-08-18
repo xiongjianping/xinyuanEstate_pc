@@ -904,231 +904,230 @@ layout="prev, pager, next"
 <script>
 
 import moment from 'moment'
-export default {
-data: () => ({
-businessTypeList: window.$businessTypeList,
-dimensionList: window.$dimensionList,
-businessList: [],
-areaList: [],
-projectList: [],
-buildingList:[],
-floorList: [],
-formLabelWidth: '120px',
-tabbolock:'',
-data: {
+  export default {
+  data: () => ({
+  businessTypeList: window.$businessTypeList,
+  dimensionList: window.$dimensionList,
+  businessList: [],
+  areaList: [],
+  projectList: [],
+  buildingList:[],
+  floorList: [],
+  formLabelWidth: '120px',
+  tabbolock:'',
+  data: {
 
-},
-loading: false,
-activeName: 'first',
-searchForm: {},
-infoData: {},
-page: 1,
-size: 10,
-dialogFormVisible: false,
-dialogFormVisible1:false,
-dialogFormVisible2:false,
-dialogVisible: false,
-pictureList: [],
-picIndex: 0,
-floorId:'',
-conditionId:'',
-projectId:''
-}),
-created () {
-window.$getAreaList().then((res) => {
-this.areaList = res
-}, (err) => {
-this.showAlert(err)
-})
-},
-methods: {
-showCreateCompany() {
-if (this.tabbolock == "91") {
-this.dialogFormVisible = true
-}
-if(this.tabbolock=='107'){
-this.dialogFormVisible1=true;
-}
-if(this.tabbolock=='126'){
-this.dialogFormVisible2=true;
-}
-},
-createCompany(){
-this.dialogFormVisible = false
+  },
+  loading: false,
+  activeName: 'first',
+  searchForm: {},
+  infoData: {},
+  page: 1,
+  size: 10,
+  dialogFormVisible: false,
+  dialogFormVisible1:false,
+  dialogFormVisible2:false,
+  dialogVisible: false,
+  pictureList: [],
+  picIndex: 0,
+  floorId:'',
+  conditionId:'',
+  projectId:''
+  }),
+  created () {
+    window.$getAreaList().then((res) => {
+       this.areaList = res
+    }, (err) => {
+       this.showAlert(err)
+    })
+  },
+  methods: {
+    showCreateCompany() {
+      if (this.tabbolock == "91") {
+        this.dialogFormVisible = true
+   }
+    if(this.tabbolock=='107'){
+      this.dialogFormVisible1=true;
+  }
+    if(this.tabbolock=='126'){
+      this.dialogFormVisible2=true;
+  }
+  },
+  createCompany(){
+    this.dialogFormVisible = false
+  },
+  importFile(){
+     document.getElementById('fileUpload_input').click()
+  },
+  areaChanged(){
+  this.page = 1
+  this.size = 10
+  this.projectId = ''
+  this.searchForm.buildingId = ''
+  this.floorId = ''
+  this.conditionId = ''
+  window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
+      this.projectList = res
+    }, (err) => {
+      this.showAlert(err)
+    })
+  },
+  projectChanged(){
+    this.page = 1
+    this.size = 10
+    this.searchForm.buildingId = ''
+    this.floorId = ''
+    this.conditionId = ''
+    if(this.searchForm.dimensionType === 2){ // 获取楼栋
+     window.$getBuilding(this.projectId).then((res) => {
+          this.buildingList = res
+      }, (err) => {
+        this.showAlert(err)
+    })
+   }   else if(this.searchForm.dimensionType === 3){// 获取业态
+     window.$getBusinessListForProject(this.projectId).then((res) => {
+       this.businessList = res
+    }, (err) => {
+      this.showAlert(err)
+  })
+  }
 
-},
-importFile(){
-document.getElementById('fileUpload_input').click()
-},
-areaChanged(){
-this.page = 1
-this.size = 10
-this.projectId = ''
-this.searchForm.buildingId = ''
-this.floorId = ''
-this.conditionId = ''
-window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
-this.projectList = res
-}, (err) => {
-this.showAlert(err)
-})
-},
-projectChanged(){
-this.page = 1
-this.size = 10
-this.searchForm.buildingId = ''
-this.floorId = ''
-this.conditionId = ''
-if(this.searchForm.dimensionType === 2){// 获取楼栋
-window.$getBuilding(this.projectId).then((res) => {
-this.buildingList = res
-}, (err) => {
-this.showAlert(err)
-})
-} else if(this.searchForm.dimensionType === 3){// 获取业态
-window.$getBusinessListForProject(this.projectId).then((res) => {
-this.businessList = res
-}, (err) => {
-this.showAlert(err)
-})
-}
+  },
+  getFloorList(){
+    this.page = 1
+    this.size = 10
+    this.floorId = ''
+    window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
+      this.floorList = res
+    }, (err) => {
+     this.showAlert(err)
+    })
+  },
+  dimensionChange() {
+  this.page = 1
+  this.size = 10
+  this.data = {}
+  },
+  toggleTab: function(tab) {
+  this.currentTab = tab; // tab 为当前触发标签页的组件名
+  },
+  handleClick (tab, event) {
+  console.log(tab,tab._uid)
+  this.tabbolock=tab._uid;
+  },
+  handleSizeChange (val) {
+  this.size = val
+  this.searchList()
+  },
+  handleCurrentChange (val) {
+  this.page = val
+  this.searchList()
+  },
+  searchList (type) {
+  if(type === 1){
+  this.page =1
+  }
 
-},
-getFloorList(){
-this.page = 1
-this.size = 10
-this.floorId = ''
-window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
-this.floorList = res
-}, (err) => {
-this.showAlert(err)
-})
-},
-dimensionChange() {
-this.page = 1
-this.size = 10
-this.data = {}
-},
-toggleTab: function(tab) {
-this.currentTab = tab; // tab 为当前触发标签页的组件名
-},
-handleClick (tab, event) {
-console.log(tab,tab._uid)
-this.tabbolock=tab._uid;
-},
-handleSizeChange (val) {
-this.size = val
-this.searchList()
-},
-handleCurrentChange (val) {
-this.page = val
-this.searchList()
-},
-searchList (type) {
-if(type === 1){
-this.page =1
-}
+  let url = ''
+  if(this.searchForm.businessType === 1){// 溢租率列表接口
+  if(this.searchForm.dimensionType === 1){
+  url = '/standardprojectrent/find/standardprojectrent/list'
+  } else if(this.searchForm.dimensionType === 2) {
+  this.searchForm.floorId = this.floorId
+  url = '/standardfloorrent/find/standardfloorrent/list'
+  } else if(this.searchForm.dimensionType === 3) {
+  this.searchForm.conditionId = this.conditionId
+  url = '/standardconditionrent/find/standardconditionrent/list'
+  }
+  } else if(this.searchForm.businessType === 3){// 适配值
+  if(this.searchForm.dimensionType === 1){
+  url = '/standardprojectfitted/find/standardprojectfitted/list'
+  } else if(this.searchForm.dimensionType === 2) {
+  this.searchForm.floorId = this.floorId
+  url = '/standardfloorfitted/find/standardfloorfitted/list'
+  } else if(this.searchForm.dimensionType === 3) {
+  this.searchForm.conditionId = this.conditionId
+  url = '/standardconditionfitted/find/standardconditionrent/list'
+  }
+  } else if(this.searchForm.businessType === 2){
+  url = '/standardbrandsale/find/standardbrandsale/list'
+  }
 
-let url = ''
-if(this.searchForm.businessType === 1){// 溢租率列表接口
-if(this.searchForm.dimensionType === 1){
-url = '/standardprojectrent/find/standardprojectrent/list'
-} else if(this.searchForm.dimensionType === 2) {
-this.searchForm.floorId = this.floorId
-url = '/standardfloorrent/find/standardfloorrent/list'
-} else if(this.searchForm.dimensionType === 3) {
-this.searchForm.conditionId = this.conditionId
-url = '/standardconditionrent/find/standardconditionrent/list'
-}
-} else if(this.searchForm.businessType === 3){// 适配值
-if(this.searchForm.dimensionType === 1){
-url = '/standardprojectfitted/find/standardprojectfitted/list'
-} else if(this.searchForm.dimensionType === 2) {
-this.searchForm.floorId = this.floorId
-url = '/standardfloorfitted/find/standardfloorfitted/list'
-} else if(this.searchForm.dimensionType === 3) {
-this.searchForm.conditionId = this.conditionId
-url = '/standardconditionfitted/find/standardconditionrent/list'
-}
-} else if(this.searchForm.businessType === 2){
-url = '/standardbrandsale/find/standardbrandsale/list'
-}
-
-this.$axios.post(url + '?p=' + this.page + '&c=' + this.size, this.searchForm).then((res) => {
-this.data = res
-console.log(res)
-}, (err) => {this.showAlert(err)})
-},
-fileUpload(e){
-if(!this.searchForm.businessType){
-this.showAlert('请选择业务类型')
-return false
-}
-let url = this.searchForm.businessType === 1 ? '/standimport/excel/standrentimport/sheet' : (this.searchForm.businessType === 2 ? '/standimport/excel/standguestimport/sheet' : '/standimport/excel/standfittedimport/sheet')
-window.$fileUpload(e, url).then((res) => {
-this.showAlert('导入成功')
-this.page = 1
-this.size = 10
-this.searchList()
-}, (err) =>{this.showAlert(err)})
-},
-exportExl(){
-if(!this.searchForm.businessType){
-this.showAlert('请选择业务类型')
-return false
-}
-if(!this.projectId){
-this.showAlert('请选择项目')
-return false
-}
-let url = this.searchForm.businessType === 1 ? '/standardexport/excel/yzl' : (this.searchForm.businessType === 2 ? '/standardexport/excel' : '/standardexport/excel/spz')
-window.$exportExls(url, this.projectId).then((res) => {
-console.log(res)
-let link = document.createElement('a')
-link.href = res
-link.click()
-}, (err) => {
-this.showAlert(err)
-})
-},
-// 查看详情
-showDetails (id) {
-this.$router.push('/dataManage/version/details/' + id)
-},
-editDetails (id) {
-this.$router.push('/dataManage/version/details/' + id)
-},
-xinzeng(id){
-this.$router.push('/dataManage/version/xinzeng/' + id)
-},
-bianji(id){
-this.$router.push('/dataManage/version/bianji/' + id)
-},
-xm_yzl(id){
-this.$router.push('/dataManage/version/xmyzl/' + id)
-},
-lc_yzl(id){
-this.$router.push('/dataManage/version/lcyzl/' + id)
-},
-yt_yzl(id){
-this.$router.push('/dataManage/version/ytyzl/' + id)
-},
-kxd(id){
-this.$router.push('/dataManage/version/kxd/' + id)
-},
-spz(id){
-this.$router.push('/dataManage/version/spz/' + id)
-},
-rowClass({ row, rowIndex}) {
-return 'height:50px;font-size:15px'
-},
-showAlert(cont) {
-this.$alert(cont, '温馨提示', {
-confirmButtonText: '确定'
-})
-}
-}
-}
+  this.$axios.post(url + '?p=' + this.page + '&c=' + this.size, this.searchForm).then((res) => {
+  this.data = res
+  console.log(res)
+  }, (err) => {this.showAlert(err)})
+  },
+  fileUpload(e){
+  if(!this.searchForm.businessType){
+  this.showAlert('请选择业务类型')
+  return false
+  }
+  let url = this.searchForm.businessType === 1 ? '/standimport/excel/standrentimport/sheet' : (this.searchForm.businessType === 2 ? '/standimport/excel/standguestimport/sheet' : '/standimport/excel/standfittedimport/sheet')
+  window.$fileUpload(e, url).then((res) => {
+  this.showAlert('导入成功')
+  this.page = 1
+  this.size = 10
+  this.searchList()
+  }, (err) =>{this.showAlert(err)})
+  },
+  exportExl(){
+  if(!this.searchForm.businessType){
+  this.showAlert('请选择业务类型')
+  return false
+  }
+  if(!this.projectId){
+  this.showAlert('请选择项目')
+  return false
+  }
+  let url = this.searchForm.businessType === 1 ? '/standardexport/excel/yzl' : (this.searchForm.businessType === 2 ? '/standardexport/excel' : '/standardexport/excel/spz')
+  window.$exportExls(url, this.projectId).then((res) => {
+  console.log(res)
+  let link = document.createElement('a')
+  link.href = res
+  link.click()
+  }, (err) => {
+  this.showAlert(err)
+  })
+  },
+  // 查看详情
+  showDetails (id) {
+  this.$router.push('/dataManage/version/details/' + id)
+  },
+  editDetails (id) {
+  this.$router.push('/dataManage/version/details/' + id)
+  },
+  xinzeng(id){
+  this.$router.push('/dataManage/version/xinzeng/' + id)
+  },
+  bianji(id){
+  this.$router.push('/dataManage/version/bianji/' + id)
+  },
+  xm_yzl(id){
+  this.$router.push('/dataManage/version/xmyzl/' + id)
+  },
+  lc_yzl(id){
+  this.$router.push('/dataManage/version/lcyzl/' + id)
+  },
+  yt_yzl(id){
+  this.$router.push('/dataManage/version/ytyzl/' + id)
+  },
+  kxd(id){
+  this.$router.push('/dataManage/version/kxd/' + id)
+  },
+  spz(id){
+  this.$router.push('/dataManage/version/spz/' + id)
+  },
+  rowClass({ row, rowIndex}) {
+  return 'height:50px;font-size:15px'
+  },
+  showAlert(cont) {
+  this.$alert(cont, '温馨提示', {
+  confirmButtonText: '确定'
+  })
+  }
+  }
+  }
 </script>
 <style scoped  lang="less">
 .tabs{

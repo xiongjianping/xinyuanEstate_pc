@@ -249,7 +249,7 @@
                 <div class="img">
                     <img src="../../assets/images/r_t.png" alt="">
                 </div>
-                
+
             </swiper-slide>
             <swiper-slide>
                 <div class="img">
@@ -406,12 +406,12 @@ export default {
     // 查询全国客流量
     this.$axios.get('/dayguest/find/passengerflowall/list')
       .then(res => {
-        this.countryPassengerFlow = res
+        this.countryPassengerFlow = Math.round(res)
       }, (err) => { console.log(err) })
     // 查询全国销售额
     this.$axios.get('/dayguest/find/saleroomall/list')
       .then(res => {
-        this.countrySalesVolume = res
+        this.countrySalesVolume = Math.round(res)
       }, (err) => { console.log(err) })
   },
   watch:{
@@ -425,7 +425,7 @@ export default {
       var option = this.getOption()
 
     this.myChart = echarts.init(document.getElementById('main'))
-    this.myChart.setOption(option); 
+    this.myChart.setOption(option);
     },
     projectList(val){
       this.projectList = val
