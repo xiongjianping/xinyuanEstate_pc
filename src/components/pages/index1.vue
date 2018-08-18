@@ -86,10 +86,10 @@
           <div class="right-img"></div>
           <div class="right_img1"></div>
           <div class="zi">
-            <span class="rx">西安鑫苑大都汇 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+            <span class="rx">西安鑫苑大都汇  </span>
             <span class="rx">楼层数：共5层</span>
             <br>
-            <span class="rx">开始时间：2016年12月16日 &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+            <span class="rx">开始时间：2016年12月16日 </span>
             <span class="rx">面积：12万平方</span>
           </div>
         </div>

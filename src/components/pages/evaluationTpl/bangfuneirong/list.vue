@@ -1,8 +1,9 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
+      <h3 id="title">帮扶内容</h3><br>
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="6">
+        <el-col :span="5">
           <el-form-item label="类别">
             <el-select size="small" v-model="searchForm.type" placeholder="请选择类型">
               <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
@@ -18,6 +19,8 @@
 
       </el-form>
     </el-row>
+    <p class="t"></p>
+    <div class="biaoti1">帮扶内容</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index"  prop='id'  label="序号" width="50"></el-table-column>

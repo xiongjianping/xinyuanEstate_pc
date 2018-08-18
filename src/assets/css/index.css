@@ -351,7 +351,7 @@
 
 .el-pagination {
   white-space: nowrap;
-  padding: 2px 5px;
+  padding: 10px 5px;
   color: #303133;
   font-weight: 700
 }
@@ -2013,37 +2013,37 @@
   border-color: #E8CA8A
 }
 
-.el-select .el-input .el-select__caret {
-  color: #c0c4cc;
-  font-size: 14px;
-  -webkit-transition: -webkit-transform .3s;
-  transition: -webkit-transform .3s;
-  transition: transform .3s;
-  transition: transform .3s, -webkit-transform .3s;
-  -webkit-transform: rotateZ(180deg);
-  transform: rotateZ(180deg);
-  cursor: pointer
-}
+/*.el-select .el-input .el-select__caret {*/
+  /*color: #c0c4cc;*/
+  /*font-size: 14px;*/
+  /*-webkit-transition: -webkit-transform .3s;*/
+  /*transition: -webkit-transform .3s;*/
+  /*transition: transform .3s;*/
+  /*transition: transform .3s, -webkit-transform .3s;*/
+  /*-webkit-transform: rotateZ(180deg);*/
+  /*transform: rotateZ(180deg);*/
+  /*cursor: pointer*/
+/*}*/
 
-.el-select .el-input .el-select__caret.is-reverse {
-  -webkit-transform: rotateZ(0);
-  transform: rotateZ(0)
-}
+/*.el-select .el-input .el-select__caret.is-reverse {*/
+  /*-webkit-transform: rotateZ(0);*/
+  /*transform: rotateZ(0)*/
+/*}*/
 
-.el-select .el-input .el-select__caret.is-show-close {
-  font-size: 14px;
-  text-align: center;
-  -webkit-transform: rotateZ(180deg);
-  transform: rotateZ(180deg);
-  border-radius: 100%;
-  color: #c0c4cc;
-  -webkit-transition: color .2s cubic-bezier(.645, .045, .355, 1);
-  transition: color .2s cubic-bezier(.645, .045, .355, 1)
-}
+/*.el-select .el-input .el-select__caret.is-show-close {*/
+  /*font-size: 14px;*/
+  /*text-align: center;*/
+  /*-webkit-transform: rotateZ(180deg);*/
+  /*transform: rotateZ(180deg);*/
+  /*border-radius: 100%;*/
+  /*color: #c0c4cc;*/
+  /*-webkit-transition: color .2s cubic-bezier(.645, .045, .355, 1);*/
+  /*transition: color .2s cubic-bezier(.645, .045, .355, 1)*/
+/*}*/
 
-.el-select .el-input .el-select__caret.is-show-close:hover {
-  color: #909399
-}
+/*.el-select .el-input .el-select__caret.is-show-close:hover {*/
+  /*color: #909399*/
+/*}*/
 
 .el-select .el-input.is-disabled .el-input__inner {
   cursor: not-allowed
@@ -11313,7 +11313,7 @@
 }
 
 .el-input--prefix .el-input__inner {
-  padding-left: 30px
+  padding-left: 30px;
 }
 
 .el-input--medium {
@@ -11560,7 +11560,7 @@
 
 .el-button--primary {
   color: #fff;
-  background-color: #E8CA8A;
+  background-color: #4484a1;
   border-color: #E8CA8A
 }
 
@@ -11877,7 +11877,7 @@
 }
 
 .el-button--medium {
-  padding: 10px 20px;
+  padding: 5px 20px;
   font-size: 14px;
   border-radius: 4px
 }
@@ -11889,7 +11889,7 @@
 }
 
 .el-button--medium.is-round {
-  padding: 10px 20px
+  padding: 5px 20px
 }
 
 .el-button--medium.is-circle {

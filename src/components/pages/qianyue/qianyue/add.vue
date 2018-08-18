@@ -5,7 +5,6 @@
       <h3 class="title">签约信息</h3>
       <i class="hengxian"></i>
       <el-form label-width="100px" :model="searchForm">
-
         <el-row>
           <el-col :span="6">
             <el-form-item label="业态：">
@@ -39,7 +38,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-
         <el-row>
           <el-col :span="6">
             <el-form-item label="项目：">
@@ -65,7 +63,6 @@
             </el-form-item>
           </el-col>
 
-
           <el-col :span="6">
             <el-form-item label="铺位：">
               <el-input size="small" maxlength="11" v-model="searchForm.roomName" placeholder="请输入铺位"/>
@@ -77,6 +74,8 @@
             <el-button type="primary" class="xuan" @click="searchList()">搜索</el-button>
           </el-col>
         </el-row>
+
+
       <div class="biao mt20">
         <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
           <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
@@ -88,8 +87,9 @@
 
         <el-row class="f-tac">
           <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
-          <el-button type="primary" @click="create()">确定</el-button>
+          <el-button type="primary" @click="create">确定</el-button>
         </el-row>
+
         <!-- <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
           <button type="button" @click="create()">确定</button>
@@ -97,6 +97,17 @@
 
       </el-form>
     </el-row>
+
+    <el-dialog title="选择生效时间" :visible.sync="dialogFormVisible">
+      <el-form>
+        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="createCompany()">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -122,7 +133,9 @@
       resultList: [],
       checkedList: [],
       brandId:'',
-      floorId:''
+      floorId:'',
+      value1: '',
+      dialogFormVisible:false
     }),
     created () {
       window.$getformSelect().then((res) => {
@@ -190,27 +203,63 @@
       changeFun(val){
         this.checkedList = val
       },
+
       create(){
+        this.newCompany = {}
+        console.log(this.newCompany)
+        this.dialogFormVisible = true
+        window.$getCompanyAll().then((res) => {
+          this.companyList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+
         this.sendData.projectId = this.searchForm.projectId
         this.sendData.brandId = this.brandId
         this.sendData.roomId = []
         this.sendData.floorId = this.floorId
-        for(var i = 0; i < this.checkedList.length; i++) {
-          this.sendData.roomId.push(this.checkedList[i].roomId)
+        this.sendData.effectTime = this.value1
+        // for(var i = 0; i < this.checkedList.length; i++) {
+        //   this.sendData.roomId.push(this.checkedList[i].roomId)
+        // }
+
+      },
+      checkCompanyInfo(){
+        if(!this.newCompany.name || this.newCompany.name == ''){
+          this.$message('请输入公司名称');
+          return false
+        } else {
+          return true
         }
+      },
+      createCompany(){
+        console.log(this.checkCompanyInfo);
+        // if(this.checkCompanyInfo()){
+        //   window.$createCompany(this.newCompany).then((res) => {
+        //     this.showAlert('新增成功');
+        //     // this.dialogFormVisible = false
+        //   }, (err) => {
+        //     this.showAlert(err);
+        //   })
+        // };
         window.$createContract(this.sendData).then((res) => {
           this.showAlert('新增成功')
-          this.goBack()
+          console.log(this.sendData);
+          // this.goBack()
+          setTimeout(function () {
+            this.dialogFormVisible = false
+          },1000)
         }, (err) => {
           this.showAlert(err)
         })
       },
+
       goBack(){
         this.$router.back(-1)
       },
       rowClass({ row, rowIndex}) {
         console.log(rowIndex) //表头行标号为0
-        return 'height:50px;font-size:15px;'
+        return 'height:20px;font-size:15px;'
       },
       showAlert(cont) {
         this.$alert(cont, '温馨提示', {

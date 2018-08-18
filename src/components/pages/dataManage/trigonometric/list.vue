@@ -1,6 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
+      <h3 id="title">区间设置</h3><br>
       <el-form label-width="100px" :model="searchForm">
 
         <el-col :span="5">
@@ -76,7 +77,8 @@
       <el-radio-button label="right">客销度</el-radio-button>
       <el-radio-button label="bottom">适配值</el-radio-button>
     </el-radio-group> -->
-
+    <p class="t"></p>
+    <div class="biaoti1">区间设置</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
