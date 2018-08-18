@@ -89,15 +89,8 @@
           <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
           <el-button type="primary" @click="create">确定</el-button>
         </el-row>
-
-        <!-- <div class="xxk">
-          <button type="button" @click="goBack()">取消</button>
-          <button type="button" @click="create()">确定</button>
-        </div> -->
-
       </el-form>
     </el-row>
-
     <el-dialog title="选择生效时间" :visible.sync="dialogFormVisible">
       <el-form>
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
@@ -107,7 +100,6 @@
         <el-button type="primary" @click="createCompany()">确 定</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 <script>
@@ -213,7 +205,6 @@
         }, (err) => {
           this.showAlert(err)
         })
-
         this.sendData.projectId = this.searchForm.projectId
         this.sendData.brandId = this.brandId
         this.sendData.roomId = []
@@ -222,7 +213,6 @@
         // for(var i = 0; i < this.checkedList.length; i++) {
         //   this.sendData.roomId.push(this.checkedList[i].roomId)
         // }
-
       },
       checkCompanyInfo(){
         if(!this.newCompany.name || this.newCompany.name == ''){
@@ -253,7 +243,6 @@
           this.showAlert(err)
         })
       },
-
       goBack(){
         this.$router.back(-1)
       },
