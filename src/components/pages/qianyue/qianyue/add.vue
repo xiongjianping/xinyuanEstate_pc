@@ -195,18 +195,40 @@
       create(){
         // this.newCompany = {}
         this.dialogFormVisible = true
+//<<<<<<< caicai
         // window.$getCompanyAll().then((res) => {
         //   this.companyList = res
         // }, (err) => {
         //   this.showAlert(err)
         // })
+//=======
+        window.$getCompanyAll().then((res) => {
+          this.companyList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+//>>>>>>> master
         this.sendData.projectId = this.searchForm.projectId
         this.sendData.brandId = this.brandId
         this.sendData.roomId = []
         this.sendData.floorId = this.floorId
+//<<<<<<< caicai
         // this.sendData.effectTime = this.effectTime
         for(var i = 0; i < this.checkedList.length; i++) {
           this.sendData.roomId.push(this.checkedList[i].roomId)
+//=======
+        this.sendData.effectTime = this.value1
+        // for(var i = 0; i < this.checkedList.length; i++) {
+        //   this.sendData.roomId.push(this.checkedList[i].roomId)
+        // }
+      },
+      checkCompanyInfo(){
+        if(!this.newCompany.name || this.newCompany.name == ''){
+          this.$message('请输入公司名称');
+          return false
+        } else {
+          return true
+//>>>>>>> master
         }
       },
 

@@ -730,6 +730,6 @@ Vue.prototype.getBusinessListForProject = window.$getBusinessListForProject = fu
             .catch((error) => {
                 console.log(error)
                 reject(error)
-            })
+            })  
     })
 }
