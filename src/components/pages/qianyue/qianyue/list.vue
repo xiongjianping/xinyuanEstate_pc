@@ -67,7 +67,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">签约管理</div>
+    <div class="biaoti1">签约管理列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
@@ -148,7 +148,6 @@ export default {
       if(type === 1){
         this.page = 1
       }
-
       window.$getBrandAllList(this.page, this.size, this.searchForm).then((res) => {
         console.log(res)
         this.data = res

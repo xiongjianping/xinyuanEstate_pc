@@ -679,7 +679,7 @@
 .el-dialog {
   position: relative;
   margin: 0 auto 50px;
-  background: #fff;
+  background: red;
   border-radius: 2px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
@@ -706,7 +706,8 @@
 }
 
 .el-dialog__header {
-  padding: 20px 20px 10px
+  padding: 20px 20px 10px;
+  border-bottom: 1px solid #CCC;
 }
 
 .el-dialog__headerbtn {
@@ -2100,7 +2101,7 @@
   white-space: normal;
   z-index: 1;
   top: 50%;
-  -webkit-transform: translateY(-50%);
+  /*-webkit-transform: translateY(-50%);*/
   transform: translateY(-50%);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2142,8 +2143,8 @@
 
 .el-select .el-tag__close.el-icon-close::before {
   display: block;
-  -webkit-transform: translate(0, .5px);
-  transform: translate(0, .5px)
+  /*-webkit-transform: translate(0, .5px);*/
+  /*transform: translate(0, .5px)*/
 }
 
 .el-table {
@@ -11309,11 +11310,13 @@
 }
 
 .el-input--suffix .el-input__inner {
-  padding-right: 30px
+  padding-right: 30px;
+  height: 27px;!important;
 }
 
 .el-input--prefix .el-input__inner {
   padding-left: 30px;
+  height: 27px;
 }
 
 .el-input--medium {
@@ -11446,8 +11449,9 @@
 }
 
 .el-button {
+  height: 30px;
   display: inline-block;
-  line-height: 1;
+  line-height: 0px;
   white-space: nowrap;
   cursor: pointer;
   background: #fff;
@@ -11561,7 +11565,9 @@
 .el-button--primary {
   color: #fff;
   background-color: #4484a1;
-  border-color: #E8CA8A
+  border-color: #E8CA8A;
+  height: 30px;
+  line-height: 0px;
 }
 
 .el-button--primary:focus,
@@ -11879,7 +11885,9 @@
 .el-button--medium {
   padding: 5px 20px;
   font-size: 14px;
-  border-radius: 4px
+  border-radius: 4px;
+  height: 30px;
+  line-height: 0px;
 }
 
 .el-button--mini,

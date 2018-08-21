@@ -33,7 +33,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">楼层管理</div>
+    <div class="biaoti1">楼层管理列表</div>
     <div class="listCont">
       <el-table :data="floorList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>

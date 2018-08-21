@@ -14,7 +14,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">角色管理</div>
+    <div class="biaoti1">角色管理列表</div>
     <div class="listCont">
       <el-table :data="jueseList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>

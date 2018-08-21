@@ -17,7 +17,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-           
+
         <el-col :span="5">
           <el-form-item label="模板分类">
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入"></el-input>
@@ -50,7 +50,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">模板管理</div>
+    <div class="biaoti1">模板管理列表</div>
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" prop="projectName" label="模板名称"></el-table-column>
