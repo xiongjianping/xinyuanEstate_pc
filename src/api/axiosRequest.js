@@ -75,7 +75,7 @@ Vue.prototype.getProjectListForArea = window.$getProjectListForArea = function(a
     return new Promise(function(resolve, reject) {
         axios.get('/region/find/project/by/area/' + areaId)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 resolve(res)
             })
             .catch((error) => {
@@ -448,7 +448,8 @@ Vue.prototype.getBrandList = window.$getBrandList = function(page, size, params)
 /*
  * 品牌管理类列表页
  *
- * 获取业态下拉列表(POST)
+ * 获取业态下拉列表(POST)(原错误注释)
+ * 获取区域下拉列表(Get)(2018.8.20 新的)
  */
 Vue.prototype.getformSelect = window.$getformSelect = function() {
     return new Promise(function(resolve, reject) {
@@ -601,7 +602,12 @@ Vue.prototype.createContract = window.$createContract = function(params) {
  */
 
 Vue.prototype.getNoSignContract = window.$getNoSignContract = function(params) {
+
     return new Promise(function(resolve, reject) {
+      if(typeof(params.projectId) == "undefined" ||  "" == params.projectId){
+        reject("请选择查询条件")
+        return ;
+      }
         axios.post('/region/find/room/by/project', params)
             .then((res) => {
                 resolve(res)
@@ -724,6 +730,6 @@ Vue.prototype.getBusinessListForProject = window.$getBusinessListForProject = fu
             .catch((error) => {
                 console.log(error)
                 reject(error)
-            })  
+            })
     })
 }

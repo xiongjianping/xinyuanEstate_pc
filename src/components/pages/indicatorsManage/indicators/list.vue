@@ -43,7 +43,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">品牌管理</div>
+    <div class="biaoti1">品牌管理列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>

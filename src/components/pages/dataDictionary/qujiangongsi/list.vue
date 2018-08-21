@@ -13,7 +13,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">区间公司</div>
+    <div class="biaoti1">区间公司列表</div>
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="id" prop="id" label="序号"></el-table-column>

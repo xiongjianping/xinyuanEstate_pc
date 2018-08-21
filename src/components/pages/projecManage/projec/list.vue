@@ -30,7 +30,7 @@
     </el-row>
 
     <p class="t"></p>
-    <div class="biaoti1">项目管理</div>
+    <div class="biaoti1">项目管理列表</div>
     <el-dialog title="新增公司" :visible.sync="dialogFormVisible">
       <el-form :model="newCompany">
         <el-form-item label="公司名称" :label-width="formLabelWidth">

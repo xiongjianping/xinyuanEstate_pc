@@ -75,10 +75,9 @@
           </el-col>
         </el-row>
 
-
       <div class="biao mt20">
         <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
-          <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
+            <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
           <el-table-column align="center" type="index" label="序号"></el-table-column>
           <el-table-column align="center" prop="floorName" label="楼层名称" ></el-table-column>
           <el-table-column align="center" prop="roomName" label="铺位名称" ></el-table-column>
@@ -93,11 +92,11 @@
     </el-row>
     <el-dialog title="选择生效时间" :visible.sync="dialogFormVisible">
       <el-form>
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd"  type="date" placeholder="选择日期"></el-date-picker>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="createCompany()">确 定</el-button>
+        <el-button type="primary" @click="createContract()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -126,19 +125,16 @@
       checkedList: [],
       brandId:'',
       floorId:'',
-      value1: '',
+      effectTime: '',
       dialogFormVisible:false
     }),
     created () {
       window.$getformSelect().then((res) => {
         this.bList = res
       }, (err) => {})
-
       window.$getAreaList().then((res) => {
         this.areaList = res
       }, (err) => {})
-
-      // this.searchList()
     },
     methods: {
       searchList () {
@@ -148,6 +144,7 @@
           this.showAlert(err)
         })
       },
+
       businessChanged(){
         this.species = ''
         this.brandId = ''
@@ -195,35 +192,26 @@
       changeFun(val){
         this.checkedList = val
       },
-
       create(){
-        this.newCompany = {}
-        console.log(this.newCompany)
+        // this.newCompany = {}
         this.dialogFormVisible = true
-        window.$getCompanyAll().then((res) => {
-          this.companyList = res
-        }, (err) => {
-          this.showAlert(err)
-        })
+        // window.$getCompanyAll().then((res) => {
+        //   this.companyList = res
+        // }, (err) => {
+        //   this.showAlert(err)
+        // })
         this.sendData.projectId = this.searchForm.projectId
         this.sendData.brandId = this.brandId
         this.sendData.roomId = []
         this.sendData.floorId = this.floorId
-        this.sendData.effectTime = this.value1
-        // for(var i = 0; i < this.checkedList.length; i++) {
-        //   this.sendData.roomId.push(this.checkedList[i].roomId)
-        // }
-      },
-      checkCompanyInfo(){
-        if(!this.newCompany.name || this.newCompany.name == ''){
-          this.$message('请输入公司名称');
-          return false
-        } else {
-          return true
+        // this.sendData.effectTime = this.effectTime
+        for(var i = 0; i < this.checkedList.length; i++) {
+          this.sendData.roomId.push(this.checkedList[i].roomId)
         }
       },
-      createCompany(){
-        console.log(this.checkCompanyInfo);
+
+      createContract(){
+        this.sendData.effectTime = this.effectTime
         // if(this.checkCompanyInfo()){
         //   window.$createCompany(this.newCompany).then((res) => {
         //     this.showAlert('新增成功');
@@ -232,13 +220,12 @@
         //     this.showAlert(err);
         //   })
         // };
+
         window.$createContract(this.sendData).then((res) => {
-          this.showAlert('新增成功')
           console.log(this.sendData);
-          // this.goBack()
           setTimeout(function () {
             this.dialogFormVisible = false
-          },1000)
+          },500)
         }, (err) => {
           this.showAlert(err)
         })

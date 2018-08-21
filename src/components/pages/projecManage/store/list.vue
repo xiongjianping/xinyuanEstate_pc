@@ -56,7 +56,7 @@
 
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">铺位管理</div>
+    <div class="biaoti1">铺位管理列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号"></el-table-column>

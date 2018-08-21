@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<el-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</el-button>
+<el-dialog id='dial' ref='dialog'  title="收货地址" v-model="dialogTableVisible">
+
+  <el-table  ref='gr' :data='gridData'  selection-change ='handleSelectionChange'>
+    <el-table-column ref= 'col' type="selection"  :selectable = "selection" width="55" ></el-table-column>
+    <el-table-column property="date" label="日期" width="150"></el-table-column>
+    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+    <el-table-column property="address" label="地址"></el-table-column>
+  </el-table>
+
+</el-dialog>
+
+</div>
+
+</body>
+</html>

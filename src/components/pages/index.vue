@@ -1211,7 +1211,7 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
-    margin-left: 20%;
+    margin-left: 8%;
     display: inline-block;
     height: 112px;
     i {

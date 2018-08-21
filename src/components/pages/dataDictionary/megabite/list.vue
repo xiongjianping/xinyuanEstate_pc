@@ -25,7 +25,7 @@
       </el-form>
     </el-row>
     <p class="t"></p>
-    <div class="biaoti1">适配值</div>
+    <div class="biaoti1">适配值列表</div>
     <div class="listCont">
       <el-table :data="data.list" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
