@@ -149,7 +149,6 @@ export default {
         this.page = 1
       }
       window.$getBrandAllList(this.page, this.size, this.searchForm).then((res) => {
-        console.log(res)
         this.data = res
       }, (err) => {
         this.showAlert(err)
@@ -212,7 +211,7 @@ export default {
       this.$router.push('/qianyue/qianyue/add/' + id)
     },
     rowClass({ row, rowIndex}) {
-      console.log(rowIndex) //表头行标号为0
+      //console.log(rowIndex) //表头行标号为0
       return 'height:50px;font-size:15px'
     },
     showAlert(cont) {

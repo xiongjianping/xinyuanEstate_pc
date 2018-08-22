@@ -190,7 +190,7 @@ export default {
       this.$router.push('/projecManage/edit/' + id)
     },
     rowClass({ row, rowIndex}) {
-      console.log(rowIndex) //表头行标号为0
+      //console.log(rowIndex) //表头行标号为0
       return 'height:50px;font-size:15px'
     },
     showAlert(cont) {

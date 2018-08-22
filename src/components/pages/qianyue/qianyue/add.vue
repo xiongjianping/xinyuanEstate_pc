@@ -105,11 +105,11 @@
   import moment from 'moment'
   export default {
     data: () => ({
-      business:'',
-      species:'',
-      area:'',
-      store:'',
-      building:'',
+      business: '',
+      species: '',
+      area: '',
+      store: '',
+      building: '',
       sendData: {},
       areaList: {},
       projectList: {},
@@ -123,21 +123,23 @@
       searchForm: {},
       resultList: [],
       checkedList: [],
-      brandId:'',
-      floorId:'',
+      brandId: '',
+      floorId: '',
       effectTime: '',
-      dialogFormVisible:false
+      dialogFormVisible: false
     }),
-    created () {
+    created() {
       window.$getformSelect().then((res) => {
         this.bList = res
-      }, (err) => {})
+      }, (err) => {
+      })
       window.$getAreaList().then((res) => {
         this.areaList = res
-      }, (err) => {})
+      }, (err) => {
+      })
     },
     methods: {
-      searchList () {
+      searchList() {
         window.$getNoSignContract(this.searchForm).then((res) => {
           this.resultList = res
         }, (err) => {
@@ -145,7 +147,7 @@
         })
       },
 
-      businessChanged(){
+      businessChanged() {
         this.species = ''
         this.brandId = ''
         window.$getSpeciesSelect(this.business).then((res) => {
@@ -154,7 +156,7 @@
           this.showAlert(err)
         })
       },
-      speciesChanged(){
+      speciesChanged() {
         this.brandId = ''
         window.$getBrandForSpecies(this.species).then((res) => {
           this.brandList = res
@@ -162,7 +164,7 @@
           this.showAlert(err)
         })
       },
-      areaChanged(){
+      areaChanged() {
         this.searchForm.projectId = ''
         this.building = ''
         this.floorId = ''
@@ -172,7 +174,7 @@
           this.showAlert(err)
         })
       },
-      projectChanged(){
+      projectChanged() {
         this.building = ''
         this.floorId = ''
         window.$getBuilding(this.searchForm.projectId).then((res) => {
@@ -181,7 +183,7 @@
           this.showAlert(err)
         })
       },
-      buildingChanged(){
+      buildingChanged() {
         this.floorId = ''
         window.$getFloorForBuilding(this.building).then((res) => {
           this.floorList = res
@@ -189,10 +191,10 @@
           this.showAlert(err)
         })
       },
-      changeFun(val){
+      changeFun(val) {
         this.checkedList = val
       },
-      create(){
+      create() {
         // this.newCompany = {}
         this.dialogFormVisible = true
 //<<<<<<< caicai
@@ -213,56 +215,63 @@
         this.sendData.roomId = []
         this.sendData.floorId = this.floorId
 //<<<<<<< caicai
-        // this.sendData.effectTime = this.effectTime
-        for(var i = 0; i < this.checkedList.length; i++) {
+         this.sendData.effectTime = this.effectTime
+        for (var i = 0; i < this.checkedList.length; i++) {
           this.sendData.roomId.push(this.checkedList[i].roomId)
 //=======
-        this.sendData.effectTime = this.value1
-        // for(var i = 0; i < this.checkedList.length; i++) {
-        //   this.sendData.roomId.push(this.checkedList[i].roomId)
-        // }
-      },
-      checkCompanyInfo(){
-        if(!this.newCompany.name || this.newCompany.name == ''){
-          this.$message('请输入公司名称');
-          return false
-        } else {
-          return true
-//>>>>>>> master
+          //this.sendData.effectTime = this.value1
+          // for(var i = 0; i < this.checkedList.length; i++) {
+          //   this.sendData.roomId.push(this.checkedList[i].roomId)
+          // }
         }
-      },
+        checkCompanyInfo()
+        {
+          if (!this.newCompany.name || this.newCompany.name == '') {
+            this.$message('请输入公司名称');
+            return false
+          } else {
+            return true
+//>>>>>>> master
+          }
+        }
 
-      createContract(){
-        this.sendData.effectTime = this.effectTime
-        // if(this.checkCompanyInfo()){
-        //   window.$createCompany(this.newCompany).then((res) => {
-        //     this.showAlert('新增成功');
-        //     // this.dialogFormVisible = false
-        //   }, (err) => {
-        //     this.showAlert(err);
-        //   })
-        // };
+        createContract()
+        {
+          this.sendData.effectTime = this.effectTime
+          // if(this.checkCompanyInfo()){
+          //   window.$createCompany(this.newCompany).then((res) => {
+          //     this.showAlert('新增成功');
+          //     // this.dialogFormVisible = false
+          //   }, (err) => {
+          //     this.showAlert(err);
+          //   })
+          // };
 
-        window.$createContract(this.sendData).then((res) => {
-          console.log(this.sendData);
-          setTimeout(function () {
-            this.dialogFormVisible = false
-          },500)
-        }, (err) => {
-          this.showAlert(err)
-        })
-      },
-      goBack(){
-        this.$router.back(-1)
-      },
-      rowClass({ row, rowIndex}) {
-        console.log(rowIndex) //表头行标号为0
-        return 'height:20px;font-size:15px;'
-      },
-      showAlert(cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
+          window.$createContract(this.sendData).then((res) => {
+            console.log(this.sendData);
+            setTimeout(function () {
+              this.dialogFormVisible = false
+            }, 500)
+          }, (err) => {
+            this.showAlert(err)
+          })
+        }
+        goBack()
+        {
+          this.$router.back(-1)
+        }
+        owClass({row, rowIndex})
+        {
+          console.log(rowIndex) //表头行标号为0
+          return 'height:20px;font-size:15px;'
+        }
+
+        showAlert(cont)
+        {
+          this.$alert(cont, '温馨提示', {
+            confirmButtonText: '确定'
+          })
+        }
       }
     }
   }

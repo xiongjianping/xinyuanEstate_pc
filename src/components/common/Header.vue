@@ -82,7 +82,6 @@ export default {
     }
 
     this.curLi = this.$route.meta.parentPath ? this.$route.meta.parentPath : this.$route.path;
-    console.log("create---header.vue---end");
   },
   computed: {
     pageNameList() {
