@@ -6,7 +6,7 @@
         <!--修改-->
         <el-col :span="5">
           <el-form-item label="区域：">
-            <el-select size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
+            <el-select size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="getAreaList2Current()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name"
                          :value="item.id"></el-option>
             </el-select>
@@ -14,7 +14,7 @@
         </el-col>
         <el-col :span="5">
           <el-form-item label="项目：">
-            <el-select size="small" v-model="searchForm.projectId" placeholder="项目A" @change="projectChanged()">
+            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="getProjectList2Current()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name"
                          :value="item.id"></el-option>
             </el-select>
@@ -40,12 +40,13 @@
 
         <el-col :span="5">
           <el-form-item label="业态：">
-            <el-select size="small" v-model="searchForm.businessFormId" placeholder="餐饮" @change="dimensionChange()">
-              <el-option v-for="(item, index) in businessList" :key="index" :label="item.name"
+            <el-select size="small" v-model="searchForm.megabiteId" placeholder="餐饮" @change="dimensionChange()">
+              <el-option v-for="(item, index) in megabiteList" :key="index" :label="item.name"
                          :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="品牌">
             <el-input size="small" v-model="searchForm.brandId" :maxlength="11" placeholder="请选择品牌">
@@ -53,9 +54,10 @@
             </el-input>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="状态：">
-            <el-select size="small" v-model="businessType" placeholder="全部状态" @change="businessTypeChange()">
+            <el-select size="small" v-model="searchForm.statusId" placeholder="全部状态" @change="businessTypeChange()">
               <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name"
                          :value="item.id"></el-option>
             </el-select>
@@ -79,6 +81,18 @@
         </el-col>
       </el-form>
     </el-row>
+
+
+
+
+
+
+
+
+
+
+
+
     <el-dialog class="RentingRate" title="溢租率" :visible="dialogFormVisible" @close='closeDialog'>
       <el-form class="yzl-line-top"></el-form>
       <el-form :model="searchForm">
@@ -440,11 +454,7 @@
     data: () => ({
       businessTypeList: window.$businessTypeList,
       dimensionList: window.$dimensionList,
-      businessList: [],
-      areaList: [],
-      projectList: [],
-      buildingList: [],
-      floorList: [],
+
       formLabelWidth: '70px',
       data: {},
       loading: false,
@@ -459,18 +469,125 @@
       dialogVisible: false,
       pictureList: [],
       picIndex: 0,
+
+
+      businessList: [],
+      areaList: [],
+      projectList: [],
+      buildingList: [],
+      floorList: [],
+      megabiteList:[],
+      brandList:[],
+
       floorId: '',
       conditionId: '',
-      projectId: ''
+      projectId: '',
+      currentAreaId:'',
+      buildingId:'',
+
     }),
+
+
     created() {
       window.$getAreaList().then((res) => {
         this.areaList = res
+        //this.hintArea2ProjectOne(res[0].id)//先不给默认太麻烦，直接让用户选
       }, (err) => {
         this.showAlert(err)
       })
     },
+
     methods: {
+      /**
+       * 默认：区域第一项值，项目第一项值
+       */
+      hintArea2ProjectOne(areaId){
+        this.areaId = areaId
+        window.$getProjectListForArea(this.areaId).then(res => {
+          console.log("项目列表数据***"+res)
+          this.projectList = res
+          this.projectId = res[0].id
+          // console.log("默认得到的项目id为***"+this.projectId)
+          // this.getTriangleValue(1)//显示三角形
+        }, err => {console.log(err)})
+      },
+
+      /**
+       * 区域点击事件
+       * 获得当前区域的id，得到对应项目列表
+       */
+      getAreaList2Current(){
+        console.log("当前区域id为***"+this.searchForm.areaId)
+
+        this.projectList = []
+        window.$getProjectListForArea(this.searchForm.areaId).then(res => {
+          console.log("当前区域对应的项目列表***"+res)
+          // this.currentAreaId = this.searchForm.areaId
+          this.projectList = res
+        }, err => {console.log(err)})
+
+      },
+
+
+      /**
+       * 项目点击事件
+       * 1、首页选择区域了吗？
+       * 2、获得当前列表id，来获得其他列表数据。楼栋列表，楼层列表，业态列表，品牌列表
+       */
+      getProjectList2Current(){
+        //console.log("当前区域id为***"+this.searchForm.areaId)//这种方式依然可以获得
+        //console.log("当前区域id为***"+this.currentAreaId)
+        console.log("当前项目id为***"+this.searchForm.projectId)
+        window.$getBuilding(this.searchForm.projectId).then(res => {
+          console.log("***当前楼栋列表的数据："+res)
+          this.buildingList = res//楼栋列表数据
+          this.buildingId = res[0].id//楼栋只有一个
+          window.$getFloorForBuilding(this.buildingId).then(res => {
+            console.log("***当前楼层列表的数据长度："+res.length)//[]为空数组，长度为0
+            if(res.length>0){
+              console.log("***当前楼层列表的数据："+res)
+              this.floorList = res
+              this.floorId = this.floorList[0].id//点击的是项目，所以默认楼层第一项的id
+            }else{
+              this.floorList = []
+              console.log("当前项目暂时没有楼层数据！")
+              // alert("当前项目暂时没有楼层数据！")
+            }
+          }, err => {console.log(err)})
+        }, err => {console.log(err)})
+
+
+        window.$getBusinessListForProject(this.projectId).then(res => {
+          if (res.length>0) {
+            this.megabiteList = res
+            console.log("getBusinessListForProject*当前业态列表数据为"+res)
+            // this.megabiteId = res[0].id
+            // alert("业态业态!"+this.megabiteId)
+            // console.log("***业态列表第一项的id为"+this.megabiteId)
+
+            //如果有业态，可获取品牌
+            window.$getBrandForSpecies(this.megabiteId).then(res => {
+              console.log("***品牌列表数据为"+res)
+              if (res.length>0) {
+                this.brandList = res
+                // this.brandId = res[0].id
+              }else{
+                this.brandList = {}
+                // alert("当前没有品牌数据")
+                console.log("没有品牌数据！")
+              }
+            }, err => {console.log(err)})
+          }else{
+            this.megabiteList = {}
+            // alert("此项目没有业态！")
+            console.log("此项目没有业态！")
+          }
+        }, err => {console.log(err)})
+
+      },
+
+
+
       closeDialog(){
         this.dialogFormVisible = false;//清空数据
       },
@@ -500,6 +617,11 @@
       importFile() {
         document.getElementById('fileUpload_input').click()
       },
+
+      // getProjectListFromArea(){
+      //
+      // }
+
       areaChanged() {
         this.page = 1
         this.size = 10
@@ -513,6 +635,7 @@
           this.showAlert(err)
         })
       },
+
       projectChanged() {
         this.page = 1
         this.size = 10
@@ -564,6 +687,7 @@
         this.page = val
         this.searchList()
       },
+
       searchList(type) {
         if (type === 1) {
           this.page = 1
