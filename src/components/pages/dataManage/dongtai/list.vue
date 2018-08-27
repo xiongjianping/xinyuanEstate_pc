@@ -5,28 +5,28 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
         <!--  <el-form-item label="对象" :label-width="formLabelWidth">-->
-          <el-form-item label="对象：" >
+          <el-form-item label="对象" :label-width="formLabelWidth" >
             <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()">
               <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="区域：">
+          <el-form-item label="区域" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="项目：">
+          <el-form-item label="项目" :label-width="formLabelWidth">
             <el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="楼栋："  style="display: none;">
+          <el-form-item label="楼栋"  style="display: none;">
           <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" >
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -34,15 +34,15 @@
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="楼层：">
+          <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="业态：">
-            <el-select  size="small" v-model="searchForm.businessFormId" placeholder="餐饮" @change="businessChanged()">
+          <el-form-item label="业态" :label-width="formLabelWidth">
+            <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -282,7 +282,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-          <el-form-item label="楼栋："  style="display: none;">
+          <el-form-item label="楼栋"  style="display: none;">
             <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" >
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -314,7 +314,7 @@
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="品牌：" :label-width="formLabelWidth">
+            <el-form-item label="品牌" :label-width="formLabelWidth">
               <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>

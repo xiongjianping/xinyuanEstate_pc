@@ -3,6 +3,7 @@
     <el-row class="searchBox" :gutter="30">
       <h3 id="title">区间设置</h3><br>
       <el-form label-width="100px" :model="searchForm">
+        <el-row>
         <el-col :span="5">
           <el-form-item label="对象" :label-width="formLabelWidth">
             <el-select  size="small" v-model="objType" placeholder="项目">
@@ -11,7 +12,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="区域">
+          <el-form-item label="区域" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -19,7 +20,7 @@
         </el-col>
 
         <el-col :span="5">
-          <el-form-item label="项目">
+          <el-form-item label="项目" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -30,22 +31,23 @@
           <!--<el-form-item label="楼栋" v-if="different === 2">-->
           <el-form-item label="楼栋" style="display: none;">
             <!--<el-select v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-            <el-select v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
+            <el-select v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-
+          </el-row>
+        <el-row>
         <el-col :span="5">
-          <el-form-item label="楼层">
-            <!--<el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">-->
-            <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
-              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-form-item label="楼层" :label-width="formLabelWidth">
+            <!--<el-select  size="small" v-model="searchForm.searchFloorId"  placeholder="请选择楼层"  @change="floorChange()">-->
+              <el-select  size="small" v-model="floorId"  placeholder="请选择楼层"  @change="floorChange()">
+              <el-option v-for="(item1, index) in floorList" :key="index" :label="item1.name" :value="item1.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="业态：">
+          <el-form-item label="业态" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -53,12 +55,12 @@
         </el-col>
         <el-col :span="5">
           <el-form-item label="业种" :label-width="formLabelWidth">
-            <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
+            <el-select size="small" v-model="businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-
+          </el-row>
         <!--<el-col :span="5">-->
           <!--<el-form-item label="维度" v-if="businessId === 2" >-->
             <!--<el-select  size="small" v-model="different" placeholder="请选择维度">-->
@@ -117,7 +119,7 @@
         <el-row>
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
+              <el-select  size="small"  v-model="guestForm.floorId"  placeholder="请选择楼层" >
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -132,7 +134,7 @@
           <el-col :span="8">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <!--<el-select  size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
-              <el-select  size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" >
+              <el-select  size="small" v-model="guestForm.seachBusinessSpeciesId" placeholder="请选择业种" >
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -238,11 +240,12 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    searchForm: {},
     formLabelWidth: '50px',
     formLabelWidthQJ:'90px',
     different:'',
     dimensionList: window.$dimensionList,
-    businessId:2,
+    businessId:'',
     businessList:{},
     speciesList:{},
     areaId:'',
@@ -251,12 +254,15 @@ export default {
     buildingList:{},
     buildingId:'',
     floorList:{},
+    floorId:'',
+    searchFloorId:'',
     bList:{},
     sList:{},
     data: {},
     //品牌签约集合
     brandList:{},
     businessSpeciesId:'',
+    seachBusinessSpeciesId:'',
     guestForm:{},//客销度新增数据对象
     //对象
     objTypeList:[
@@ -290,7 +296,7 @@ export default {
       reasonablePgeVal:''//合理百分比
     },
     loading: false,
-    searchForm: {},
+
     infoData: {},
     page: 1,
     size: 10,
@@ -302,6 +308,7 @@ export default {
     window.$getformSelect().then((res) => {
       this.businessList = res
     }, (err) => {})
+
     console.log("created:"+this.businessList);
     window.$getAreaList().then((res) => {
       this.areaList = res
@@ -317,7 +324,8 @@ export default {
         mybusinessFormId = this.guestForm.businessFormId;
       }else{
         this.searchForm.businessSpeciesId = ''
-        this.guestForm.speciesList = [];
+      //  this.guestForm.speciesList = [];
+        this.speciesList = [];
         /* this.brandId = ''*/
         mybusinessFormId = this.searchForm.businessFormId;
       }
@@ -331,8 +339,9 @@ export default {
       })
     },
     //业种
-    speciesChanged(){
-      this.brandList = ''
+    speciesChanged(){/*
+      this.brandList = [];
+      this.brandId = '';
       mybusinessSpeciesId = this.searchForm.businessSpeciesId;
       if (this.dialogFormVisible) {
         this.guestForm.brandList = ''
@@ -351,7 +360,7 @@ export default {
 
       }, (err) => {
         this.showAlert(err)
-      })
+      })*/
     },
     //新增客销度
     createGuestSection(){
@@ -420,14 +429,18 @@ export default {
       document.getElementById('fileUpload_input').click()
     },
     areaChanged(){
-      this.projectList = {};
-      this.projectId = ''
+     /* this.projectList = {};
+      this.projectId = ''*/
     /*  if(this.different ===3 ){
         this.conditionId = ''
       }*/
       this.searchForm.projectId = '';
       this.searchForm.buildingId = '';
-      this.floorId = '';
+     /* this.searchForm.floorId = '';*/
+      this.floorId = '',
+    /*  this.searchForm.searchFloorId = '';*/
+    /*  this.floorList = {};
+      this.floorId = '';*/
       myareaId = this.searchForm.areaId;
       if (this.dialogFormVisible) {
         myareaId = this.guestForm.areaId;
@@ -456,10 +469,12 @@ export default {
           this.bList = res
         }, (err) => {this.showAlert(err)})
       }*/
+/*      this.searchForm.floorId = ''*/
+     /* this.searchForm.searchFloorId=''*/
+      this.floorId = '',
       this.searchForm.buildingId = ''
-      this.searchForm.floorId = ''
       this.buildingList= {};
-      this.floorList = {};
+      this.floorList = [];
       myProjectId = this.searchForm.projectId;
       if (this.dialogFormVisible) {
         myProjectId = this.guestForm.projectId;
@@ -485,6 +500,9 @@ export default {
       }, err => {
         this.showAlert(err)
       })
+    },
+    floorChange(){
+      /*this.showAlert(this.floorList)*/
     },
     fileUpload(e){
       // if(!this.businessId){
@@ -531,7 +549,6 @@ export default {
       if(type === 1){
         this.page =1
       }
-
       /*this.searchForm.projectId = this.projectId*/
       /*if(this.different === 3) {
         this.searchForm.conditionId = this.conditionId
@@ -544,7 +561,10 @@ export default {
       })*/
 
       console.log("区间设置条件---")
+      this.searchForm.floorId = this.floorId;
+      this.searchForm.businessSpeciesId = this.businessSpeciesId;
       console.log(this.searchForm);
+      // this.searchForm.floorId = this.searchForm.searchFloorId;
       if(this.objType==0){
         //调接口
         window.$getSectionGuestProjectList(this.page, this.size, this.searchForm)
@@ -574,6 +594,7 @@ export default {
         this.guestForm.sale = 0;
       }else  if(this.objType==2) {
         //业态接口
+        this.searchForm.formId = this.searchForm.businessFormId; //赋值业态
         window.$getSectionGuestFormIdList(this.page, this.size, this.searchForm)
           .then((res) => {
             console.log(res)
@@ -586,6 +607,8 @@ export default {
           })
       }else  if(this.objType==3) {
         //品牌接口
+        this.searchForm.formId = this.searchForm.businessFormId; //赋值业态
+        this.searchForm.speciesId = this.businessSpeciesId; //赋值业种
         window.$getSectionGuestBrandList(this.page, this.size, this.searchForm)
           .then((res) => {
             console.log(res)
@@ -612,7 +635,7 @@ export default {
       this.$router.push('/dataManage/trigonometric/yz-xinzeng/' + id)
     },
     rowClass({ row, rowIndex}) {
-      console.log(rowIndex) //表头行标号为0
+    /*  console.log(rowIndex) //表头行标号为0*/
       return 'height:50px;font-size:15px'
     },
     showAlert: function (cont) {
