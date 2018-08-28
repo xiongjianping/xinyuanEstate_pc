@@ -429,6 +429,161 @@ Vue.prototype.createStandardMajorFittedObj = window.$createStandardMajorFittedOb
       });
   })
 }
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取项目溢租率列表(POST)
+ */
+Vue.prototype.getStandardProjectRentList = window.$getStandardProjectRentList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardproject/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取楼层溢租率列表(POST)
+ */
+Vue.prototype.getStandardFloorRentList = window.$getStandardFloorRentList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardfloor/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取业态溢租率列表(POST)
+ */
+Vue.prototype.getStandardFormRentList = window.$getStandardFormRentList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardform/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取业种溢租率列表(POST)
+ */
+Vue.prototype.getStandardMajorRentList = window.$getStandardMajorRentList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardbrand/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取品牌客销度列表(POST)
+ */
+Vue.prototype.getStandardBrandGuestList = window.$getStandardBrandGuestList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardguest/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取项目适配值列表(POST)
+ */
+Vue.prototype.getStandardProjectFittedList = window.$getStandardProjectFittedList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedproject/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取楼层适配值列表(POST)
+ */
+Vue.prototype.getStandardFloorFittedList = window.$getStandardFloorFittedList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedfloor/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取业态适配值列表(POST)
+ */
+Vue.prototype.getStandardFormFittedList = window.$getStandardFormFittedList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedform/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形列表页
+ *
+ * 通过条件获取业种适配值列表(POST)
+ */
+Vue.prototype.getStandardMajorFittedList = window.$getStandardMajorFittedList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedbrand/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
 
 /*
  * 动态三角形
