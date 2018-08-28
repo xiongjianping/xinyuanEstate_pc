@@ -400,22 +400,22 @@
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
         <el-tab-pane label="溢租率" name="first">
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-            <el-table-column align="center" prop="fittedVerssionName" label="项目名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="楼层"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="品牌名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="业态名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="业种名称"></el-table-column>
-            <el-table-column align="center" prop="status" label="签约状态">
+            <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+            <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
+           <!-- <el-table-column align="center" prop="fittedVerssionName" label="品牌名称"></el-table-column>-->
+            <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
+            <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
+           <!-- <el-table-column align="center" prop="status" label="签约状态">
               <template slot-scope="scope">
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
               </template>
-            </el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="适配值"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="生效时间"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="创建时间"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="创建人"></el-table-column>
+            </el-table-column>-->
+            <el-table-column align="center" prop="rentingRateVal" label="溢租率"></el-table-column>
+            <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
+            <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
+            <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
             <el-table-column align="center" label="操作" width="100">
               <template slot-scope="scope">
                 <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
@@ -473,21 +473,21 @@
         <el-tab-pane label="适配值" name="third">
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
             <!--<el-table-column align="center" type="index" label="序号" width="50"></el-table-column>-->
-            <el-table-column align="center" prop="fittedVerssionName" label="项目名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="楼层"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="业态名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="业种名称"></el-table-column>
-            <el-table-column align="center" prop="status" label="签约状态">
+            <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+            <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
+            <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
+            <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
+          <!--  <el-table-column align="center" prop="status" label="签约状态">
               <template slot-scope="scope">
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
               </template>
-            </el-table-column>
+            </el-table-column>-->
             <el-table-column align="center" prop="fittedVerssionName" label="适配值"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="生效时间"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="创建时间"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="创建人"></el-table-column>
+            <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
+            <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
+            <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
 
             <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
             <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
@@ -597,7 +597,8 @@
         projectId : "",//项目ID
         buildingId : "",//楼栋
         floorId : "",//楼层
-        businessFormId : "", //业态
+        formId : "", //业态
+        speciesId:'',//业种
         brandName : "", //品牌
         effectTime : '',//生效时间
         contractId : '' //签约id
@@ -906,7 +907,9 @@
       //2.项目
       projectChanged(){
         this.searchForm.buildingId = ''
-        this.floorId = ''
+        this.searchForm.floorId=''
+        this.floorList = ''
+     /*   this.floorId = ''*/
         window.$getBuilding(this.searchForm.projectId).then((res) => {
           console.log("projectChanged");
           console.log(res)
@@ -1117,116 +1120,144 @@
         this.searchList()
       },
       searchList (type) {
-        /*//判断需要展示的筛选列表是：溢租率、客销度、适配值
-        if(this.projectId!=null){
-          this.searchForm.projectId = this.projectId;
-        }
-        if(this.floorId!=null){
-          this.searchForm.floorId = this.floorId;
-        }
-        if(this.businessFormId!=null){//业态
-          this.searchForm.businessFormId = this.businessFormId;
-        }
-        if(this.brandId!=null){//品牌
-          this.searchForm.brandId = this.brandId;
-        }
-        if(this.effectTime!=null){//生效时间
-          this.searchForm.effectTime = this.effectTime;
-        }*/
         if(type === 1){
           this.page =1
         }
+        this.data="";//清空数据
+        this.searchRequest.projectId = this.searchForm.projectId; //项目ID
+        this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
+        this.searchRequest.floorId = this.searchForm.floorId; //楼层
+        this.searchRequest.formId = this.searchForm.businessFormId; //业态
+        this.searchRequest.speciesId = this.searchForm.businessSpeciesId; //业种
+        this.searchRequest.brandName = this.searchForm.brandName //品牌
+        this.searchRequest.effectTime = this.effectTime;//生效时间
+        this.searchRequest.contractId =this.searchForm.brandId;
         if (this.activeName2 == "first") {//溢租率
-          console.log("溢租率-----");
-          this.searchRequest.projectId = this.searchForm.projectId; //项目ID
-          this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
-          this.searchRequest.floorId = this.searchForm.floorId; //楼层
-          this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
-          /* this.searchRequest.contractId =  this.searchForm.brandId//品牌*/
-          /*this.searchRequest.brandName = this.searchForm.projectId.brandName //品牌*/
-          this.searchRequest.effectTime = this.effectTime;//生效时间
-          this.searchRequest.contractId =this.searchForm.brandId;
-          console.log("溢租率列表---sadf--"+this.searchRequest)
-          this.data="";//清空数据
-          window.$getRentList(this.page, this.size, this.searchRequest)
-            .then((res) => {
-              console.log(res)
-              this.data = res
-              console.log("溢租率列表")
-              console.log(res)
-              /*this.projectList = this.data.resultList*/
-            }, (err) => {
-              console.log(err)
-            })
-        }
-        if (this.activeName2 == 'second'){//客销度
-          //调接口
-          console.log("客销度-----");
-          console.log(this.searchForm);
-          this.searchRequest.projectId = this.searchForm.projectId; //项目ID
-          this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
-          this.searchRequest.floorId = this.searchForm.floorId; //楼层
-          this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
-          this.searchRequest.brandName = this.searchForm.brandName //品牌
-          this.searchRequest.effectTime = this.effectTime;//生效时间
-          this.searchRequest.contractId =this.searchForm.brandId;
-          console.log("客销度列表条件---sadf--"+this.searchRequest)
-          this.data="";//清空数据
           if(this.objType==0){
-            //调接口
-            window.$getGuestProjectList(this.page, this.size, this.searchRequest)
+            window.$getStandardProjectRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
                 console.log(res)
                 this.data = res
-                console.log("项目客销度列表")
+                console.log("标准三角形项目溢租率列表")
                 console.log(res)
                 /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
-            this.closeDialogKXD();
           }else if(this.objType==1){
-
-            //调接口
-            window.$getGuestFloorList(this.page, this.size, this.searchRequest)
+            window.$getStandardFloorRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
                 console.log(res)
                 this.data = res
-                console.log("楼层客销度列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
-              }, (err) => {
-                console.log(err)
-              })
-            this.closeDialogKXD();
-            this.guestForm.sale = 0;
-          }else  if(this.objType==3) {
-            //品牌接口
-            window.$getGuestBrandList(this.page, this.size, this.searchRequest)
-              .then((res) => {
-                console.log(res)
-                this.data = res
-                console.log("品牌客销度列表")
+                console.log("标准三角形楼层溢租率列表")
                 console.log(res)
                 /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
           }
+          else if(this.objType==2){
+            window.$getStandardFormRentList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                console.log(res)
+                this.data = res
+                console.log("标准三角形业态溢租率列表")
+                console.log(res)
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+          }
+          else if(this.objType==3){
+            window.$getStandardMajorRentList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                console.log(res)
+                this.data = res
+                console.log("标准三角形业种溢租率列表")
+                console.log(res)
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+          }
+          else if(this.objType==4){
+           this.showAlert("无品牌溢租率");
+          }
+        }
+        if (this.activeName2 == 'second'){//客销度
+          //调接口
+          this.data="";//清空数据
+          if(this.objType==4){
+            //调客销度品牌接口
+            window.$getStandardBrandGuestList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                this.data = res
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+            this.closeDialogKXD();
+          }else if(this.objType==0){
+            this.showAlert('标准三角形客销度对象请选择品牌级！')
+          }else  if(this.objType==1) {
+            this.showAlert('标准三角形客销度对象请选择品牌级！')
+          } else  if(this.objType==2) {
+            this.showAlert('标准三角形客销度对象请选择品牌级！')
+          }else  if(this.objType==3) {
+            this.showAlert('标准三角形客销度对象请选择品牌级！')
+          }
+
         }
         if (this.activeName2 == 'third') {//适配值
-          //调接口
-          console.log("适配值列表----"+this.searchRequest)
-          window.$getFittedList(this.page, this.size, this.searchRequest)
-            .then((res) => {
-              console.log(res)
-              this.data = res
-              console.log("适配值列表")
-              console.log(res)
-              /*this.projectList = this.data.resultList*/
-            }, (err) => {
-              console.log(err)
-            })
+          if(this.objType==0){
+            window.$getStandardProjectFittedList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                console.log(res)
+                this.data = res
+                console.log("标准三角形项目适配值列表")
+                console.log(res)
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+          }else if(this.objType==1){
+            window.$getStandardFloorFittedList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                console.log(res)
+                this.data = res
+                console.log("标准三角形楼层适配值列表")
+                console.log(res)
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+          }
+          else if(this.objType==2){
+            window.$getStandardFormFittedList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                console.log(res)
+                this.data = res
+                console.log("标准三角形业态适配值列表")
+                console.log(res)
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+          }
+          else if(this.objType==3){
+            window.$getStandardMajorFittedList(this.page, this.size, this.searchRequest)
+              .then((res) => {
+                this.data = res
+                console.log("标准三角形业种适配值列表")
+                console.log(res)
+                /*this.projectList = this.data.resultList*/
+              }, (err) => {
+                console.log(err)
+              })
+          }
+          else if(this.objType==4){
+            this.showAlert("无品牌适配值");
+          }
         }
 
 

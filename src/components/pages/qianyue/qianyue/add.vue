@@ -260,7 +260,7 @@
         {
           this.$router.back(-1)
         }
-        owClass({row, rowIndex})
+        rowClass({row, rowIndex})
         {
           console.log(rowIndex) //表头行标号为0
           return 'height:20px;font-size:15px;'
