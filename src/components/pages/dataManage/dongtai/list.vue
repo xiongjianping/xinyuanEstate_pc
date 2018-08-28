@@ -84,7 +84,7 @@
         <!--</el-col>-->
 
         <el-col :span="5">
-          <el-form-item label="时间：">
+          <el-form-item label="时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
@@ -140,7 +140,7 @@
         </el-col>
         <el-col  :span="8">
           <el-form-item label="项目" :label-width="formLabelWidth">
-            <el-select  size="small" v-model="rentForm.projectId" placeholder="项目A" @change="rentProjectChanged()">
+            <el-select  size="small" v-model="rentForm.projectId" placeholder="请选择项目" @change="rentProjectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
