@@ -71,6 +71,168 @@ Vue.prototype.getProjectList = window.$getProjectList = function(page, size, par
     })
 }
 
+/*
+ * 区间设置列表页
+ *
+ * 通过条件获取客销度项目列表(POST)
+ */
+Vue.prototype.getSectionGuestProjectList = window.$getSectionGuestProjectList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/project/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 区间设置列表页
+ *
+ * 通过条件获取客销度楼层列表(POST)
+ */
+Vue.prototype.getSectionGuestFloorList = window.$getSectionGuestFloorList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/floor/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 区间设置列表页
+ *
+ * 通过条件获取客销度业态列表(POST)
+ */
+Vue.prototype.getSectionGuestFormIdList = window.$getSectionGuestFormIdList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/form/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 区间设置列表页
+ *
+ * 通过条件获取客销度业种列表(POST)
+ */
+Vue.prototype.getSectionGuestBrandList = window.$getSectionGuestBrandList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/brand/find/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+
+
+/*
+ * 动态三角形列表页
+ *
+ * 通过条件获取溢租率列表(POST)
+ */
+Vue.prototype.getRentList = window.$getRentList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/rentingrate/find/rentingrate/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形列表页
+ *
+ * 通过条件获取客销度项目列表(POST)
+ */
+Vue.prototype.getGuestProjectList = window.$getGuestProjectList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/projectrate/find/projectrate/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形列表页
+ *
+ * 通过条件获取客销度楼层列表(POST)
+ */
+Vue.prototype.getGuestFloorList = window.$getGuestFloorList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/floorrate/find/floorrate/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形列表页
+ *
+ * 通过条件获取溢客销度品牌列表(POST)
+ */
+Vue.prototype.getGuestBrandList = window.$getGuestBrandList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/brandrate/find/brandrate/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形列表页
+ *
+ * 通过条件获取适配值列表(POST)
+ */
+Vue.prototype.getFittedList = window.$getFittedList = function(page, size, params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/quarterrate/find/quarterrate/list?p=' + page + '&c=' + size, params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+
 Vue.prototype.getProjectListForArea = window.$getProjectListForArea = function(areaId) {
     return new Promise(function(resolve, reject) {
         axios.get('/region/find/project/by/area/' + areaId)
@@ -121,7 +283,305 @@ Vue.prototype.createCompany = window.$createCompany = function(params) {
             });
     })
 }
+/*
+ * 标准三角形
+ * 项目溢租率新增(POST)
+ */
+Vue.prototype.createStandardProjectRentObj = window.$createStandardProjectRentObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardproject/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形
+ * 楼层溢租率新增(POST)
+ */
+Vue.prototype.createStandardFloorRentObj = window.$createStandardFloorRentObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardfloor/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形
+ * 业态溢租率新增(POST)
+ */
+Vue.prototype.createStandardFormRentObj = window.$createStandardFormRentObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardform/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形
+ * 业种溢租率新增(POST)
+ */
+Vue.prototype.createStandardMajorRentObj = window.$createStandardMajorRentObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardbrand/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
 
+/*
+ * 标准三角形
+ * 品牌客销度新增(POST)
+ */
+Vue.prototype.createStandardGuestBrandObj = window.$createStandardGuestBrandObj= function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/standardguest/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形
+ * 项目适配值新增(POST)
+ */
+Vue.prototype.$createStandardProjectFittedObj = window.$createStandardProjectFittedObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedproject/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形
+ * 楼层适配值新增(POST)
+ */
+Vue.prototype.createStandardFloorFittedObj = window.$createStandardFloorFittedObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedfloor/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形
+ * 业态适配值新增(POST)
+ */
+Vue.prototype.createStandardFormFittedObj = window.$createStandardFormFittedObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedform/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 标准三角形
+ * 业种适配值新增(POST)
+ */
+Vue.prototype.createStandardMajorFittedObj = window.$createStandardMajorFittedObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/fittedbrand/save', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形
+ * 溢租率新增(POST)
+ */
+Vue.prototype.$createRentObj = window.$createRentObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/rentingrate/save/rentingrate', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 区间设置
+ * 项目客销度新增(POST)
+ */
+Vue.prototype.createSectionProjectGuestObj = window.$createSectionProjectGuestObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/project/save/', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 区间设置
+ * 楼层客销度新增(POST)
+ */
+Vue.prototype.createSectionFloorGuestObj = window.$createSectionFloorGuestObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/floor/save/', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 区间设置
+ * 业态客销度新增(POST)
+ */
+Vue.prototype.createSectionFormIdGuestObj = window.$createSectionFormIdGuestObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/form/save/', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 区间设置
+ * 业种客销度新增(POST)
+ */
+Vue.prototype.createSectionSpeciesGuestObj = window.$createSectionSpeciesGuestObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/section/brand/save/', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+
+
+/*
+ * 动态三角形
+ * 项目客销度新增(POST)
+ */
+Vue.prototype.createGuestProjectObj = window.$createGuestProjectObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/projectrate/save/projectrate', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 动态三角形
+ * 楼层客销度新增(POST)
+ */
+Vue.prototype.createGuestFloorObj = window.$createGuestFloorObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/floorrate/save/floorrate', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 动态三角形
+ * 品牌客销度新增(POST)
+ */
+Vue.prototype.createGuestBrandObj = window.$createGuestBrandObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/brandrate/save/brandrate', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形
+ * 适配值新增(POST)
+ */
+Vue.prototype.$createFittedObj = window.$createFittedObj = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/quarterrate/save/quarterrate', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
 /*
  * 项目管理类列表页
  *
@@ -271,9 +731,9 @@ Vue.prototype.createFloor = window.$createFloor = function(params) {
  *
  * 通过项目获取楼栋(GET)
  */
-Vue.prototype.getBuilding = window.$getBuilding = function(areaId) {
+Vue.prototype.getBuilding = window.$getBuilding = function(projectId) {
     return new Promise(function(resolve, reject) {
-        axios.get('/region/find/building/project/' + areaId)
+        axios.get('/region/find/building/project/' + projectId)
             .then((res) => {
                 resolve(res)
             })
@@ -637,6 +1097,26 @@ Vue.prototype.getBrandForSpecies = window.$getBrandForSpecies = async function(i
             });
     })
 }
+/*
+ * 动态三角形查询签约id与品牌名称(xjp_20180826)
+ * 通过业种获取品牌与签约列表(GET)
+ */
+
+Vue.prototype.getcontractIdForSpecies = window.$getcontractIdForSpecies = async function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/brand/find/contract/' + id)
+      .then((res) => {
+        console.log("getcontractIdForSpecies")
+        console.log(res)
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
 
 /*
  * 签约管理
@@ -730,6 +1210,6 @@ Vue.prototype.getBusinessListForProject = window.$getBusinessListForProject = fu
             .catch((error) => {
                 console.log(error)
                 reject(error)
-            })  
+            })
     })
 }
