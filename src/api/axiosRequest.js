@@ -1621,7 +1621,7 @@ Vue.prototype.getBrandAllList = window.$getBrandAllList = async function(p, c, p
 
 Vue.prototype.breakContract = window.$breakContract = async function(id) {
     return new Promise(function(resolve, reject) {
-        axios.get('/contract/dispel/contract/' + id)
+        axios.get('/contract/dispel/contract/' + id )
             .then((res) => {
                 resolve(res)
             })
@@ -1631,6 +1631,26 @@ Vue.prototype.breakContract = window.$breakContract = async function(id) {
             });
     })
 }
+
+/*
+ * 签约管理
+ *
+ * 解约(GET)-yyh
+ */
+
+Vue.prototype.breakContract_yyh = window.$breakContract_yyh = async function(id,effectTime) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/contract/dispel/contract/' + id +'/'+effectTime)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
 
 /*
  * 导入

@@ -123,8 +123,8 @@
           <div class="title_bg  tit_left1"></div>
           <span class="title_txt">全国各项目总量</span>
           <div class="lzi">
-            <p class="mb30">销售：<i>{{countrySalesVolume}}</i><em>元</em></p>
-            <p>客流：<i>{{countryPassengerFlow}}</i><em>人次</em></p>
+            <p class="mb30">销售：<i>{{countrySalesVolume}}</i><em>万元</em></p>
+            <p>客流：<i>{{countryPassengerFlow}}</i><em>万人次</em></p>
           </div>
         </div>
         <div class="left_2 mb10">
@@ -177,15 +177,15 @@
 
 
           <div>
-            <div class="left-padding">
+            <div class="left-padding-date">
               <el-date-picker class="setTimeStyle el-range-input el-range-editor--mini el-range-separator " size="mini"
                               v-model="value_index" type="daterange" range-separator="至"
                               start-placeholder="开始日期" end-placeholder="结束日期"
                               format="yyyy-MM-dd" value-format="yyyy-MM-dd">
               </el-date-picker>
-
               <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList2Triangle();">搜索
               </el-button>
+
             </div>
 
             <div class="left-padding">
@@ -534,14 +534,16 @@
       // 查询全国客流量
       this.$axios.get('/dayguest/find/passengerflowall/list')
         .then(res => {
-          this.countryPassengerFlow = res
+          this.countryPassengerFlow = Number(parseInt(res)/10000).toFixed(2)
         }, (err) => {
           console.log(err)
         })
       // 查询全国销售额
       this.$axios.get('/dayguest/find/saleroomall/list')
         .then(res => {
-          this.countrySalesVolume = res
+          // this.countrySalesVolume = (parseInt(res)/10000)+""
+          this.countrySalesVolume = Number(parseInt(res)/10000).toFixed(2)
+          Number(value).toFixed(2)
         }, (err) => {
           console.log(err)
         })
@@ -1110,7 +1112,7 @@
                   show: true,
                   textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     align: 'left'
                   }
                 },
@@ -1245,7 +1247,8 @@
         this.clicked8 = false
         this.clicked6_category = false
 
-
+        this.projectId = ''
+        this.projectList = {}
         this.getArea2projectInfo(index)
         // if(this.typeId === 1){//项目维度
         //    this.getArea2projectInfo(index)
@@ -1258,16 +1261,27 @@
 
 
       getArea2projectInfo(index) {
+
+console.log("显示区域列表值："+this.areaList)
+//         window.$getAreaList().then((res) => {
+// console.log("区域列表数据***" + res)
+//           this.areaList = res
+//
+//         }, (err) => {
+//           console.log(err)
+//         })
+
+
         console.log("***区域tabClick1_yyh的name为" + this.areaList[index].name)
         this.areaId = this.areaList[index].id
-        console.log("当前选中区域的id为***" + this.areaId)//输出也不能把this去掉
-
 
         window.$getProjectListForArea(this.areaId).then(res => {
           console.log("tabClick1_yyh得到的项目列表数据***" + res)
           console.log("tabClick1_yyh得到的项目列表数据长度***" + res.length)
 
           if (res.length > 0) {
+
+
             this.projectList = res
             this.projectId = res[0].id
 
@@ -2017,6 +2031,8 @@
     #main1 {
       width: 100%;
       min-height: 230px;
+      /*width: 30%;*/
+      /*min-height: 100px;*/
     }
   }
 
@@ -2156,10 +2172,14 @@
   }
 
   .left-padding {
-    padding: 1px 20px 5px 200px;
+    padding: 1px 20px 2px 200px;
     margin: 0 !important;
   }
 
+  .left-padding-date {
+    padding: 1px 20px 2px 175px;
+    margin: 0 !important;
+  }
 
   .select_result {
     overflow: hidden !important;
