@@ -101,6 +101,18 @@
         </el-pagination>
       </div>
     </div>
+
+
+    <el-dialog title="选择生效时间" :visible.sync="dialogFormVisible">
+      <el-form>
+        <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd"  type="date" placeholder="选择日期"></el-date-picker>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="breakContractGo_yyh()">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -120,9 +132,18 @@ export default {
     buildingList: [],
     floorList: [],
     floorId:'',
-    brandId:''
+    brandId:'',
+
+    effectTime:'',
+    dialogFormVisible: false,
+    sendData: {},
+    currentTime: '',
+    selectTime: '',
+
   }),
   created () {
+
+
     window.$getformSelect().then((res) => {
         this.businessList = res
       }, (err) => {})
@@ -130,9 +151,91 @@ export default {
       window.$getAreaList().then((res) => {
         this.areaList = res
       }, (err) => {})
-    this.searchList(1)
+      this.searchList(1)
   },
   methods: {
+
+    /**
+     * 获取当前时间
+     * 格式YYYY-MM-DD
+     */
+    getCurrentDateTime(){
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+
+      var currentdateToday = year + seperator1 + month + seperator1 + strDate;
+      console.log("xxx当前时间***："+currentdateToday)
+      this.currentTime = currentdateToday+""
+
+    },
+
+
+    /**
+     * 比较两个时间的大小
+     * 时间格式：yyyy-MM-dd hh:mm:ss
+     * @param {Object} currentTimeString	当前时间（开始时间）
+     * @param {Object} selectTimeString		选择时间（结束时间）
+     */
+   dateFormatCompare(currentTimeString,selectTimeString){
+
+        var b = currentTimeString.replace(/-/g,'/');
+        var e = selectTimeString.replace(/-/g,'/');
+        var bs = Date.parse(b);
+        var es = Date.parse(e);
+        var disparityTime =(es-bs)/3600/1000;
+
+        return disparityTime;
+
+    },
+
+
+    breakContractGo_yyh(){
+        this.getCurrentDateTime();
+        this.sendData.effectTime = this.effectTime;
+
+        //开始时间日期拼接
+        var start_date_time = this.currentTime+" "+"00"+":"+"01"+":00";
+        //结束时间日期拼接
+        var end_date_time = this.effectTime +" "+"00"+":"+"01"+":00";
+
+        // disparityTime>0 结束时间大， disparityTime<0结束时间小， disparityTime=0 日期相等
+        console.log("*********"+this.dateFormatCompare(this.currentTime,this.effectTime))
+        var disparityTime = this.dateFormatCompare(this.currentTime,this.effectTime);
+
+        if(disparityTime<0){
+          // alert("开始时间大");
+          // 选择时间不能小于当前时间，即当前时间大
+          alert("解约时间不能小于当天时间！");
+          return
+        }
+        // else if (disparityTime>0){
+        //   alert("结束时间大");
+        // }else if (disparityTime==0){
+        //   alert("相等");
+        // }
+
+
+
+      window.$breakContract_yyh(this.sendData.id,this.sendData.effectTime).then((res) => {
+          alert(res)
+          this.dialogFormVisible = false;
+          this.searchList()
+        }, (err) => {
+          this.showAlert(err)
+          this.dialogFormVisible = false;
+        })
+    },
+
     handleSizeChange (val) {
       this.size = val
       this.searchList()
@@ -199,13 +302,14 @@ export default {
         this.showAlert(err)
       })
     },
+
     breakContract(id){
-      window.$breakContract(id).then((res) => {
-        this.searchList()
-      }, (err) => {
-        this.showAlert(err)
-      })
+
+      this.dialogFormVisible = true;
+      this.sendData.id = id;
+
     },
+
     //签约
     qianyue(id) {
       this.$router.push('/qianyue/qianyue/add/' + id)

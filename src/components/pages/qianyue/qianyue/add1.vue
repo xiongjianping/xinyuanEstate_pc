@@ -75,17 +75,15 @@
           </el-col>
         </el-row>
 
-        <div class="biao mt20">
-          <!--<el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">-->
-          <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun">
+      <div class="biao mt20">
+        <el-table  :data="resultList"   border style="width: 100%;margin: 0 auto;" @selection-change="changeFun" :header-cell-style="rowClass">
             <el-table-column align="center" type="selection" width="55" class="selection" prop='id' @selection-change="changeFun"></el-table-column>
-            <el-table-column align="center" type="index" label="序号"></el-table-column>
-            <el-table-column align="center" prop="floorName" label="楼层名称" ></el-table-column>
-            <el-table-column align="center" prop="roomName" label="铺位名称" ></el-table-column>
-          </el-table>
-        </div>
+          <el-table-column align="center" type="index" label="序号"></el-table-column>
+          <el-table-column align="center" prop="floorName" label="楼层名称" ></el-table-column>
+          <el-table-column align="center" prop="roomName" label="铺位名称" ></el-table-column>
+        </el-table>
+      </div>
 
-        <!--yyh-->
         <el-row class="f-tac">
           <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
           <el-button type="primary" @click="create">确定</el-button>
@@ -196,128 +194,85 @@
       changeFun(val) {
         this.checkedList = val
       },
-
-      create(){
+      create() {
+        // this.newCompany = {}
         this.dialogFormVisible = true
+//<<<<<<< caicai
+        // window.$getCompanyAll().then((res) => {
+        //   this.companyList = res
+        // }, (err) => {
+        //   this.showAlert(err)
+        // })
+//=======
+        window.$getCompanyAll().then((res) => {
+          this.companyList = res
+        }, (err) => {
+          this.showAlert(err)
+        })
+//>>>>>>> master
         this.sendData.projectId = this.searchForm.projectId
         this.sendData.brandId = this.brandId
         this.sendData.roomId = []
         this.sendData.floorId = this.floorId
-
-        this.sendData.effectTime = this.effectTime
+//<<<<<<< caicai
+         this.sendData.effectTime = this.effectTime
         for (var i = 0; i < this.checkedList.length; i++) {
           this.sendData.roomId.push(this.checkedList[i].roomId)
+//=======
+          //this.sendData.effectTime = this.value1
+          // for(var i = 0; i < this.checkedList.length; i++) {
+          //   this.sendData.roomId.push(this.checkedList[i].roomId)
+          // }
         }
-      },
-
-
-      // create() {
-      // this.newCompany = {}
-      // this.dialogFormVisible = true//yyh
-//<<<<<<< caicai
-      // window.$getCompanyAll().then((res) => {
-      //   this.companyList = res
-      // }, (err) => {
-      //   this.showAlert(err)
-      // })
-//=======//***yyh
-//         window.$getCompanyAll().then((res) => {
-//           this.companyList = res
-//         }, (err) => {
-//           this.showAlert(err)
-//         })
-
-
-//>>>>>>> master  //yyh
-//         this.sendData.projectId = this.searchForm.projectId
-//         this.sendData.brandId = this.brandId
-//         this.sendData.roomId = []
-//         this.sendData.floorId = this.floorId
-// //<<<<<<< caicai
-//          this.sendData.effectTime = this.effectTime
-//         for (var i = 0; i < this.checkedList.length; i++) {
-//           this.sendData.roomId.push(this.checkedList[i].roomId)
-// //=======
-//           //this.sendData.effectTime = this.value1
-//           // for(var i = 0; i < this.checkedList.length; i++) {
-//           //   this.sendData.roomId.push(this.checkedList[i].roomId)
-//           // }
-//         }
-
-
-//***yyh
-//         checkCompanyInfo()
-//         {
-//           if (!this.newCompany.name || this.newCompany.name == '') {
-//             this.$message('请输入公司名称');
-//             return false
-//           } else {
-//             return true
-// //>>>>>>> master
-//           }
-//         }
-
-
-
-      createContract() {
-        console.log("签约确定按钮被点击!!!");
-
-
-        this.sendData.effectTime = this.effectTime
-        // if(this.checkCompanyInfo()){
-        //   window.$createCompany(this.newCompany).then((res) => {
-        //     this.showAlert('新增成功');
-        //     // this.dialogFormVisible = false
-        //   }, (err) => {
-        //     this.showAlert(err);
-        //   })
-        // };
-
-        console.log("铺位id为："+this.sendData.roomId)
-        if(this.sendData.roomId.length == 0){
-            alert("铺位id不能为空!")
-            return
-        }
-
-        console.log("签约管理:"+this.sendData);
-        window.$createContract(this.sendData).then((res) => {
-          console.log(this.sendData);
-          console.log("res***"+res);
-
-          if(res==="OK"){
-            this.dialogFormVisible = false
-            alert("签约成功!")
+        checkCompanyInfo()
+        {
+          if (!this.newCompany.name || this.newCompany.name == '') {
+            this.$message('请输入公司名称');
+            return false
+          } else {
+            return true
+//>>>>>>> master
           }
+        }
 
-          // setTimeout(function () {
-          //   this.dialogFormVisible = false
-          //   alert("超时，服务器忙稍后再试!")
-          // }, 500)
+        createContract()
+        {
+          this.sendData.effectTime = this.effectTime
+          // if(this.checkCompanyInfo()){
+          //   window.$createCompany(this.newCompany).then((res) => {
+          //     this.showAlert('新增成功');
+          //     // this.dialogFormVisible = false
+          //   }, (err) => {
+          //     this.showAlert(err);
+          //   })
+          // };
 
-        }, (err) => {
-          this.showAlert(err)
-        })
-      },
+          window.$createContract(this.sendData).then((res) => {
+            console.log(this.sendData);
+            setTimeout(function () {
+              this.dialogFormVisible = false
+            }, 500)
+          }, (err) => {
+            this.showAlert(err)
+          })
+        }
+        goBack()
+        {
+          this.$router.back(-1)
+        }
+        rowClass({row, rowIndex})
+        {
+          console.log(rowIndex) //表头行标号为0
+          return 'height:20px;font-size:15px;'
+        }
 
-
-
-      goBack()
-      {
-        this.$router.back(-1)
-      },
-      owClass({row, rowIndex})
-      {
-        console.log(rowIndex) //表头行标号为0
-        return 'height:20px;font-size:15px;'
-      },
-
-      showAlert(cont)
-      {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      },
-      // }
+        showAlert(cont)
+        {
+          this.$alert(cont, '温馨提示', {
+            confirmButtonText: '确定'
+          })
+        }
+      }
     }
   }
 </script>
@@ -379,33 +334,24 @@
     border: 0px solid #fff;
 
     /*.main{*/
-    /*width: 280px;*/
-    /*height: 280px;*/
-    /*border: 1px solid #000;*/
-    /*margin: 0 auto;*/
-    /*margin-top: 10px;*/
-    /*tr{*/
-    /*height: 20px;*/
-    /*border: 1px solid #CCC;*/
-    /*background: red;*/
-    /*}*/
-    /*!*th,tr,td{*!*/
-    /*!*height: 20px;*!*/
-    /*!*border: 1px solid #ccc;*!*/
-    /*!*border-collapse: collapse;*!*/
-    /*!*text-align: center;*!*/
-    /*!*}*!*/
+      /*width: 280px;*/
+      /*height: 280px;*/
+      /*border: 1px solid #000;*/
+      /*margin: 0 auto;*/
+      /*margin-top: 10px;*/
+      /*tr{*/
+        /*height: 20px;*/
+        /*border: 1px solid #CCC;*/
+        /*background: red;*/
+      /*}*/
+      /*!*th,tr,td{*!*/
+        /*!*height: 20px;*!*/
+        /*!*border: 1px solid #ccc;*!*/
+        /*!*border-collapse: collapse;*!*/
+        /*!*text-align: center;*!*/
+      /*!*}*!*/
     /*}*/
   }
 
 
 </style>
-
-
-
-
-
-
-
-
-
