@@ -212,8 +212,8 @@
         <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
         <el-table-column align="center"  label="操作" width="100">
           <template slot-scope="scope">
-            <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-            <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+          <!--  <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+            <el-button type="text" v-on:click="deleteTrigonometricGuest(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -317,6 +317,73 @@ export default {
 
   },
   methods: {
+    deleteTrigonometricGuest(id){
+      if(this.objType==0){
+        this.loading = true
+        window.$deleteTrigonometricProjectGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除区间设置客销度---'+id)
+      }else if(this.objType==1){
+        this.loading = true
+        window.$deleteTrigonometricFloorGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除区间设置楼层客销度---'+id)
+      }
+      else if(this.objType==2){
+        this.loading = true
+        window.$deleteTrigonometricFormGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除区间设置业态客销度---'+id)
+      }else if(this.objType==3){
+        this.loading = true
+        window.$deleteTrigonometricMajorGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除区间设置业种客销度---'+id)
+      } else if(this.objType==4){
+        this.showAlert("无品牌溢租率、无需删除");
+      }
+    },
+
     // 业态
     businessChanged(){
       if (this.dialogFormVisible) {
