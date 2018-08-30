@@ -169,6 +169,7 @@ export default {
       })
     },
     createCompany(){
+
       if(this.checkCompanyInfo()){
         window.$createCompany(this.newCompany).then((res) => {
           this.showAlert('新增成功');
@@ -223,6 +224,7 @@ export default {
     checkCompanyInfo(){
       console.log(this.newCompany.name)
       if(!this.newCompany.name || this.newCompany.name == ''){
+        this.showAlert("请输入公司名称");
         this.$message('请输入公司名称');
         return false
       } else {

@@ -240,7 +240,7 @@
 
           <el-col :span="8">
             <el-form-item label="生效时间" :label-width="formLabelWidthYZ">
-              <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="date" placeholder="选择日期" :label-width="formLabelWidth"></el-date-picker>
             </el-form-item>
           </el-col>
 
@@ -532,8 +532,8 @@
 
              <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
-                <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+               <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+                <el-button type="text" v-on:click="deleteRent(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -576,8 +576,8 @@
 
            <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
-                <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+               <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+                <el-button type="text" v-on:click="deleteGuest(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -626,8 +626,8 @@
 
             <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
-                <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+               <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+                <el-button type="text" v-on:click="deleteFitted(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -1377,6 +1377,90 @@ export default {
 
       }*/
     },
+    deleteRent(id){
+        this.loading = true
+        window.$deleteRent(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        /*this.showAlert('已删除动态三角形溢租率---'+id)*/
+    },
+    deleteGuest(){
+      if(this.objType==0){
+        this.loading = true
+        window.$deleteProjectGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除动态三角形项目客销度---'+id)
+      }else if(this.objType==1){
+        this.loading = true
+        window.$deleteFloorGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除动态三角形楼层客销度---'+id)
+      }else if(this.objType==2){
+        this.showAlert("无业态客销度、无需删除");
+      }else if(this.objType==3){
+        this.loading = true
+        window.$deleteBrandGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除标准三角形业态溢租率---'+id)
+      }
+    },
+    deleteFitted(){
+      this.loading = true
+      window.$deleteFitted(id).then((res) => {
+        for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+          if (this.data.resultList[i].id === id) {
+            this.data.resultList.splice(i, 1)
+            this.loading = false
+            return false
+          }
+        }
+      }, (err) => {
+        this.loading = false
+        this.showAlert(err)
+      })
+      this.showAlert('删除动态三角形业态适配值---'+id)
+    }
+    },
+
     // 查看详情
     showDetails (id) {
       this.showAlert(id);
@@ -1400,7 +1484,6 @@ export default {
           confirmButtonText: '确定'
         })
       }
-  }
 }
 
 </script>

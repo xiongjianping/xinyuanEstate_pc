@@ -390,7 +390,6 @@
       </div>
     </el-dialog>
 
-
     <p class="t"></p>
     <div class="biaoti1">标准三角形列表</div>
     <el-button class="NewlyAdded" type="primary" align="center" v-on:click="showCreate()">新增</el-button>
@@ -418,8 +417,8 @@
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
             <el-table-column align="center" label="操作" width="100">
               <template slot-scope="scope">
-                <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+               <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+                <el-button type="text" v-on:click="deleteStandardRent(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -427,25 +426,26 @@
         <el-tab-pane label="客销度" name="second">
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
             <!--<el-table-column align="center" type="index" label="序号" width="50"></el-table-column>-->
-            <el-table-column align="center" prop="fittedVerssionName" label="项目名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="楼层"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="品牌名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="业态名称"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="业种名称"></el-table-column>
-            <el-table-column align="center" prop="status" label="签约状态">
+            <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+            <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
+            <!--<el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
+            <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
+            <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
+            <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
+       <!--     <el-table-column align="center" prop="status" label="签约状态">
               <template slot-scope="scope">
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
               </template>
-            </el-table-column>
+            </el-table-column>-->
 
-            <el-table-column align="center" prop="fittedVerssionName" label="毛利率"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="客单价"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="生效时间"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="创建时间"></el-table-column>
-            <el-table-column align="center" prop="fittedVerssionName" label="创建人"></el-table-column>
+            <el-table-column align="center" prop="interestVal" label="毛利率"></el-table-column>
+            <el-table-column align="center" prop="priceVal" label="客单价"></el-table-column>
+            <el-table-column align="center" prop="standardVal" label="客销度"></el-table-column>
+            <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
+            <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
+            <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
 
             <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
             <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
@@ -464,8 +464,8 @@
 
             <el-table-column align="center" label="操作" width="100">
               <template slot-scope="scope">
-                <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+                <!--<el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+                <el-button type="text" v-on:click="deleteStandardGuest(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -506,8 +506,8 @@
 
             <el-table-column align="center" label="操作" width="100">
               <template slot-scope="scope">
-                <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>
-                <el-button type="text" v-on:click="showDetails(scope.row)">删除</el-button>
+                <!--<el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
+                <el-button type="text" v-on:click="deleteStandardFitted(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -1272,6 +1272,154 @@
          } else if(this.businessType === 3){
 
          }*/
+      },
+      deleteStandardRent(id){
+        if(this.objType==0){
+          this.loading = true
+          window.$deleteStandardProjectRent(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形项目溢租率---'+id)
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteStandardFloorRent(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形楼层溢租率---'+id)
+        }
+        else if(this.objType==2){
+          this.loading = true
+          window.$deleteStandardFormRent(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形业态溢租率---'+id)
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteStandardMajorFittedRent(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形业种溢租率---'+id)
+        } else if(this.objType==4){
+          this.showAlert("无品牌溢租率、无需删除");
+        }
+      },
+      deleteStandardGuest(id){
+        this.loading = true
+        window.$deleteStandardBrandGuest(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
+          }
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
+        this.showAlert('删除标准三角形品牌客销度---'+id)
+      },
+      deleteStandardFitted(id){
+        if(this.objType==0){
+          this.loading = true
+          window.$deleteStandardProjectFitted(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形项目适配值---'+id)
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteStandardFloorFitted(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形楼层适配值---'+id)
+        }
+        else if(this.objType==2){
+          this.loading = true
+          window.$deleteStandardFormFitted(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形业态适配值---'+id)
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteStandardMajorFitted(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
+            }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除标准三角形业种适配值---'+id)
+        } else if(this.objType==4){
+          this.showAlert("无品牌适配值、无需删除");
+        }
       },
       // 查看详情
       showDetails (id) {

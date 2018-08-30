@@ -586,6 +586,327 @@ Vue.prototype.getStandardMajorFittedList = window.$getStandardMajorFittedList = 
 }
 
 /*
+ * 标准三角形溢租率管理类列表页
+ *
+ * 删除项目溢租率(GET)
+ */
+Vue.prototype.deleteStandardProjectRent = window.$deleteStandardProjectRent = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/standardproject/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形溢租率管理类列表页
+ *
+ * 删除楼层溢租率(GET)
+ */
+Vue.prototype.$deleteStandardFloorRent = window.$deleteStandardFloorRent = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/standardfloor/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形溢租率管理类列表页
+ *
+ * 删除业态溢租率(GET)
+ */
+Vue.prototype.deleteStandardFormRent = window.$deleteStandardFormRent = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/standardform/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+
+
+/*
+ * 区间设置客销度管理类列表页
+ *
+ * 删除项目客销度(GET)
+ */
+Vue.prototype.deleteTrigonometricProjectGuest = window.$deleteTrigonometricProjectGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/section/project/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 区间设置客销度管理类列表页
+ *
+ * 删除楼层客销度(GET)
+ */
+Vue.prototype.deleteTrigonometricFloorGuest = window.$deleteTrigonometricFloorGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/section/floor/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 区间设置客销度管理类列表页
+ *
+ * 删除业态客销度(GET)
+ */
+Vue.prototype.deleteTrigonometricFormGuest = window.$deleteTrigonometricFormGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/section/form/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 区间设置客销度管理类列表页
+ *
+ * 删除业种客销度(GET)
+ */
+Vue.prototype.deleteTrigonometricMajorGuest = window.$deleteTrigonometricMajorGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/section/brand/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形溢租率管理类列表页
+ *
+ * 删除品牌溢租率(GET)
+ */
+Vue.prototype.deleteRent = window.$deleteRent = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/rentingrate/delete/rentingrate/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 动态三角形客销度管理类列表页
+ *
+ * 删除项目客销度(GET)
+ */
+Vue.prototype.deleteProjectGuest = window.$deleteProjectGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/projectrate/delete/projectrate/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 动态三角形客销度管理类列表页
+ *
+ * 删除楼层客销度(GET)
+ */
+Vue.prototype.deleteFloorGuest = window.$deleteFloorGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/floorrate/delete/floorrate/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 动态三角形客销度管理类列表页
+ *
+ * 删除品牌客销度(GET)
+ */
+Vue.prototype.deleteBrandGuest = window.$deleteBrandGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/brandrate/delete/brandrate/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 动态三角形适配值管理类列表页
+ *
+ * 删除适配值(GET)
+ */
+Vue.prototype.deleteFitted = window.$deleteFitted = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/quarterrate/delete/quarterrate/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形溢租率管理类列表页
+ *
+ * 删除业种溢租率(GET)
+ */
+Vue.prototype.deleteStandardMajorRent = window.$deleteStandardMajorRent = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/standardbrand/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形客销度管理类列表页
+ *
+ * 删除品牌适配值(GET)
+ */
+Vue.prototype.deleteStandardBrandGuest = window.$deleteStandardBrandGuest = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/standardguest/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+
+/*
+ * 标准三角形适配值管理类列表页
+ *
+ * 删除项目适配值(GET)
+ */
+Vue.prototype.deleteStandardProjectFitted = window.$deleteStandardProjectFitted = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/fittedproject/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形适配值管理类列表页
+ *
+ * 删除楼层适配值(GET)
+ */
+Vue.prototype.$deleteStandardFloorFitted = window.$deleteStandardFloorFitted = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/fittedfloor/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形适配值管理类列表页
+ *
+ * 删除业态适配值(GET)
+ */
+Vue.prototype.deleteStandardFormFitted = window.$deleteStandardFormFitted = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/fittedform/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
+ * 标准三角形适配值管理类列表页
+ *
+ * 删除业种适配值(GET)
+ */
+Vue.prototype.deleteStandardMajorFitted = window.$deleteStandardMajorFitted = function(id) {
+  return new Promise(function(resolve, reject) {
+    axios.get('/fittedbrand/delete/id/' + id)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+
+/*
  * 动态三角形
  * 溢租率新增(POST)
  */
