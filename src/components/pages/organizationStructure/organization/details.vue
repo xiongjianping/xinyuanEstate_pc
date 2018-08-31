@@ -124,11 +124,6 @@ export default {
       margin-left: 20px;
     }
   }
-  .mainContent{
-    width: 100%;
-    // height: 140%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }

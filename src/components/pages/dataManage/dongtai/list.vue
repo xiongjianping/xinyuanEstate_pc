@@ -62,70 +62,20 @@
             </el-select>
           </el-form-item>
         </el-col>
-       <!-- <el-col :span="5">
-          <el-form-item label="品牌：">
-            <el-input size="small" v-model="searchForm.brandId" :maxlength="11" placeholder=" "></el-input>
-          </el-form-item>
-        </el-col>-->
-     <!--   <el-col :span="5">
-          <el-form-item label="状态：">
-            <el-select  size="small" v-model="searchForm.contractType" placeholder="全部状态" @change="contractTypeChange()">
-              <el-option v-for="(item, index) in contractTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>-->
 
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="业务类型">-->
-            <!--<el-select  size="small" v-model="businessType" placeholder="请选择业务类型" @change="businessTypeChange()">-->
-                <!--<el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-
-        <el-col :span="5">
+        <el-col :span="4">
           <el-form-item label="时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
-
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="维度" v-if="businessType === 2" >-->
-            <!--<el-select  size="small" v-model="searchForm.different" placeholder="请选择维度">-->
-              <!--<el-option v-for="(item, index) in dimensionTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-dialog title="导出" :visible.sync="dialogFormVisible">-->
-          <!--<el-form :model="exportExlsData">-->
-            <!--<el-form-item label="区域">-->
-              <!--<el-select v-model="exportExlsData.areaId" placeholder="请选择区域" @change="areaChange()">-->
-                <!--<el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="项目">-->
-              <!--<el-select v-model="exportExlsData.projectId" placeholder="请选择项目">-->
-                <!--<el-option v-for="(item,index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-          <!--</el-form>-->
-          <!--<div slot="footer" class="dialog-footer">-->
-            <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-            <!--<el-button type="primary" @click="exportExls()">确 定</el-button>-->
-          <!--</div>-->
-        <!--</el-dialog>-->
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <!--<el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>-->
-            <!--<input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />-->
-            <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportFile();">导出</el-button>-->
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
+    </div>
 
     <el-dialog title="溢租率" :visible="dialogFormVisible"  @close='closeDialog'>
       <el-form class="yzl-line-top"></el-form>
@@ -147,7 +97,6 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="楼栋："  style="display: none;">
-            <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋" >
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -164,9 +113,6 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
-            <!--  <el-select  size="small" v-model="rentForm.businessType" placeholder="请选择业态" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>-->
               <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -181,20 +127,10 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
-             <!-- <el-input size="small" v-model="rentForm.brandId" :maxlength="11" placeholder=" "></el-input>-->
               <el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
-                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          <!--  <el-select v-model="value9"  multiple filterable="true"  remote="true" reserve-keyword  placeholder="请输入关键词" :remote-method="remoteMethod()" :loading="loading">
-              <el-option
-                v-for="item in options4"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>-->
 
           </el-col>
         </el-row>
@@ -329,12 +265,12 @@
               <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <el-form-item label="销售额" :label-width="formLabelWidth">
               <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <el-form-item label="时间" :label-width="formLabelWidth">
               <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
@@ -465,7 +401,7 @@
         </el-row>
         <br>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="4">
             <el-form-item label="时间" :label-width="formLabelWidth">
               <el-date-picker
                 v-model="effectTime3"
@@ -485,7 +421,6 @@
 
     <p class="t"></p>
     <div class="biaoti1">动态三角形列表</div>
-    <el-button class="NewlyAdded" type="primary" align="center" v-on:click="showCreate()">新增</el-button>
 
     <div class="listCont">
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
@@ -497,15 +432,6 @@
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="fromName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-            <!--<el-table-column align="center" prop="businessFormName" label="业态名称"></el-table-column>
-            <el-table-column align="center" prop="businessSpeciesName" label="业种名称"></el-table-column>-->
-        <!--    <el-table-column align="center" prop="status" label="签约状态">
-              <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
-              </template>
-            </el-table-column>-->
             <el-table-column align="center" prop="rent" label="租金（元/月）"></el-table-column>
             <el-table-column align="center" prop="propertyfee" label="物业费（元/月）"></el-table-column>
             <el-table-column align="center" prop="depreciation" label="折旧费（元/月）"></el-table-column>
@@ -514,22 +440,6 @@
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-
-            <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
-            <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="targetcount" label="已录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="untargetcount" label="未录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>-->
-            <!--<el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>-->
-
-            <!--<el-table-column align="center" prop="different" label="类别">-->
-              <!--<template slot-scope="scope">-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 1">项目</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 2">楼层</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>-->
-              <!--</template>-->
-            <!--</el-table-column>-->
-
              <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
@@ -542,38 +452,14 @@
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
-           <!-- <el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-        <!--    <el-table-column align="center" prop="status" label="签约状态">
-              <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
-              </template>
-            </el-table-column>-->
             <el-table-column align="center" prop="passengerFlow" label="客流量"></el-table-column>
             <el-table-column align="center" prop="salesVolume" label="销售额"></el-table-column>
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-
-            <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
-            <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="targetcount" label="已录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="untargetcount" label="未录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>-->
-            <!--<el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>-->
-
-            <!--<el-table-column align="center" prop="different" label="类别">-->
-              <!--<template slot-scope="scope">-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 1">项目</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 2">楼层</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>-->
-              <!--</template>-->
-            <!--</el-table-column>-->
-
            <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
@@ -590,13 +476,6 @@
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-           <!-- <el-table-column align="center" prop="status" label="签约状态">
-              <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
-              </template>
-            </el-table-column>-->
             <el-table-column align="center" prop="marketVal" label="市场地位"></el-table-column>
             <el-table-column align="center" prop="brandPositioningVal" label="品牌定位"></el-table-column>
             <el-table-column align="center" prop="brandImgVal" label="品牌形象"></el-table-column>
@@ -608,22 +487,6 @@
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-
-            <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
-            <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="targetcount" label="已录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="untargetcount" label="未录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>-->
-            <!--<el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>-->
-
-            <!--<el-table-column align="center" prop="different" label="类别">-->
-            <!--<template slot-scope="scope">-->
-            <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 1">项目</el-button>-->
-            <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 2">楼层</el-button>-->
-            <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>-->
-            <!--</template>-->
-            <!--</el-table-column>-->
-
             <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
@@ -1533,26 +1396,6 @@ export default {
   .yzl{
       margin: 0 auto;
   }
-  /*.el-dialog{*/
-    /*width:50%;*/
-  /*}*/
-  /*.el-dialog .el-col{*/
-    /*width: 300px;*/
-    /*background: red;*/
-  /*}*/
-
-
-
-  /*.el-dialog .el-input{*/
-    /*width: 55%;*/
-  /*}*/
-
-
-
-
-
-
-
   .tabs{
     width: 100%;
     height:50px;
@@ -1561,12 +1404,6 @@ export default {
     div{
       display: inline-block;
     }
-  }
-
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;

@@ -3476,11 +3476,6 @@
   height: 32px
 }
 
-.el-range-editor--small .el-range-separator {
-  line-height: 24px;
-  font-size: 13px
-}
-
 .el-range-editor--small .el-range-input {
   font-size: 13px
 }

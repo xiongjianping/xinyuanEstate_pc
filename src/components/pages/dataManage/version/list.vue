@@ -61,26 +61,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <!-- <el-col :span="5">
-           <el-form-item label="品牌：">
-             <el-input size="small" v-model="searchForm.brandId" :maxlength="11" placeholder=" "></el-input>
-           </el-form-item>
-         </el-col>-->
-        <!--   <el-col :span="5">
-             <el-form-item label="状态：">
-               <el-select  size="small" v-model="searchForm.contractType" placeholder="全部状态" @change="contractTypeChange()">
-                 <el-option v-for="(item, index) in contractTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-               </el-select>
-             </el-form-item>
-           </el-col>-->
-
-        <!--<el-col :span="5">-->
-        <!--<el-form-item label="业务类型">-->
-        <!--<el-select  size="small" v-model="businessType" placeholder="请选择业务类型" @change="businessTypeChange()">-->
-        <!--<el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-        <!--</el-select>-->
-        <!--</el-form-item>-->
-        <!--</el-col>-->
 
         <el-col :span="5">
           <el-form-item label="时间" :label-width="formLabelWidth">
@@ -89,35 +69,8 @@
           </el-form-item>
         </el-col>
 
-        <!--<el-col :span="5">-->
-        <!--<el-form-item label="维度" v-if="businessType === 2" >-->
-        <!--<el-select  size="small" v-model="searchForm.different" placeholder="请选择维度">-->
-        <!--<el-option v-for="(item, index) in dimensionTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-        <!--</el-select>-->
-        <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-dialog title="导出" :visible.sync="dialogFormVisible">-->
-        <!--<el-form :model="exportExlsData">-->
-        <!--<el-form-item label="区域">-->
-        <!--<el-select v-model="exportExlsData.areaId" placeholder="请选择区域" @change="areaChange()">-->
-        <!--<el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-        <!--</el-select>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="项目">-->
-        <!--<el-select v-model="exportExlsData.projectId" placeholder="请选择项目">-->
-        <!--<el-option v-for="(item,index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-        <!--</el-select>-->
-        <!--</el-form-item>-->
-        <!--</el-form>-->
-        <!--<div slot="footer" class="dialog-footer">-->
-        <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-        <!--<el-button type="primary" @click="exportExls()">确 定</el-button>-->
-        <!--</div>-->
-        <!--</el-dialog>-->
-
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
             <!--<el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>-->
             <!--<input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />-->
             <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportFile();">导出</el-button>-->
@@ -285,7 +238,7 @@
               <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <el-form-item label="时间" :label-width="formLabelWidth">
               <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
@@ -371,7 +324,7 @@
                 <el-input size="small" v-model="fittedForm.fittedVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <el-form-item label="时间" :label-width="formLabelWidth">
               <el-date-picker
                 v-model="effectTime3"
@@ -382,7 +335,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogFormVisible2 = false">取 消</el-button>
@@ -390,10 +342,13 @@
       </div>
     </el-dialog>
 
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">标准三角形列表</div>
-    <el-button class="NewlyAdded" type="primary" align="center" v-on:click="showCreate()">新增</el-button>
-
     <div class="listCont">
       <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="showCreateCompany();">新增</el-button>-->
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
@@ -1465,13 +1420,6 @@
     padding: 10px;
     margin-top:-25px;
   }
-  .el-button--primary{
-    color: #fff;
-    background-color: #409EFF;
-    border-color: #409EFF;
-    height: 27px;
-    line-height: 7px;
-  }
 
   //溢租率
   .el-dialog{
@@ -1504,12 +1452,6 @@
         height: 120px;
       }
     }
-  }
-
-  .mainContent {
-    width: 100%;
-    // height: 100%;
-    background: #fff;
   }
 
   .el-date-editor.el-input, .el-date-editor.el-input__inner {

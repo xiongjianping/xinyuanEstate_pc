@@ -44,33 +44,25 @@
           <el-form-item label-width="0">
             <el-button type="primary" size="medium" v-on:click="searchList(1);">导入</el-button>
             <el-button type="primary" size="medium" v-on:click="searchList(2);">导出</el-button>
-
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
 
-    <div class="listCont">
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <!--<el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>-->
+      <!--<input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />-->
+      <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportFile();">导出</el-button>-->
+    </div>
 
+    <div class="listCont">
       <el-checkbox-group
         v-model="checkedCities1"
         :min="1"
         :max="2">
         <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
       </el-checkbox-group>
-
-      <!--<div class="paginationCont">-->
-        <!--<el-pagination-->
-          <!--@size-change="handleSizeChange"-->
-          <!--@current-change="handleCurrentChange"-->
-          <!--:current-page="data.page"-->
-          <!--:page-sizes="[10, 20, 50, 100]"-->
-          <!--:page-size="size"-->
-          <!--layout="total, sizes, prev, pager, next, jumper"-->
-          <!--:total="data.count">-->
-        <!--</el-pagination>-->
-      <!--</div>-->
-
     </div>
   </div>
 </template>
@@ -152,11 +144,6 @@ showAlert: function (cont) {
     div{
       display: inline-block;
     }
-  }
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;

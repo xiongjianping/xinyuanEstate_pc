@@ -4,7 +4,7 @@
       <h3 id="title">楼层帮扶</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
-          <el-form-item label="区域：">
+          <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="changeArea()">
               <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -13,7 +13,7 @@
 
 
         <el-col :span="5">
-          <el-form-item label="项目：">
+          <el-form-item label="项目">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="changeProject()">
               <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -21,7 +21,7 @@
         </el-col>
 
         <el-col :span="5">
-          <el-form-item label="楼栋：">
+          <el-form-item label="楼栋">
             <el-select size="small" v-model="building" placeholder="请选择楼栋" @change="changeBuilding()">
               <el-option v-for="(item, index) in allBuilding" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -29,7 +29,7 @@
         </el-col>
 
         <el-col :span="5">
-          <el-form-item label="楼层：">
+          <el-form-item label="楼层">
             <el-select size="small" v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in allFloor" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -37,21 +37,20 @@
         </el-col>
 
         <el-col :span="5">
-          <el-form-item label="业务类型：">
+          <el-form-item label="业务类型">
             <el-select size="small" v-model="searchForm.helpType" placeholder="请选择业务类型">
               <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr25" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="xinzeng(1);">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">楼层帮扶列表</div>
     <div class="listCont">
@@ -169,11 +168,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }

@@ -14,14 +14,13 @@
             <el-input size="small" v-model="searchForm.userName" :maxlength="11" placeholder=""></el-input>
           </el-form-item>
         </el-col>
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">人员管理列表</div>
     <div class="listCont">
@@ -349,11 +348,6 @@ showAlert: function (cont) {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 150%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }

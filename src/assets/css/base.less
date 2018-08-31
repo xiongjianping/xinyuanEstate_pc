@@ -338,17 +338,10 @@ html,body,#app,.wrapper{
   background-attachment: fixed;
 }
 .searchBox{
-  padding: 20px 20px 5px 20px;
+  padding: 20px 0;
   margin: 0!important;
-  background: #fafafa;
-  //background-image:-webkit-linear-gradient(bottom,#FFF, rgba(81, 233, 255, 0.4));
-  //background-image:-o-linear-gradient(bottom,#FFF,rgba(81, 233, 255, 0.4));
-  //background-image:-ms-linear-gradient(bottom,#FFF,rgba(81, 233, 255, 0.4));
-  //background-image:linear-gradient(bottom,#FFF, rgba(81, 233, 255, 0.4));
-  //background-repeat: repeat-x;
-  //box-shadow:-1px 5px 14px #0b98ff;
   .hengxian{
-    background: #cccccc;
+    background: #4484a1;
     width: 80%;
     height: 1px;
     display: block;
@@ -356,9 +349,8 @@ html,body,#app,.wrapper{
     margin-top: -4px;
   }
   #title{
-    width: 96%;
     height: 30px;
-    border-bottom: 1px solid #CCc;
+    border-bottom: 1px solid #4484a1;
     margin: 0 auto;
     font-size: 18px;
     font-weight: 800;
@@ -370,16 +362,13 @@ html,body,#app,.wrapper{
   height: 27px;
 }
 .listCont{
-  padding: 30px;
+  padding: 30px 0;
 }
 .hx{
   background: #fff;
-  //background: #cccccc;
   width: 80%;
   height: 20px;
   border-top: 1px solid #ccc;
-  //display: block;
-  //margin-left: 80px;
   margin-top: 180px;
 }
 .detailsContent{
@@ -387,7 +376,6 @@ html,body,#app,.wrapper{
   height: 20%;
   .title{
     padding-bottom: 10px;
-    //border-bottom: 2px solid #d7d7d7;
     padding-left: 30px;
     font-weight: 800;
   }
@@ -456,7 +444,6 @@ html,body,#app,.wrapper{
 }
 .el-select .el-input .el-select__caret{
   width: 26px;
-  background: #eaeaea;
   height: 25px;
   line-height: 25px;
   position: absolute;
@@ -466,28 +453,17 @@ html,body,#app,.wrapper{
   border-bottom-left-radius: 8px;
   color: #c0c4cc;
   font-size: 14px;
-  //transform: rotateZ(180deg);
   cursor: pointer;
-  border-right:1px solid #4484a1;
 }
 
-//#app{
-//  width: 100%;
-//  height: 100%;
-//  background-image: url(../images/bg.png);
-//  background-repeat: no-repeat;
-//  position:absolute;
-//  left:0;
-//  top:0;
-//  z-index:999;
-//  background-size: 100% 100%;
-//}
-
-.mainContent {min-height: 100%;}
+.mainContent {
+  background: #fff;
+  padding: 0 30px;
+  min-height: 100%;
+}
 .t{
-  width: 95%;
-  height: 1px;
-  background: #ccc;
+  height: 1.5px;
+  background-color: #4484a1;
   margin: 0 auto;
   position: relative;
   top: 50px;
@@ -501,17 +477,16 @@ html,body,#app,.wrapper{
   height: 40px;
   background: white;
   position: relative;
-  left: 34px;
-  top: 11px;
+  top: 9px;
   text-align: center;
   line-height: 40px;
-  border: 1px solid #ccc;
+  border: 1px solid #4484a1;
   border-top-right-radius: 5px ;
   border-top-left-radius: 5px ;
   border-bottom: none;
   font-size: 13px;
   font-weight: 800;
-  color: #2e6da4;
+  color: #4484a1;
 }
 .NewlyAdded{
   height: 27px;
@@ -521,9 +496,45 @@ html,body,#app,.wrapper{
   top: -20px;
   left: -40px;
 }
+.el-form-item__label{
+  color: #000;
+  font-weight: 800;
+}
 .el-range-editor--small.el-input__inner{
   height:27px;
 }
 .el-input--prefix .el-input__inner{
   height: 27px;
+}
+.el-col{
+  height: 40px;
+}
+.el-range-editor--small .el-range-separator{
+  line-height: 19px;
+}
+
+.el-button {
+  height: 30px;
+  line-height: 0px;
+}
+.el-button--primary{
+  background-color: #4484a1;
+  border-color: #4484a1;
+}
+
+.buttonList{
+  display: inline-block;
+  margin-top: 10px;
+  float: right;
+}
+
+.using{
+  color: #4cca64
+  
+}
+.unusing{
+  color: #ff4200 
+}
+.ongoing{
+  color: dodgerblue
 }

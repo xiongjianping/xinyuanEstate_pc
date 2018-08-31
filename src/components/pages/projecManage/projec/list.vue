@@ -11,23 +11,21 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="5">
+        <el-col :span="10">
           <el-form-item label="时间">
               <el-date-picker size="small" v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
                 value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
         </el-col>
-
-        <el-col :span="24" class="text-center">
-        <el-form-item label-width="0">
-        <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
-        <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
-        <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
-        </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
+    </div>
 
     <p class="t"></p>
     <div class="biaoti1">项目管理列表</div>
@@ -58,8 +56,8 @@
         <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="merchandiseName" label="当前状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.state">启用</el-button>
-            <el-button disabled  size="small" type="danger" v-if="!scope.row.state">禁用</el-button>
+            <p class="using" v-if="scope.row.state">启用</p>
+            <p class="unusing" v-if="!scope.row.state">禁用</p>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
@@ -127,14 +125,9 @@ export default {
     options:[
       {
         name: '全部',
-        // id: '0'
       }
     ],
     searchForm: {
-      // areaId: null,
-      // projectName: null,
-      // createTimeBegin: null,
-      // createTimeEnd:null
     },
     infoData: {},
     projectList:[],
@@ -260,20 +253,10 @@ export default {
 
 </script>
 <style scoped  lang="less">
-/*.el-date-editor.el-input, .el-date-editor.el-input__inner{*/
-  /*width: 100%;*/
-/*}*/
-
-
-  .mainContent{
-    width: 100%;
-    // height: 130%;
-    background: #fff;
-  }
-  .dd{
-    width: 100%;
-    height:50px;
-    background: #e7cb8a;
-    margin-bottom: 5px;
-  }
+.dd{
+  width: 100%;
+  height:50px;
+  background: #e7cb8a;
+  margin-bottom: 5px;
+}
 </style>

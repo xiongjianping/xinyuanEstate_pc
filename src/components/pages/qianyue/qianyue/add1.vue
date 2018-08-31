@@ -277,15 +277,6 @@
   }
 </script>
 <style scoped  lang="less">
-  // .xuan{
-  //   margin-left: 170px;
-  //   margin-top: 40px;
-  // }
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;
   }

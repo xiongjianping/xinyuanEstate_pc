@@ -5,7 +5,6 @@
         <el-tree :data="comTree" :props="comTreeOptions" @node-click="handleNodeClick"></el-tree>
       </div>
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-
         <el-table-column align="center" type="index" label="排序号" ></el-table-column>
         <el-table-column align="center" prop="name" label="真实姓名" ></el-table-column>
         <el-table-column align="center" prop="userName" label="登录名称" ></el-table-column>
@@ -181,11 +180,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    min-height: 100%;
-    background: #fff;
-  }
   .left{
     width: 400px;
     height: 600px;
