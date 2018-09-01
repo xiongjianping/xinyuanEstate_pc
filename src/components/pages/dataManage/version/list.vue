@@ -5,8 +5,12 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="对象" :label-width="formLabelWidth" >
-            <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()">
+            <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type != 1">
               <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+
+            <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type == 1">
+              <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -24,15 +28,14 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <!-- <el-col :span="5">
           <el-form-item label="楼栋"  style="display: none;">
-            <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" >
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-        <el-col :span="5">
+        </el-col> -->
+        <el-col :span="5" v-if="objType === '1'">
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -46,7 +49,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="5" v-if="objType === '3' || objType === '4'">
           <el-form-item label="业种" :label-width="formLabelWidth">
             <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -56,24 +59,14 @@
         <el-col :span="5">
           <el-form-item label="品牌" :label-width="formLabelWidth">
             <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
-              <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-
         <el-col :span="5">
           <el-form-item label="时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
             </el-date-picker>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <!--<el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>-->
-            <!--<input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />-->
-            <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportFile();">导出</el-button>-->
           </el-form-item>
         </el-col>
       </el-form>
@@ -105,14 +98,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="楼栋："  style="display: none;">
-              <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-              <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋" >
+          <!-- <el-col :span="8">
+            <el-form-item label="楼栋">
+              <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋"  @change="buildingChanged()">
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="rentForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
@@ -137,20 +129,20 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row class="yzl-line"></el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="溢租率" :label-width="formLabelWidth">
-              <el-input size="small" v-model="rentForm.rentFee" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+        <el-row class="FitnessValue">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="溢租率" :label-width="formLabelWidth">
+                <el-input size="small" v-model="rentForm.rentFee" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-col :span="8">
-            <el-form-item label="生效时间" :label-width="formLabelWidthYZ">
-              <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-          </el-col>
-
+            <el-col :span="8">
+              <el-form-item label="时间" :label-width="formLabelWidthYZ">
+                <el-date-picker size="small" v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -161,7 +153,7 @@
     <el-dialog title="客销度" :visible="dialogFormVisible1" @close='closeDialogKXD'>
       <el-form class="yzl-line-top"></el-form>
       <el-form :model="guestForm">
-        <el-row>
+        <!-- <el-row>
           <el-col :span="8">
             <el-form-item label="对象" :label-width="formLabelWidth">
               <el-select  size="small" v-model="objType" placeholder="请选择对象维度" @change="objTypeChange()">
@@ -169,7 +161,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
+        </el-row> -->
         <el-row>
           <el-col  :span="8">
             <el-form-item label="区域" :label-width="formLabelWidth">
@@ -185,14 +177,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="楼栋"  style="display: none;">
-              <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-              <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" >
+          <!-- <el-col :span="8">
+            <el-form-item label="楼栋">
+              <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
@@ -226,25 +217,25 @@
           </el-col>
 
         </el-row>
-        <el-row class="yzl-line"></el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="毛利率" :label-width="formLabelWidth">
-              <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="客单价" :label-width="formLabelWidth">
-              <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="时间" :label-width="formLabelWidth">
-              <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-          </el-col>
+        <el-row class="FitnessValue">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="毛利率" :label-width="formLabelWidthYZ">
+                <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="客单价" :label-width="formLabelWidthYZ">
+                <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="时间" :label-width="formLabelWidthYZ">
+                <el-date-picker size="small" v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogFormVisible1 = false">取 消</el-button>
@@ -278,15 +269,14 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="楼栋："  style="display: none;">
-              <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
+          <!-- <el-col :span="8">
+            <el-form-item label="楼栋：">
               <el-select size="small" v-model="fittedForm.buildingId" placeholder="请选择楼栋" >
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col  :span="8" >
+          </el-col> -->
+          <el-col :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="fittedForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -311,7 +301,6 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
-              <!-- <el-input size="small" v-model="fittedForm.brandId" :maxlength="11" placeholder="品牌"></el-input>-->
               <el-select size="small" v-model="fittedForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -320,12 +309,12 @@
         </el-row>
         <el-row class="FitnessValue">
             <el-col :span="8">
-              <el-form-item label="适配值" :label-width="formLabelWidthDT">
+              <el-form-item label="适配值" :label-width="formLabelWidth">
                 <el-input size="small" v-model="fittedForm.fittedVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
-          <el-col :span="5">
-            <el-form-item label="时间" :label-width="formLabelWidth">
+          <el-col :span="8">
+            <el-form-item size="small" label="时间" :label-width="formLabelWidth">
               <el-date-picker
                 v-model="effectTime3"
                 type="date"
@@ -335,6 +324,7 @@
             </el-form-item>
           </el-col>
         </el-row>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogFormVisible2 = false">取 消</el-button>
@@ -491,6 +481,7 @@
   import moment from 'moment'
   export default {
     data: () => ({
+      type: 0,
       searchForm:{},
       formLabelWidth:"60px",
       formLabelWidthYZ:'70px',
@@ -541,7 +532,8 @@
         },{
           id: '3',
           name: '业种'
-        },
+        }],
+        objTypeList1:[
         {
           id: '4',
           name: '品牌'
@@ -1019,7 +1011,14 @@
         this.dialogFormVisible = false
       },
       handleClick(tab, event) {
-        console.log(tab, event);
+        this.type = tab.index
+        if(this.type == 1){
+          this.objType = '4'
+        } else {
+          this.objType = '0'
+        }
+
+        this.searchList(1)
       },
       importFile(){
         document.getElementById('fileUpload_input').click()
@@ -1420,7 +1419,6 @@
     padding: 10px;
     margin-top:-25px;
   }
-
   //溢租率
   .el-dialog{
     width: 200px;
@@ -1453,19 +1451,16 @@
       }
     }
   }
-
-  .el-date-editor.el-input, .el-date-editor.el-input__inner {
-    width: 100%;
-  }
-
   .uploadInput {
     top: 0px;
     width: 0;
     height: 100%;
     visibility: hidden;
   }
-
   .new {
     float: right;
+  }
+  .el-tabs__content {
+    overflow: inherit;
   }
 </style>

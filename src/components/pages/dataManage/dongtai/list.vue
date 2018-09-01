@@ -4,13 +4,17 @@
       <h3 id="title">动态三角形</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
-        <!--  <el-form-item label="对象" :label-width="formLabelWidth">-->
           <el-form-item label="对象" :label-width="formLabelWidth" >
-            <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()">
+            <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type == 1">
               <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+
+            <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type != 1">
+              <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+        
         <el-col :span="5">
           <el-form-item label="区域" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
@@ -18,6 +22,7 @@
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="项目" :label-width="formLabelWidth">
             <el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
@@ -25,36 +30,40 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="楼栋"  style="display: none;">
-          <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" >
+
+        <!-- <el-col :span="5" v-if="objType == 1">
+          <el-form-item label="楼栋"  :label-width="formLabelWidth">
+            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-        <el-col :span="5">
+        </el-col> -->
+
+        <el-col :span="5" v-if="objType == 1">
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+
+        <el-col :span="5" v-if="objType == 2">
           <el-form-item label="业态" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+
+        <el-col :span="5" v-if="objType == 2">
           <el-form-item label="业种" :label-width="formLabelWidth">
             <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+
+        <el-col :span="5" v-if="objType == 2">
           <el-form-item label="品牌" :label-width="formLabelWidth">
             <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
               <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
@@ -63,12 +72,20 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="4">
+        <el-col :span="5" v-if="type == 0">
+          <el-form-item label="时间" :label-width="formLabelWidth">
+            <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5" v-if="type != 0">
           <el-form-item label="时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
+
       </el-form>
     </el-row>
 
@@ -95,13 +112,13 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <el-form-item label="楼栋："  style="display: none;">
             <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋" >
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col  :span="8" >
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="rentForm.floorId" placeholder="F1" @change="businessTypeChange()">
@@ -131,55 +148,46 @@
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-
           </el-col>
         </el-row>
-        <el-row class="yzl-line"></el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="租金" :label-width="formLabelWidth">
-              <el-input size="small" v-model="rentFee" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+        <el-row class="FitnessValue">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="租金" :label-width="formLabelWidth">
+                <el-input size="small" v-model="rentFee" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-col :span="8">
-            <el-form-item label="物业费" :label-width="formLabelWidth">
-              <el-input size="small" v-model="wuyefei" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+            <el-col :span="8">
+              <el-form-item label="物业费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="wuyefei" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-col :span="8">
-            <el-form-item label="折旧费" :label-width="formLabelWidth">
-              <el-input size="small" v-model="zhejiufei" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+            <el-col :span="8">
+              <el-form-item label="折旧费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="zhejiufei" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="人工费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="rengongchengben" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="人工费" :label-width="formLabelWidthYZ">
-              <el-input size="small" v-model="rengongchengben" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="8">
-            <el-form-item label="代理费" :label-width="formLabelWidthYZ">
-              <el-input size="small" v-model="agencyFee" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-
-          <!--<el-col :span="8">-->
-            <!--<el-form-item label="生效时间" :label-width="formLabelWidth">-->
-              <!--<el-input size="small" v-model="searchForm.standardVerssionName" :maxlength="11" placeholder=" "></el-input>-->
-            <!--</el-form-item>-->
-          <!--</el-col>-->
-
-          <el-col :span="8">
-            <el-form-item label="生效时间" :label-width="formLabelWidthYZ">
-              <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="date" placeholder="选择日期" :label-width="formLabelWidth"></el-date-picker>
-            </el-form-item>
-          </el-col>
-
+            <el-col :span="8">
+              <el-form-item label="代理费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="agencyFee" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="时间" :label-width="formLabelWidth">
+                <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期" :label-width="formLabelWidth"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -193,10 +201,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="对象" :label-width="formLabelWidth">
-            <!--  <el-select  size="small" v-model="businessType" placeholder="项目" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>-->
-              <el-select  size="small" v-model="objType" placeholder="请选择对象维度" @change="objTypeChange()">
+              <el-select  size="small" v-model="objType" placeholder="请选择对象维度">
                 <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -217,14 +222,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
           <el-form-item label="楼栋"  style="display: none;">
-            <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-            <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" >
+            <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
@@ -258,25 +262,25 @@
           </el-col>
 
         </el-row>
-        <el-row class="yzl-line"></el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="客流量" :label-width="formLabelWidth">
-              <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="销售额" :label-width="formLabelWidth">
-              <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="时间" :label-width="formLabelWidth">
-              <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-          </el-col>
+        <el-row class="FitnessValue">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="客流量" :label-width="formLabelWidth">
+                <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="销售额" :label-width="formLabelWidth">
+                <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="时间" :label-width="formLabelWidth">
+                <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="dialogFormVisible1 = false">取 消</el-button>
@@ -286,15 +290,6 @@
     <el-dialog title="适配值" :visible="dialogFormVisible2" @close='closeDialogSPZ'>
       <el-form class="yzl-line-top"></el-form>
       <el-form :model="fittedForm">
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="对象" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()">
-                <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
         <el-row>
           <el-col  :span="8">
             <el-form-item label="区域" :label-width="formLabelWidth">
@@ -310,14 +305,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="楼栋："  style="display: none;">
-              <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-              <el-select size="small" v-model="fittedForm.buildingId" placeholder="请选择楼栋" >
+              <el-select size="small" v-model="fittedForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="fittedForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
@@ -401,13 +395,9 @@
         </el-row>
         <br>
         <el-row>
-          <el-col :span="4">
+          <el-col :span="7">
             <el-form-item label="时间" :label-width="formLabelWidth">
-              <el-date-picker
-                v-model="effectTime3"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+              <el-date-picker v-model="effectTime3" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -425,7 +415,7 @@
     <div class="listCont">
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
         <el-tab-pane label="溢租率" name="first">
-          <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+          <el-table :data="data.resultList" border size="medium">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <!--<el-table-column align="center" prop="phone" label="楼层"></el-table-column>-->
             <el-table-column align="center" prop="roomName" label="铺位号"></el-table-column>
@@ -449,7 +439,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="客销度" name="second">
-          <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+          <el-table :data="data.resultList" border size="medium">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
@@ -469,7 +459,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="适配值" name="third">
-          <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+          <el-table :data="data.resultList" border size="medium">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
            <!-- <el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
@@ -518,13 +508,11 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    type: 0,
     searchForm:{},
     formLabelWidth:"60px",
     formLabelWidthYZ:'70px',
     formLabelWidthDT:'85px',
-    contractTypeList:[],//签约状态
-    businessTypeList: window.$businessTypeList2,
-    dimensionTypeList: window.$dimensionList2,
     businessType: '',
     exportExlsData: {},
     areaList:[],
@@ -555,21 +543,23 @@ export default {
     brandId:"",
     objTypeList:[
       {
-        id: '0',
+        id: 0,
         name: '项目'
       },
       {
-        id: '1',
+        id: 1,
         name: '楼层'
-      },{
-        id: '2',
-        name: '业态'
       },
       {
-        id: '3',
+        id: 2,
         name: '品牌'
       }],
-    objType:'0',
+      objTypeList1:[
+      {
+        id: 2,
+        name: '品牌'
+      }],
+    objType: 2,
     //搜索条件
     searchRequest : {
       projectId : "",//项目ID
@@ -896,23 +886,15 @@ export default {
         this.showAlert(err)
       })
     },
-//打印对象值
-    objTypeChange(){
-      //this.showAlert(this.objType);
-    },
-
     //2.项目
     projectChanged(){
       this.searchForm.buildingId = ''
       this.floorId = ''
       window.$getBuilding(this.searchForm.projectId).then((res) => {
-        console.log("projectChanged");
-        console.log(res)
+        this.buildingList = res
         //调用楼层
         window.$getFloorForBuilding(res[0].id).then((floorRes) => {
           this.floorList = floorRes
-          console.log("楼层----")
-          console.log(floorRes);
         }, (err) => {
           this.showAlert(err)
         })
@@ -1059,7 +1041,12 @@ export default {
       this.dialogFormVisible = false
     },
     handleClick(tab, event) {
-      console.log(tab, event);
+      this.type = tab.index
+      if(this.type != 1) {
+        this.objType = 2
+      }
+
+      this.searchList(1)
     },
     importFile(){
       document.getElementById('fileUpload_input').click()
@@ -1134,6 +1121,7 @@ export default {
       if(type === 1){
         this.page =1
       }
+
       if (this.activeName2 == "first") {//溢租率
         console.log("溢租率-----");
         this.searchRequest.projectId = this.searchForm.projectId; //项目ID
@@ -1338,10 +1326,6 @@ export default {
     xiangqing (id) {
       this.$router.push('/dataManage/dongtai/xiangqing/' + id)
     },
-    rowClass({ row, rowIndex}) {
-      console.log(rowIndex); //表头行标号为0
-      return 'height:50px;font-size:15px'
-    },
     showAlert: function (cont) {
         this.$alert(cont, '温馨提示', {
           confirmButtonText: '确定'
@@ -1364,34 +1348,12 @@ export default {
     padding: 10px;
     margin-top:-25px;
   }
-  .FitnessValue{
-    border: 1px solid #000;
-    padding: 15px;
-    border-radius: 15px;
-    margin-top: 15px;
-  }
   h4{
     font-size: 20px;
     font-weight: 800;
   }
   .el-dialog__footer{
     text-align: center;
-  }
-  .el-dialog .el-select .el-input .el-select__caret{
-    width: 26px;
-    background: #eaeaea;
-    height: 25px;
-    line-height: 25px;
-    position: absolute;
-    left: -23px;
-    top: 8px;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    color: #c0c4cc;
-    font-size: 14px;
-    //transform: rotateZ(180deg);
-    cursor: pointer;
-    border-right:1px solid #4484a1;
   }
   .yzl{
       margin: 0 auto;
@@ -1413,5 +1375,8 @@ export default {
     width: 0;
     height: 100%;
     visibility: hidden;
+  }
+  .el-tabs__content {
+    overflow: inherit;
   }
 </style>

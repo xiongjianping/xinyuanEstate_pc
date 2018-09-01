@@ -27,15 +27,13 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="5">
-          <!--<el-form-item label="楼栋" v-if="different === 2">-->
+        <!-- <el-col :span="5">
           <el-form-item label="楼栋" style="display: none;">
-            <!--<el-select v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="5">
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <!--<el-select  size="small" v-model="searchForm.searchFloorId"  placeholder="请选择楼层"  @change="floorChange()">-->

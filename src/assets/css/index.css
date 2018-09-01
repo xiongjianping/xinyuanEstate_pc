@@ -4610,11 +4610,6 @@
   cursor: default
 }
 
-.el-tabs__content {
-  overflow: hidden;
-  position: relative
-}
-
 .el-tabs--card>.el-tabs__header {
   border-bottom: 1px solid #e4e7ed
 }
