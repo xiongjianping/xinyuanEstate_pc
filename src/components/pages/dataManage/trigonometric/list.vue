@@ -283,70 +283,77 @@ export default {
   },
   methods: {
     deleteTrigonometricGuest(id){
-      if(this.objType==0){
-        this.loading = true
-        window.$deleteTrigonometricProjectGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if(this.objType==0){
+          this.loading = true
+          window.$deleteTrigonometricProjectGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置客销度---'+id)
-      }else if(this.objType==1){
-        this.loading = true
-        window.$deleteTrigonometricFloorGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置客销度---'+id)
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteTrigonometricFloorGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置楼层客销度---'+id)
-      }
-      else if(this.objType==2){
-        this.loading = true
-        window.$deleteTrigonometricFormGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置楼层客销度---'+id)
+        }else if(this.objType==2){
+          this.loading = true
+          window.$deleteTrigonometricFormGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置业态客销度---'+id)
-      }else if(this.objType==3){
-        this.loading = true
-        window.$deleteTrigonometricMajorGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置业态客销度---'+id)
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteTrigonometricMajorGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置业种客销度---'+id)
-      } else if(this.objType==4){
-        this.showAlert("无品牌溢租率、无需删除");
-      }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置业种客销度---'+id)
+        } else if(this.objType==4){
+          this.showAlert("无品牌溢租率、无需删除");
+        }
+      }).catch(() => {
+                  
+      })
     },
 
     // 业态

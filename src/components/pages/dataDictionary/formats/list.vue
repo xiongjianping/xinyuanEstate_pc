@@ -180,7 +180,14 @@ export default {
       })
     },
     deleteDetails (id) {
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      this.loading = true
       this.$axios.get('/base/remove/business/species/' + id).then(res => {
+        this.loading = false
         if (res === 'OK') {
           this.$alert('删除成功!','提示',{
             type:'success'
@@ -189,9 +196,13 @@ export default {
           })
         }
       }).catch(err => {
-        console.log(err)
+        this.loading = false
         this.showAlert(err)
       })
+      }).catch(() => {
+                  
+      })
+      
     },
     // 查看详情
     showDetails (id) {

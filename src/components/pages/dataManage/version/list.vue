@@ -1090,10 +1090,7 @@
           if(this.objType==0){
             window.$getStandardProjectRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
-                console.log("标准三角形项目溢租率列表")
-                console.log(res)
                 /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
@@ -1101,11 +1098,7 @@
           }else if(this.objType==1){
             window.$getStandardFloorRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
-                console.log("标准三角形楼层溢租率列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
@@ -1115,8 +1108,6 @@
               .then((res) => {
                 console.log(res)
                 this.data = res
-                console.log("标准三角形业态溢租率列表")
-                console.log(res)
                 /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
@@ -1125,17 +1116,10 @@
           else if(this.objType==3){
             window.$getStandardMajorRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
-                console.log("标准三角形业种溢租率列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
-          }
-          else if(this.objType==4){
-           this.showAlert("无品牌溢租率");
           }
         }
         if (this.activeName2 == 'second'){//客销度
@@ -1151,37 +1135,20 @@
                 console.log(err)
               })
             this.closeDialogKXD();
-          }else if(this.objType==0){
-            this.showAlert('标准三角形客销度对象请选择品牌级！')
-          }else  if(this.objType==1) {
-            this.showAlert('标准三角形客销度对象请选择品牌级！')
-          } else  if(this.objType==2) {
-            this.showAlert('标准三角形客销度对象请选择品牌级！')
-          }else  if(this.objType==3) {
-            this.showAlert('标准三角形客销度对象请选择品牌级！')
           }
-
         }
         if (this.activeName2 == 'third') {//适配值
           if(this.objType==0){
             window.$getStandardProjectFittedList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
-                console.log("标准三角形项目适配值列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
           }else if(this.objType==1){
             window.$getStandardFloorFittedList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
-                console.log("标准三角形楼层适配值列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
@@ -1189,191 +1156,134 @@
           else if(this.objType==2){
             window.$getStandardFormFittedList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
-                console.log("标准三角形业态适配值列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
-          }
-          else if(this.objType==3){
+          } else if(this.objType==3){
             window.$getStandardMajorFittedList(this.page, this.size, this.searchRequest)
               .then((res) => {
                 this.data = res
-                console.log("标准三角形业种适配值列表")
-                console.log(res)
-                /*this.projectList = this.data.resultList*/
               }, (err) => {
                 console.log(err)
               })
           }
-          else if(this.objType==4){
-            this.showAlert("无品牌适配值");
-          }
-        }
-
-
-        /* if(this.businessType === 1){
-
-         } else if(this.businessType === 2){
-           if(!this.searchForm.different){
-             this.showAlert('请选择维度');
-           } else {
-             url = '/guestverssion/find/guestverssion/list'
-           }
-         } else if(this.businessType === 3){
-
-         }*/
-      },
-      deleteStandardRent(id){
-        if(this.objType==0){
-          this.loading = true
-          window.$deleteStandardProjectRent(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
-          }, (err) => {
-            this.loading = false
-            this.showAlert(err)
-          })
-          this.showAlert('删除标准三角形项目溢租率---'+id)
-        }else if(this.objType==1){
-          this.loading = true
-          window.$deleteStandardFloorRent(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
-          }, (err) => {
-            this.loading = false
-            this.showAlert(err)
-          })
-          this.showAlert('删除标准三角形楼层溢租率---'+id)
-        }
-        else if(this.objType==2){
-          this.loading = true
-          window.$deleteStandardFormRent(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
-          }, (err) => {
-            this.loading = false
-            this.showAlert(err)
-          })
-          this.showAlert('删除标准三角形业态溢租率---'+id)
-        }else if(this.objType==3){
-          this.loading = true
-          window.$deleteStandardMajorFittedRent(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
-          }, (err) => {
-            this.loading = false
-            this.showAlert(err)
-          })
-          this.showAlert('删除标准三角形业种溢租率---'+id)
-        } else if(this.objType==4){
-          this.showAlert("无品牌溢租率、无需删除");
         }
       },
-      deleteStandardGuest(id){
-        this.loading = true
-        window.$deleteStandardBrandGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+      deleteItem(id){
+        for (var i = this.data.resultList.length - 1; i >= 0; i--) {
             if (this.data.resultList[i].id === id) {
               this.data.resultList.splice(i, 1)
               this.loading = false
               return false
             }
           }
+      },
+      deleteStandardRent(id){
+        this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      if(this.objType==0){
+          this.loading = true
+          window.$deleteStandardProjectRent(id).then((res) => {
+            this.deleteItem(id)
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteStandardFloorRent(id).then((res) => {
+            this.deleteItem(id)
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }
+        else if(this.objType==2){
+          this.loading = true
+          window.$deleteStandardFormRent(id).then((res) => {
+            this.deleteItem(id)
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteStandardMajorFittedRent(id).then((res) => {
+            this.deleteItem(id)
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }
+      }).catch(() => {
+                  
+      })
+      },
+      deleteStandardGuest(id){
+        this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      this.loading = true
+        window.$deleteStandardBrandGuest(id).then((res) => {
+          this.deleteItem(id)
         }, (err) => {
           this.loading = false
           this.showAlert(err)
         })
-        this.showAlert('删除标准三角形品牌客销度---'+id)
+      }).catch(() => {
+                  
+      })
       },
       deleteStandardFitted(id){
-        if(this.objType==0){
+        this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+              if(this.objType==0){
           this.loading = true
           window.$deleteStandardProjectFitted(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
+            this.deleteItem(id)
           }, (err) => {
             this.loading = false
             this.showAlert(err)
           })
-          this.showAlert('删除标准三角形项目适配值---'+id)
         }else if(this.objType==1){
           this.loading = true
           window.$deleteStandardFloorFitted(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
+            this.deleteItem(id)
           }, (err) => {
             this.loading = false
             this.showAlert(err)
           })
-          this.showAlert('删除标准三角形楼层适配值---'+id)
         }
         else if(this.objType==2){
           this.loading = true
           window.$deleteStandardFormFitted(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
+            this.deleteItem(id)
           }, (err) => {
             this.loading = false
             this.showAlert(err)
           })
-          this.showAlert('删除标准三角形业态适配值---'+id)
         }else if(this.objType==3){
           this.loading = true
           window.$deleteStandardMajorFitted(id).then((res) => {
-            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-              if (this.data.resultList[i].id === id) {
-                this.data.resultList.splice(i, 1)
-                this.loading = false
-                return false
-              }
-            }
+            this.deleteItem(id)
           }, (err) => {
             this.loading = false
             this.showAlert(err)
           })
-          this.showAlert('删除标准三角形业种适配值---'+id)
-        } else if(this.objType==4){
-          this.showAlert("无品牌适配值、无需删除");
         }
+
+      }).catch(() => {
+                  
+      })
       },
       // 查看详情
       showDetails (id) {

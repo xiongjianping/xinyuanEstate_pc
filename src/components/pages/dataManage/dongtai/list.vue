@@ -453,7 +453,7 @@
            <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
-                <el-button type="text" v-on:click="deleteGuest(scope.row)">删除</el-button>
+                <el-button type="text" v-on:click="deleteGuest(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -480,7 +480,7 @@
             <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
-                <el-button type="text" v-on:click="deleteFitted(scope.row)">删除</el-button>
+                <el-button type="text" v-on:click="deleteFitted(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -1229,7 +1229,12 @@ export default {
       }*/
     },
     deleteRent(id){
-        this.loading = true
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      this.loading = true
         window.$deleteRent(id).then((res) => {
           for (var i = this.data.resultList.length - 1; i >= 0; i--) {
             if (this.data.resultList[i].id === id) {
@@ -1242,59 +1247,69 @@ export default {
           this.loading = false
           this.showAlert(err)
         })
-        /*this.showAlert('已删除动态三角形溢租率---'+id)*/
+      }).catch(() => {
+                  
+      })
     },
     deleteGuest(){
-      if(this.objType==0){
-        this.loading = true
-        window.$deleteProjectGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if(this.objType==0){
+          this.loading = true
+          window.$deleteProjectGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除动态三角形项目客销度---'+id)
-      }else if(this.objType==1){
-        this.loading = true
-        window.$deleteFloorGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteFloorGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除动态三角形楼层客销度---'+id)
-      }else if(this.objType==2){
-        this.showAlert("无业态客销度、无需删除");
-      }else if(this.objType==3){
-        this.loading = true
-        window.$deleteBrandGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteBrandGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除标准三角形业态溢租率---'+id)
-      }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }
+      }).catch(() => {
+                  
+      })
     },
-    deleteFitted(){
+    deleteFitted(id){
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteFitted(id).then((res) => {
         for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -1308,10 +1323,12 @@ export default {
         this.loading = false
         this.showAlert(err)
       })
-      this.showAlert('删除动态三角形业态适配值---'+id)
+      }).catch(() => {
+                  
+      })
+      
     }
     },
-
     // 查看详情
     showDetails (id) {
       this.showAlert(id);

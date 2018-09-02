@@ -225,6 +225,11 @@ export default {
       }
     },
     deleteProject(id){
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteProject(id).then((res) => {
         for(var i = this.projectList.length - 1; i >= 0; i--){
@@ -237,6 +242,9 @@ export default {
       }, (err) => {
         this.loading = false
         this.showAlert(err)
+      })
+      }).catch(() => {
+                  
       })
     },
     rowClass({ row, rowIndex}) {

@@ -153,6 +153,11 @@ export default {
       this.$router.push('/indicatorsManage/indicators/bianji/' + id)
     },
     deleteBrand(id) {
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteBrand(id).then((res) => {
         for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -165,6 +170,9 @@ export default {
       }, (err) => {
         this.loading = false
         this.showAlert(err)
+      })
+      }).catch(() => {
+                  
       })
     },
     rowClass({ row, rowIndex }) {
