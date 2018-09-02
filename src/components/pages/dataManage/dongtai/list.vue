@@ -349,19 +349,19 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="市场地位" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="shichangdiwei" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="shichangdiwei" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="品牌定位" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="pinpaidiwei" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="pinpaidiwei" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="品牌形象" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="pinpaixingxiang" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="pinpaixingxiang" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -371,24 +371,24 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="租费收缴率" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="zifeishoujiaolv" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="zifeishoujiaolv" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="连锁跟进度" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="liansuogengjindu" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="liansuogengjindu" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="客服投诉率" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="kefutousu" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="kefutousu" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="企划配合度" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="qihuapeihedu" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="qihuapeihedu" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -498,16 +498,16 @@
   </div>
 </template>
 <script>
-  //定义变量
-  //区域id
-   var myareaId='';
-   //业态id
-  var mybusinessFormId='';
-  //业种id
-  var mybusinessSpeciesId = '';
 import moment from 'moment'
 export default {
   data: () => ({
+    isSearchList: false,
+    //区域id
+    myareaId:'',
+   //业态id
+    mybusinessFormId:'',
+  //业种id
+    mybusinessSpeciesId:'',
     type: 0,
     searchForm:{},
     formLabelWidth:"60px",
@@ -662,7 +662,6 @@ export default {
   },
   methods: {
     createRent(){
-      console.log("新增溢租率！");
       this.rentCreateDate.rent = this.rentFee; //租金
       this.rentCreateDate.propertyfee = this.wuyefei; //物业费
       this.rentCreateDate.depreciation = this.zhejiufei;//装修折旧费
@@ -673,20 +672,18 @@ export default {
       console.log(this.rentForm);
       console.log(this.rentCreateDate);
       window.$createRentObj(this.rentCreateDate).then((res) => {
+        this.isSearchList = true
         this.closeDialog();
+        this.showAlert('添加成功')
       }, (err) => {
         console.log(err)
         this.showAlert(err)
       })
-      this.closeDialog();
+      this.closeDialog()
     },
     createGuest(){
-      window.$getAreaList().then((res) => {
-        this.areaList = res
-      }, (err) => {console.log(err)})
-
+      console.log(this.objType)
       this.guestForm.effectTime2 = this.effectTime2;
-      console.log("objType:"+this.objType);
       if(this.objType==0){
         /*this.guestForm.persent = this.persent;*/
         this.guestForm.sale = 0;
@@ -728,7 +725,7 @@ export default {
         })
         this.closeDialogKXD();
         this.guestForm.sale = 0;
-      }else  if(this.objType==3){
+      }else  if(this.objType==2){
         /*this.guestForm.persent = this.persent;*/
         /*this.guestForm.sale = this.sale;*/
           this.guestBrandCreateDate.projectId = this.guestForm.projectId; //项目ID
@@ -744,7 +741,7 @@ export default {
         console.log(this.guestBrandCreateDate)
         //调接口
         window.$createGuestBrandObj(this.guestBrandCreateDate).then((res) => {
-          console.log(res)
+          this.isSearchList = true
           this.showAlert("新增品牌客销度成功！")
           this.closeDialogKXD();
         }, (err) => {
@@ -758,9 +755,6 @@ export default {
       this.closeDialogKXD();
     },
     createFitted(){
-      window.$getAreaList().then((res) => {
-        this.areaList = res
-      }, (err) => {console.log(err)})
       console.log("新增适配值！");
       console.log("objType:"+this.objType);
       /*this.fittedForm.businessType = this.businessType;*/
@@ -787,46 +781,42 @@ export default {
       this.fittedCreateDate.enterpriseVal = this.qihuapeihedu; //企划配合度
       /*fittedDate.quarterVal; //适配值*/
       this.fittedCreateDate.effectTime = this.effectTime3; //生效时间
-      //console.log(this.fittedForm);
-      console.log("适配值新增--------");
-      console.log(this.fittedCreateDate);
 
      //调接口
       window.$createFittedObj(this.fittedCreateDate).then((res) => {
-        console.log(res)
+        this.isSearchList = true
         this.showAlert("新增成功！")
         this.closeDialogSPZ();
       }, (err) => {
-        console.log(err)
         this.showAlert(err)
       })
-      this.closeDialogSPZ();
+      this.closeDialogSPZ()
     },
     closeDialog(){
-      this.floorId = '';
-      this.brandId = '';
-      this.rentFee = '';
-      this.wuyefei = '';
-      this.zhejiufei = '';
-      this.rengongchengben = '';
-      this.agencyFee = '';
-      this.effectTime = '';
+      this.floorId = ''
+      this.brandId = ''
+      this.rentFee = ''
+      this.wuyefei = ''
+      this.zhejiufei = ''
+      this.rengongchengben = ''
+      this.agencyFee = ''
+      this.effectTime = ''
       this.dialogFormVisible = false;//清空数据
     },
     closeDialogKXD(){
-      this.floorId = '';
-      this.brandId = '';
+      this.floorId = ''
+      this.brandId = ''
       this.dialogFormVisible1 = false;//清空数据
     },
     closeDialogSPZ(){
-      this.floorId = '';
-      this.brandId = '';
+      this.floorId = ''
+      this.brandId = ''
       this.dialogFormVisible2 = false;//清空数据
     },
     showCreate() {
-      dialogFormVisible: false;
-      dialogFormVisible1: false;
-      dialogFormVisible2: false;
+      dialogFormVisible: false
+      dialogFormVisible1: false
+      dialogFormVisible2: false
       if (this.activeName2 == "first") {
         this.dialogFormVisible = true
       }
@@ -839,36 +829,30 @@ export default {
       window.$getformSelect().then((res) => {
         this.businessList = res
       }, (err) => {})
-      console.log("created:"+this.businessList);
       window.$getAreaList().then((res) => {
         this.areaList = res
-       /* console.log("createRent---")
-        console.log(res)*/
       }, (err) => {console.log(err)})
     },
     //自己添加
     // 1.区域
     areaChanged(){
-      this.searchForm.projectId = '';
-      this.searchForm.buildingId = '';
-      this.floorId = '';
-      myareaId = this.searchForm.areaId;
+      this.searchForm.projectId = ''
+      this.searchForm.buildingId = ''
+      this.floorId = ''
+      this.myareaId = this.searchForm.areaId
       if (this.dialogFormVisible) {
-        myareaId = this.rentForm.areaId;
+        this.myareaId = this.rentForm.areaId
         /*this.dialogFormVisible = true*/
       }
       if (this.dialogFormVisible1){
-        myareaId = this.guestForm.areaId;
+        this.myareaId = this.guestForm.areaId
         /* this.dialogFormVisible1 = true;*/
       }
       if (this.dialogFormVisible2) {
-        myareaId = this.fittedForm.areaId;
+        this.myareaId = this.fittedForm.areaId
         /* this.dialogFormVisible2 = true;*/
       }
-      console.log("areaChanged---"+myareaId);
-      window.$getProjectListForArea(myareaId).then((res) => {
-        console.log("areachanged");
-        console.log(res)
+      window.$getProjectListForArea(this.myareaId).then((res) => {
         this.projectList = res
        /* if (this.activeName2 == "first") {
           this.rentForm.projectList = res;
@@ -974,23 +958,20 @@ export default {
       this.searchForm.businessSpeciesId = ''
       this.speciesList = [];
       this.brandId = ''
-      mybusinessFormId = this.searchForm.businessFormId;
+      this.mybusinessFormId = this.searchForm.businessFormId;
       if (this.dialogFormVisible) {
         this.rentForm.businessSpeciesId = ''
-        mybusinessFormId = this.rentForm.businessFormId;
+        this.mybusinessFormId = this.rentForm.businessFormId;
       }
       if (this.dialogFormVisible1){
         this.guestForm.businessSpeciesId = ''
-        mybusinessFormId = this.guestForm.businessFormId;
+        this.mybusinessFormId = this.guestForm.businessFormId;
       }
       if (this.dialogFormVisible2) {
         this.fittedForm.businessSpeciesId = ''
-        mybusinessFormId = this.fittedForm.businessFormId;
+        this.mybusinessFormId = this.fittedForm.businessFormId;
       }
-      //console.log("businessChanged---"+mybusinessFormId);
-      window.$getSpeciesSelect(mybusinessFormId).then((res) => {
-        console.log("业态change-----")
-        console.log(res)
+      window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
         this.speciesList = res
       }, (err) => {
         this.showAlert(err)
@@ -1000,22 +981,21 @@ export default {
     //业种
     speciesChanged(){
       this.brandList = ''
-      mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+      this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
       if (this.dialogFormVisible) {
         this.rentForm.brandList = ''
-        mybusinessSpeciesId = this.rentForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.rentForm.businessSpeciesId;
       }
       if (this.dialogFormVisible1){
         this.guestForm.brandList = ''
-        mybusinessSpeciesId = this.guestForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.guestForm.businessSpeciesId;
       }
       if (this.dialogFormVisible2) {
         this.fittedForm.brandList = ''
-        mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
       }
       //获取品牌
-      //window.$getBrandForSpecies(mybusinessSpeciesId).then((res) => {
-      window.$getcontractIdForSpecies(mybusinessSpeciesId).then((res) => {
+      window.$getcontractIdForSpecies(this.mybusinessSpeciesId).then((res) => {
         console.log("品牌list")
         console.log(res)
         this.brandList = res
@@ -1042,6 +1022,7 @@ export default {
     },
     handleClick(tab, event) {
       this.type = tab.index
+      console.log(this.type)
       if(this.type != 1) {
         this.objType = 2
       }
@@ -1122,7 +1103,9 @@ export default {
         this.page =1
       }
 
-      if (this.activeName2 == "first") {//溢租率
+      console.log(this.type)
+
+      if (this.type == 0) {//溢租率
         console.log("溢租率-----");
         this.searchRequest.projectId = this.searchForm.projectId; //项目ID
         this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
@@ -1144,11 +1127,9 @@ export default {
           }, (err) => {
             console.log(err)
           })
-      }
-      if (this.activeName2 == 'second'){//客销度
+      } else if (this.type == 1){//客销度
+      console.log(this.objType)
         //调接口
-        console.log("客销度-----");
-        console.log(this.searchForm);
         this.searchRequest.projectId = this.searchForm.projectId; //项目ID
         this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
         this.searchRequest.floorId = this.searchForm.floorId; //楼层
@@ -1172,7 +1153,6 @@ export default {
             })
           this.closeDialogKXD();
         }else if(this.objType==1){
-
           //调接口
           window.$getGuestFloorList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1186,7 +1166,7 @@ export default {
             })
           this.closeDialogKXD();
           this.guestForm.sale = 0;
-        }else  if(this.objType==3) {
+        }else  if(this.objType==2) {
           //品牌接口
           window.$getGuestBrandList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1199,10 +1179,9 @@ export default {
               console.log(err)
             })
         }
-      }
-      if (this.activeName2 == 'third') {//适配值
+      } else if (this.type == 2) {//适配值
+      console.log(this.objType)
         //调接口
-        console.log("适配值列表----"+this.searchRequest)
         window.$getFittedList(this.page, this.size, this.searchRequest)
           .then((res) => {
             console.log(res)
@@ -1326,8 +1305,6 @@ export default {
       }).catch(() => {
                   
       })
-      
-    }
     },
     // 查看详情
     showDetails (id) {
@@ -1344,10 +1321,17 @@ export default {
       this.$router.push('/dataManage/dongtai/xiangqing/' + id)
     },
     showAlert: function (cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+      this.$alert(cont, '温馨提示', {
+        confirmButtonText: '确定',
+        callback: action =>{
+          if(this.isSearchList){
+            this.isSearchList = false
+            this.searchList(1)
+          }
+        }
+      })
+    }
+  }
 }
 
 </script>

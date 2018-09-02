@@ -66,22 +66,22 @@ export default {
   },
   created() {
     this.getMenus()
-    this.nowDate = new Date().getFullYear() + '年' + (new Date().getMonth() + 1) + '月' + new Date().getDate() + '日'
-    var weekList = ['日', '一', '二', '三', '四', '五', '六']
-    this.week = '星期' + weekList[new Date().getDay()]
-    var self = this
-    if (!window.localStorage.getItem('userInfo') || window.localStorage.getItem('userInfo') === 'undefined') {
-      self.$axios.get('/shop/user/permission').then((res) => {
-        if (res) {
-          window.localStorage.setItem('userInfo', JSON.stringify(res))
-          self.userInfo = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')) : {}
-        }
-      })
-    } else {
-      self.userInfo = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')) : {}
-    }
+    // this.nowDate = new Date().getFullYear() + '年' + (new Date().getMonth() + 1) + '月' + new Date().getDate() + '日'
+    // var weekList = ['日', '一', '二', '三', '四', '五', '六']
+    // this.week = '星期' + weekList[new Date().getDay()]
+    // var self = this
+    // if (!window.localStorage.getItem('userInfo') || window.localStorage.getItem('userInfo') === 'undefined') {
+    //   self.$axios.get('/shop/user/permission').then((res) => {
+    //     if (res) {
+    //       window.localStorage.setItem('userInfo', JSON.stringify(res))
+    //       self.userInfo = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')) : {}
+    //     }
+    //   })
+    // } else {
+    //   self.userInfo = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')) : {}
+    // }
 
-    this.curLi = this.$route.meta.parentPath ? this.$route.meta.parentPath : this.$route.path;
+    // this.curLi = this.$route.meta.parentPath ? this.$route.meta.parentPath : this.$route.path;
   },
   computed: {
     pageNameList() {

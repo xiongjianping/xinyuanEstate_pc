@@ -472,15 +472,17 @@
 </template>
 <script>
   //定义变量
-  //区域id
-  var myareaId='';
-  //业态id
-  var mybusinessFormId='';
-  //业种id
-  var mybusinessSpeciesId = '';
+  
   import moment from 'moment'
   export default {
     data: () => ({
+      //区域id
+      myareaId:'',
+    //业态id
+      mybusinessFormId:'',
+    //业种id
+      mybusinessSpeciesId:'',
+      isSearchList: false,
       type: 0,
       searchForm:{},
       formLabelWidth:"60px",
@@ -644,8 +646,9 @@
         this.rentCreateDate.effectTime = this.effectTime; //生效时间
         if(this.objType==0){
           window.$createStandardProjectRentObj(this.rentCreateDate).then((res) => {
-            this.showAlert('新增项目溢租率成功！')
             this.closeDialog();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -654,6 +657,8 @@
           this.rentCreateDate.floorId = this.rentForm.floorId; //楼层ID
           window.$createStandardFloorRentObj(this.rentCreateDate).then((res) => {
             this.closeDialog();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -663,6 +668,8 @@
           this.rentCreateDate.formId = this.rentForm.businessFormId//业态
           window.$createStandardFormRentObj(this.rentCreateDate).then((res) => {
             this.closeDialog();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -673,6 +680,8 @@
           this.rentCreateDate.speciesId = this.rentForm.businessSpeciesId//业种
           window.$createStandardMajorRentObj(this.rentCreateDate).then((res) => {
             this.closeDialog();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -683,12 +692,7 @@
         this.closeDialog();
       },
       createStandardGuest(){
-        window.$getAreaList().then((res) => {
-          this.areaList = res
-        }, (err) => {console.log(err)})
-
         this.guestForm.effectTime2 = this.effectTime2;
-        console.log("objType:"+this.objType);
         if(this.objType==4){
           this.guestBrandCreateDate.projectId = this.guestForm.projectId; //项目ID
           this.guestBrandCreateDate.buildingId = this.guestForm.buildingId;  //楼栋ID
@@ -703,9 +707,9 @@
           console.log(this.guestBrandCreateDate)
           //调接口
           window.$createStandardGuestBrandObj(this.guestBrandCreateDate).then((res) => {
-            console.log(res)
-            this.showAlert("新增品牌客销度成功！")
             this.closeDialogKXD();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -737,8 +741,9 @@
         console.log(this.fittedCreateDate);
         if(this.objType==0){
           window.$createStandardProjectFittedObj(this.fittedCreateDate).then((res) => {
-            this.showAlert('新增项目适配值成功！')
             this.closeDialogSPZ();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -746,8 +751,9 @@
         }else if(this.objType==1){
           this.fittedCreateDate.floorId = this.fittedForm.floorId; //楼层ID
           window.$createStandardFloorFittedObj(this.fittedCreateDate).then((res) => {
-            this.showAlert('新增楼层适配值成功！')
             this.closeDialogSPZ();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -756,8 +762,9 @@
           this.fittedCreateDate.floorId = this.fittedForm.floorId; //楼层ID
           this.fittedCreateDate.formId  = this.fittedForm.businessFormId;//业态
           window.$createStandardFormFittedObj(this.fittedCreateDate).then((res) => {
-            this.showAlert('新增业态适配值成功！')
             this.closeDialogSPZ();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -767,8 +774,9 @@
           this.fittedCreateDate.formId  = this.fittedForm.businessFormId;//业态
           this.fittedCreateDate.speciesId = this.fittedForm.businessSpeciesId;//业种
           window.$createStandardMajorFittedObj(this.fittedCreateDate).then((res) => {
-            this.showAlert('新增业种适配值成功！')
             this.closeDialogSPZ();
+            this.isSearchList = true
+            this.showAlert('新增成功！')
           }, (err) => {
             console.log(err)
             this.showAlert(err)
@@ -824,21 +832,20 @@
         this.searchForm.projectId = '';
         this.searchForm.buildingId = '';
         this.floorId = '';
-        myareaId = this.searchForm.areaId;
+        this.myareaId = this.searchForm.areaId;
         if (this.dialogFormVisible) {
-          myareaId = this.rentForm.areaId;
+          this.myareaId = this.rentForm.areaId;
           /*this.dialogFormVisible = true*/
         }
         if (this.dialogFormVisible1){
-          myareaId = this.guestForm.areaId;
+          this.myareaId = this.guestForm.areaId;
           /* this.dialogFormVisible1 = true;*/
         }
         if (this.dialogFormVisible2) {
-          myareaId = this.fittedForm.areaId;
+          this.myareaId = this.fittedForm.areaId;
           /* this.dialogFormVisible2 = true;*/
         }
-        console.log("areaChanged---"+myareaId);
-        window.$getProjectListForArea(myareaId).then((res) => {
+        window.$getProjectListForArea(this.myareaId).then((res) => {
           console.log("areachanged");
           console.log(res)
           this.projectList = res
@@ -877,13 +884,9 @@
         this.rentForm.buildingId = ''
         this.floorId = ''
         window.$getBuilding(this.rentForm.projectId).then((res) => {
-          console.log("溢租率projectChanged");
-          console.log(res)
           //调用楼层
           window.$getFloorForBuilding(res[0].id).then((floorRes) => {
             this.floorList = floorRes
-            console.log("溢租率楼层----")
-            console.log(floorRes);
           }, (err) => {
             this.showAlert(err)
           })
@@ -896,13 +899,9 @@
         this.guestForm.buildingId = ''
         this.floorId = ''
         window.$getBuilding(this.guestForm.projectId).then((res) => {
-          console.log("客销度projectChanged");
-          console.log(res)
           //调用楼层
           window.$getFloorForBuilding(res[0].id).then((floorRes) => {
             this.floorList = floorRes
-            console.log("客销度楼层----")
-            console.log(floorRes);
           }, (err) => {
             this.showAlert(err)
           })
@@ -915,13 +914,9 @@
         this.fittedForm.buildingId = ''
         this.floorId = ''
         window.$getBuilding(this.fittedForm.projectId).then((res) => {
-          console.log("适配值projectChanged");
-          console.log(res)
           //调用楼层
           window.$getFloorForBuilding(res[0].id).then((floorRes) => {
             this.floorList = floorRes
-            console.log("适配值楼层----")
-            console.log(floorRes);
           }, (err) => {
             this.showAlert(err)
           })
@@ -944,23 +939,20 @@
         this.searchForm.businessSpeciesId = ''
         this.speciesList = [];
         this.brandId = ''
-        mybusinessFormId = this.searchForm.businessFormId;
+        this.mybusinessFormId = this.searchForm.businessFormId;
         if (this.dialogFormVisible) {
           this.rentForm.businessSpeciesId = ''
-          mybusinessFormId = this.rentForm.businessFormId;
+          this.mybusinessFormId = this.rentForm.businessFormId;
         }
         if (this.dialogFormVisible1){
           this.guestForm.businessSpeciesId = ''
-          mybusinessFormId = this.guestForm.businessFormId;
+          this.mybusinessFormId = this.guestForm.businessFormId;
         }
         if (this.dialogFormVisible2) {
           this.fittedForm.businessSpeciesId = ''
-          mybusinessFormId = this.fittedForm.businessFormId;
+          this.mybusinessFormId = this.fittedForm.businessFormId;
         }
-        //console.log("businessChanged---"+mybusinessFormId);
-        window.$getSpeciesSelect(mybusinessFormId).then((res) => {
-          console.log("业态change-----")
-          console.log(res)
+        window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
           this.speciesList = res
         }, (err) => {
           this.showAlert(err)
@@ -970,24 +962,21 @@
       //业种
       speciesChanged(){
         this.brandList = ''
-        mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
         if (this.dialogFormVisible) {
           this.rentForm.brandList = ''
-          mybusinessSpeciesId = this.rentForm.businessSpeciesId;
+          this.mybusinessSpeciesId = this.rentForm.businessSpeciesId;
         }
         if (this.dialogFormVisible1){
           this.guestForm.brandList = ''
-          mybusinessSpeciesId = this.guestForm.businessSpeciesId;
+          this.mybusinessSpeciesId = this.guestForm.businessSpeciesId;
         }
         if (this.dialogFormVisible2) {
           this.fittedForm.brandList = ''
-          mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
+          this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
         }
         //获取品牌
-        //window.$getBrandForSpecies(mybusinessSpeciesId).then((res) => {
-        window.$getcontractIdForSpecies(mybusinessSpeciesId).then((res) => {
-          console.log("品牌list")
-          console.log(res)
+        window.$getcontractIdForSpecies(this.mybusinessSpeciesId).then((res) => {
           this.brandList = res
           if (this.dialogFormVisible) {
             //  for()res
@@ -1042,7 +1031,6 @@
         }
         let url = this.businessType === 1 ? '/standardexport/excel/dtyzl' : (this.businessType === 2 ? '/standardexport/excel/dtkxd' : '/standardexport/excel/dtspz')
         window.$exportExls(url, this.exportExlsData.projectId).then((res) => {
-          console.log(res);
           let link = document.createElement('a');
           link.href = res;
           link.click()
@@ -1086,7 +1074,7 @@
         this.searchRequest.brandName = this.searchForm.brandName //品牌
         this.searchRequest.effectTime = this.effectTime;//生效时间
         this.searchRequest.contractId =this.searchForm.brandId;
-        if (this.activeName2 == "first") {//溢租率
+        if (this.type == 0) {//溢租率
           if(this.objType==0){
             window.$getStandardProjectRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
@@ -1106,7 +1094,6 @@
           else if(this.objType==2){
             window.$getStandardFormRentList(this.page, this.size, this.searchRequest)
               .then((res) => {
-                console.log(res)
                 this.data = res
                 /*this.projectList = this.data.resultList*/
               }, (err) => {
@@ -1122,7 +1109,7 @@
               })
           }
         }
-        if (this.activeName2 == 'second'){//客销度
+        if (this.type == 1){//客销度
           //调接口
           this.data="";//清空数据
           if(this.objType==4){
@@ -1137,7 +1124,7 @@
             this.closeDialogKXD();
           }
         }
-        if (this.activeName2 == 'third') {//适配值
+        if (this.type == 2) {//适配值
           if(this.objType==0){
             window.$getStandardProjectFittedList(this.page, this.size, this.searchRequest)
               .then((res) => {
@@ -1300,14 +1287,19 @@
         this.$router.push('/dataManage/dongtai/xiangqing/' + id)
       },
       rowClass({ row, rowIndex}) {
-        console.log(rowIndex); //表头行标号为0
         return 'height:50px;font-size:15px'
       },
       showAlert: function (cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+      this.$alert(cont, '温馨提示', {
+        confirmButtonText: '确定',
+        callback: action =>{
+          if(this.isSearchList){
+            this.isSearchList = false
+            this.searchList(1)
+          }
+        }
+      })
+    }
     }
   }
 
