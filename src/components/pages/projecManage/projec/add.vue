@@ -1,27 +1,16 @@
 <template>
   <!--新增项目-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-
     <el-row class="searchBox" :gutter="30">
-      <h3 class="title">基本信息</h3>
-      <i class="hengxian"></i>
+      <h3 id="title">基本信息</h3><br>
       <el-form label-width="100px" :model="searchForm">
-
-      <el-row>
         <el-col :span="6">
-          <el-form-item label="项目">
-            <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          <el-form-item label="区域">
+            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
+              <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
-
-
-          <el-col :span="6">
-            <el-form-item label="区域">
-              <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
-                <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
 
         <el-col :span="6">
           <el-form-item label="公司">
@@ -31,21 +20,19 @@
           </el-form-item>
         </el-col>
 
-          <el-col :span="6">
-            <el-form-item label="状态">
-              <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
-                <el-option label="启用" value="true"></el-option>
-                <el-option label="禁用" value="false"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-      </el-row>
-      
-      <el-row>
         <el-col :span="6" >
           <el-form-item label="部门">
             <el-select size="small" v-model="departmentId" placeholder="请选择部门" @change="getPerson()">
               <el-option v-for="(item,index) in departmentList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item label="状态">
+            <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
+              <el-option label="启用" value="true"></el-option>
+              <el-option label="禁用" value="false"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -57,43 +44,39 @@
             </el-select>
           </el-form-item>
         </el-col> 
+
+        <el-col :span="6">
+          <el-form-item label="项目">
+            <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
+          </el-form-item>
+        </el-col>
         
         <el-col :span="6">
           <el-form-item label="面积/平">
-            <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder=" "></el-input>
+            <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row>
-        <el-col class="uploadFiles">
-         <el-upload :action="getUploadUrl()"
-                    list-type="picture-card"
-                    :limit=6
-                    :on-preview="handlePictureCardPreview"
-                    :on-success="handleSuccess"
-                    :on-remove="handleRemove">
-                    <i class="el-icon-plus"></i>
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
-          </el-dialog>
-         </el-col>
-      </el-row>
 
-      <el-row class="f-tac mt40">
-        <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
-        <el-button type="primary" @click="create()">确定</el-button>
-      </el-row>
-     <!--  <el-row>
-        <el-col :span="14" class="xxk">
-          <button type="button" @click="goBack()">取消</button>
-          <button type="button" @click="create()">确定</button>
-        </el-col>
-      </el-row> -->
-
+      <el-col class="uploadFiles mt40">
+        <el-upload :action="getUploadUrl()"
+                  list-type="picture-card"
+                  :limit=6
+                  :on-preview="handlePictureCardPreview"
+                  :on-success="handleSuccess"
+                  :on-remove="handleRemove">
+                  <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog :visible.sync="dialogVisible">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
+      </el-col>
       </el-form>
     </el-row>
 
+    <div class="buttonlist mt100">
+      <el-button type="primary" class="mr10" @click="goBack()">取消</el-button>
+      <el-button type="primary" @click="create()">确定</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -242,9 +225,14 @@ export default {
     width: 100%
   }
 
-    .img{
-      width: 100px;
-      height: 100px;
-    }
+  .img{
+    width: 100px;
+    height: 100px;
+  }
+
+  .buttonlist{
+    width:200px;
+    margin: 100px auto 0 auto;
+  }
 
 </style>

@@ -16,6 +16,7 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
+        
         <el-col :span="5">
           <el-form-item label="方位">
             <el-select size="small" v-model="searchForm.location" placeholder="请选择位置">

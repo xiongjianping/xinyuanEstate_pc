@@ -17,20 +17,15 @@
           </template> -->
         </el-table-column>
       </el-table>
-      <el-row type='flex' justify="center" v-if="data.resultList">
-        <el-col :span="16">
-          <div class="block">
-            <span class="demonstration"></span>
-            <el-pagination
+      <div class="paginationCont">
+        <el-pagination
               @current-change="handleCurrentChange"
               :current-page="page"
               :page-size="size"
               layout="prev, pager, next"
               :total="data.countSize">
             </el-pagination>
-          </div>
-        </el-col>
-      </el-row>
+      </div>
     </div>
   </div>
 </template>
@@ -224,5 +219,8 @@ export default {
   }
   .block{
     float: right;
+  }
+  .paginationCont{
+    margin: 20px 90px;
   }
 </style>
