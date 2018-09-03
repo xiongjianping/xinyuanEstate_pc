@@ -4,68 +4,67 @@
       <h3 id="title">签约管理</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
-          <el-form-item label="区域：">
+          <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="项目：">
+          <el-form-item label="项目">
             <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="楼栋：">
+          <el-form-item label="楼栋">
             <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="楼层：">
+          <el-form-item label="楼层">
             <el-select size="small" v-model="floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="业态：">
+          <el-form-item label="业态">
             <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态"  @change="businessChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="业种：">
+          <el-form-item label="业种">
             <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="品牌：">
+          <el-form-item label="品牌">
             <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌">
               <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="铺位：">
+          <el-form-item label="铺位">
             <el-input size="small" maxlength="11" v-model="searchForm.name" placeholder="请输入铺位"/>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" class="mr25" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="qianyue(0);">签约</el-button>
           </el-form-item>
         </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="qianyue(0);">签约</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">签约管理列表</div>
     <div class="listCont">
@@ -81,8 +80,8 @@
         <el-table-column align="center" prop="acreage" label="面积"></el-table-column>
         <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.state">已签约</el-button>
-            <el-button disabled  size="small" type="danger" v-if="!scope.row.state">已解约</el-button>
+            <p class="using" v-if="scope.row.state">已签约</p>
+            <p class="unusing" type="danger" v-if="!scope.row.state">已解约</p>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="100">
@@ -335,11 +334,6 @@ export default {
     div{
       display: inline-block;
     }
-  }
-  .mainContent{
-    width: 100%;
-    // height: 120%;
-    background: #fff;
   }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;

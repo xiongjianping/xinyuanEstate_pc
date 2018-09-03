@@ -27,17 +27,13 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="5">
-          <!--<el-form-item label="楼栋" v-if="different === 2">-->
+        <!-- <el-col :span="5">
           <el-form-item label="楼栋" style="display: none;">
-            <!--<el-select v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-          </el-row>
-        <el-row>
+        </el-col> -->
         <el-col :span="5">
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <!--<el-select  size="small" v-model="searchForm.searchFloorId"  placeholder="请选择楼层"  @change="floorChange()">-->
@@ -60,28 +56,14 @@
             </el-select>
           </el-form-item>
         </el-col>
-          </el-row>
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="维度" v-if="businessId === 2" >-->
-            <!--<el-select  size="small" v-model="different" placeholder="请选择维度">-->
-              <!--<el-option v-for="(item, index) in dimensionList" :key="ind ex" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
-           <!-- <el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>
-            <input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportExl()">导出</el-button>-->
-            <!-- <el-button type="primary" size="medium" v-on:click="kxxz(1);">客销度新增</el-button>
-            <el-button type="primary" size="medium" v-on:click="yzl(1);">溢租率新增</el-button> -->
-          </el-form-item>
-        </el-col>
-
+      </el-row>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="showCreateSection()">新增</el-button>
+    </div>
 
     <el-dialog class="RentingRate" title="客销度区间设置" :visible="dialogFormVisible" @close='closeDialog'>
       <el-form class="yzl-line-top"></el-form>
@@ -142,22 +124,6 @@
 
         </el-row>
         <el-row>
-          <!--<el-col :span="8">
-            <el-form-item label="品牌" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="businessType" placeholder="项目A" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>-->
-        <!--  <el-col :span="8">
-            <el-form-item label="品牌" :label-width="formLabelWidth">
-              &lt;!&ndash; <el-input size="small" v-model="searchForm.brandId" :maxlength="11" placeholder="品牌"></el-input>&ndash;&gt;
-             &lt;!&ndash; <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">&ndash;&gt;
-              <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌" >
-                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>-->
         </el-row>
         <el-row>
           <el-col :span="8">
@@ -193,7 +159,6 @@
     </el-dialog>
     <p class="t"></p>
     <div class="biaoti1">区间设置列表</div>
-    <el-button class="NewlyAdded"  type="primary" align="center" v-on:click="showCreateSection()">新增</el-button>
 
     <div class="listCont">
         <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
@@ -318,70 +283,77 @@ export default {
   },
   methods: {
     deleteTrigonometricGuest(id){
-      if(this.objType==0){
-        this.loading = true
-        window.$deleteTrigonometricProjectGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if(this.objType==0){
+          this.loading = true
+          window.$deleteTrigonometricProjectGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置客销度---'+id)
-      }else if(this.objType==1){
-        this.loading = true
-        window.$deleteTrigonometricFloorGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置客销度---'+id)
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteTrigonometricFloorGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置楼层客销度---'+id)
-      }
-      else if(this.objType==2){
-        this.loading = true
-        window.$deleteTrigonometricFormGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置楼层客销度---'+id)
+        }else if(this.objType==2){
+          this.loading = true
+          window.$deleteTrigonometricFormGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置业态客销度---'+id)
-      }else if(this.objType==3){
-        this.loading = true
-        window.$deleteTrigonometricMajorGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置业态客销度---'+id)
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteTrigonometricMajorGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除区间设置业种客销度---'+id)
-      } else if(this.objType==4){
-        this.showAlert("无品牌溢租率、无需删除");
-      }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+          this.showAlert('删除区间设置业种客销度---'+id)
+        } else if(this.objType==4){
+          this.showAlert("无品牌溢租率、无需删除");
+        }
+      }).catch(() => {
+                  
+      })
     },
 
     // 业态
@@ -733,11 +705,6 @@ export default {
     div{
       display: inline-block;
     }
-  }
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;

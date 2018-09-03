@@ -3,19 +3,11 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox"  :gutter="30">
-      <h3 class="title">基本信息</h3>
-      <i class="hengxian"></i>
+      <h3 id="title">基本信息</h3>
       <el-form label-width="100px" :model="data">
-
        <el-row>
-        <el-col :span="6">
-          <el-form-item label="品牌：">
-            <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
-          </el-form-item>
-          </el-col>
-
           <el-col :span="6">
-            <el-form-item label="业态：">
+            <el-form-item label="业态">
               <el-select size="small" v-model="data.businessFormId" placeholder="请选择业态" @change="getSpeciesList()">
                 <el-option v-for="(item, index) in formList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -23,7 +15,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="业种：">
+            <el-form-item label="业种">
               <el-select size="small" v-model="data.businessSpeciesId" placeholder="请选择业种">
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -31,12 +23,18 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="经营方式：">
+            <el-form-item label="经营方式">
               <el-select size="small" v-model="data.brandType" placeholder="请选择经营方式">
                 <el-option label="直营" value="1"></el-option>
                 <el-option label="代理" value="2"></el-option>
               </el-select>
             </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+          <el-form-item label="品牌">
+            <el-input size="small" v-model="data.name" :maxlength="11" placeholder="请输入品牌名称"></el-input>
+          </el-form-item>
           </el-col>
        </el-row>
 
@@ -44,11 +42,6 @@
           <el-button type="primary" class="mr15" @click="goBack()">取消</el-button>
           <el-button type="primary" @click="create()">确定</el-button>
         </el-row>
-      <!-- <div class="xxk">
-        <button type="button" @click="goBack()">取消</button>
-        <button type="button" @click="create()">确定</button>
-      </div> -->
-
       </el-form>
     </el-row>
   </div>
@@ -100,11 +93,6 @@ showAlert(cont) {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }

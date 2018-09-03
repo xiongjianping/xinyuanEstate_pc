@@ -3,15 +3,15 @@
     <el-row class="searchBox" :gutter="30">
       <h3 id="title">区间公司</h3><br>
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="searchList(1);">新增</el-button>
-            <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
-            <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="ml10" size="medium" v-on:click="searchList(1);">新增</el-button>
+      <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
+      <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">区间公司列表</div>
     <div class="listCont">
@@ -27,11 +27,12 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="block">
-        <span class="demonstration"></span>
+      <div class="paginationCont">
         <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="data.page"
           layout="prev, pager, next"
-          :total="30">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -112,11 +113,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }

@@ -2,45 +2,19 @@
   <!--签约-->
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
-      <h3 class="title">签约信息</h3>
-      <i class="hengxian"></i>
+      <h3 id="title">签约信息</h3>
       <el-form label-width="100px" :model="searchForm">
         <el-row>
           <el-col :span="6">
-            <el-form-item label="业态：">
-              <el-select size="small" v-model="business" placeholder="请选择业态" @change="businessChanged()">
-                <el-option v-for="(item, index) in bList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="6">
-            <el-form-item label="业种：">
-              <el-select size="small" v-model="species" placeholder="请选择业种" @change="speciesChanged()">
-                <el-option v-for="(item, index) in sList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="6">
-            <el-form-item label="品牌：">
-              <el-select size="small" v-model="brandId" placeholder="请选择品牌">
-                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="6">
-            <el-form-item label="区域：">
+            <el-form-item label="区域">
               <el-select size="small" v-model="area" placeholder="请选择区域" @change="areaChanged()">
                 <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
+          
           <el-col :span="6">
-            <el-form-item label="项目：">
+            <el-form-item label="项目">
               <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
                 <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -48,7 +22,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="楼栋：" :span="5">
+            <el-form-item label="楼栋" :span="5">
               <el-select size="small"   v-model="building" placeholder="请选择楼栋" clearable  @change="buildingChanged()">
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -56,7 +30,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="楼层：">
+            <el-form-item label="楼层">
               <el-select size="small" v-model="floorId" placeholder="请选择楼层">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -64,12 +38,36 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="铺位：">
+            <el-form-item label="业态">
+              <el-select size="small" v-model="business" placeholder="请选择业态" @change="businessChanged()">
+                <el-option v-for="(item, index) in bList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+            <el-form-item label="业种">
+              <el-select size="small" v-model="species" placeholder="请选择业种" @change="speciesChanged()">
+                <el-option v-for="(item, index) in sList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+            <el-form-item label="品牌">
+              <el-select size="small" v-model="brandId" placeholder="请选择品牌">
+                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+            <el-form-item label="铺位">
               <el-input size="small" maxlength="11" v-model="searchForm.roomName" placeholder="请输入铺位"/>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row class="f-tac mt10 mb10">
+        <el-row class="f-tac mt10 mb10 mt40">
           <el-col :span="24">
             <el-button type="primary" class="xuan" @click="searchList()">搜索</el-button>
           </el-col>
@@ -86,7 +84,7 @@
         </div>
 
         <!--yyh-->
-        <el-row class="f-tac">
+        <el-row class="f-tac mt40">
           <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
           <el-button type="primary" @click="create">确定</el-button>
         </el-row>
@@ -209,98 +207,22 @@
           this.sendData.roomId.push(this.checkedList[i].roomId)
         }
       },
-
-
-      // create() {
-      // this.newCompany = {}
-      // this.dialogFormVisible = true//yyh
-//<<<<<<< caicai
-      // window.$getCompanyAll().then((res) => {
-      //   this.companyList = res
-      // }, (err) => {
-      //   this.showAlert(err)
-      // })
-//=======//***yyh
-//         window.$getCompanyAll().then((res) => {
-//           this.companyList = res
-//         }, (err) => {
-//           this.showAlert(err)
-//         })
-
-
-//>>>>>>> master  //yyh
-//         this.sendData.projectId = this.searchForm.projectId
-//         this.sendData.brandId = this.brandId
-//         this.sendData.roomId = []
-//         this.sendData.floorId = this.floorId
-// //<<<<<<< caicai
-//          this.sendData.effectTime = this.effectTime
-//         for (var i = 0; i < this.checkedList.length; i++) {
-//           this.sendData.roomId.push(this.checkedList[i].roomId)
-// //=======
-//           //this.sendData.effectTime = this.value1
-//           // for(var i = 0; i < this.checkedList.length; i++) {
-//           //   this.sendData.roomId.push(this.checkedList[i].roomId)
-//           // }
-//         }
-
-
-//***yyh
-//         checkCompanyInfo()
-//         {
-//           if (!this.newCompany.name || this.newCompany.name == '') {
-//             this.$message('请输入公司名称');
-//             return false
-//           } else {
-//             return true
-// //>>>>>>> master
-//           }
-//         }
-
-
-
       createContract() {
-        console.log("签约确定按钮被点击!!!");
-
-
         this.sendData.effectTime = this.effectTime
-        // if(this.checkCompanyInfo()){
-        //   window.$createCompany(this.newCompany).then((res) => {
-        //     this.showAlert('新增成功');
-        //     // this.dialogFormVisible = false
-        //   }, (err) => {
-        //     this.showAlert(err);
-        //   })
-        // };
-
-        console.log("铺位id为："+this.sendData.roomId)
         if(this.sendData.roomId.length == 0){
             alert("铺位id不能为空!")
             return
         }
 
-        console.log("签约管理:"+this.sendData);
         window.$createContract(this.sendData).then((res) => {
-          console.log(this.sendData);
-          console.log("res***"+res);
-
           if(res==="OK"){
             this.dialogFormVisible = false
             alert("签约成功!")
           }
-
-          // setTimeout(function () {
-          //   this.dialogFormVisible = false
-          //   alert("超时，服务器忙稍后再试!")
-          // }, 500)
-
         }, (err) => {
           this.showAlert(err)
         })
       },
-
-
-
       goBack()
       {
         this.$router.back(-1)
@@ -317,20 +239,10 @@
           confirmButtonText: '确定'
         })
       },
-      // }
     }
   }
 </script>
 <style scoped  lang="less">
-  // .xuan{
-  //   margin-left: 170px;
-  //   margin-top: 40px;
-  // }
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;
   }
@@ -373,32 +285,6 @@
       margin-left: 20px;
     }
   }
-  .biao{
-    width: 100%;
-    height: 350px;
-    border: 0px solid #fff;
-
-    /*.main{*/
-    /*width: 280px;*/
-    /*height: 280px;*/
-    /*border: 1px solid #000;*/
-    /*margin: 0 auto;*/
-    /*margin-top: 10px;*/
-    /*tr{*/
-    /*height: 20px;*/
-    /*border: 1px solid #CCC;*/
-    /*background: red;*/
-    /*}*/
-    /*!*th,tr,td{*!*/
-    /*!*height: 20px;*!*/
-    /*!*border: 1px solid #ccc;*!*/
-    /*!*border-collapse: collapse;*!*/
-    /*!*text-align: center;*!*/
-    /*!*}*!*/
-    /*}*/
-  }
-
-
 </style>
 
 

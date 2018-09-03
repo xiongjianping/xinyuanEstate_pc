@@ -26,22 +26,21 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="7">
         <el-form-item label="时间">
             <el-date-picker  size="small" v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
               value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item>
         </el-col>
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr25" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="xinzeng(0);">新增</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="xinzeng(0);">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">品牌管理列表</div>
     <div class="listCont">
@@ -52,8 +51,8 @@
         <el-table-column align="center" prop="businessSpeciesName" label="业种"></el-table-column>
         <el-table-column align="center" prop="brandType" label="经营方式">
           <template slot-scope="scope">
-            <el-button disabled type="text" size="small" v-if="scope.row.brandType === 1">直营</el-button>
-            <el-button disabled type="text" size="small" v-if="scope.row.brandType === 2">代理</el-button>
+            <p v-if="scope.row.brandType === 1">直营</p>
+            <p v-if="scope.row.brandType === 2">代理</p>
           </template>
         </el-table-column>
         <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
@@ -61,8 +60,8 @@
         <!-- <el-table-column align="center" prop="company" label="修改人"></el-table-column> -->
         <el-table-column align="center" prop="state" label="状态">
           <template slot-scope="scope">
-            <el-button disabled size="small" type="success" v-if="scope.row.state === 1">签约</el-button>
-            <el-button disabled size="small" type="danger" v-if="scope.row.state === 2">停用</el-button>
+            <p class="using" v-if="scope.row.state === 1">签约</p>
+            <p class="unusing" v-if="scope.row.state === 2">停用</p>
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" width="200">
@@ -154,6 +153,11 @@ export default {
       this.$router.push('/indicatorsManage/indicators/bianji/' + id)
     },
     deleteBrand(id) {
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteBrand(id).then((res) => {
         for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -166,6 +170,9 @@ export default {
       }, (err) => {
         this.loading = false
         this.showAlert(err)
+      })
+      }).catch(() => {
+                  
       })
     },
     rowClass({ row, rowIndex }) {
@@ -182,12 +189,6 @@ export default {
 
 </script>
 <style scoped lang="less">
-.mainContent {
-  width: 100%;
-  // height: 120%;
-  background: #fff;
-}
-
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner {
   width: 100%;

@@ -16,6 +16,7 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
+        
         <el-col :span="5">
           <el-form-item label="方位">
             <el-select size="small" v-model="searchForm.location" placeholder="请选择位置">
@@ -24,14 +25,14 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr25" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="editDetails(0);">新增</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="editDetails(0);">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">楼层管理列表</div>
     <div class="listCont">
@@ -43,16 +44,16 @@
         <el-table-column align="center" prop="name" label="楼层"></el-table-column>
         <el-table-column align="center" prop="location" label="位置">
           <template slot-scope="scope">
-            <el-button disabled type="text" size="small" v-if="scope.row.location === 1">地上</el-button>
-            <el-button disabled type="text" size="small" v-if="scope.row.location === 2">地下</el-button>
+            <p v-if="scope.row.location === 1">地上</p>
+            <p v-if="scope.row.location === 2">地下</p>
           </template>
         </el-table-column>
         <el-table-column align="center" prop="acreage" label="面积"></el-table-column>
         <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="merchandiseName" label="当前状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.state">启用</el-button>
-            <el-button disabled  size="small" type="danger" v-if="!scope.row.state">禁用</el-button>
+            <p class="using" v-if="scope.row.state">启用</p>
+            <p class="unusing" v-if="!scope.row.state">禁用</p>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作">
@@ -133,6 +134,11 @@ export default {
       this.$router.push('/projecManage/floor/xiangqing/' + id)
     },
     deleteFloor(id){
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteFloor(id).then((res) => {
         for(var i = this.floorList.length - 1; i >= 0; i--){
@@ -145,6 +151,9 @@ export default {
       }, (err) => {
         this.loading = false
         this.showAlert(err)
+      })
+      }).catch(() => {
+                  
       })
     },
     rowClass({ row, rowIndex}) {
@@ -160,11 +169,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }

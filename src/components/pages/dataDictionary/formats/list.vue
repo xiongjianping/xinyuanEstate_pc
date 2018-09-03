@@ -3,13 +3,13 @@
     <el-row class="searchBox" :gutter="30">
       <h3 id="title">业种管理</h3><br>
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="addDetail">新增</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="ml10" size="medium" v-on:click="addDetail">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">业种管理列表</div>
     <div class="listCont">
@@ -25,20 +25,15 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-row type='flex' justify="center">
-        <el-col :span="12">
-          <div class="block">
-            <span class="demonstration"></span>
-            <el-pagination
+      <div class="paginationCont">
+          <el-pagination
               @current-change="handleCurrentChange"
               :current-page="data.page"
               :page-size="size"
               layout="prev, pager, next"
               :total="data.countSize">
             </el-pagination>
-          </div>
-        </el-col>
-      </el-row>
+        </div>
     </div>
 
     <el-dialog
@@ -185,7 +180,14 @@ export default {
       })
     },
     deleteDetails (id) {
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      this.loading = true
       this.$axios.get('/base/remove/business/species/' + id).then(res => {
+        this.loading = false
         if (res === 'OK') {
           this.$alert('删除成功!','提示',{
             type:'success'
@@ -194,9 +196,13 @@ export default {
           })
         }
       }).catch(err => {
-        console.log(err)
+        this.loading = false
         this.showAlert(err)
       })
+      }).catch(() => {
+                  
+      })
+      
     },
     // 查看详情
     showDetails (id) {
@@ -225,11 +231,6 @@ export default {
 }
 </script>
 <style  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 200%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }

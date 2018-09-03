@@ -7,7 +7,7 @@
       <el-form label-width="100px" :model="searchForm">
         <el-row>
           <el-col :span="6">
-            <el-form-item label="区域：">
+            <el-form-item label="区域">
               <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
                 <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -15,7 +15,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="项目：">
+            <el-form-item label="项目">
               <el-select size="small" v-model="sendData.projectId" placeholder="请选择项目">
                 <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -23,7 +23,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="业态：">
+            <el-form-item label="业态">
               <el-select size="small" v-model="sendData.businessFormId" placeholder="请选择业态" @change="changeForm">
                 <el-option v-for="(item, index) in allFormList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -32,7 +32,7 @@
 
 
         <el-col :span="6">
-          <el-form-item label="业种：">
+          <el-form-item label="业种">
             <el-select size="small" v-model="sendData.businessSpeciesId" placeholder="请选择业种">
               <el-option v-for="(item, index) in allSpeciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -42,7 +42,7 @@
 
        <el-row>
           <el-col :span="6">
-            <el-form-item label="类型：">
+            <el-form-item label="类型">
               <el-select size="small" v-model="searchForm.type" placeholder="请选择类型"  @change="searchList()">
                 <el-option v-for="(item, index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -50,7 +50,7 @@
           </el-col>
 
           <el-col :span="6" >
-            <el-form-item label="评价：">
+            <el-form-item label="评价">
               <el-select size="small" v-model="sendData.type" placeholder="请选择评价">
                 <el-option v-for="(item, index) in evaluateTypeList" :key="index" :label="item.typename" :value="item.type"></el-option>
               </el-select>
@@ -58,7 +58,7 @@
           </el-col>
 
           <el-col :span="6" >
-            <el-form-item label="业务类型：">
+            <el-form-item label="业务类型">
               <el-select size="small" v-model="sendData.helpType" placeholder="请选择业务类型">
                 <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -189,11 +189,6 @@ showAlert(cont) {
   .xuan{
     margin-left: 15px;
     margin-top: 20px;
-  }
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;

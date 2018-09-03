@@ -52,6 +52,7 @@ export default {
       if(urlArr[i].indexOf('userName') > 0){
         var arr = urlArr[i].split('=')
         var userName = arr[arr.length - 1]
+        console.log('userName = ' + userName)
         this.submitForm(userName)
       }
     }

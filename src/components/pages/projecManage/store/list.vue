@@ -38,24 +38,21 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="7.1">
+        <el-col :span="7">
         <el-form-item label="时间">
-            <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
-                            size="small" value-format="yyyy-MM-dd">
+            <el-date-picker size="small" v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item>
         </el-col>
-
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr25" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="showDetails(0);">新增</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
-
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="showDetails(0);">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">铺位管理列表</div>
     <div class="listCont">
@@ -70,9 +67,9 @@
         <el-table-column align="center" prop="acreage" label="面积/平"></el-table-column>
         <el-table-column align="center" prop="state" label="状态">
           <template slot-scope="scope">
-            <el-button disabled  size="small" type="success" v-if="scope.row.state === 1">启用</el-button>
-            <el-button disabled  size="small" type="danger" v-if="scope.row.state === 2">禁用</el-button>
-            <el-button disabled  size="small" type="success" v-if="scope.row.state === 3">签约中</el-button>
+            <p class="using" v-if="scope.row.state === 1">启用</p>
+            <p class="unusing" v-if="scope.row.state === 2">禁用</p>
+            <p class="ongoing" v-if="scope.row.state === 3">签约中</p>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
@@ -185,11 +182,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 150%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }

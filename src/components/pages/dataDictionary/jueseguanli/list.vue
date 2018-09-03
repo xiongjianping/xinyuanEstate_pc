@@ -3,16 +3,16 @@
     <el-row class="searchBox" :gutter="30">
       <h3 id="title">角色管理</h3><br>
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="createPerson">创建角色</el-button>
-            <!-- <el-button type="primary" size="medium" v-on:click="searchList();">删除角色</el-button> -->
-            <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
-            <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="ml10" size="medium" v-on:click="createPerson">创建角色</el-button>
+      <!-- <el-button type="primary" size="medium" v-on:click="searchList();">删除角色</el-button> -->
+      <!--<el-button type="primary" size="medium" v-on:click="resetForm();">新增公司</el-button>-->
+      <!--<el-button type="primary" size="medium" v-on:click="editDetails();">新增项目</el-button>-->
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">角色管理列表</div>
     <div class="listCont">
@@ -247,11 +247,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 150%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 30%;
 }

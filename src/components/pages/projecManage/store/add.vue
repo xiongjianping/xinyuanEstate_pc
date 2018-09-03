@@ -2,18 +2,11 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
 
     <el-row class="searchBox" :gutter="30">
-      <h3 class="title">基本信息</h3>
-      <i class="hengxian"></i>
+      <h3 id="title">基本信息</h3>
       <el-form label-width="100px" :model="searchForm">
         <el-row>
           <el-col :span="6">
-            <el-form-item label="铺位：">
-              <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入"></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="6">
-            <el-form-item label="区域：">
+            <el-form-item label="区域">
               <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="getProjectList()">
                 <el-option v-for="(item, index) in areaList" :key ="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -21,7 +14,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="公司：">
+            <el-form-item label="公司">
               <el-select size="small" v-model="searchForm.companyId" placeholder="请选择公司">
                 <el-option v-for="(item, index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -29,17 +22,15 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="所属项目：">
+            <el-form-item label="所属项目">
               <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="getBuildingList()">
                 <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row>
           <el-col :span="6">
-            <el-form-item label="楼栋：">
+            <el-form-item label="楼栋" >
               <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="getFloorList()">
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -48,7 +39,7 @@
 
 
           <el-col :span="6">
-            <el-form-item label="楼层：">
+            <el-form-item label="楼层">
               <el-select size="small" v-model="floorId" placeholder="请选择楼层">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -56,7 +47,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="状态：">
+            <el-form-item label="状态">
               <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
                 <el-option label="启用" value="1"></el-option>
                 <el-option label="禁用" value="2"></el-option>
@@ -65,7 +56,13 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="面积/平：">
+            <el-form-item label="铺位">
+              <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入铺位名称"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+            <el-form-item label="面积/平">
               <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
             </el-form-item>
           </el-col>
@@ -75,11 +72,6 @@
           <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
           <el-button type="primary" @click="create()">确定</el-button>
         </el-row>
-
-        <!-- <div class="xxk">
-          <button type="button" @click="goBack()">取消</button>
-          <button type="button" @click="create()">确定</button>
-        </div> -->
 
       </el-form>
     </el-row>
@@ -159,11 +151,6 @@ showAlert(cont) {
   }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;
   }
@@ -206,6 +193,5 @@ showAlert(cont) {
       margin-left: 20px;
     }
   }
-
 
 </style>

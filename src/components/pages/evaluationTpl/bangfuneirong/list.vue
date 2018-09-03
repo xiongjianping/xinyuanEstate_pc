@@ -10,15 +10,14 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr25" size="medium" @click="searchList(1)">搜索</el-button>
-            <el-button type="primary" size="medium" v-on:click="xinzeng(1);">新增</el-button>
-          </el-form-item>
-        </el-col>
-
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" @click="searchList(1)">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="xinzeng(1);">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">帮扶内容列表</div>
     <div class="listCont">
@@ -92,6 +91,11 @@ export default {
       }, (err) => {})
     },
     deleteContent(id) {
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteHelpContent(id).then((res) => {
         for(var i = this.data.resultList.length - 1; i >= 0; i--){
@@ -105,6 +109,10 @@ export default {
         this.loading = false
         this.showAlert(err)
       })
+      }).catch(() => {
+                  
+      })
+      
     },
     editDetails(id) {
       this.$router.push('/evaluationTpl/bangfuneirong/edit/' + id)
@@ -126,12 +134,6 @@ export default {
 
 </script>
 <style scoped lang="less">
-.mainContent {
-  width: 100%;
-  // height: 100%;
-  background: #fff;
-}
-
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner {
   width: 100%;

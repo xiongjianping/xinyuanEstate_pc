@@ -3,11 +3,6 @@
     <el-row class="searchBox" :gutter="30">
       <h3 id="title">业态管理</h3><br>
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" size="medium" v-on:click="addDetail">新增</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
 
@@ -16,17 +11,17 @@
         <el-form-item label="业态名称">
           <el-input v-model="changedName"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="父公司">
-          <el-select v-model="newCompany.parentId" placeholder="添加父公司">
-            <el-option v-for="(item,index) in companyList" :key="index" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="editName()">确 定</el-button>
       </div>
     </el-dialog>
+
+    <div class="buttonList">
+      <el-button type="primary" class="ml10" size="medium" v-on:click="addDetail">新增</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">业态管理列表</div>
     <div class="listCont">
@@ -41,20 +36,15 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-row type='flex' justify="center">
-        <el-col :span="12">
-          <div class="block">
-            <span class="demonstration"></span>
-            <el-pagination
+      <div class="paginationCont">
+          <el-pagination
               @current-change="handleCurrentChange"
               :current-page="page"
               :page-size="size"
               layout="prev, pager, next"
               :total="data.countSize">
             </el-pagination>
-          </div>
-        </el-col>
-      </el-row>
+        </div>
     </div>
   </div>
 </template>
@@ -107,8 +97,14 @@ export default {
     },
     // 查看详情
     deleteDetails (id) {
-      // this.$router.push('/dataDicionary/brand/details/' + id)
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      this.loading = true
       this.$axios.get('/base/remove/business/form/' + id).then(res => {
+        this.loading = false
         if (res === 'OK') {
           this.$alert('删除成功!','提示',{
             type:'success'
@@ -117,8 +113,11 @@ export default {
           })
         }
       }).catch(err => {
-        console.log(err)
+        this.loading = false
         this.showAlert(err)
+      })
+      }).catch(() => {
+                  
       })
     },
     editDetails (id) {
@@ -179,11 +178,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 150%;
-    background: #fff;
-  }
   th{
     height: 50px;
   }

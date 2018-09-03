@@ -4,13 +4,17 @@
       <h3 id="title">动态三角形</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
-        <!--  <el-form-item label="对象" :label-width="formLabelWidth">-->
           <el-form-item label="对象" :label-width="formLabelWidth" >
-            <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()">
+            <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type == 1">
               <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+
+            <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type != 1">
+              <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
+        
         <el-col :span="5">
           <el-form-item label="区域" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
@@ -18,6 +22,7 @@
             </el-select>
           </el-form-item>
         </el-col>
+
         <el-col :span="5">
           <el-form-item label="项目" :label-width="formLabelWidth">
             <el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
@@ -25,36 +30,40 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="楼栋"  style="display: none;">
-          <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" >
+
+        <!-- <el-col :span="5" v-if="objType == 1">
+          <el-form-item label="楼栋"  :label-width="formLabelWidth">
+            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-        <el-col :span="5">
+        </el-col> -->
+
+        <el-col :span="5" v-if="objType == 1">
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+
+        <el-col :span="5" v-if="objType == 2">
           <el-form-item label="业态" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
               <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+
+        <el-col :span="5" v-if="objType == 2">
           <el-form-item label="业种" :label-width="formLabelWidth">
             <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
               <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+
+        <el-col :span="5" v-if="objType == 2">
           <el-form-item label="品牌" :label-width="formLabelWidth">
             <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
               <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
@@ -62,70 +71,28 @@
             </el-select>
           </el-form-item>
         </el-col>
-       <!-- <el-col :span="5">
-          <el-form-item label="品牌：">
-            <el-input size="small" v-model="searchForm.brandId" :maxlength="11" placeholder=" "></el-input>
-          </el-form-item>
-        </el-col>-->
-     <!--   <el-col :span="5">
-          <el-form-item label="状态：">
-            <el-select  size="small" v-model="searchForm.contractType" placeholder="全部状态" @change="contractTypeChange()">
-              <el-option v-for="(item, index) in contractTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>-->
 
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="业务类型">-->
-            <!--<el-select  size="small" v-model="businessType" placeholder="请选择业务类型" @change="businessTypeChange()">-->
-                <!--<el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
+        <el-col :span="5" v-if="type == 0">
+          <el-form-item label="时间" :label-width="formLabelWidth">
+            <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
 
-        <el-col :span="5">
+        <el-col :span="5" v-if="type != 0">
           <el-form-item label="时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
 
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="维度" v-if="businessType === 2" >-->
-            <!--<el-select  size="small" v-model="searchForm.different" placeholder="请选择维度">-->
-              <!--<el-option v-for="(item, index) in dimensionTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-dialog title="导出" :visible.sync="dialogFormVisible">-->
-          <!--<el-form :model="exportExlsData">-->
-            <!--<el-form-item label="区域">-->
-              <!--<el-select v-model="exportExlsData.areaId" placeholder="请选择区域" @change="areaChange()">-->
-                <!--<el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="项目">-->
-              <!--<el-select v-model="exportExlsData.projectId" placeholder="请选择项目">-->
-                <!--<el-option v-for="(item,index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-          <!--</el-form>-->
-          <!--<div slot="footer" class="dialog-footer">-->
-            <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-            <!--<el-button type="primary" @click="exportExls()">确 定</el-button>-->
-          <!--</div>-->
-        <!--</el-dialog>-->
-
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <!--<el-button id="fileUpload_button" class="mr10 ml10" type="primary" size="medium" v-on:click="importFile()">导入</el-button>-->
-            <!--<input id="fileUpload_input" class="uploadInput" type="file" @change="fileUpload" />-->
-            <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="exportFile();">导出</el-button>-->
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
+    </div>
 
     <el-dialog title="溢租率" :visible="dialogFormVisible"  @close='closeDialog'>
       <el-form class="yzl-line-top"></el-form>
@@ -145,14 +112,13 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <el-form-item label="楼栋："  style="display: none;">
-            <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
             <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋" >
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col  :span="8" >
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="rentForm.floorId" placeholder="F1" @change="businessTypeChange()">
@@ -164,9 +130,6 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
-            <!--  <el-select  size="small" v-model="rentForm.businessType" placeholder="请选择业态" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>-->
               <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -181,69 +144,50 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
-             <!-- <el-input size="small" v-model="rentForm.brandId" :maxlength="11" placeholder=" "></el-input>-->
               <el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
-                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          <!--  <el-select v-model="value9"  multiple filterable="true"  remote="true" reserve-keyword  placeholder="请输入关键词" :remote-method="remoteMethod()" :loading="loading">
-              <el-option
-                v-for="item in options4"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>-->
-
           </el-col>
         </el-row>
-        <el-row class="yzl-line"></el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="租金" :label-width="formLabelWidth">
-              <el-input size="small" v-model="rentFee" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+        <el-row class="FitnessValue">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="租金" :label-width="formLabelWidth">
+                <el-input size="small" v-model="rentFee" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-col :span="8">
-            <el-form-item label="物业费" :label-width="formLabelWidth">
-              <el-input size="small" v-model="wuyefei" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+            <el-col :span="8">
+              <el-form-item label="物业费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="wuyefei" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-col :span="8">
-            <el-form-item label="折旧费" :label-width="formLabelWidth">
-              <el-input size="small" v-model="zhejiufei" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
+            <el-col :span="8">
+              <el-form-item label="折旧费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="zhejiufei" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="人工费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="rengongchengben" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
 
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="人工费" :label-width="formLabelWidthYZ">
-              <el-input size="small" v-model="rengongchengben" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="8">
-            <el-form-item label="代理费" :label-width="formLabelWidthYZ">
-              <el-input size="small" v-model="agencyFee" :maxlength="11" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-
-          <!--<el-col :span="8">-->
-            <!--<el-form-item label="生效时间" :label-width="formLabelWidth">-->
-              <!--<el-input size="small" v-model="searchForm.standardVerssionName" :maxlength="11" placeholder=" "></el-input>-->
-            <!--</el-form-item>-->
-          <!--</el-col>-->
-
-          <el-col :span="8">
-            <el-form-item label="生效时间" :label-width="formLabelWidthYZ">
-              <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="date" placeholder="选择日期" :label-width="formLabelWidth"></el-date-picker>
-            </el-form-item>
-          </el-col>
-
+            <el-col :span="8">
+              <el-form-item label="代理费" :label-width="formLabelWidth">
+                <el-input size="small" v-model="agencyFee" :maxlength="11" placeholder=" "></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="时间" :label-width="formLabelWidth">
+                <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期" :label-width="formLabelWidth"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -257,10 +201,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="对象" :label-width="formLabelWidth">
-            <!--  <el-select  size="small" v-model="businessType" placeholder="项目" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in businessTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>-->
-              <el-select  size="small" v-model="objType" placeholder="请选择对象维度" @change="objTypeChange()">
+              <el-select  size="small" v-model="objType" placeholder="请选择对象维度">
                 <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -281,14 +222,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
           <el-form-item label="楼栋"  style="display: none;">
-            <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-            <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" >
+            <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
               <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
@@ -322,25 +262,25 @@
           </el-col>
 
         </el-row>
-        <el-row class="yzl-line"></el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="客流量" :label-width="formLabelWidth">
-              <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="销售额" :label-width="formLabelWidth">
-              <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="时间" :label-width="formLabelWidth">
-              <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-          </el-col>
+        <el-row class="FitnessValue">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="客流量" :label-width="formLabelWidth">
+                <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="销售额" :label-width="formLabelWidth">
+                <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="时间" :label-width="formLabelWidth">
+                <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="dialogFormVisible1 = false">取 消</el-button>
@@ -350,15 +290,6 @@
     <el-dialog title="适配值" :visible="dialogFormVisible2" @close='closeDialogSPZ'>
       <el-form class="yzl-line-top"></el-form>
       <el-form :model="fittedForm">
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="对象" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()">
-                <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
         <el-row>
           <el-col  :span="8">
             <el-form-item label="区域" :label-width="formLabelWidth">
@@ -374,14 +305,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="楼栋："  style="display: none;">
-              <!--  <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
-              <el-select size="small" v-model="fittedForm.buildingId" placeholder="请选择楼栋" >
+              <el-select size="small" v-model="fittedForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
                 <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col  :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="fittedForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
@@ -419,19 +349,19 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="市场地位" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="shichangdiwei" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="shichangdiwei" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="品牌定位" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="pinpaidiwei" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="pinpaidiwei" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="品牌形象" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="pinpaixingxiang" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="pinpaixingxiang" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -441,37 +371,33 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="租费收缴率" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="zifeishoujiaolv" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="zifeishoujiaolv" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="连锁跟进度" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="liansuogengjindu" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="liansuogengjindu" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="客服投诉率" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="kefutousu" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="kefutousu" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="企划配合度" :label-width="formLabelWidthDT">
-                <el-input size="small" v-model="qihuapeihedu" :maxlength="11" placeholder=" "></el-input>
+                <el-input type="number" size="small" v-model="qihuapeihedu" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           </el-row>
         </el-row>
         <br>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="时间" :label-width="formLabelWidth">
-              <el-date-picker
-                v-model="effectTime3"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+              <el-date-picker v-model="effectTime3" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -485,27 +411,17 @@
 
     <p class="t"></p>
     <div class="biaoti1">动态三角形列表</div>
-    <el-button class="NewlyAdded" type="primary" align="center" v-on:click="showCreate()">新增</el-button>
 
     <div class="listCont">
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
         <el-tab-pane label="溢租率" name="first">
-          <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+          <el-table :data="data.resultList" border size="medium">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <!--<el-table-column align="center" prop="phone" label="楼层"></el-table-column>-->
             <el-table-column align="center" prop="roomName" label="铺位号"></el-table-column>
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="fromName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-            <!--<el-table-column align="center" prop="businessFormName" label="业态名称"></el-table-column>
-            <el-table-column align="center" prop="businessSpeciesName" label="业种名称"></el-table-column>-->
-        <!--    <el-table-column align="center" prop="status" label="签约状态">
-              <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
-              </template>
-            </el-table-column>-->
             <el-table-column align="center" prop="rent" label="租金（元/月）"></el-table-column>
             <el-table-column align="center" prop="propertyfee" label="物业费（元/月）"></el-table-column>
             <el-table-column align="center" prop="depreciation" label="折旧费（元/月）"></el-table-column>
@@ -514,22 +430,6 @@
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-
-            <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
-            <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="targetcount" label="已录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="untargetcount" label="未录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>-->
-            <!--<el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>-->
-
-            <!--<el-table-column align="center" prop="different" label="类别">-->
-              <!--<template slot-scope="scope">-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 1">项目</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 2">楼层</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>-->
-              <!--</template>-->
-            <!--</el-table-column>-->
-
              <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
@@ -539,64 +439,33 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="客销度" name="second">
-          <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+          <el-table :data="data.resultList" border size="medium">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
-           <!-- <el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-        <!--    <el-table-column align="center" prop="status" label="签约状态">
-              <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
-              </template>
-            </el-table-column>-->
             <el-table-column align="center" prop="passengerFlow" label="客流量"></el-table-column>
             <el-table-column align="center" prop="salesVolume" label="销售额"></el-table-column>
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-
-            <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
-            <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="targetcount" label="已录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="untargetcount" label="未录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>-->
-            <!--<el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>-->
-
-            <!--<el-table-column align="center" prop="different" label="类别">-->
-              <!--<template slot-scope="scope">-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 1">项目</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 2">楼层</el-button>-->
-                <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>-->
-              <!--</template>-->
-            <!--</el-table-column>-->
-
            <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
-                <el-button type="text" v-on:click="deleteGuest(scope.row)">删除</el-button>
+                <el-button type="text" v-on:click="deleteGuest(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="适配值" name="third">
-          <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+          <el-table :data="data.resultList" border size="medium">
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
            <!-- <el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-           <!-- <el-table-column align="center" prop="status" label="签约状态">
-              <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 1">未审核</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 2">审核成功</el-button>
-                <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
-              </template>
-            </el-table-column>-->
             <el-table-column align="center" prop="marketVal" label="市场地位"></el-table-column>
             <el-table-column align="center" prop="brandPositioningVal" label="品牌定位"></el-table-column>
             <el-table-column align="center" prop="brandImgVal" label="品牌形象"></el-table-column>
@@ -608,26 +477,10 @@
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-
-            <!--<el-table-column align="center" prop="fittedVerssionName" label="版本名称"></el-table-column>-->
-            <!--<el-table-column align="center" prop="sumTarget" label="指标总数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="targetcount" label="已录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="untargetcount" label="未录入指标数"></el-table-column>-->
-            <!--<el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>-->
-            <!--<el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>-->
-
-            <!--<el-table-column align="center" prop="different" label="类别">-->
-            <!--<template slot-scope="scope">-->
-            <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 1">项目</el-button>-->
-            <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 2">楼层</el-button>-->
-            <!--<el-button disabled type="text" size="small" v-if="scope.row.different === 3">品牌</el-button>-->
-            <!--</template>-->
-            <!--</el-table-column>-->
-
             <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
-                <el-button type="text" v-on:click="deleteFitted(scope.row)">删除</el-button>
+                <el-button type="text" v-on:click="deleteFitted(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -645,23 +498,21 @@
   </div>
 </template>
 <script>
-  //定义变量
-  //区域id
-   var myareaId='';
-   //业态id
-  var mybusinessFormId='';
-  //业种id
-  var mybusinessSpeciesId = '';
 import moment from 'moment'
 export default {
   data: () => ({
+    isSearchList: false,
+    //区域id
+    myareaId:'',
+   //业态id
+    mybusinessFormId:'',
+  //业种id
+    mybusinessSpeciesId:'',
+    type: 0,
     searchForm:{},
     formLabelWidth:"60px",
     formLabelWidthYZ:'70px',
     formLabelWidthDT:'85px',
-    contractTypeList:[],//签约状态
-    businessTypeList: window.$businessTypeList2,
-    dimensionTypeList: window.$dimensionList2,
     businessType: '',
     exportExlsData: {},
     areaList:[],
@@ -692,21 +543,23 @@ export default {
     brandId:"",
     objTypeList:[
       {
-        id: '0',
+        id: 0,
         name: '项目'
       },
       {
-        id: '1',
+        id: 1,
         name: '楼层'
-      },{
-        id: '2',
-        name: '业态'
       },
       {
-        id: '3',
+        id: 2,
         name: '品牌'
       }],
-    objType:'0',
+      objTypeList1:[
+      {
+        id: 2,
+        name: '品牌'
+      }],
+    objType: 2,
     //搜索条件
     searchRequest : {
       projectId : "",//项目ID
@@ -809,7 +662,6 @@ export default {
   },
   methods: {
     createRent(){
-      console.log("新增溢租率！");
       this.rentCreateDate.rent = this.rentFee; //租金
       this.rentCreateDate.propertyfee = this.wuyefei; //物业费
       this.rentCreateDate.depreciation = this.zhejiufei;//装修折旧费
@@ -820,20 +672,18 @@ export default {
       console.log(this.rentForm);
       console.log(this.rentCreateDate);
       window.$createRentObj(this.rentCreateDate).then((res) => {
+        this.isSearchList = true
         this.closeDialog();
+        this.showAlert('添加成功')
       }, (err) => {
         console.log(err)
         this.showAlert(err)
       })
-      this.closeDialog();
+      this.closeDialog()
     },
     createGuest(){
-      window.$getAreaList().then((res) => {
-        this.areaList = res
-      }, (err) => {console.log(err)})
-
+      console.log(this.objType)
       this.guestForm.effectTime2 = this.effectTime2;
-      console.log("objType:"+this.objType);
       if(this.objType==0){
         /*this.guestForm.persent = this.persent;*/
         this.guestForm.sale = 0;
@@ -875,7 +725,7 @@ export default {
         })
         this.closeDialogKXD();
         this.guestForm.sale = 0;
-      }else  if(this.objType==3){
+      }else  if(this.objType==2){
         /*this.guestForm.persent = this.persent;*/
         /*this.guestForm.sale = this.sale;*/
           this.guestBrandCreateDate.projectId = this.guestForm.projectId; //项目ID
@@ -891,7 +741,7 @@ export default {
         console.log(this.guestBrandCreateDate)
         //调接口
         window.$createGuestBrandObj(this.guestBrandCreateDate).then((res) => {
-          console.log(res)
+          this.isSearchList = true
           this.showAlert("新增品牌客销度成功！")
           this.closeDialogKXD();
         }, (err) => {
@@ -905,9 +755,6 @@ export default {
       this.closeDialogKXD();
     },
     createFitted(){
-      window.$getAreaList().then((res) => {
-        this.areaList = res
-      }, (err) => {console.log(err)})
       console.log("新增适配值！");
       console.log("objType:"+this.objType);
       /*this.fittedForm.businessType = this.businessType;*/
@@ -934,46 +781,42 @@ export default {
       this.fittedCreateDate.enterpriseVal = this.qihuapeihedu; //企划配合度
       /*fittedDate.quarterVal; //适配值*/
       this.fittedCreateDate.effectTime = this.effectTime3; //生效时间
-      //console.log(this.fittedForm);
-      console.log("适配值新增--------");
-      console.log(this.fittedCreateDate);
 
      //调接口
       window.$createFittedObj(this.fittedCreateDate).then((res) => {
-        console.log(res)
+        this.isSearchList = true
         this.showAlert("新增成功！")
         this.closeDialogSPZ();
       }, (err) => {
-        console.log(err)
         this.showAlert(err)
       })
-      this.closeDialogSPZ();
+      this.closeDialogSPZ()
     },
     closeDialog(){
-      this.floorId = '';
-      this.brandId = '';
-      this.rentFee = '';
-      this.wuyefei = '';
-      this.zhejiufei = '';
-      this.rengongchengben = '';
-      this.agencyFee = '';
-      this.effectTime = '';
+      this.floorId = ''
+      this.brandId = ''
+      this.rentFee = ''
+      this.wuyefei = ''
+      this.zhejiufei = ''
+      this.rengongchengben = ''
+      this.agencyFee = ''
+      this.effectTime = ''
       this.dialogFormVisible = false;//清空数据
     },
     closeDialogKXD(){
-      this.floorId = '';
-      this.brandId = '';
+      this.floorId = ''
+      this.brandId = ''
       this.dialogFormVisible1 = false;//清空数据
     },
     closeDialogSPZ(){
-      this.floorId = '';
-      this.brandId = '';
+      this.floorId = ''
+      this.brandId = ''
       this.dialogFormVisible2 = false;//清空数据
     },
     showCreate() {
-      dialogFormVisible: false;
-      dialogFormVisible1: false;
-      dialogFormVisible2: false;
+      dialogFormVisible: false
+      dialogFormVisible1: false
+      dialogFormVisible2: false
       if (this.activeName2 == "first") {
         this.dialogFormVisible = true
       }
@@ -986,36 +829,30 @@ export default {
       window.$getformSelect().then((res) => {
         this.businessList = res
       }, (err) => {})
-      console.log("created:"+this.businessList);
       window.$getAreaList().then((res) => {
         this.areaList = res
-       /* console.log("createRent---")
-        console.log(res)*/
       }, (err) => {console.log(err)})
     },
     //自己添加
     // 1.区域
     areaChanged(){
-      this.searchForm.projectId = '';
-      this.searchForm.buildingId = '';
-      this.floorId = '';
-      myareaId = this.searchForm.areaId;
+      this.searchForm.projectId = ''
+      this.searchForm.buildingId = ''
+      this.floorId = ''
+      this.myareaId = this.searchForm.areaId
       if (this.dialogFormVisible) {
-        myareaId = this.rentForm.areaId;
+        this.myareaId = this.rentForm.areaId
         /*this.dialogFormVisible = true*/
       }
       if (this.dialogFormVisible1){
-        myareaId = this.guestForm.areaId;
+        this.myareaId = this.guestForm.areaId
         /* this.dialogFormVisible1 = true;*/
       }
       if (this.dialogFormVisible2) {
-        myareaId = this.fittedForm.areaId;
+        this.myareaId = this.fittedForm.areaId
         /* this.dialogFormVisible2 = true;*/
       }
-      console.log("areaChanged---"+myareaId);
-      window.$getProjectListForArea(myareaId).then((res) => {
-        console.log("areachanged");
-        console.log(res)
+      window.$getProjectListForArea(this.myareaId).then((res) => {
         this.projectList = res
        /* if (this.activeName2 == "first") {
           this.rentForm.projectList = res;
@@ -1033,23 +870,15 @@ export default {
         this.showAlert(err)
       })
     },
-//打印对象值
-    objTypeChange(){
-      //this.showAlert(this.objType);
-    },
-
     //2.项目
     projectChanged(){
       this.searchForm.buildingId = ''
       this.floorId = ''
       window.$getBuilding(this.searchForm.projectId).then((res) => {
-        console.log("projectChanged");
-        console.log(res)
+        this.buildingList = res
         //调用楼层
         window.$getFloorForBuilding(res[0].id).then((floorRes) => {
           this.floorList = floorRes
-          console.log("楼层----")
-          console.log(floorRes);
         }, (err) => {
           this.showAlert(err)
         })
@@ -1129,23 +958,20 @@ export default {
       this.searchForm.businessSpeciesId = ''
       this.speciesList = [];
       this.brandId = ''
-      mybusinessFormId = this.searchForm.businessFormId;
+      this.mybusinessFormId = this.searchForm.businessFormId;
       if (this.dialogFormVisible) {
         this.rentForm.businessSpeciesId = ''
-        mybusinessFormId = this.rentForm.businessFormId;
+        this.mybusinessFormId = this.rentForm.businessFormId;
       }
       if (this.dialogFormVisible1){
         this.guestForm.businessSpeciesId = ''
-        mybusinessFormId = this.guestForm.businessFormId;
+        this.mybusinessFormId = this.guestForm.businessFormId;
       }
       if (this.dialogFormVisible2) {
         this.fittedForm.businessSpeciesId = ''
-        mybusinessFormId = this.fittedForm.businessFormId;
+        this.mybusinessFormId = this.fittedForm.businessFormId;
       }
-      //console.log("businessChanged---"+mybusinessFormId);
-      window.$getSpeciesSelect(mybusinessFormId).then((res) => {
-        console.log("业态change-----")
-        console.log(res)
+      window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
         this.speciesList = res
       }, (err) => {
         this.showAlert(err)
@@ -1155,22 +981,21 @@ export default {
     //业种
     speciesChanged(){
       this.brandList = ''
-      mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+      this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
       if (this.dialogFormVisible) {
         this.rentForm.brandList = ''
-        mybusinessSpeciesId = this.rentForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.rentForm.businessSpeciesId;
       }
       if (this.dialogFormVisible1){
         this.guestForm.brandList = ''
-        mybusinessSpeciesId = this.guestForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.guestForm.businessSpeciesId;
       }
       if (this.dialogFormVisible2) {
         this.fittedForm.brandList = ''
-        mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
+        this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
       }
       //获取品牌
-      //window.$getBrandForSpecies(mybusinessSpeciesId).then((res) => {
-      window.$getcontractIdForSpecies(mybusinessSpeciesId).then((res) => {
+      window.$getcontractIdForSpecies(this.mybusinessSpeciesId).then((res) => {
         console.log("品牌list")
         console.log(res)
         this.brandList = res
@@ -1196,7 +1021,13 @@ export default {
       this.dialogFormVisible = false
     },
     handleClick(tab, event) {
-      console.log(tab, event);
+      this.type = tab.index
+      console.log(this.type)
+      if(this.type != 1) {
+        this.objType = 2
+      }
+
+      this.searchList(1)
     },
     importFile(){
       document.getElementById('fileUpload_input').click()
@@ -1271,7 +1102,10 @@ export default {
       if(type === 1){
         this.page =1
       }
-      if (this.activeName2 == "first") {//溢租率
+
+      console.log(this.type)
+
+      if (this.type == 0) {//溢租率
         console.log("溢租率-----");
         this.searchRequest.projectId = this.searchForm.projectId; //项目ID
         this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
@@ -1293,11 +1127,9 @@ export default {
           }, (err) => {
             console.log(err)
           })
-      }
-      if (this.activeName2 == 'second'){//客销度
+      } else if (this.type == 1){//客销度
+      console.log(this.objType)
         //调接口
-        console.log("客销度-----");
-        console.log(this.searchForm);
         this.searchRequest.projectId = this.searchForm.projectId; //项目ID
         this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
         this.searchRequest.floorId = this.searchForm.floorId; //楼层
@@ -1321,7 +1153,6 @@ export default {
             })
           this.closeDialogKXD();
         }else if(this.objType==1){
-
           //调接口
           window.$getGuestFloorList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1335,7 +1166,7 @@ export default {
             })
           this.closeDialogKXD();
           this.guestForm.sale = 0;
-        }else  if(this.objType==3) {
+        }else  if(this.objType==2) {
           //品牌接口
           window.$getGuestBrandList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1348,10 +1179,9 @@ export default {
               console.log(err)
             })
         }
-      }
-      if (this.activeName2 == 'third') {//适配值
+      } else if (this.type == 2) {//适配值
+      console.log(this.objType)
         //调接口
-        console.log("适配值列表----"+this.searchRequest)
         window.$getFittedList(this.page, this.size, this.searchRequest)
           .then((res) => {
             console.log(res)
@@ -1378,7 +1208,12 @@ export default {
       }*/
     },
     deleteRent(id){
-        this.loading = true
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      this.loading = true
         window.$deleteRent(id).then((res) => {
           for (var i = this.data.resultList.length - 1; i >= 0; i--) {
             if (this.data.resultList[i].id === id) {
@@ -1391,59 +1226,69 @@ export default {
           this.loading = false
           this.showAlert(err)
         })
-        /*this.showAlert('已删除动态三角形溢租率---'+id)*/
+      }).catch(() => {
+                  
+      })
     },
     deleteGuest(){
-      if(this.objType==0){
-        this.loading = true
-        window.$deleteProjectGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if(this.objType==0){
+          this.loading = true
+          window.$deleteProjectGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除动态三角形项目客销度---'+id)
-      }else if(this.objType==1){
-        this.loading = true
-        window.$deleteFloorGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }else if(this.objType==1){
+          this.loading = true
+          window.$deleteFloorGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除动态三角形楼层客销度---'+id)
-      }else if(this.objType==2){
-        this.showAlert("无业态客销度、无需删除");
-      }else if(this.objType==3){
-        this.loading = true
-        window.$deleteBrandGuest(id).then((res) => {
-          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-            if (this.data.resultList[i].id === id) {
-              this.data.resultList.splice(i, 1)
-              this.loading = false
-              return false
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }else if(this.objType==3){
+          this.loading = true
+          window.$deleteBrandGuest(id).then((res) => {
+            for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+              if (this.data.resultList[i].id === id) {
+                this.data.resultList.splice(i, 1)
+                this.loading = false
+                return false
+              }
             }
-          }
-        }, (err) => {
-          this.loading = false
-          this.showAlert(err)
-        })
-        this.showAlert('删除标准三角形业态溢租率---'+id)
-      }
+          }, (err) => {
+            this.loading = false
+            this.showAlert(err)
+          })
+        }
+      }).catch(() => {
+                  
+      })
     },
-    deleteFitted(){
+    deleteFitted(id){
+      this.$confirm('确认删除？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
       this.loading = true
       window.$deleteFitted(id).then((res) => {
         for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -1457,10 +1302,10 @@ export default {
         this.loading = false
         this.showAlert(err)
       })
-      this.showAlert('删除动态三角形业态适配值---'+id)
-    }
+      }).catch(() => {
+                  
+      })
     },
-
     // 查看详情
     showDetails (id) {
       this.showAlert(id);
@@ -1475,15 +1320,18 @@ export default {
     xiangqing (id) {
       this.$router.push('/dataManage/dongtai/xiangqing/' + id)
     },
-    rowClass({ row, rowIndex}) {
-      console.log(rowIndex); //表头行标号为0
-      return 'height:50px;font-size:15px'
-    },
     showAlert: function (cont) {
-        this.$alert(cont, '温馨提示', {
-          confirmButtonText: '确定'
-        })
-      }
+      this.$alert(cont, '温馨提示', {
+        confirmButtonText: '确定',
+        callback: action =>{
+          if(this.isSearchList){
+            this.isSearchList = false
+            this.searchList(1)
+          }
+        }
+      })
+    }
+  }
 }
 
 </script>
@@ -1501,12 +1349,6 @@ export default {
     padding: 10px;
     margin-top:-25px;
   }
-  .FitnessValue{
-    border: 1px solid #000;
-    padding: 15px;
-    border-radius: 15px;
-    margin-top: 15px;
-  }
   h4{
     font-size: 20px;
     font-weight: 800;
@@ -1514,45 +1356,9 @@ export default {
   .el-dialog__footer{
     text-align: center;
   }
-  .el-dialog .el-select .el-input .el-select__caret{
-    width: 26px;
-    background: #eaeaea;
-    height: 25px;
-    line-height: 25px;
-    position: absolute;
-    left: -23px;
-    top: 8px;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    color: #c0c4cc;
-    font-size: 14px;
-    //transform: rotateZ(180deg);
-    cursor: pointer;
-    border-right:1px solid #4484a1;
-  }
   .yzl{
       margin: 0 auto;
   }
-  /*.el-dialog{*/
-    /*width:50%;*/
-  /*}*/
-  /*.el-dialog .el-col{*/
-    /*width: 300px;*/
-    /*background: red;*/
-  /*}*/
-
-
-
-  /*.el-dialog .el-input{*/
-    /*width: 55%;*/
-  /*}*/
-
-
-
-
-
-
-
   .tabs{
     width: 100%;
     height:50px;
@@ -1562,12 +1368,6 @@ export default {
       display: inline-block;
     }
   }
-
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
   .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%;
   }
@@ -1576,5 +1376,8 @@ export default {
     width: 0;
     height: 100%;
     visibility: hidden;
+  }
+  .el-tabs__content {
+    overflow: inherit;
   }
 </style>

@@ -5,7 +5,6 @@
         <el-tree :data="comTree" :props="comTreeOptions" @node-click="handleNodeClick"></el-tree>
       </div>
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-
         <el-table-column align="center" type="index" label="排序号" ></el-table-column>
         <el-table-column align="center" prop="name" label="真实姓名" ></el-table-column>
         <el-table-column align="center" prop="userName" label="登录名称" ></el-table-column>
@@ -18,20 +17,15 @@
           </template> -->
         </el-table-column>
       </el-table>
-      <el-row type='flex' justify="center" v-if="data.resultList">
-        <el-col :span="16">
-          <div class="block">
-            <span class="demonstration"></span>
-            <el-pagination
+      <div class="paginationCont">
+        <el-pagination
               @current-change="handleCurrentChange"
               :current-page="page"
               :page-size="size"
               layout="prev, pager, next"
               :total="data.countSize">
             </el-pagination>
-          </div>
-        </el-col>
-      </el-row>
+      </div>
     </div>
   </div>
 </template>
@@ -181,11 +175,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    min-height: 100%;
-    background: #fff;
-  }
   .left{
     width: 400px;
     height: 600px;
@@ -230,5 +219,8 @@ export default {
   }
   .block{
     float: right;
+  }
+  .paginationCont{
+    margin: 20px 90px;
   }
 </style>

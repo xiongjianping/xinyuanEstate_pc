@@ -39,16 +39,16 @@
             <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入 "></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="24" class="text-center">
-          <el-form-item label-width="0">
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="">新增</el-button>
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="bianji(0);">编辑</el-button>
-            <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="xiangqing(0);">详情</el-button>
-          </el-form-item>
-        </el-col>
       </el-form>
     </el-row>
+
+    <div class="buttonList">
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="">新增</el-button>
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="bianji(0);">编辑</el-button>
+      <el-button type="primary" class="ml10" size="medium" v-on:click="xiangqing(0);">详情</el-button>
+    </div>
+
     <p class="t"></p>
     <div class="biaoti1">模板管理列表</div>
     <div class="listCont">
@@ -165,11 +165,6 @@ export default {
 }
 </script>
 <style scoped  lang="less">
-  .mainContent{
-    width: 100%;
-    // height: 100%;
-    background: #fff;
-  }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }
