@@ -38,13 +38,14 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="7.1">
         <el-form-item label="时间">
             <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd">
+                            size="small" value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item>
         </el-col>
+
 
         <el-col :span="24" class="text-center">
           <el-form-item label-width="0">
