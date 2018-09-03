@@ -127,6 +127,7 @@
             <p>客流：<i>{{countryPassengerFlow}}</i><em>万人次</em></p>
           </div>
         </div>
+
         <div class="left_2 mb10">
           <div class="title_bg tit_left2"></div>
           <span class="title_txt">全国各区域客流量排行</span>
@@ -134,6 +135,7 @@
             <div id="main3"></div>
           </div>
         </div>
+
         <div class="left_3">
           <div class="title_bg tit_left3"></div>
           <span class="title_txt">全国销售额与客流量增长趋势统计</span>
@@ -228,11 +230,16 @@
           </div>
 
 
+          <h2 class="center_1_lable">优</h2>
           <div class="center_echars1">
+            <!--<span></span>-->
             <div id="main"></div>
           </div>
+
+
+
           <div class="g_notes f-pr">
-            <h2>优</h2>
+            <!--<h2>优</h2>-->
             <div class="notes_list f-cb">
               <span><i>{{triangData.triangleRent}}</i>溢租率</span>
               <span><i>{{triangData.triangleGuest}}</i>客销度</span>
@@ -240,6 +247,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="center_2 f-cb">
           <div class="center_echars2 f-fl f-tac">
             <!-- <div id="china"></div> -->
@@ -298,10 +307,10 @@
               </li>
             </ul>
             <el-row class="mt20 mb10 f-tac">
-              <el-button type="primary" size="small">智能推送</el-button>
+              <!--<el-button type="primary" size="small">智能推送</el-button>-->
             </el-row>
             <el-row class="f-tac">
-              <el-button type="primary" size="small">自助招商</el-button>
+              <!--<el-button type="primary" size="small">自助招商</el-button>-->
             </el-row>
           </div>
         </div>
@@ -335,30 +344,101 @@
             </div>
           </div>
         </div>
+
+
+
+
+        <!--<div>-->
+          <!--<img class="tidy_img_bg" src="../../assets/images/help_command_bg.png" >-->
+          <!--<div class="title_bg tit_right1"></div>-->
+          <!--<span class="title_txt">指令措施</span>-->
+
+          <!--<div class="right_2_tidy_bg mt25 ml10">-->
+            <!--<img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">-->
+            <!--<span class="tidy_title_txt">溢租率</span>-->
+          <!--</div>-->
+
+          <!--<div class="right_2_tidy_bg mt25 ml10">-->
+            <!--<img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">-->
+            <!--<span class="tidy_title_txt">客销度</span>-->
+          <!--</div>-->
+
+          <!--<div class="right_2_tidy_bg mt25 ml70">-->
+            <!--<img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">-->
+            <!--<span class="tidy_title_txt">适配值</span>-->
+          <!--</div>-->
+
+        <!--</div>-->
+
+
+        //没有数据，暂时搭架子有接口数据再细调
         <div class="right_2 mb10">
-          <div class="title_bg tit_right1"></div>
-          <span class="title_txt">客销度</span>
-          <div class="g_text">
+          <div class="title_bg_help tit_right1"></div>
+          <span class="title_txt_help">指令措施</span>
+
+
+          <div class="right_2_tidy_bg mt35 ml10">
+            <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
+            <span class="tidy_title_txt">溢租率</span>
+
+            <div class="g_text">
+              {{triangData.rentContent}}
+            </div>
+          </div>
+
+
+          <div class="right_2_tidy_bg mt110 ml10">
+            <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
+            <span class="tidy_title_txt2">客销度</span>
+            <div class="g_text">
             {{triangData.guestContent}}
+            </div>
           </div>
-        </div>
-        <div class="right_3">
-          <div class="title_bg tit_right1"></div>
-          <span class="title_txt">建设措施</span>
-          <el-row class="f-tac">
-            <el-button type="primary" size="small" class="mr15" @click="triangType = 1">溢租率</el-button>
-            <el-button type="primary" size="small" @click="triangType = 2">适配值</el-button>
-          </el-row>
-          <div class="g_text" v-if="triangType === 1">
-            {{triangData.rentContent}}
-          </div>
-          <div class="g_text" v-if="triangType === 2">
+
+
+          <div class="right_2_tidy_bg mt110 ml10">
+            <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
+            <span class="tidy_title_txt3">适配值</span>
+
+            <div class="g_text">
             {{triangData.fittedContent}}
+            </div>
           </div>
+
         </div>
+
+
+        <!--<div class="right_2 mb10">-->
+          <!--<div class="title_bg tit_right1"></div>-->
+          <!--<span class="title_txt">客销度</span>-->
+          <!--<div class="g_text">-->
+            <!--{{triangData.guestContent}}-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="right_3">-->
+          <!--<div class="title_bg tit_right1"></div>-->
+          <!--<span class="title_txt">建设措施</span>-->
+          <!--<el-row class="f-tac">-->
+            <!--<el-button type="primary" size="small" class="mr15" @click="triangType = 1">溢租率</el-button>-->
+            <!--<el-button type="primary" size="small" @click="triangType = 2">适配值</el-button>-->
+          <!--</el-row>-->
+          <!--<div class="g_text" v-if="triangType === 1">-->
+            <!--{{triangData.rentContent}}-->
+          <!--</div>-->
+          <!--<div class="g_text" v-if="triangType === 2">-->
+            <!--{{triangData.fittedContent}}-->
+          <!--</div>-->
+        <!--</div>-->
+
+
       </el-col>
     </el-row>
   </div>
+
+
+
 </template>
 <script>
   import echarts from '../../../static/js/echarts.js'
@@ -1026,7 +1106,7 @@
         this.$axios.get('/pctriangle/find/salepassengerflow/all')
           .then(res => {
             this.passengerFlowList = res
-            console.log(this.passengerFlowList)
+            console.log("this.passengerFlowList***"+this.passengerFlowList)
             var areaNameList = []
             var seriesList = [{
               name: '全国各区域客流量',
@@ -1889,14 +1969,27 @@ console.log("显示区域列表值："+this.areaList)
 
   .left_1,
   .left_3,
-  .right_2,
+  /*.right_2,*/
   .right_3 {
     padding: 10px 15px;
     box-sizing: border-box;
     width: 100%;
     min-height: 250px;
+    /*min-height: 300px;*/
     position: relative;
   }
+
+  //帮扶最小限制
+  .right_2{
+    padding: 10px 15px;
+    box-sizing: border-box;
+    width: 100%;
+    /*min-height: 250px;*/
+    min-height: 495px;
+    position: relative;
+  }
+
+
 
   .left_2,
   .right_1 {
@@ -1925,9 +2018,58 @@ console.log("显示区域列表值："+this.areaList)
 
   .right_2,
   .right_3 {
-    background: url("../../assets/images/left.png") no-repeat;
+    /*background: url("../../assets/images/left.png") no-repeat;*/
+    background: url("../../assets/images/help_command_bg.png") no-repeat;
+    background-size: 105% 100%;
+  }
+
+  .right_2_tidy_bg{
     background-size: 100% 100%;
   }
+
+  .tidy_img {
+    vertical-align: middle;
+    width: 97%;
+    height: 120%;
+  }
+
+  .tidy_img_bg {
+    width: 105%;
+    height: 495px;
+  }
+
+  .tidy_title_txt {
+    position: absolute;
+    top: 13%;
+    left: 11%;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    z-index: 999;
+  }
+
+  .tidy_title_txt2 {
+    position: absolute;
+    top: 41%;
+    left: 11%;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    z-index: 999;
+  }
+
+  .tidy_title_txt3 {
+    position: absolute;
+    top: 69%;
+    left: 11%;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    z-index: 999;
+  }
+
+
+
 
   .center_1 {
     min-height: 450px;
@@ -1975,9 +2117,49 @@ console.log("显示区域列表值："+this.areaList)
     }
   }
 
+
+  .title_bg_help {
+    background: #169bd5;
+    height: 20px;
+    display: inline-block;
+    transform: skew(-45deg);
+    position: absolute;
+    top: 1%;
+    left: 20px;
+    color: #fff;
+    font-size: 14px;
+    z-index: 99;
+    &.tit_left1 {
+      padding: 3px 70px;
+    }
+    &.tit_left2 {
+      padding: 3px 80px;
+    }
+    &.tit_left3 {
+      padding: 3px 120px;
+    }
+    &.tit_center1 {
+      padding: 3px 70px;
+    }
+    &.tit_right1 {
+      padding: 3px 50px;
+    }
+  }
+
+
   .title_txt {
     position: absolute;
     top: 0;
+    left: 30px;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    z-index: 999;
+  }
+
+  .title_txt_help {
+    position: absolute;
+    top: 1%;
     left: 30px;
     display: block;
     color: #fff;
@@ -2030,9 +2212,9 @@ console.log("显示区域列表值："+this.areaList)
     .left_echars3,
     #main1 {
       width: 100%;
-      min-height: 230px;
+      /*min-height: 230px;*/
       /*width: 30%;*/
-      /*min-height: 100px;*/
+      min-height: 200px;
     }
   }
 
@@ -2061,9 +2243,27 @@ console.log("显示区域列表值："+this.areaList)
         text-align: center;
       }
       i {
-        display: block;
+        display: inline-block ;
       }
     }
+  }
+
+
+  .center_1 h2 {
+    position: absolute;
+    font-size: 36px;
+    color: #fff;
+    margin: 30% 0 20px 10%;
+  }
+
+  .center_1_lable {
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+
+  .center_2_lable {
+    display: inline-block;
   }
 
   .center_2 {

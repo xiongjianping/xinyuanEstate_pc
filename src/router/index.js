@@ -477,6 +477,7 @@ export default new Router({
                     path: '/evaluationTpl',
                     name: 'evaluationTpl',
                     meta: {
+                        //注：所有 帮扶 改成 指令
                         pageName: '帮扶计划'
                     },
                     component: resolve => require(['@/components/common/SubContent.vue'], resolve),
