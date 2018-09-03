@@ -31,16 +31,16 @@
   <!--</div>-->
   <div class="header">
     <div class="navList">
-      <ul class="navCont">
+      <ul class="navCont" @mouseleave="closeAllSubMenu">
         <li v-if="navList.length > 0" v-for="(info, index) in navList" :key="info.id" class="navLi" :class="{'curLi': curLi === info.url}">
-          <p @click="goLink(info, info)">{{info.name}}</p>
+        <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
             <li v-for="item in info.childMenus" :key="item.id" @click="goLink(item, info)">{{item.name}}</li>
           </ul>
         </li>
       </ul>
       <img src="../../assets/images/logo_Q.png" alt="" class="logo">
-      <ul class="navCont2">
+      <ul class="navCont2" @mouseleave="closeAllSubMenu">
         <li v-if="navList1.length > 0" v-for="(info, index) in navList1" :key="info.id" class="navLi1" :class="{'curLi': curLi === info.url}">
           <p @click="goLink(info, info)">{{info.name}}</p>
           <ul class="subMenu" v-if="info.childMenus && info.childMenus.length > 0" v-show="info.showSub">
@@ -180,12 +180,14 @@ export default {
     box-sizing: border-box;
     border-top: none;
     color: #333;
+
+    top: 25px;
     left: 0;
     padding: 5px 0;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     li {
-      padding: 0 10px;
+      /*padding: 0 10px;*/
       border-bottom: 1px solid #ddd;
     }
     li:last-child {
@@ -196,7 +198,7 @@ export default {
     float: left;
     padding: 0 20px;
     cursor: pointer;
-    height: 32px;
+    /*height: 32px;*/
     line-height: 32px;
     font-size: 14px;
     position: relative;
@@ -215,8 +217,6 @@ export default {
     background: #fff;
     color: #eacb8b;
     border-radius: 6px;
-    /*border-top-left-radius: 6px;*/
-    /*border-top-right-radius: 6px;*/
   }
   li.navLi.curLi:after,
   li.navLi:last-child:after {
@@ -247,8 +247,6 @@ export default {
     background: #fff;
     color: #eacb8b;
     border-radius: 6px;
-    /*border-top-left-radius: 6px;*/
-    /*border-top-right-radius: 6px;*/
   }
   li.navLi1.curLi1:after,
   li.navLi1:last-child:after {
