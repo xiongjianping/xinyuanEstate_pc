@@ -535,10 +535,36 @@ export default new Router({
                         },
                         //业态帮扶
                         {
+                            path: 'yetaizhiling',
+                            name: 'yetaizhiling',
+                            meta: {
+                                pageName: '业态帮扶'
+                            },
+                            component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+                            children: [{
+                                path: 'list',
+                                name: 'yetaizhilingList',
+                                meta: {
+                                    parentPath: '/evaluationTpl',
+                                    pageName: '业态帮扶'
+                                },
+                                component: resolve => require(['@/components/pages/evaluationTpl/yetaizhiling/list.vue'], resolve)
+                            }, {
+                                path: 'xinzeng',
+                                name: 'yetaizhilingXinzeng',
+                                meta: {
+                                    parentPath: '/evaluationTpl',
+                                    pageName: '新增'
+                                },
+                                component: resolve => require(['@/components/pages/evaluationTpl/yetaizhiling/xinzeng.vue'], resolve)
+                            }]
+                        },
+                        //业种帮扶
+                        {
                             path: 'yetaibangfu',
                             name: 'yetaibangfu',
                             meta: {
-                                pageName: '业态帮扶'
+                                pageName: '业种帮扶'
                             },
                             component: resolve => require(['@/components/common/SubContent.vue'], resolve),
                             children: [{

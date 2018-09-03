@@ -187,3 +187,32 @@ Vue.prototype.helpBusinessContent = window.$helpBusinessContent = function(p, c,
             });
     })
 }
+
+/***************业态帮扶*******************/
+// 新增
+Vue.prototype.createFourmList = window.$createFourmList = function(params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/help/save/help/plan/from', params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}
+
+// 列表
+Vue.prototype.helpFourmContent = window.$helpFourmContent = function(p, c, params) {
+    return new Promise(function(resolve, reject) {
+        axios.post('/help/find/help/plan/from/list?p=' + p + '&c=' + c, params)
+            .then((res) => {
+                resolve(res)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            });
+    })
+}

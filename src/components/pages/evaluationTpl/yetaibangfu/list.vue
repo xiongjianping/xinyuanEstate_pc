@@ -1,7 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中" >
     <el-row class="searchBox" :gutter="30">
-      <h3 id="title">业种帮扶</h3><br>
+      <h3 id="title">业种指令</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
@@ -13,8 +13,24 @@
 
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select size="small" v-model="projectId" placeholder="请选择项目">
+            <el-select size="small" v-model="projectId" placeholder="请选择项目" @change="changeProject()">
               <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+         <el-col :span="5">
+          <el-form-item label="业态">
+            <el-select size="small" v-model="businessFormId" placeholder="请选择业态" @change="changeFourm()">
+              <el-option v-for="(item, index) in allForm" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+         <el-col :span="5">
+          <el-form-item label="业种">
+            <el-select size="small" v-model="businessSpeciesId" placeholder="请选择业种">
+              <el-option v-for="(item, index) in allSpecies" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -35,7 +51,7 @@
     </div>
 
     <p class="t"></p>
-    <div class="biaoti1">业种帮扶列表</div>
+    <div class="biaoti1">业种指令列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
@@ -71,6 +87,8 @@ import moment from 'moment'
 export default {
   data: () => ({
     area: '',
+    businessFormId:'',
+    businessSpeciesId:'',
     data:{},
     building: '',
     loading: false,
@@ -80,7 +98,9 @@ export default {
     allArea: {},
     allProject: {},
     businessTypeList:window.$businessTypeList,
-    projectId:''
+    projectId:'',
+    allSpecies:{},
+    allForm:{}
   }),
   created () {
     window.$getAreaList().then((res) => {
@@ -105,7 +125,10 @@ export default {
         this.page = 1
       }
 
+      this.searchForm.areaId = this.area
       this.searchForm.projectId = this.projectId
+      this.searchForm.businessFormId = this.businessFormId
+      this.searchForm.businessSpeciesId = this.businessSpeciesId
       window.$helpBusinessContent(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
       }, (err) => {
@@ -114,6 +137,8 @@ export default {
     },
     changeArea() {
       this.projectId = ''
+      this.businessFormId = ''
+      this.businessSpeciesId = ''
       window.$helpSearchproject(this.area).then((res) => {
         this.allProject = res;
       }, (err) => {})
@@ -131,6 +156,23 @@ export default {
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
       return 'height:50px;font-size:15px'
+    },
+    changeProject(){
+      this.businessFormId = ''
+      this.businessSpeciesId = ''
+      window.$getBusinessListForProject(this.projectId).then(res => {
+        this.allForm = res
+      }, err => {
+        
+      })
+    },
+    changeFourm(){
+      this.businessSpeciesId = ''
+      window.$getSpeciesSelect(this.businessFormId).then(res => {
+        this.allSpecies = res
+      }, err => {
+        
+      })
     },
     showAlert(cont) {
         this.$alert(cont, '温馨提示', {
