@@ -84,6 +84,8 @@
             <p class="unusing" type="danger" v-if="!scope.row.state">已解约</p>
           </template>
         </el-table-column>
+        <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
+        <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
         <el-table-column align="center"  label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="breakContract(scope.row.id)" v-if="scope.row.state">解约</el-button>

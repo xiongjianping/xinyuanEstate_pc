@@ -269,7 +269,7 @@
                 <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8" v-if="objType == 2">
               <el-form-item label="销售额" :label-width="formLabelWidth">
                 <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
               </el-form-item>
@@ -601,7 +601,7 @@ export default {
     guestProjectCreateDate:{
       projectId:'', //项目ID
       passengerFlow:'',//客流量
-      alesVolume:'',//销售额
+      salesVolume:'',//销售额
       effectTime:'' //生效时间
     },
     guestFloorCreateDate:{
@@ -609,7 +609,7 @@ export default {
       buildingId:'', //楼栋ID
       floorId:'', //楼层ID
       passengerFlow:'',//客流量
-      alesVolume:'',//销售额
+      salesVolume:'',//销售额
       effectTime:'' //生效时间
     },
     guestBrandCreateDate:{
@@ -620,7 +620,7 @@ export default {
       speciesId:'',//业种
       contractId:'',//签约ID
       passengerFlow:'',//客流量
-      alesVolume:'',//销售额
+      salesVolume:'',//销售额
       effectTime:'' //生效时间
     },
 
@@ -682,7 +682,6 @@ export default {
       this.closeDialog()
     },
     createGuest(){
-      console.log(this.objType)
       this.guestForm.effectTime2 = this.effectTime2;
       if(this.objType==0){
         /*this.guestForm.persent = this.persent;*/
@@ -690,15 +689,15 @@ export default {
         this.guestProjectCreateDate.projectId = this.guestForm.projectId; //项目ID
         this.guestProjectCreateDate.buildingId = this.guestForm.buildingId;  //楼栋ID
         this.guestProjectCreateDate.passengerFlow = this.guestForm.persent;//客流量
-        this.guestProjectCreateDate.alesVolume = this.guestForm.sale;//销售额
+        this.guestProjectCreateDate.salesVolume = this.guestForm.sale;//销售额
         this.guestProjectCreateDate.effectTime = this.guestForm.effectTime2; //生效时间
         console.log("新增项目客销度！");
         console.log(this.guestProjectCreateDate)
         //调接口
         window.$createGuestProjectObj(this.guestProjectCreateDate).then((res) => {
-          console.log(res)
-          this.showAlert("新增项目客销度成功！")
           this.closeDialogKXD();
+          this.isSearchList = true
+          this.showAlert('添加成功')
         }, (err) => {
           console.log(err)
           this.showAlert(err)
@@ -710,20 +709,19 @@ export default {
         this.guestFloorCreateDate.buildingId = this.guestForm.buildingId;  //楼栋ID
         this.guestFloorCreateDate.floorId = this.guestForm.floorId; //楼层ID
         this.guestFloorCreateDate.passengerFlow = this.guestForm.persent;//客流量
-        this.guestFloorCreateDate.alesVolume = this.guestForm.sale;//销售额
+        this.guestFloorCreateDate.salesVolume = this.guestForm.sale;//销售额
         this.guestFloorCreateDate.effectTime = this.guestForm.effectTime2; //生效时间
         console.log("新增楼层客销度！");
         console.log(this.guestFloorCreateDate)
         //调接口
         window.$createGuestFloorObj(this.guestFloorCreateDate).then((res) => {
-          console.log(res)
-          this.showAlert("新增楼层客销度成功！")
           this.closeDialogKXD();
+          this.isSearchList = true
+          this.showAlert('添加成功')
         }, (err) => {
           console.log(err)
           this.showAlert(err)
         })
-        this.closeDialogKXD();
         this.guestForm.sale = 0;
       }else  if(this.objType==2){
         /*this.guestForm.persent = this.persent;*/
@@ -735,24 +733,20 @@ export default {
           this.guestBrandCreateDate.speciesId = this.guestForm.businessSpeciesId; //业种
           this.guestBrandCreateDate.contractId = this.guestForm.brandId;//签约ID
           this.guestBrandCreateDate.passengerFlow = this.guestForm.persent;//客流量
-          this.guestBrandCreateDate.alesVolume = this.guestForm.sale;//销售额
+          this.guestBrandCreateDate.salesVolume = this.guestForm.sale;//销售额
           this.guestBrandCreateDate.effectTime = this.guestForm.effectTime2; //生效时间
         console.log("新增品牌客销度！");
         console.log(this.guestBrandCreateDate)
         //调接口
         window.$createGuestBrandObj(this.guestBrandCreateDate).then((res) => {
-          this.isSearchList = true
-          this.showAlert("新增品牌客销度成功！")
           this.closeDialogKXD();
+          this.isSearchList = true
+          this.showAlert('添加成功')
         }, (err) => {
           console.log(err)
           this.showAlert(err)
         })
-        this.closeDialogKXD();
       }
-      console.log("客销度新增---")
-      console.log(this.guestForm);
-      this.closeDialogKXD();
     },
     createFitted(){
       console.log("新增适配值！");
@@ -1230,12 +1224,13 @@ export default {
                   
       })
     },
-    deleteGuest(){
+    deleteGuest(id){
       this.$confirm('确认删除？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        console.log(this.objType)
         if(this.objType==0){
           this.loading = true
           window.$deleteProjectGuest(id).then((res) => {
@@ -1264,7 +1259,7 @@ export default {
             this.loading = false
             this.showAlert(err)
           })
-        }else if(this.objType==3){
+        }else if(this.objType==2){
           this.loading = true
           window.$deleteBrandGuest(id).then((res) => {
             for (var i = this.data.resultList.length - 1; i >= 0; i--) {

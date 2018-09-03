@@ -116,9 +116,9 @@ export default {
         this.$set(data, 'showSub', true);
         this.curLi = data ? data.url : info.url;
       } else {
-        this.curLi = data ? data.url : info.url;
-        this.$router.push(info.url);
-        this.$set(data, 'showSub', false);
+        this.curLi = data ? data.url : info.url
+        this.$router.push(info.url)
+        this.$set(data, 'showSub', false)
       }
     },
     closeAllSubMenu() {

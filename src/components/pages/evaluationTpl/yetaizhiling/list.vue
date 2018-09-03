@@ -1,20 +1,28 @@
 <template>
-  <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
+  <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中" >
     <el-row class="searchBox" :gutter="30">
-      <h3 id="title">项目指令</h3><br>
+      <h3 id="title">业态指令</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.areaId" placeholder="全部" @change="changeArea()">
-              <el-option v-for="(item,index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
+            <el-select size="small" v-model="area" placeholder="请选择区域" @change="changeArea()">
+              <el-option v-for="(item, index) in allArea" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-select size="small" v-model="projectId" placeholder="全部">
-              <el-option v-for="(item,index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
+            <el-select size="small" v-model="projectId" placeholder="请选择项目" @change="changeProject()">
+              <el-option v-for="(item, index) in allProject" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="5">
+          <el-form-item label="业态">
+            <el-select size="small" v-model="businessFormId" placeholder="请选择业态">
+              <el-option v-for="(item, index) in allForm" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -35,11 +43,12 @@
     </div>
 
     <p class="t"></p>
-    <div class="biaoti1">项目指令列表</div>
+    <div class="biaoti1">业态指令列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" prop='id' label="序号"></el-table-column>
+        <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
+        <el-table-column align="center" prop="businessFormName" label="业态名称"></el-table-column>
         <el-table-column align="center" prop="helpType" label="业务类型">
           <template slot-scope="scope">
             <el-button disabled type="text" size="small" v-if="scope.row.helpType === 1">溢租率</el-button>
@@ -55,10 +64,10 @@
       </el-table>
       <div class="paginationCont">
         <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page="page"
-        layout="prev, pager, next"
-        :total="data.countSize">
+          @current-change="handleCurrentChange"
+          :current-page="page"
+          layout="prev, pager, next"
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -68,31 +77,34 @@
 import moment from 'moment'
 export default {
   data: () => ({
-    data: {},
+    area: '',
+    data:{},
+    building: '',
     loading: false,
     searchForm: {},
-    infoData: {},
     page: 1,
     size: 10,
     allArea: {},
     allProject: {},
+    allForm:{},
     businessTypeList:window.$businessTypeList,
-    projectId:''
+    projectId:'',
+    businessFormId:''
   }),
-  created() {
-    this.searchList(1)
+  created () {
     window.$getAreaList().then((res) => {
-      this.allArea = res;
-      console.log(this.allArea)
-    }, (err) => {})
-
+        this.allArea = res;
+      }, (err) => {
+        this.showAlert(err)
+      }),
+    this.searchList()
   },
   methods: {
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.size = val
       this.searchList()
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.page = val
       this.searchList()
     },
@@ -102,51 +114,57 @@ export default {
         this.page = 1
       }
 
-
+      this.searchForm.areaId = this.area
       this.searchForm.projectId = this.projectId
-      window.$helpScarchAll(this.page, this.size, this.searchForm).then((res) => {
+      this.searchForm.businessFormId = this.businessFormId
+      window.$helpFourmContent(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
       }, (err) => {
         this.showAlert(err)
       })
     },
-    // 查看详情
-    showDetails(id) {
-      this.$router.push('/projecManage/details/' + id)
-    },
-    editDetails(id) {
-      this.$router.push('/projecManage/edit/' + id)
-    },
-    //change区域方法
     changeArea() {
       this.projectId = ''
-      window.$helpSearchproject(this.searchForm.areaId).then((res) => {
-        this.allProject = res;
+      this.businessFormId = ''
+      window.$helpSearchproject(this.area).then((res) => {
+        this.allProject = res
       }, (err) => {})
     },
-    //新增
-    xinzeng(id){
-      this.$router.push("/evaluationTpl/template/xinzeng/"+id)
+    changeProject(){
+      this.businessFormId = ''
+      window.$getBusinessListForProject(this.projectId).then(res => {
+        this.allForm = res
+      }, err => {
+        
+      })
+    },
+    // 查看详情
+    showDetails (id) {
+      this.$router.push('/projecManage/details/' + id)
+    },
+    editDetails (id) {
+      this.$router.push('/projecManage/edit/' + id)
+    },
+    xinzeng(){
+      this.$router.push("/evaluationTpl/yetaizhiling/xinzeng")
     },
     rowClass({ row, rowIndex}) {
       console.log(rowIndex) //表头行标号为0
       return 'height:50px;font-size:15px'
     },
-    showAlert (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定'
-      })
-    }
+    showAlert(cont) {
+        this.$alert(cont, '温馨提示', {
+          confirmButtonText: '确定'
+        })
+      }
   }
 }
-
 </script>
-<style scoped lang="less">
-.el-date-editor.el-input,
-.el-date-editor.el-input__inner {
-  width: 100%;
-}
+<style scoped  lang="less">
 .el-table .cell {
   white-space: pre-line;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: 100%;
 }
 </style>
