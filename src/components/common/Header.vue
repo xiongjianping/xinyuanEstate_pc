@@ -214,8 +214,9 @@ export default {
   li.navLi.curLi {
     background: #fff;
     color: #eacb8b;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-radius: 6px;
+    /*border-top-left-radius: 6px;*/
+    /*border-top-right-radius: 6px;*/
   }
   li.navLi.curLi:after,
   li.navLi:last-child:after {
@@ -245,8 +246,9 @@ export default {
   li.navLi1.curLi {
     background: #fff;
     color: #eacb8b;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-radius: 6px;
+    /*border-top-left-radius: 6px;*/
+    /*border-top-right-radius: 6px;*/
   }
   li.navLi1.curLi1:after,
   li.navLi1:last-child:after {
