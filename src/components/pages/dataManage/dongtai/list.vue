@@ -154,32 +154,32 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="租金" :label-width="formLabelWidth">
-                <el-input size="small" v-model="rentFee" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="rentFee" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="物业费" :label-width="formLabelWidth">
-                <el-input size="small" v-model="wuyefei" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="wuyefei" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="折旧费" :label-width="formLabelWidth">
-                <el-input size="small" v-model="zhejiufei" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="zhejiufei" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="人工费" :label-width="formLabelWidth">
-                <el-input size="small" v-model="rengongchengben" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="rengongchengben" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="代理费" :label-width="formLabelWidth">
-                <el-input size="small" v-model="agencyFee" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="agencyFee" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -266,12 +266,12 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="客流量" :label-width="formLabelWidth">
-                <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
+                <el-input size="small" type="number" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8" v-if="objType == 2">
               <el-form-item label="销售额" :label-width="formLabelWidth">
-                <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
+                <el-input size="small" type="number" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">

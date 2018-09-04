@@ -21,7 +21,7 @@
 
         <el-col :span="5">
           <el-form-item label="业态">
-            <el-select size="small" v-model="businessFormId" placeholder="请选择业态">
+            <el-select size="small" v-model="searchForm.formId" placeholder="请选择业态">
               <el-option v-for="(item, index) in allForm" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -81,15 +81,17 @@ export default {
     data:{},
     building: '',
     loading: false,
-    searchForm: {},
+    searchForm: {
+      formId:'',
+      helpType:''
+    },
     page: 1,
     size: 10,
     allArea: {},
     allProject: {},
     allForm:{},
     businessTypeList:window.$businessTypeList,
-    projectId:'',
-    businessFormId:''
+    projectId:''
   }),
   created () {
     window.$getAreaList().then((res) => {
@@ -116,7 +118,6 @@ export default {
 
       this.searchForm.areaId = this.area
       this.searchForm.projectId = this.projectId
-      this.searchForm.businessFormId = this.businessFormId
       window.$helpFourmContent(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
       }, (err) => {
@@ -125,13 +126,13 @@ export default {
     },
     changeArea() {
       this.projectId = ''
-      this.businessFormId = ''
+      this.searchForm.formId = ''
       window.$helpSearchproject(this.area).then((res) => {
         this.allProject = res
       }, (err) => {})
     },
     changeProject(){
-      this.businessFormId = ''
+      this.searchForm.formId = ''
       window.$getBusinessListForProject(this.projectId).then(res => {
         this.allForm = res
       }, err => {
