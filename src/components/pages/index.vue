@@ -455,6 +455,7 @@
 
         triangType: 1,
         myChart3: {},
+        myChart1: {},
         myChart: {},
         searchForm: {},
         areaId: '',
@@ -600,7 +601,11 @@
           },
           initialSlide: 0
         },
-        screenWidth: document.body.clientWidth
+        screenWidth: document.body.clientWidth,
+        good: 0.25,
+        good1: 0.5,
+        good2: 0.75,
+        good3: 0.95
       }
     },
     created() {
@@ -754,6 +759,7 @@
       this.myChart = echarts.init(document.getElementById('main'))
       var option = this.getOption()
       this.myChart.setOption(option)
+
     },
     methods: {
 
@@ -800,8 +806,11 @@
         if (strDate >= 0 && strDate <= 9) {
           strDate = "0" + strDate;
         }
-
         var strDateOld = strDate -1;
+        if (strDateOld >= 0 && strDateOld <= 9) {
+          strDateOld = "0" + strDateOld;
+        }
+
         console.log("strDateOld***："+strDateOld)
 
         var currentdateYesterday = year + seperator1 + month + seperator1 + strDateOld;
@@ -909,6 +918,10 @@
         this.$axios.post(url, params).then((res) => {
           console.log("三角形数据接口数据triangData："+res)
           this.triangData = res
+          this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
+          this.good1 = (this.triangData.excellentPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
+          this.good2 = (this.triangData.excellentPgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
+          this.good3 = (this.triangData.excellentPgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
         }, (err) => {
           console.log("返回的错误信息："+err)
           alert(err)
@@ -966,8 +979,8 @@
               name: '客销度',
               // min: this.triangData.intervalGuest.ks,
               // max: this.triangData.intervalGuest.yx,
-              min: this.triangData.excellentPgeVal,
-              max: 0,
+              min: 0,
+              max: this.triangData.excellentPgeVal,
               axisLine: {
                 lineStyle: {
                   width: 10,
@@ -981,16 +994,16 @@
                       offset: 0,
                       color: 'blue' // 0% 处的颜色
                     }, {
-                      offset: 0.25,
+                      offset: 0.33,
                       color: 'green' // 100% 处的颜色
                     },
                       {
-                        offset: 0.5,
+                        offset: 0.66,
                         color: 'yellow' // 0% 处的颜色
                       },
                       {
-                        offset: 0.75,
-                        color: 'white' // 0% 处的颜色
+                        offset: 1,
+                        color: 'red' // 0% 处的颜色
                       }
                     ],
                     globalCoord: true // 缺省为 false
@@ -1060,14 +1073,14 @@
               width: 3
             },
             data: [{
-              value: [this.triangData.standardRent, this.triangData.standardGuest, this.triangData.standardFitted],
+              value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.standardGuest < 0 ? -1 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
               lineStyle: {
                 color: '#fff'
               }
             },
 
               {
-                value: [this.triangData.standardRent, null, this.triangData.standardFitted],
+                value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), null, this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
                 lineStyle: {
                   color: '#fff'
                 }
@@ -1081,15 +1094,14 @@
                 width: 3
               },
               data: [{
-                value: [this.triangData.triangleRent, this.triangData.triangleGuest, this.triangData.triangleFitted],
-
+                value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.triangleGuest < 0 ? -1 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
                 lineStyle: {
                   color: 'yellow'
                   // color: '#fff'
                 }
               },
                 {
-                  value: [this.triangData.triangleRent, null, this.triangData.triangleFitted],
+                  value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), null, this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
                   lineStyle: {
                     color: 'yellow'
                     // color: '#fff'
@@ -1108,6 +1120,7 @@
         this.$axios.get('/pctriangle/find/salepassengerflow/all')
           .then(res => {
             this.passengerFlowList = res
+            console.log(res);
             console.log("this.passengerFlowList***"+this.passengerFlowList)
             var areaNameList = []
             var seriesList = [{
