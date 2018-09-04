@@ -128,13 +128,13 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="合理百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" v-model="guestForm.reasonablePgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.reasonablePgeVal" :maxlength="11" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="提升百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" v-model="guestForm.promotePgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.promotePgeVal" :maxlength="11" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
 
@@ -142,12 +142,12 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="良好百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" v-model="guestForm.goodPgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.goodPgeVal" :maxlength="11" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="优秀百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" v-model="guestForm.excellentPgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.excellentPgeVal" :maxlength="11" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
         </el-row>

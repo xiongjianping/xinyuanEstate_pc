@@ -21,7 +21,7 @@
 
          <el-col :span="5">
           <el-form-item label="业态">
-            <el-select size="small" v-model="businessFormId" placeholder="请选择业态" @change="changeFourm()">
+            <el-select size="small" v-model="searchForm.formId" placeholder="请选择业态" @change="changeFourm()">
               <el-option v-for="(item, index) in allForm" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -29,7 +29,7 @@
 
          <el-col :span="5">
           <el-form-item label="业种">
-            <el-select size="small" v-model="businessSpeciesId" placeholder="请选择业种">
+            <el-select size="small" v-model="searchForm.speciesId" placeholder="请选择业种" @change="changeSSS()">
               <el-option v-for="(item, index) in allSpecies" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -87,12 +87,14 @@ import moment from 'moment'
 export default {
   data: () => ({
     area: '',
-    businessFormId:'',
-    businessSpeciesId:'',
     data:{},
     building: '',
     loading: false,
-    searchForm: {},
+    searchForm: {
+      speciesId:'',
+      formId:'',
+      helpType:''
+    },
     page: 1,
     size: 10,
     allArea: {},
@@ -127,8 +129,6 @@ export default {
 
       this.searchForm.areaId = this.area
       this.searchForm.projectId = this.projectId
-      this.searchForm.businessFormId = this.businessFormId
-      this.searchForm.businessSpeciesId = this.businessSpeciesId
       window.$helpBusinessContent(this.page, this.size, this.searchForm).then((res) => {
         this.data = res;
       }, (err) => {
@@ -137,8 +137,8 @@ export default {
     },
     changeArea() {
       this.projectId = ''
-      this.businessFormId = ''
-      this.businessSpeciesId = ''
+      this.searchForm.formId = ''
+      this.searchForm.speciesId = ''
       window.$helpSearchproject(this.area).then((res) => {
         this.allProject = res;
       }, (err) => {})
@@ -158,8 +158,8 @@ export default {
       return 'height:50px;font-size:15px'
     },
     changeProject(){
-      this.businessFormId = ''
-      this.businessSpeciesId = ''
+      this.searchForm.formId = ''
+      this.searchForm.speciesId = ''
       window.$getBusinessListForProject(this.projectId).then(res => {
         this.allForm = res
       }, err => {
@@ -167,12 +167,15 @@ export default {
       })
     },
     changeFourm(){
-      this.businessSpeciesId = ''
-      window.$getSpeciesSelect(this.businessFormId).then(res => {
+      this.searchForm.speciesId = ''
+      window.$getSpeciesSelect(this.searchForm.formId).then(res => {
         this.allSpecies = res
       }, err => {
         
       })
+    },
+    changeSSS(){
+      console.log(this.searchForm.speciesId)
     },
     showAlert(cont) {
         this.$alert(cont, '温馨提示', {

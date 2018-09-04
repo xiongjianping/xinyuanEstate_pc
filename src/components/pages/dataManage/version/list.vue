@@ -133,7 +133,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="溢租率" :label-width="formLabelWidth">
-                <el-input size="small" v-model="rentForm.rentFee" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="rentForm.rentFee" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
@@ -221,12 +221,12 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="毛利率" :label-width="formLabelWidthYZ">
-                <el-input size="small" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
+                <el-input size="small" type="number" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="客单价" :label-width="formLabelWidthYZ">
-                <el-input size="small" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
+                <el-input size="small" type="number" v-model="guestForm.sale" :maxlength="11" placeholder="请选择销售额"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -310,7 +310,7 @@
         <el-row class="FitnessValue">
             <el-col :span="8">
               <el-form-item label="适配值" :label-width="formLabelWidth">
-                <el-input size="small" v-model="fittedForm.fittedVal" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="fittedForm.fittedVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           <el-col :span="8">

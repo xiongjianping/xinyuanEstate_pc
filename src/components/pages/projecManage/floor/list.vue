@@ -60,7 +60,7 @@
           <template slot-scope="scope">
             <el-button type="text" v-on:click="xiangqing(scope.row.id)">查看</el-button>
             <el-button type="text" v-on:click="showDetails(scope.row.id)">编辑</el-button>
-            <el-button type="text" v-on:click="deleteFloor(scope.row.id)">删除</el-button>
+            <!-- <el-button type="text" v-on:click="deleteFloor(scope.row.id)">删除</el-button> -->
           </template>
         </el-table-column>
       </el-table>
