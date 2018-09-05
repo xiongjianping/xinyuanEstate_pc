@@ -107,7 +107,7 @@
         </el-col>
         <el-col  :span="8">
           <el-form-item label="项目" :label-width="formLabelWidth">
-            <el-select  size="small" v-model="rentForm.projectId" placeholder="请选择项目" @change="rentProjectChanged()">
+            <el-select  size="small" v-model="rentForm.projectId" placeholder="请选择项目" @change="getBind()">
               <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -119,29 +119,29 @@
             </el-select>
           </el-form-item>
         </el-col> -->
-        <el-col  :span="8" >
+        <!-- <el-col  :span="8" >
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="rentForm.floorId" placeholder="F1" @change="businessTypeChange()">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
+              <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="getBind()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <el-select size="small" v-model="rentForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
               <el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
@@ -972,24 +972,28 @@ export default {
       })
 
     },
-    //业种
-    speciesChanged(){
+    getBind(){
       this.brandList = ''
+      var params = {}
       this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
       if (this.dialogFormVisible) {
         this.rentForm.brandList = ''
-        this.mybusinessSpeciesId = this.rentForm.businessSpeciesId;
+        params.projectId = this.rentForm.projectId
+        params.fromId = this.rentForm.businessFormId
       }
       if (this.dialogFormVisible1){
         this.guestForm.brandList = ''
-        this.mybusinessSpeciesId = this.guestForm.businessSpeciesId;
+        params.projectId = this.rentForm.projectId
+        params.fromId = this.rentForm.businessFormId
       }
       if (this.dialogFormVisible2) {
         this.fittedForm.brandList = ''
-        this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
+        params.projectId = this.rentForm.projectId
+        params.fromId = this.rentForm.businessFormId
       }
+
       //获取品牌
-      window.$getcontractIdForSpecies(this.mybusinessSpeciesId).then((res) => {
+      window.$getcontractIdForSpecies(params).then((res) => {
         console.log("品牌list")
         console.log(res)
         this.brandList = res
@@ -1006,10 +1010,6 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
-    },
-    //品牌
-    brandIdChanged(){
-     // this.showAlert(this.rentForm.brandId);
     },
     createCompany() {
       this.dialogFormVisible = false
