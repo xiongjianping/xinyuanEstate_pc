@@ -26,6 +26,7 @@ Vue.prototype.menus = window.$menus = function() {
         axios.get('/permission/login/menus')
             .then((res) => {
                 resolve(res)
+              console.log(res);
             })
             .catch((error) => {
                 console.log(error);

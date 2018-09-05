@@ -178,14 +178,14 @@
 
 
 
-          <div>
-            <div class="left-padding-date">
-              <el-date-picker class="setTimeStyle el-range-input el-range-editor--mini el-range-separator " size="mini"
+          <div class="sel_box">
+            <div class="left-padding-date f-cb">
+              <el-date-picker class="setTimeStyle el-range-input el-range-editor--mini el-range-separator f-fl" size="mini"
                               v-model="value_index" type="daterange" range-separator="至"
                               start-placeholder="开始日期" end-placeholder="结束日期"
                               format="yyyy-MM-dd" value-format="yyyy-MM-dd">
               </el-date-picker>
-              <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList2Triangle();">搜索
+              <el-button type="primary" class="mr10 ml10 f-fl" size="medium" v-on:click="searchList2Triangle();">搜索
               </el-button>
 
             </div>
@@ -250,6 +250,8 @@
 
 
         <div class="center_2 f-cb">
+          <div class="title_bg tit_center2"></div>
+          <span class="title_txt">全国各城市项目品牌总量</span>
           <div class="center_echars2 f-fl f-tac">
             <!-- <div id="china"></div> -->
             <img src="../../assets/images/ditu.png" alt="" alt="">
@@ -316,7 +318,7 @@
         </div>
       </el-col>
       <el-col :span="6">
-        <div class="right_1 mb10">
+        <div class="right_1 mb20">
           <div class="title_bg tit_right1"></div>
           <span class="title_txt">项目预览</span>
           <swiper :options="swiperOption" ref="mySwiper" class="mySwiper_list">
@@ -333,14 +335,14 @@
             </swiper-slide>
             <!-- <div class="swiper-pagination" slot="pagination"></div> -->
           </swiper>
-          <div class="swiper_txt">
-            <div class="f-cb">
-              <p class="f-fl">西安鑫苑大都汇</p>
-              <p class="f-fr f-tar">楼层数：共5层</p>
+          <div class="swiper_txt f-cb">
+            <div class="f-fl">
+              <p>西安鑫苑大都汇</p>
+              <p>楼层数：共5层</p>
             </div>
-            <div class="f-cb">
-              <p class="f-fl">开业时间：2016年12月16日</p>
-              <p class="f-fr f-tar">面积：12万平方</p>
+            <div class="f-fr">
+              <p>开业时间：2016年12月16日</p>
+              <p>面积：12万平方</p>
             </div>
           </div>
         </div>
@@ -371,9 +373,9 @@
         <!--</div>-->
 
 
-        //没有数据，暂时搭架子有接口数据再细调
+        <!--//没有数据，暂时搭架子有接口数据再细调-->
         <div class="right_2 mb10">
-          <div class="title_bg_help tit_right1"></div>
+          <div class="title_bg_help tit_right2"></div>
           <span class="title_txt_help">指令措施</span>
 
 
@@ -453,6 +455,7 @@
 
         triangType: 1,
         myChart3: {},
+        myChart1: {},
         myChart: {},
         searchForm: {},
         areaId: '',
@@ -598,7 +601,11 @@
           },
           initialSlide: 0
         },
-        screenWidth: document.body.clientWidth
+        screenWidth: document.body.clientWidth,
+        good: 0.25,
+        good1: 0.5,
+        good2: 0.75,
+        good3: 0.95
       }
     },
     created() {
@@ -707,19 +714,19 @@
         yAxis: [{
           type: 'value',
           axisLabel: {
-            formatter: '{value} °C'
+            formatter: '{value}'
           }
         }],
         series: [{
           name: '全国各区域客流量',
           type: 'line',
           data: [11, 11, 15, 13, 12, 13, 10],
-          markPoint: {
-            data: [
-              {type: 'max', name: '最大值'},
-              {type: 'min', name: '最小值'}
-            ]
-          },
+          // markPoint: {
+          //   data: [
+          //     {type: 'max', name: '最大值'},
+          //     {type: 'min', name: '最小值'}
+          //   ]
+          // },
           markLine: {
             data: [
               {type: 'average', name: '平均值'}
@@ -730,11 +737,11 @@
             name: '全国各区域销售量',
             type: 'line',
             data: [1, -2, 2, 5, 3, 2, 0],
-            markPoint: {
-              data: [
-                {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-              ]
-            },
+            // markPoint: {
+            //   data: [
+            //     {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+            //   ]
+            // },
             markLine: {
               data: [
                 {type: 'average', name: '平均值'}
@@ -752,6 +759,7 @@
       this.myChart = echarts.init(document.getElementById('main'))
       var option = this.getOption()
       this.myChart.setOption(option)
+
     },
     methods: {
 
@@ -798,8 +806,11 @@
         if (strDate >= 0 && strDate <= 9) {
           strDate = "0" + strDate;
         }
-
         var strDateOld = strDate -1;
+        if (strDateOld >= 0 && strDateOld <= 9) {
+          strDateOld = "0" + strDateOld;
+        }
+
         console.log("strDateOld***："+strDateOld)
 
         var currentdateYesterday = year + seperator1 + month + seperator1 + strDateOld;
@@ -907,6 +918,10 @@
         this.$axios.post(url, params).then((res) => {
           console.log("三角形数据接口数据triangData："+res)
           this.triangData = res
+          this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
+          this.good1 = (this.triangData.excellentPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
+          this.good2 = (this.triangData.excellentPgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
+          this.good3 = (this.triangData.excellentPgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
         }, (err) => {
           console.log("返回的错误信息："+err)
           alert(err)
@@ -964,8 +979,8 @@
               name: '客销度',
               // min: this.triangData.intervalGuest.ks,
               // max: this.triangData.intervalGuest.yx,
-              min: this.triangData.excellentPgeVal,
-              max: 0,
+              min: 0,
+              max: this.triangData.excellentPgeVal,
               axisLine: {
                 lineStyle: {
                   width: 10,
@@ -979,16 +994,16 @@
                       offset: 0,
                       color: 'blue' // 0% 处的颜色
                     }, {
-                      offset: 0.25,
+                      offset: 0.33,
                       color: 'green' // 100% 处的颜色
                     },
                       {
-                        offset: 0.5,
+                        offset: 0.66,
                         color: 'yellow' // 0% 处的颜色
                       },
                       {
-                        offset: 0.75,
-                        color: 'white' // 0% 处的颜色
+                        offset: 1,
+                        color: 'red' // 0% 处的颜色
                       }
                     ],
                     globalCoord: true // 缺省为 false
@@ -1058,14 +1073,14 @@
               width: 3
             },
             data: [{
-              value: [this.triangData.standardRent, this.triangData.standardGuest, this.triangData.standardFitted],
+              value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.standardGuest < 0 ? -1 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
               lineStyle: {
                 color: '#fff'
               }
             },
 
               {
-                value: [this.triangData.standardRent, null, this.triangData.standardFitted],
+                value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), null, this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
                 lineStyle: {
                   color: '#fff'
                 }
@@ -1079,15 +1094,14 @@
                 width: 3
               },
               data: [{
-                value: [this.triangData.triangleRent, this.triangData.triangleGuest, this.triangData.triangleFitted],
-
+                value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.triangleGuest < 0 ? -1 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
                 lineStyle: {
                   color: 'yellow'
                   // color: '#fff'
                 }
               },
                 {
-                  value: [this.triangData.triangleRent, null, this.triangData.triangleFitted],
+                  value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), null, this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
                   lineStyle: {
                     color: 'yellow'
                     // color: '#fff'
@@ -1106,6 +1120,7 @@
         this.$axios.get('/pctriangle/find/salepassengerflow/all')
           .then(res => {
             this.passengerFlowList = res
+            console.log(res);
             console.log("this.passengerFlowList***"+this.passengerFlowList)
             var areaNameList = []
             var seriesList = [{
@@ -2078,6 +2093,10 @@ console.log("显示区域列表值："+this.areaList)
     position: relative;
     padding: 10px 15px;
     box-sizing: border-box;
+    .sel_box{
+      height: 110px;
+      position: relative;
+    }
   }
 
   .center_2 {
@@ -2095,8 +2114,8 @@ console.log("显示区域列表值："+this.areaList)
     display: inline-block;
     transform: skew(-45deg);
     position: absolute;
-    top: 0;
-    left: 20px;
+    top: -2px;
+    left: 10px;
     color: #fff;
     font-size: 14px;
     z-index: 99;
@@ -2104,13 +2123,16 @@ console.log("显示区域列表值："+this.areaList)
       padding: 3px 70px;
     }
     &.tit_left2 {
-      padding: 3px 80px;
+      padding: 3px 90px;
     }
     &.tit_left3 {
-      padding: 3px 120px;
+      padding: 3px 125px;
     }
     &.tit_center1 {
-      padding: 3px 70px;
+      padding: 3px 65px;
+    }
+    &.tit_center2 {
+      padding: 3px 100px;
     }
     &.tit_right1 {
       padding: 3px 50px;
@@ -2124,8 +2146,8 @@ console.log("显示区域列表值："+this.areaList)
     display: inline-block;
     transform: skew(-45deg);
     position: absolute;
-    top: 1%;
-    left: 20px;
+    top: -1px;
+    left: 10px;
     color: #fff;
     font-size: 14px;
     z-index: 99;
@@ -2144,12 +2166,15 @@ console.log("显示区域列表值："+this.areaList)
     &.tit_right1 {
       padding: 3px 50px;
     }
+    &.tit_right2 {
+      padding: 3px 50px;
+    }
   }
 
 
   .title_txt {
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 30px;
     display: block;
     color: #fff;
@@ -2159,7 +2184,7 @@ console.log("显示区域列表值："+this.areaList)
 
   .title_txt_help {
     position: absolute;
-    top: 1%;
+    top: -1px;
     left: 30px;
     display: block;
     color: #fff;
@@ -2168,18 +2193,15 @@ console.log("显示区域列表值："+this.areaList)
   }
 
   .left_1 {
+    position: relative;
     .lzi {
+      width: 243px;
       color: #fff;
       font-size: 22px;
       position: absolute;
-      margin: auto;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      margin-left: 20%;
-      display: inline-block;
-      height: 112px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
       i {
         padding: 5px;
         border-radius: 3px;
@@ -2253,7 +2275,8 @@ console.log("显示区域列表值："+this.areaList)
     position: absolute;
     font-size: 36px;
     color: #fff;
-    margin: 30% 0 20px 10%;
+    bottom: 20px;
+    left: -20px;
   }
 
   .center_1_lable {
@@ -2320,13 +2343,26 @@ console.log("显示区域列表值："+this.areaList)
       color: #fff;
       margin: -45px 3% 0;
       font-size: 16px;
+      &>div{
+        &.f-fl{
+          width: 35%;
+        }
+        &.f-fr{
+          width: 57%;
+        }
+        p{
+          text-align: left;
+          font-size: 12px;
+        }
+      }
+
     }
     .img {
       height: 250px;
       margin: 0 auto;
       text-align: center;
       img {
-        width: auto;
+        width: 282px;
         height: 100%;
       }
     }
@@ -2372,7 +2408,7 @@ console.log("显示区域列表值："+this.areaList)
   }
 
   .left-padding {
-    padding: 1px 20px 2px 200px;
+    padding: 1px 20px 2px 175px;
     margin: 0 !important;
   }
 
@@ -2399,6 +2435,8 @@ console.log("显示区域列表值："+this.areaList)
   }
 
   .el-range-editor--mini {
+    height: 28px;
+    width: 275px !important;
     .el-range-separator {
       color: #fff;
     }
