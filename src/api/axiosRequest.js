@@ -1576,12 +1576,12 @@ Vue.prototype.getBrandForSpecies = window.$getBrandForSpecies = async function(i
 }
 /*
  * 动态三角形查询签约id与品牌名称(xjp_20180826)
- * 通过业种获取品牌与签约列表(GET)
+ * 通过业态和项目与签约列表(GET)
  */
 
-Vue.prototype.getcontractIdForSpecies = window.$getcontractIdForSpecies = async function(id) {
+Vue.prototype.getcontractIdForSpecies = window.$getcontractIdForSpecies = async function(params) {
   return new Promise(function(resolve, reject) {
-    axios.get('/brand/find/contract/' + id)
+    axios.post('/brand/find/contract', params)
       .then((res) => {
         console.log("getcontractIdForSpecies")
         console.log(res)

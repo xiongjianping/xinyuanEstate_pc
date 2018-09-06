@@ -1067,6 +1067,7 @@
         }, (err) => {
           this.showAlert(err)
         })
+
       },
       //品牌
       brandIdChanged(){

@@ -212,9 +212,6 @@ showAlert(cont) {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .el-button{
-    background: rgb(22,155,213);
-  }
   .xxk{
     width: 100%;
     height: 100px;
