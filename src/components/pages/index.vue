@@ -228,9 +228,16 @@
 
             </div>
           </div>
+          <h2 class="center_1_lable" v-if="triangData.triangleGuest >= triangData.excellentPgeVal * 0.75 ">优秀</h2>
+          <h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.5 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.75 ">良好</h2>
+          <h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.25 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.5 ">提升</h2>
+          <h2 class="center_1_lable" v-else-if="0 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.25 ">合理</h2>
+          <h2 class="center_1_lable" v-else-if="triangData.triangleGuest < 0">亏损</h2>
+          <h2 class="center_1_lable" v-else></h2>
 
 
-          <h2 class="center_1_lable">优</h2>
+
+
           <div class="center_echars1">
             <!--<span></span>-->
             <div id="main"></div>
@@ -239,11 +246,15 @@
 
 
           <div class="g_notes f-pr">
-            <!--<h2>优</h2>-->
             <div class="notes_list f-cb">
-              <span><i>{{triangData.triangleRent}}</i>溢租率</span>
-              <span><i>{{triangData.triangleGuest}}</i>客销度</span>
-              <span><i>{{triangData.triangleFitted}}</i>适配值</span>
+              <span><i>{{triangData.triangleRent}}</i></span>
+              <span><i>{{triangData.triangleGuest}}</i></span>
+              <span><i>{{triangData.triangleFitted}}</i></span>
+            </div>
+            <div class="notes_list f-cb">
+              <span><i>{{triangData.standardRent}}</i></span>
+              <span><i>{{triangData.standardGuest}}</i></span>
+              <span><i>{{triangData.standardFitted}}</i></span>
             </div>
           </div>
         </div>
@@ -383,8 +394,8 @@
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt">溢租率</span>
 
-            <div class="g_text">
-              {{triangData.rentContent}}
+            <div class="g_text f-toe" v-for="(item, index) in triangData.yzl" :key="index">
+              {{item}}
             </div>
           </div>
 
@@ -392,8 +403,8 @@
           <div class="right_2_tidy_bg mt110 ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt2">客销度</span>
-            <div class="g_text">
-            {{triangData.guestContent}}
+            <div class="g_text  f-toe" v-for="(item, index) in triangData.kxd" :key="index">
+              {{item}}
             </div>
           </div>
 
@@ -402,8 +413,8 @@
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt3">适配值</span>
 
-            <div class="g_text">
-            {{triangData.fittedContent}}
+            <div class="g_text f-toe" v-for="(item, index) in triangData.spz" :key="index">
+              {{item}}
             </div>
           </div>
 
@@ -602,10 +613,11 @@
           initialSlide: 0
         },
         screenWidth: document.body.clientWidth,
-        good: 0.25,
-        good1: 0.5,
-        good2: 0.75,
-        good3: 0.95
+        // good: 0.2,
+        // good1: 0.4,
+        // good2: 0.6,
+        // good3: 0.8,
+        // good4: 1
       }
     },
     created() {
@@ -916,12 +928,26 @@
 
         //三角形数据接口
         this.$axios.post(url, params).then((res) => {
-          console.log("三角形数据接口数据triangData："+res)
+          console.log(res)
           this.triangData = res
-          this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
-          this.good1 = (this.triangData.excellentPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
-          this.good2 = (this.triangData.excellentPgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
-          this.good3 = (this.triangData.excellentPgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
+          // //优秀
+          // // this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
+          // this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
+          //
+          // //良好
+          // // this.good1 = (this.triangData.excellentPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
+          // this.good1 = (this.triangData.goodPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
+          //
+          // //提升
+          // // this.good2 = (this.triangData.excellentPgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
+          // this.good2 = (this.triangData.promotePgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
+          //
+          // // this.good3 = (this.triangData.excellentPgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
+          // this.good3 = (this.triangData.reasonablePgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
+          //
+          // //亏损
+          // this.good4 = this.triangData.lossVal/this.triangData.excellentPgeVal
+
         }, (err) => {
           console.log("返回的错误信息："+err)
           alert(err)
@@ -941,8 +967,9 @@
               name: '溢租率(%)',
               // min: this.triangData.intervalRent.ks,
               // max: this.triangData.intervalRent.yx,
-              min: -180,
+              min: -100,
               max: 400,
+              splitNumber: 5,
               axisLine: {
                 lineStyle: {
                   width: 10,
@@ -969,7 +996,7 @@
                         color: 'red' // 0% 处的颜色
                       }
                     ],
-                    globalCoord: true // 缺省为 false
+                    globalCoord: false // 缺省为 false
                   }
                 },
               }
@@ -981,6 +1008,7 @@
               // max: this.triangData.intervalGuest.yx,
               min: 0,
               max: this.triangData.excellentPgeVal,
+              splitNumber: 5,
               axisLine: {
                 lineStyle: {
                   width: 10,
@@ -1006,7 +1034,7 @@
                         color: 'red' // 0% 处的颜色
                       }
                     ],
-                    globalCoord: true // 缺省为 false
+                    globalCoord: false // 缺省为 false
                   }
                 }
               }
@@ -1126,12 +1154,14 @@
             var seriesList = [{
               name: '全国各区域客流量',
               type: 'bar',
+              barWidth: 3,
               label: seriesLabel,
               data: [],
             },
               {
                 name: '全国各区域销售量',
                 type: 'bar',
+                barWidth: 3,
                 label: seriesLabel,
                 data: [],
               }
@@ -1150,7 +1180,7 @@
               normal: {
                 show: true,
                 textBorderColor: '#fff',
-                textBorderWidth: 2
+                textBorderWidth: 0
               }
             }
             var option3 = {
@@ -1170,7 +1200,7 @@
                 }
               },
               grid: {
-                left: '6%',
+                left: '24%',
                 right: '4%',
                 bottom: '3%',
                 top: '8%'
@@ -1178,6 +1208,7 @@
               xAxis: {
                 type: 'value',
                 name: 'Days',
+                boundaryGap: [0, 1],
                 axisLabel: {
                   formatter: '{value}'
                 },
@@ -1201,16 +1232,18 @@
                   show: false,
                 },
                 axisTick: {
-                  show: false
+                  show: false,
                 },
                 axisLabel: {
                   show: true,
+                  margin: 60,
                   textStyle: {
                     color: '#fff',
                     fontSize: 12,
-                    align: 'left'
-                  }
+                    align: 'left',
+                  },
                 },
+
                 data: areaNameList,
               },
               series: seriesList
@@ -1498,8 +1531,9 @@ console.log("显示区域列表值："+this.areaList)
         console.log("***getBuildingFloorInfo*projectId" + projectId)
         this.projectId = projectId
         window.$getBuilding(this.projectId).then(res => {
-          console.log("***当前楼栋列表的数据：" + res)
+          console.log(res)
           this.buildingList = res
+
           this.buildingId = res[0].id
 
           window.$getFloorForBuilding(this.buildingId).then(res => {
@@ -2087,12 +2121,12 @@ console.log("显示区域列表值："+this.areaList)
 
 
   .center_1 {
-    min-height: 450px;
+    min-height: 465px;
     background: url("../../assets/images/center_1.png") no-repeat;
     background-size: 100% 100%;
     position: relative;
-    padding: 10px 15px;
     box-sizing: border-box;
+    padding: 10px 15px;
     .sel_box{
       height: 110px;
       position: relative;
@@ -2100,12 +2134,12 @@ console.log("显示区域列表值："+this.areaList)
   }
 
   .center_2 {
-    min-height: 402px;
+    min-height: 370px;
     background: url("../../assets/images/center_2.png") no-repeat;
     background-size: 100% 100%;
     position: relative;
-    padding: 10px 15px;
     box-sizing: border-box;
+    padding: 2px 15px;
   }
 
   .title_bg {
@@ -2273,7 +2307,7 @@ console.log("显示区域列表值："+this.areaList)
 
   .center_1 h2 {
     position: absolute;
-    font-size: 36px;
+    font-size: 28px;
     color: #fff;
     bottom: 20px;
     left: -20px;
@@ -2385,10 +2419,21 @@ console.log("显示区域列表值："+this.areaList)
 
   .right_2 {
     .g_text {
-      padding: 30px 40px;
+      padding-left: 15px;
       color: #fff;
-      font-size: 14px;
-      line-height: 26px;
+      font-size: 12px;
+      line-height: 34px;
+      position: relative;
+      &:before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 14px;
+        left: 0;
+      }
     }
   }
 

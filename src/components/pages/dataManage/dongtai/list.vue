@@ -14,7 +14,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        
+
         <el-col :span="5">
           <el-form-item label="区域" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
@@ -73,14 +73,14 @@
         </el-col>
 
         <el-col :span="5" v-if="type == 0">
-          <el-form-item label="时间" :label-width="formLabelWidth">
+          <el-form-item label="生效时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
 
         <el-col :span="5" v-if="type != 0">
-          <el-form-item label="时间" :label-width="formLabelWidth">
+          <el-form-item label="生效时间" :label-width="formLabelWidth">
             <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
@@ -90,7 +90,7 @@
     </el-row>
 
     <div class="buttonList">
-      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
       <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
     </div>
 
@@ -112,36 +112,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <!-- <el-col :span="8">
-          <el-form-item label="楼栋："  style="display: none;">
-            <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋" >
-              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col> -->
-        <el-col  :span="8" >
-          <el-form-item label="楼层" :label-width="formLabelWidth">
-            <el-select  size="small" v-model="rentForm.floorId" placeholder="F1" @change="businessTypeChange()">
-              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="业态" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
-                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="业种" :label-width="formLabelWidth">
-              <el-select size="small" v-model="rentForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
-                <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
               <el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
@@ -149,7 +119,44 @@
               </el-select>
             </el-form-item>
           </el-col>
+        <!-- <el-col :span="8">
+          <el-form-item label="楼栋："  style="display: none;">
+            <el-select size="small" v-model="rentForm.buildingId" placeholder="请选择楼栋" >
+              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col> -->
+        <!--<el-col  :span="8" >-->
+          <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
+            <!--<el-select  size="small" v-model="rentForm.floorId" placeholder="F1" @change="businessTypeChange()">-->
+              <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+        <!--</el-col>-->
         </el-row>
+        <!--<el-row>-->
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="业态" :label-width="formLabelWidth">-->
+              <!--<el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">-->
+                <!--<el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="业种" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="rentForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
+                <!--<el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">-->
+                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+        <!--</el-row>-->
         <el-row class="FitnessValue">
           <el-row>
             <el-col :span="8">
@@ -183,7 +190,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="时间" :label-width="formLabelWidth">
+              <el-form-item label="生效时间" :label-width="formLabelWidth">
                 <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期" :label-width="formLabelWidth"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -191,8 +198,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="createRent()">保 存</el-button>
+        <el-button type="primary" size="medium" @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" size="medium" @click="createRent()">保 存</el-button>
       </div>
     </el-dialog>
     <el-dialog title="客销度" :visible="dialogFormVisible1" @close='closeDialogKXD'>
@@ -222,37 +229,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <!-- <el-col :span="8">
-          <el-form-item label="楼栋"  style="display: none;">
-            <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
-              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col> -->
-          <el-col  :span="8" >
-            <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
-                <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="业态" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="guestForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
-                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="业种" :label-width="formLabelWidth">
-              <el-select size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
-                <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
               <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
@@ -260,8 +236,46 @@
               </el-select>
             </el-form-item>
           </el-col>
-
+          <!-- <el-col :span="8">
+          <el-form-item label="楼栋"  style="display: none;">
+            <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
+              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col> -->
+          <!--<el-col  :span="8" >-->
+            <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
+              <!--<el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >-->
+                <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
         </el-row>
+        <!--<el-row>-->
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="业态" :label-width="formLabelWidth">-->
+              <!--<el-select  size="small" v-model="guestForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">-->
+                <!--<el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="业种" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
+                <!--<el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">-->
+                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+
+        <!--</el-row>-->
         <el-row class="FitnessValue">
           <el-row>
             <el-col :span="8">
@@ -275,7 +289,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="时间" :label-width="formLabelWidth">
+              <el-form-item label="生效时间" :label-width="formLabelWidth">
                 <el-date-picker v-model="effectTime2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -283,8 +297,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogFormVisible1 = false">取 消</el-button>
-      <el-button type="primary" @click="createGuest()">保 存</el-button>
+      <el-button type="primary" size="medium"  @click="dialogFormVisible1 = false">取 消</el-button>
+      <el-button type="primary" size="medium"  @click="createGuest()">保 存</el-button>
     </div>
     </el-dialog>
     <el-dialog title="适配值" :visible="dialogFormVisible2" @close='closeDialogSPZ'>
@@ -396,7 +410,7 @@
         <br>
         <el-row>
           <el-col :span="7">
-            <el-form-item label="时间" :label-width="formLabelWidth">
+            <el-form-item label="生效时间" :label-width="formLabelWidth">
               <el-date-picker v-model="effectTime3" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
@@ -404,8 +418,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogFormVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="createFitted()">保 存</el-button>
+        <el-button type="primary" size="medium"  @click="dialogFormVisible2 = false">取 消</el-button>
+        <el-button type="primary" size="medium"  @click="createFitted()">保 存</el-button>
       </div>
     </el-dialog>
 
@@ -422,15 +436,15 @@
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
             <el-table-column align="center" prop="fromName" label="业态名称"></el-table-column>
             <el-table-column align="center" prop="speciesName" label="业种名称"></el-table-column>
-            <el-table-column align="center" prop="rent" label="租金（元/月）"></el-table-column>
-            <el-table-column align="center" prop="propertyfee" label="物业费（元/月）"></el-table-column>
-            <el-table-column align="center" prop="depreciation" label="折旧费（元/月）"></el-table-column>
-            <el-table-column align="center" prop="laborCost" label="人工费（元/月）"></el-table-column>
-            <el-table-column align="center" prop="agencyFee" label="代理费（元/月）"></el-table-column>
+            <el-table-column align="center" prop="rent" label="租金"></el-table-column>
+            <el-table-column align="center" prop="propertyfee" label="物业费"></el-table-column>
+            <el-table-column align="center" prop="depreciation" label="折旧费"></el-table-column>
+            <el-table-column align="center" prop="laborCost" label="人工费"></el-table-column>
+            <el-table-column align="center" prop="agencyFee" label="代理费"></el-table-column>
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
-             <el-table-column align="center"  label="操作" width="100">
+            <el-table-column align="center"  label="操作" width="100">
               <template slot-scope="scope">
                <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button>-->
                 <el-button type="text" v-on:click="deleteRent(scope.row.id)">删除</el-button>
@@ -510,7 +524,7 @@ export default {
     mybusinessSpeciesId:'',
     type: 0,
     searchForm:{},
-    formLabelWidth:"60px",
+    formLabelWidth:"70px",
     formLabelWidthYZ:'70px',
     formLabelWidthDT:'85px',
     businessType: '',
@@ -967,6 +981,7 @@ export default {
       }
       window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
         this.speciesList = res
+        console.log(res);
       }, (err) => {
         this.showAlert(err)
       })
@@ -1221,7 +1236,7 @@ export default {
           this.showAlert(err)
         })
       }).catch(() => {
-                  
+
       })
     },
     deleteGuest(id){
@@ -1275,7 +1290,7 @@ export default {
           })
         }
       }).catch(() => {
-                  
+
       })
     },
     deleteFitted(id){
@@ -1298,7 +1313,7 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
     },
     // 查看详情

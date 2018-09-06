@@ -90,13 +90,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="楼栋" v-if="different === 2">
-              <el-select v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
-                <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <!--<el-col :span="8">-->
+            <!--<el-form-item label="楼栋" v-if="different === 2">-->
+              <!--<el-select v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
+                <!--<el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
         </el-row>
         <el-row>
           <el-col  :span="8" >
@@ -123,18 +123,19 @@
           </el-col>
 
         </el-row>
-        <el-row>
-        </el-row>
+
         <el-row>
           <el-col :span="8">
             <el-form-item label="合理百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.reasonablePgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.reasonablePgeVal" placeholder=""></el-input>
+              <!--<el-input size="small" type="number" v-model="guestFormReasonablePgeVal" placeholder="" :value="guestForm.easonablePgeVal"></el-input>-->
+
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="提升百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.promotePgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.promotePgeVal" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
 
@@ -142,12 +143,12 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="良好百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.goodPgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.goodPgeVal" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="优秀百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.excellentPgeVal" :maxlength="11" placeholder=" "></el-input>
+              <el-input size="small" type="number" v-model="guestForm.excellentPgeVal" placeholder=" "></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -205,6 +206,7 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    // guestFormReasonablePgeVal: '',
     searchForm: {},
     formLabelWidth: '50px',
     formLabelWidthQJ:'90px',
@@ -267,7 +269,8 @@ export default {
     size: 10,
     conditionId:'',
     projectId:'',
-    dialogFormVisible:false
+    dialogFormVisible:false,
+
   }),
   created () {
     window.$getformSelect().then((res) => {
@@ -281,6 +284,17 @@ export default {
     this.searchList(1)
 
   },
+  // watch: {
+  //   guestFormReasonablePgeVal(newVal){
+  //
+  //     if(newVal>=1||newVal<=0){
+  //       alert(1);
+  //       this.guestForm.reasonablePgeVal = '';
+  //     }else{
+  //       this.guestForm.reasonablePgeVal = this.guestFormReasonablePgeVal;
+  //     }
+  //   }
+  // },
   methods: {
     deleteTrigonometricGuest(id){
       this.$confirm('确认删除？', '提示', {
@@ -352,7 +366,7 @@ export default {
           this.showAlert("无品牌溢租率、无需删除");
         }
       }).catch(() => {
-                  
+
       })
     },
 
@@ -682,7 +696,8 @@ export default {
           confirmButtonText: '确定'
         })
       }
-  }
+  },
+
 }
 </script>
 <style scoped  lang="less">

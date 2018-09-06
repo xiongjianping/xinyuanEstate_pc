@@ -71,8 +71,7 @@
 .mb140 { margin-bottom: 140px; }
 .mb150 { margin-bottom: 150px; }
 .ml5 { margin-left: 5px; }
-.ml10 { margin-left: 10px;    height: 30px;
-  line-height: 0px; }
+.ml10 { margin-left: 10px; }
 .ml15 { margin-left: 15px; }
 .ml20 { margin-left: 20px; }
 .ml25 { margin-left: 25px; }
@@ -100,9 +99,7 @@
 .mr10 { margin-right: 10px; }
 .mr15 { margin-right: 15px; }
 .mr20 { margin-right: 20px; }
-.mr25 { margin-right: 25px;
-  height: 30px;
-line-height: 0px;}
+.mr25 { margin-right: 25px;}
 .mr30 { margin-right: 30px; }
 .mr35 { margin-right: 35px; }
 .mr40 { margin-right: 40px; }
@@ -329,6 +326,13 @@ line-height: 0px;}
   text-align: right;
 }
 
+.f-toe {
+  overflow: hidden;
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 html,body,#app,.wrapper{
   width: 100%;
   height: 100%;
@@ -337,8 +341,16 @@ html,body,#app,.wrapper{
   background-size: 100% 100%;
   background-attachment: fixed;
 }
+#title{
+  height: 30px;
+  border-bottom: 1px solid #4484a1;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: 800;
+  padding-top: 5px;
+}
 .searchBox{
-  padding: 20px 0;
+  padding: 0;
   margin: 0!important;
   .hengxian{
     background: #4484a1;
@@ -348,14 +360,7 @@ html,body,#app,.wrapper{
     margin-left: 111px;
     margin-top: -4px;
   }
-  #title{
-    height: 30px;
-    border-bottom: 1px solid #4484a1;
-    margin: 0 auto;
-    font-size: 18px;
-    font-weight: 800;
-    margin-top: -15px;
-  }
+
 }
 
 .el-input--small .el-input__inner{
@@ -513,13 +518,13 @@ html,body,#app,.wrapper{
   line-height: 19px;
 }
 
-.el-button {
-  height: 30px;
-  line-height: 0px;
+.el-button--medium {
+  height: 30px !important;
+  line-height: 0px !important;
 }
 .el-button--primary{
-  background-color: #4484a1;
-  border-color: #4484a1;
+  background-color: #4484a1 !important;
+  border-color: #4484a1 !important;
 }
 .el-button--primary:hover{
   background-color: #4484a1;
@@ -538,17 +543,17 @@ html,body,#app,.wrapper{
 
 .using{
   color: #4cca64
-  
+
 }
 .unusing{
-  color: #ff4200 
+  color: #ff4200
 }
 .ongoing{
   color: dodgerblue
 }
 
 .FitnessValue{
-  border: 1px solid #000;
+  border: 1px solid #e6e0e0;
   padding: 15px;
   border-radius: 15px;
   margin-top: 15px;
