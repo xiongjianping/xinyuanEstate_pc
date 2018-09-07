@@ -107,7 +107,7 @@
           </el-col>
           <el-col  :span="8">
             <el-form-item label="项目" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="rentForm.projectId" placeholder="请选择项目" @change="getBind()">
+              <el-select  size="small" v-model="rentForm.projectId" placeholder="请选择项目" @change="rentProjectChanged()">
                 <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -130,7 +130,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="getBind()">
+              <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -923,6 +923,8 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
+
+      this.getBind()
     },
     //2.溢租率新增项目
     rentProjectChanged(){
@@ -942,6 +944,7 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
+      this.getBind()
     },
     //3.客销度新增项目
     guestProjectChanged(){
@@ -961,6 +964,7 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
+      this.getBind()
     },
     //3.适配值新增项目
     fittedProjectChanged(){
@@ -980,6 +984,7 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
+      this.getBind()
     },
     //3.楼栋
     buildingChanged(){
@@ -1015,26 +1020,42 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
-
+this.getBind()
+    },
+    //业种
+    speciesChanged(){
+      this.brandList = ''
+      this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+      if (this.dialogFormVisible) {
+        this.rentForm.brandList = ''
+        this.mybusinessSpeciesId = this.rentForm.businessSpeciesId;
+      }
+      if (this.dialogFormVisible1){
+        this.guestForm.brandList = ''
+        this.mybusinessSpeciesId = this.guestForm.businessSpeciesId;
+      }
+      if (this.dialogFormVisible2) {
+        this.fittedForm.brandList = ''
+        this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
+      }
+      //获取品牌
+     this.getBind()
     },
     getBind(){
       this.brandList = ''
       var params = {}
       this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
-      if (this.dialogFormVisible) {
-        this.rentForm.brandList = ''
         params.projectId = this.rentForm.projectId
         params.fromId = this.rentForm.businessFormId
+        params.speciesId = this.rentForm.businessSpeciesId
+      if (this.dialogFormVisible) {
+        this.rentForm.brandList = ''
       }
       if (this.dialogFormVisible1){
         this.guestForm.brandList = ''
-        params.projectId = this.rentForm.projectId
-        params.fromId = this.rentForm.businessFormId
       }
       if (this.dialogFormVisible2) {
         this.fittedForm.brandList = ''
-        params.projectId = this.rentForm.projectId
-        params.fromId = this.rentForm.businessFormId
       }
 
       //获取品牌
