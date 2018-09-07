@@ -2089,7 +2089,7 @@ console.log("显示区域列表值："+this.areaList)
 
   .tidy_title_txt {
     position: absolute;
-    top: 13%;
+    top: 10%;
     left: 11%;
     display: block;
     color: #fff;
@@ -2099,7 +2099,7 @@ console.log("显示区域列表值："+this.areaList)
 
   .tidy_title_txt2 {
     position: absolute;
-    top: 41%;
+    top: 38.5%;
     left: 11%;
     display: block;
     color: #fff;
@@ -2109,7 +2109,7 @@ console.log("显示区域列表值："+this.areaList)
 
   .tidy_title_txt3 {
     position: absolute;
-    top: 69%;
+    top: 67.5%;
     left: 11%;
     display: block;
     color: #fff;
