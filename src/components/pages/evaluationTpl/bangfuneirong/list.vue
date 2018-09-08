@@ -1,7 +1,7 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <el-row class="searchBox" :gutter="30">
-      <h3 id="title">帮扶内容</h3><br>
+      <h3 id="title">指令内容</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="类别">
@@ -19,20 +19,20 @@
     </div>
 
     <p class="t"></p>
-    <div class="biaoti1">帮扶内容列表</div>
+    <div class="biaoti1">指令内容列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index"  prop='id'  label="序号" width="50"></el-table-column>
         <el-table-column align="center" prop="type" label="类别">
           <template slot-scope="scope">
-            <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金帮扶</el-button>
+            <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金指令</el-button>
             <el-button disabled type="text" size="small" v-if="scope.row.type === 2">活动支持</el-button>
             <el-button disabled type="text" size="small" v-if="scope.row.type === 3">点位宣传支持</el-button>
             <el-button disabled type="text" size="small" v-if="scope.row.type === 4">品牌及会员</el-button>
             <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="context" label="帮扶内容"></el-table-column>
+        <el-table-column align="center" prop="context" label="指令内容"></el-table-column>
         <el-table-column align="center" label="操作" width="100">
           <template slot-scope="scope">
             <!-- <el-button type="text" v-on:click="showDetails(scope.row.id)">查看</el-button> -->
@@ -62,7 +62,7 @@ export default {
     page: 1,
     size: 10,
     helpTypeList: [
-      { type: 1, typename: "租金帮扶" },
+      { type: 1, typename: "租金指令" },
       { type: 2, typename: "活动支持" },
       { type: 3, typename: "点位宣传支持" },
       { type: 4, typename: "品牌及会员" },
@@ -110,9 +110,9 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
-      
+
     },
     editDetails(id) {
       this.$router.push('/evaluationTpl/bangfuneirong/edit/' + id)

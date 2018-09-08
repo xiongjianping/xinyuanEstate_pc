@@ -104,8 +104,8 @@ export default {
         this.allArea = res;
       }, (err) => {
         this.showAlert(err)
-      }),
-    this.searchList(1)
+      })
+    // this.searchList(1)
   },
   methods: {
     handleCurrentChange(){

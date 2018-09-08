@@ -21,7 +21,7 @@
 
          <el-col :span="5">
           <el-form-item label="业态">
-            <el-select size="small" v-model="searchForm.formId" placeholder="请选择业态" @change="changeFourm()">
+            <el-select size="small" v-model="searchForm.fromId" placeholder="请选择业态" @change="changeFourm()">
               <el-option v-for="(item, index) in allForm" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -92,7 +92,7 @@ export default {
     loading: false,
     searchForm: {
       speciesId:'',
-      formId:'',
+      fromId:'',
       helpType:''
     },
     page: 1,
@@ -109,8 +109,8 @@ export default {
         this.allArea = res;
       }, (err) => {
         this.showAlert(err)
-      }),
-    this.searchList()
+      })
+    // this.searchList()
   },
   methods: {
     handleSizeChange (val) {
@@ -137,7 +137,7 @@ export default {
     },
     changeArea() {
       this.projectId = ''
-      this.searchForm.formId = ''
+      this.searchForm.fromId = ''
       this.searchForm.speciesId = ''
       window.$helpSearchproject(this.area).then((res) => {
         this.allProject = res;
@@ -158,20 +158,20 @@ export default {
       return 'height:50px;font-size:15px'
     },
     changeProject(){
-      this.searchForm.formId = ''
+      this.searchForm.fromId = ''
       this.searchForm.speciesId = ''
       window.$getBusinessListForProject(this.projectId).then(res => {
         this.allForm = res
       }, err => {
-        
+
       })
     },
     changeFourm(){
       this.searchForm.speciesId = ''
-      window.$getSpeciesSelect(this.searchForm.formId).then(res => {
+      window.$getSpeciesSelect(this.searchForm.fromId).then(res => {
         this.allSpecies = res
       }, err => {
-        
+
       })
     },
     changeSSS(){

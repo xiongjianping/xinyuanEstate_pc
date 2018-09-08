@@ -21,7 +21,7 @@
 
         <el-col :span="5">
           <el-form-item label="业态">
-            <el-select size="small" v-model="searchForm.formId" placeholder="请选择业态">
+            <el-select size="small" v-model="searchForm.fromId" placeholder="请选择业态">
               <el-option v-for="(item, index) in allForm" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -82,7 +82,7 @@ export default {
     building: '',
     loading: false,
     searchForm: {
-      formId:'',
+      fromId:'',
       helpType:''
     },
     page: 1,
@@ -98,8 +98,8 @@ export default {
         this.allArea = res;
       }, (err) => {
         this.showAlert(err)
-      }),
-    this.searchList()
+      })
+    // this.searchList()
   },
   methods: {
     handleSizeChange (val) {
@@ -126,17 +126,17 @@ export default {
     },
     changeArea() {
       this.projectId = ''
-      this.searchForm.formId = ''
+      this.searchForm.fromId = ''
       window.$helpSearchproject(this.area).then((res) => {
         this.allProject = res
       }, (err) => {})
     },
     changeProject(){
-      this.searchForm.formId = ''
+      this.searchForm.fromId = ''
       window.$getBusinessListForProject(this.projectId).then(res => {
         this.allForm = res
       }, err => {
-        
+
       })
     },
     // 查看详情

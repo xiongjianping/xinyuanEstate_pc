@@ -41,8 +41,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="createCompany()">确 定</el-button>
+        <el-button size="medium" @click="dialogFormVisible = false">取 消</el-button>
+        <el-button size="medium" type="primary" @click="createCompany()">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -244,7 +244,7 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
     },
     rowClass({ row, rowIndex}) {

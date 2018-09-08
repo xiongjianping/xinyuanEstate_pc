@@ -204,6 +204,13 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="品牌" :label-width="formLabelWidth">
+              <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
+                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row class="FitnessValue">
           <el-row>
@@ -505,7 +512,7 @@
                 <el-button disabled type="text" size="small" v-if="scope.row.status === 3">审核失败</el-button>
               </template>
             </el-table-column>-->
-            <el-table-column align="center" prop="fittedVerssionName" label="适配值"></el-table-column>
+            <el-table-column align="center" prop="fittedVal" label="适配值"></el-table-column>
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
@@ -814,7 +821,7 @@
         this.fittedCreateDate.fittedVal  = this.fittedForm.fittedVal;//适配值
         this.fittedCreateDate.effectTime = this.effectTime3; //生效时间
         console.log("适配值新增--------");
-        console.log(this.fittedCreateDate);
+        console.log(this.fittedCreateDate.fittedVal);
         if(this.objType==0){
           window.$createStandardProjectFittedObj(this.fittedCreateDate).then((res) => {
             this.closeDialogSPZ();
@@ -954,6 +961,8 @@
         }, (err) => {
           this.showAlert(err)
         })
+        //获取品牌
+        this.getBind()
       },
       //2.溢租率新增项目
       rentProjectChanged(){
@@ -969,6 +978,8 @@
         }, (err) => {
           this.showAlert(err)
         })
+        //获取品牌
+        this.getBind()
       },
       //3.客销度新增项目
       guestProjectChanged(){
@@ -984,6 +995,8 @@
         }, (err) => {
           this.showAlert(err)
         })
+        //获取品牌
+        this.getBind()
       },
       //3.适配值新增项目
       fittedProjectChanged(){
@@ -999,6 +1012,8 @@
         }, (err) => {
           this.showAlert(err)
         })
+        //获取品牌
+        this.getBind()
       },
       //3.楼栋
       buildingChanged(){
@@ -1052,7 +1067,29 @@
           this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
         }
         //获取品牌
-        window.$getcontractIdForSpecies(this.mybusinessSpeciesId).then((res) => {
+        this.getBind()
+      },
+      getBind(){
+        this.brandList = ''
+        var params = {}
+        this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+        params.projectId = this.rentForm.projectId
+        params.fromId = this.rentForm.businessFormId
+        params.speciesId = this.rentForm.businessSpeciesId
+        if (this.dialogFormVisible) {
+          this.rentForm.brandList = ''
+        }
+        if (this.dialogFormVisible1){
+          this.guestForm.brandList = ''
+        }
+        if (this.dialogFormVisible2) {
+          this.fittedForm.brandList = ''
+        }
+
+        //获取品牌
+        window.$getcontractIdForSpecies(params).then((res) => {
+          console.log("品牌list")
+          console.log(res)
           this.brandList = res
           if (this.dialogFormVisible) {
             //  for()res
@@ -1068,10 +1105,6 @@
           this.showAlert(err)
         })
 
-      },
-      //品牌
-      brandIdChanged(){
-        // this.showAlert(this.rentForm.brandId);
       },
       createCompany() {
         this.dialogFormVisible = false

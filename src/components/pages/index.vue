@@ -179,18 +179,18 @@
 
 
           <div class="sel_box">
-            <div class="left-padding-date f-cb">
+            <div class="f-cb">
               <el-date-picker class="setTimeStyle el-range-input el-range-editor--mini el-range-separator f-fl" size="mini"
                               v-model="value_index" type="daterange" range-separator="至"
                               start-placeholder="开始日期" end-placeholder="结束日期"
                               format="yyyy-MM-dd" value-format="yyyy-MM-dd">
               </el-date-picker>
-              <el-button type="primary" class="mr10 ml10 f-fl" size="medium" v-on:click="searchList2Triangle();">搜索
+              <el-button type="primary" class="mr10 ml10 f-fl" size="medium" v-on:click="searchList2Triangle();">查询
               </el-button>
 
             </div>
 
-            <div class="left-padding">
+            <div>
 
               <m-select :tabs="areaList" :clicked="clicked1" v-on:childTab="tabClick1_yyh"></m-select>
               <m-select v-if="isProjectShow" :tabs="projectList" :clicked="clicked2"
@@ -201,7 +201,7 @@
               <m-select :tabs="types" :clicked="clicked7" v-on:childTab="tabClick7" selectItem=""></m-select>
             </div>
 
-            <div class="left-padding">
+            <div>
 
               <!-- <m-select v-if="typeId != 1 && conditionList.length > 0"  :tabs="conditionList" :clicked="clicked5" v-on:childTab="tabClick5"></m-select> -->
               <m-select v-if="isBuildingShow" :tabs="buildingList" :clicked="clicked3"
@@ -228,12 +228,17 @@
 
             </div>
           </div>
-          <h2 class="center_1_lable" v-if="triangData.triangleGuest >= triangData.excellentPgeVal * 0.75 ">优秀</h2>
-          <h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.5 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.75 ">良好</h2>
-          <h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.25 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.5 ">提升</h2>
-          <h2 class="center_1_lable" v-else-if="0 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.25 ">合理</h2>
-          <h2 class="center_1_lable" v-else-if="triangData.triangleGuest < 0">亏损</h2>
-          <h2 class="center_1_lable" v-else></h2>
+          <!--<h2 class="center_1_lable" v-if="triangData.triangleGuest >= triangData.excellentPgeVal * 0.75 ">优秀</h2>-->
+          <!--<h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.5 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.75 ">良好</h2>-->
+          <!--<h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.25 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.5 ">提升</h2>-->
+          <!--<h2 class="center_1_lable" v-else-if="0 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.25 ">合理</h2>-->
+          <!--<h2 class="center_1_lable" v-else-if="triangData.triangleGuest < 0">亏损</h2>-->
+          <!--<h2 class="center_1_lable" v-else></h2>-->
+          <h2 class="center_1_lable" v-if="triangData.kxdState==1">优秀</h2>
+          <h2 class="center_1_lable" v-if="triangData.kxdState==2">良好</h2>
+          <h2 class="center_1_lable" v-if="triangData.kxdState==3">提升</h2>
+          <h2 class="center_1_lable" v-if="triangData.kxdState==4">合理</h2>
+          <h2 v-if="triangData.kxdState==5">亏损</h2>
 
 
 
@@ -246,16 +251,62 @@
 
 
           <div class="g_notes f-pr">
-            <div class="notes_list f-cb">
-              <span><i>{{triangData.triangleRent}}</i></span>
-              <span><i>{{triangData.triangleGuest}}</i></span>
-              <span><i>{{triangData.triangleFitted}}</i></span>
+            <div class="notes_list standard f-cb">
+              <span>标准三角形</span>
+              <span>
+                <i>{{triangData.standardRent}}</i>
+                <!--<i v-if="triangData.standardRent >= 3">（优秀）</i>-->
+                <!--<i v-else-if="2 <= triangData.standardRent < 3">（良好）</i>-->
+                <!--<i v-else-if="1 <= triangData.standardRent < 2">（提升）</i>-->
+                <!--<i v-else-if="0 <= triangData.standardRent < 1">（合理）</i>-->
+                <!--<i v-else-if="triangData.standardRent < 0">（亏损）</i>-->
+              </span>
+              <span>
+                <i>{{triangData.standardGuest}}</i>
+                <!--<i v-if="triangData.standardGuest >= triangData.excellentPgeVal">（优秀）</i>-->
+                <!--<i v-else-if="triangData.goodPgeVal <= triangData.standardGuest < triangData.excellentPgeVal">（良好）</i>-->
+                <!--<i v-else-if="triangData.promotePgeVal <= triangData.standardGuest < triangData.goodPgeVal">（提升）</i>-->
+                <!--<i v-else-if="triangData.reasonablePgeVal <= triangData.standardGuest < triangData.promotePgeVal">（合理）</i>-->
+                <!--<i v-else-if="0 < triangData.standardGuest < triangData.reasonablePgeVal">（亏损）</i>-->
+              </span>
+
+              <span>
+                <i>{{triangData.standardFitted}}</i>
+                <!--<i v-if="triangData.standardFitted >= 9000">（优秀）</i>-->
+                <!--<i v-else-if="8000 <= triangData.standardFitted < 9000">（良好）</i>-->
+                <!--<i v-else-if="7000 <= triangData.standardFitted < 8000">（提升）</i>-->
+                <!--<i v-else-if="6000 <= triangData.standardFitted < 7000">（合理）</i>-->
+                <!--<i v-else-if="triangData.standardFitted < 6000">（亏损）</i>-->
+              </span>
             </div>
-            <div class="notes_list f-cb">
-              <span><i>{{triangData.standardRent}}</i></span>
-              <span><i>{{triangData.standardGuest}}</i></span>
-              <span><i>{{triangData.standardFitted}}</i></span>
+            <div class="notes_list ranged f-cb">
+              <span>动态三角形</span>
+              <span>
+                <i>{{triangData.triangleRent}}</i>
+                <i v-if="triangData.yzlState==1">（优秀）</i>
+                <i v-if="triangData.yzlState==2">（良好）</i>
+                <i v-if="triangData.yzlState==3">（提升）</i>
+                <i v-if="triangData.yzlState==4">（合理）</i>
+                <i v-if="triangData.yzlState==5">（亏损）</i>
+              </span>
+              <span>
+                <i>{{triangData.triangleGuest}}</i>
+                <i v-if="triangData.kxdState==1">（优秀）</i>
+                <i v-if="triangData.kxdState==2">（良好）</i>
+                <i v-if="triangData.kxdState==3">（提升）</i>
+                <i v-if="triangData.kxdState==4">（合理）</i>
+                <i v-if="triangData.kxdState==5">（亏损）</i>
+              </span>
+              <span>
+                <i>{{triangData.triangleFitted}}</i>
+                <i v-if="triangData.spzState==1">（优秀）</i>
+                <i v-if="triangData.spzState==2">（良好）</i>
+                <i v-if="triangData.spzState==3">（提升）</i>
+                <i v-if="triangData.spzState==4">（合理）</i>
+                <i v-if="triangData.spzState==5">（亏损）</i>
+              </span>
             </div>
+
           </div>
         </div>
 
@@ -268,7 +319,7 @@
             <img src="../../assets/images/ditu.png" alt="" alt="">
           </div>
           <div class="f-fr g_place">
-            <ul class="pt25">
+            <ul class="pt75">
               <li>
                 <b>华北区</b>
                 <span>
@@ -394,28 +445,39 @@
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt">溢租率</span>
 
-            <div class="g_text f-toe" v-for="(item, index) in triangData.yzl" :key="index">
-              {{item}}
-            </div>
+            <div class="g_text f-toe"  v-if="triangData.yzlState==1" v-for="(item, index) in triangData.yzl" :key="index">{{item.yx}}</div>
+            <div class="g_text f-toe"  v-if="triangData.yzlState==2" v-for="(item, index) in triangData.yzl" :key="index">{{item.lh}}</div>
+            <div class="g_text f-toe"  v-if="triangData.yzlState==3" v-for="(item, index) in triangData.yzl" :key="index">{{item.ts}}</div>
+            <div class="g_text f-toe"  v-if="triangData.yzlState==4" v-for="(item, index) in triangData.yzl" :key="index">{{item.hl}}</div>
+            <div class="g_text f-toe"  v-if="triangData.yzlState==5" v-for="(item, index) in triangData.yzl" :key="index">{{item.ks}}</div>
+
           </div>
 
 
           <div class="right_2_tidy_bg mt110 ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
-            <span class="tidy_title_txt2">客销度</span>
-            <div class="g_text  f-toe" v-for="(item, index) in triangData.kxd" :key="index">
-              {{item}}
-            </div>
+            <span class="tidy_title_txt">客销度</span>
+            <!--<div class="g_text  f-toe" v-for="(item, index) in triangData.kxd" :key="index">{{item}}</div>-->
+            <div class="g_text f-toe"  v-if="triangData.kxdState==1" v-for="(item, index) in triangData.kxd" :key="index">{{item.yx}}</div>
+            <div class="g_text f-toe"  v-if="triangData.kxdState==2" v-for="(item, index) in triangData.kxd" :key="index">{{item.lh}}</div>
+            <div class="g_text f-toe"  v-if="triangData.kxdState==3" v-for="(item, index) in triangData.kxd" :key="index">{{item.ts}}</div>
+            <div class="g_text f-toe"  v-if="triangData.kxdState==4" v-for="(item, index) in triangData.kxd" :key="index">{{item.hl}}</div>
+            <div class="g_text f-toe"  v-if="triangData.kxdState==5" v-for="(item, index) in triangData.kxd" :key="index">{{item.ks}}</div>
           </div>
 
 
           <div class="right_2_tidy_bg mt110 ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
-            <span class="tidy_title_txt3">适配值</span>
+            <span class="tidy_title_txt">适配值</span>
 
-            <div class="g_text f-toe" v-for="(item, index) in triangData.spz" :key="index">
-              {{item}}
-            </div>
+            <!--<div class="g_text f-toe" v-for="(item, index) in triangData.spz" :key="index">-->
+              <!--{{item}}-->
+            <!--</div>-->
+            <div class="g_text f-toe"  v-if="triangData.spzState==1" v-for="(item, index) in triangData.spz" :key="index">{{item.yx}}</div>
+            <div class="g_text f-toe"  v-if="triangData.spzState==2" v-for="(item, index) in triangData.spz" :key="index">{{item.lh}}</div>
+            <div class="g_text f-toe"  v-if="triangData.spzState==3" v-for="(item, index) in triangData.spz" :key="index">{{item.ts}}</div>
+            <div class="g_text f-toe"  v-if="triangData.spzState==4" v-for="(item, index) in triangData.spz" :key="index">{{item.hl}}</div>
+            <div class="g_text f-toe"  v-if="triangData.spzState==5" v-for="(item, index) in triangData.spz" :key="index">{{item.ks}}</div>
           </div>
 
         </div>
@@ -950,7 +1012,7 @@
 
         }, (err) => {
           console.log("返回的错误信息："+err)
-          alert(err)
+          // alert(err)
         })
 
       },
@@ -1049,7 +1111,7 @@
               color: "red",
               axisLine: {
                 textStyle: {
-                  opacity: 0.5
+                  opacity: 1
                 },
                 lineStyle: {
                   width: 10,
@@ -1091,7 +1153,7 @@
               type: 'value',
               nameLocation: 'end',
               nameGap: 20,
-              opacity: 0.6,
+              opacity: 1,
             }
           },
 
@@ -1103,20 +1165,20 @@
             data: [{
               value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.standardGuest < 0 ? -1 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
               lineStyle: {
-                color: '#fff'
+                color: '#08E9DF'
               }
             },
 
               {
                 value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), null, this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
                 lineStyle: {
-                  color: '#fff'
+                  color: '#08E9DF'
                 }
               }
             ]
           },
             {
-              color: '#fff',
+              color: '#ADF75C',
               type: 'parallel',
               lineStyle: {
                 width: 3
@@ -1124,15 +1186,13 @@
               data: [{
                 value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.triangleGuest < 0 ? -1 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
                 lineStyle: {
-                  color: 'yellow'
-                  // color: '#fff'
+                  color: '#ADF75C'
                 }
               },
                 {
                   value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), null, this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
                   lineStyle: {
-                    color: 'yellow'
-                    // color: '#fff'
+                    color: '#ADF75C'
                   }
                 }
               ]
@@ -1751,9 +1811,12 @@ console.log("显示区域列表值："+this.areaList)
 
 
       getBusinessCategory2Brand(){
+        var params = {}
+        params.projectId = this.projectId;
 
-        window.$getBrandForSpecies_standard(this.categoryId).then(res => {
-          console.log("***品牌列表数据为" + res)
+        window.$getcontractIdForSpecies(params).then((res) => {
+        // window.$getBrandForSpecies_standard(this.categoryId).then(res => {
+          console.log(res)
           if (res.length > 0) {
             this.isBrandShow = true
             this.brandList = res
@@ -2074,6 +2137,7 @@ console.log("显示区域列表值："+this.areaList)
 
   .right_2_tidy_bg{
     background-size: 100% 100%;
+    position: relative;
   }
 
   .tidy_img {
@@ -2089,28 +2153,8 @@ console.log("显示区域列表值："+this.areaList)
 
   .tidy_title_txt {
     position: absolute;
-    top: 10%;
-    left: 11%;
-    display: block;
-    color: #fff;
-    font-size: 14px;
-    z-index: 999;
-  }
-
-  .tidy_title_txt2 {
-    position: absolute;
-    top: 38.5%;
-    left: 11%;
-    display: block;
-    color: #fff;
-    font-size: 14px;
-    z-index: 999;
-  }
-
-  .tidy_title_txt3 {
-    position: absolute;
-    top: 67.5%;
-    left: 11%;
+    top: 4px;
+    left: 8px;
     display: block;
     color: #fff;
     font-size: 14px;
@@ -2121,7 +2165,7 @@ console.log("显示区域列表值："+this.areaList)
 
 
   .center_1 {
-    min-height: 465px;
+    min-height: 485px;
     background: url("../../assets/images/center_1.png") no-repeat;
     background-size: 100% 100%;
     position: relative;
@@ -2130,6 +2174,8 @@ console.log("显示区域列表值："+this.areaList)
     .sel_box{
       height: 110px;
       position: relative;
+      width: 425px;
+      margin: 15px auto 0;
     }
   }
 
@@ -2288,18 +2334,24 @@ console.log("显示区域列表值："+this.areaList)
       margin: 0 0 20px 10%;
     }
     .notes_list {
-      width: 420px;
+      &.standard{
+        color: #08E9DF;
+      }
+      &.ranged{
+        color: #ADF75C;
+      }
+      width: 575px;
       margin: 0 auto;
-      padding-right: 40px;
+      padding-right: 66px;
       span {
-        color: #fff;
         font-size: 14px;
         float: left;
-        width: 33.33%;
-        text-align: center;
+        width: 25%;
+        text-align: left;
       }
       i {
         display: inline-block ;
+
       }
     }
   }
@@ -2309,7 +2361,7 @@ console.log("显示区域列表值："+this.areaList)
     position: absolute;
     font-size: 28px;
     color: #fff;
-    bottom: 20px;
+    bottom: 165px;
     left: -20px;
   }
 
@@ -2326,10 +2378,11 @@ console.log("显示区域列表值："+this.areaList)
   .center_2 {
     .center_echars2 {
       width: 65%;
-      height: 382px;
-      line-height: 382px;
+      height: 362px;
+      position: relative;
+      top: 60px;
       img {
-        max-width: 100%;
+        max-width: 92%;
         height: auto;
       }
     }
@@ -2379,10 +2432,10 @@ console.log("显示区域列表值："+this.areaList)
       font-size: 16px;
       &>div{
         &.f-fl{
-          width: 35%;
+          width: 39%;
         }
         &.f-fr{
-          width: 57%;
+          width: 60%;
         }
         p{
           text-align: left;
@@ -2450,16 +2503,6 @@ console.log("显示区域列表值："+this.areaList)
   .r-tab {
     position: absolute;
     right: 50px;
-  }
-
-  .left-padding {
-    padding: 1px 20px 2px 175px;
-    margin: 0 !important;
-  }
-
-  .left-padding-date {
-    padding: 1px 20px 2px 175px;
-    margin: 0 !important;
   }
 
   .select_result {

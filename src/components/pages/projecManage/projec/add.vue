@@ -43,14 +43,14 @@
               <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-        </el-col> 
+        </el-col>
 
         <el-col :span="6">
           <el-form-item label="项目">
             <el-input size="small" v-model="searchForm.name" :maxlength="11" placeholder="请输入项目名称"></el-input>
           </el-form-item>
         </el-col>
-        
+
         <el-col :span="6">
           <el-form-item label="面积/平">
             <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
@@ -74,8 +74,8 @@
     </el-row>
 
     <div class="buttonlist mt100">
-      <el-button type="primary" class="mr10" @click="goBack()">取消</el-button>
-      <el-button type="primary" @click="create()">确定</el-button>
+      <el-button type="primary" size="medium" class="mr10" @click="goBack()">取消</el-button>
+      <el-button type="primary" size="medium" @click="create()">确定</el-button>
     </div>
   </div>
 </template>

@@ -69,14 +69,14 @@
           </el-table-column>
           <el-table-column prop="type" label="类别"align="center">
             <template slot-scope="scope">
-              <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金帮扶</el-button>
+              <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金指令</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 2">活动支持</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 3">点位宣传支持</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 4">品牌及会员</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
             </template>
           </el-table-column>
-          <el-table-column prop="context" label="帮扶内容" align="center">
+          <el-table-column prop="context" label="指令内容" align="center">
           </el-table-column>
         </el-table>
       </div>

@@ -40,8 +40,8 @@
         </el-row>
         <el-row>
           <el-col :span="6" >
-            <el-form-item label="帮扶类型">
-              <el-select size="small" v-model="searchForm.type" placeholder="请选择帮扶类型"  @change="searchList()">
+            <el-form-item label="指令类型">
+              <el-select size="small" v-model="searchForm.type" placeholder="请选择指令类型"  @change="searchList()">
                 <el-option v-for="(item, index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -68,20 +68,20 @@
           </el-table-column>
           <el-table-column prop="type" label="类别" align="center">
             <template slot-scope="scope">
-              <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金帮扶</el-button>
+              <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金指令</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 2">活动支持</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 3">点位宣传支持</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 4">品牌及会员</el-button>
               <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="context" label="帮扶内容" >
+          <el-table-column align="center" prop="context" label="指令内容" >
           </el-table-column>
         </el-table>
       </div>
       <el-row class="f-tac">
-        <el-button type="primary" class="mr15" @click="goBack()">取消</el-button>
-        <el-button type="primary" @click="create()">新增</el-button>
+        <el-button size="medium" type="primary" class="mr15" @click="goBack()">取消</el-button>
+        <el-button size="medium" type="primary" @click="create()">新增</el-button>
       </el-row>
       <!--   <div class="xxk">
           <button type="button" @click="goBack()">取消</button>
