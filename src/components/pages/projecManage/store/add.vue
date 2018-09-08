@@ -69,8 +69,8 @@
         </el-row>
 
         <el-row class="f-tac mt40">
-          <el-button type="primary" class="mr25" @click="goBack()">取消</el-button>
-          <el-button type="primary" @click="create()">确定</el-button>
+          <el-button size="medium" type="primary" class="mr25" @click="goBack()">取消</el-button>
+          <el-button size="medium" type="primary" @click="create()">确定</el-button>
         </el-row>
 
       </el-form>

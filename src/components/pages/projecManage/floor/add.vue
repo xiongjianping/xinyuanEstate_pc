@@ -37,7 +37,7 @@
             </el-form-item>
           </el-col>
 
-          
+
           <el-col :span="6">
             <el-form-item label="位置">
               <el-select size="small" v-model="data.location" placeholder="请选择位置">
@@ -69,8 +69,8 @@
           </el-col>
         </el-row>
         <el-row class="f-tac mt40">
-          <el-button type="primary" class="mr15" @click="goBack()">取消</el-button>
-          <el-button type="primary" @click="createFloor()">确定</el-button>
+          <el-button size="medium" type="primary" class="mr15" @click="goBack()">取消</el-button>
+          <el-button size="medium" type="primary" @click="createFloor()">确定</el-button>
         </el-row>
         <!-- <div class="xxk">
           <button type="button" @click="goBack()">取消</button>

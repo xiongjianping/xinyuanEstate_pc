@@ -259,13 +259,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="品牌" :label-width="formLabelWidth">
-              <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
-                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <!-- <el-col :span="8">
           <el-form-item label="楼栋"  style="display: none;">
             <el-select size="small" v-model="guestForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
@@ -273,39 +266,39 @@
             </el-select>
           </el-form-item>
         </el-col> -->
-          <!--<el-col  :span="8" >-->
-            <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
-              <!--<el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >-->
-                <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-          <!--</el-col>-->
+          <el-col  :span="8" >
+            <el-form-item label="楼层" :label-width="formLabelWidth">
+              <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
+                <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
-        <!--<el-row>-->
-          <!--<el-col :span="8">-->
-            <!--<el-form-item label="业态" :label-width="formLabelWidth">-->
-              <!--<el-select  size="small" v-model="guestForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">-->
-                <!--<el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-          <!--</el-col>-->
-          <!--<el-col :span="8">-->
-            <!--<el-form-item label="业种" :label-width="formLabelWidth">-->
-              <!--<el-select size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
-                <!--<el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-          <!--</el-col>-->
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="业态" :label-width="formLabelWidth">
+              <el-select  size="small" v-model="guestForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
+                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="业种" :label-width="formLabelWidth">
+              <el-select size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
+                <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-          <!--<el-col :span="8">-->
-            <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
-              <!--<el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">-->
-                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <!--</el-select>-->
-            <!--</el-form-item>-->
-          <!--</el-col>-->
+          <el-col :span="8">
+            <el-form-item label="品牌" :label-width="formLabelWidth">
+              <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
+                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <!--</el-row>-->
+        </el-row>
         <el-row class="FitnessValue">
           <el-row>
             <el-col :span="8">
@@ -1020,7 +1013,7 @@ export default {
       }, (err) => {
         this.showAlert(err)
       })
-this.getBind()
+      this.getBind()
     },
     //业种
     speciesChanged(){

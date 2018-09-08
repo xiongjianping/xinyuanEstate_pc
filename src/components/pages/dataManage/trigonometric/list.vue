@@ -125,55 +125,27 @@
         </el-row>
 
 
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="合理百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.reasonablePgeVal" placeholder=""></el-input>
-              <!--<el-input size="small" type="number" v-model="guestFormReasonablePgeVal" placeholder="" :value="guestForm.easonablePgeVal"></el-input>-->
-
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="8">
-            <el-form-item label="提升百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.promotePgeVal" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="良好百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.goodPgeVal" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="优秀百分比" :label-width="formLabelWidthQJ">
-              <el-input size="small" type="number" v-model="guestForm.excellentPgeVal" placeholder=" "></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
         <el-row class="FitnessValue">
           <el-row>
-            <el-col :span="8">
+            <el-col :span="10">
               <el-form-item label="合理百分比" :label-width="formLabelWidthQJ">
                 <el-input size="small" type="number" v-model="guestForm.reasonablePgeVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
 
-            <el-col :span="8">
+            <el-col :span="10">
               <el-form-item label="提升百分比" :label-width="formLabelWidthQJ">
                 <el-input size="small" type="number" v-model="guestForm.promotePgeVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <el-col :span="10">
               <el-form-item label="良好百分比" :label-width="formLabelWidthQJ">
                 <el-input size="small" type="number" v-model="guestForm.goodPgeVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="10">
               <el-form-item label="优秀百分比" :label-width="formLabelWidthQJ">
                 <el-input size="small" type="number" v-model="guestForm.excellentPgeVal" :maxlength="11" placeholder=" "></el-input>
               </el-form-item>
@@ -182,8 +154,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="createGuestSection()">保 存</el-button>
+        <el-button type="primary" size="medium" @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" size="medium" @click="createGuestSection()">保 存</el-button>
       </div>
     </el-dialog>
     <p class="t"></p>
@@ -274,7 +246,7 @@ export default {
       },
       {
         id: '3',
-        name: '品牌'
+        name: '业种'
       }],
     objType:'0',
     //品牌级客销度区间设置
@@ -447,6 +419,7 @@ export default {
     createGuestSection(){
       this.sectionBrand.projectId = this.guestForm.projectId //项目ID
       this.sectionBrand.buildingId =this.guestForm.buildingId; //楼栋ID
+      this.sectionBrand.speciesId =this.guestForm.seachBusinessSpeciesId; //业种ID
       this.sectionBrand.excellentPgeVal = this.guestForm.excellentPgeVal //优秀百分比
       this.sectionBrand.goodPgeVal = this.guestForm.goodPgeVal     //良好百分比
       this.sectionBrand.promotePgeVal = this.guestForm.promotePgeVal   //提升百分比
@@ -487,7 +460,8 @@ export default {
       }else if(this.objType==3){
         this.sectionBrand.floorId = this.guestForm.floorId //楼层ID
         this.sectionBrand.formId = this.guestForm.businessFormId//业态
-        this.sectionBrand.speciesId = this.guestForm.businessSpeciesId//业种
+        this.sectionBrand.speciesId =this.guestForm.speciesId; //业种ID
+        this.sectionBrand.speciesId = this.guestForm.seachBusinessSpeciesId//业种
       /*  this.sectionBrand.contractId = this.guestForm.brandId //签约ID*/
         //品牌
         window.$createSectionSpeciesGuestObj(this.sectionBrand).then((res) => {
@@ -687,14 +661,14 @@ export default {
             console.log(err)
           })
       }else  if(this.objType==3) {
-        //品牌接口
+        //业种接口
         this.searchForm.formId = this.searchForm.businessFormId; //赋值业态
         this.searchForm.speciesId = this.businessSpeciesId; //赋值业种
         window.$getSectionGuestBrandList(this.page, this.size, this.searchForm)
           .then((res) => {
             console.log(res)
             this.data = res
-            console.log("品牌客销度列表")
+            console.log("业种客销度列表")
             console.log(res)
             /*this.projectList = this.data.resultList*/
           }, (err) => {

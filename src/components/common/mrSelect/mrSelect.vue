@@ -1,5 +1,5 @@
 <template>
-  <div class="g_select">
+  <div class="g_select mt5">
     <div class="select_result" @click="showTabs()">
       {{tabs[selectedTime].name}}
       <span :class="isClicked?'up-corner':'down-corner'"></span>
