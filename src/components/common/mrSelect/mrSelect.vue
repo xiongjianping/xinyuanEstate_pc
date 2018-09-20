@@ -17,7 +17,8 @@
       return {
         selectedTime: 0,
         //selectItem: this.tabs[0],
-        isClicked:this.clicked
+        isClicked:this.clicked,
+        // selectId: ''
       }
     },
     watch: {
@@ -35,15 +36,19 @@
       showTabs(){
         if(this.isClicked== true) {
           this.isClicked = false;
+
         }else{
           this.isClicked = true;
         }
         this.$emit("childTab",this.selectedTime,this.isClicked);
+        // this.$emit("childTab",this.selectedTime,this.isClicked,this.selectedId);
+
       },
       tabClick(index, item) {
         //点击事件
         this.selectItem = item;
         this.selectedTime = index;
+        console.log( this.selectedTime);
         this.showTabs()
         //this.$emit("childTab",index,this.isClicked);
       }

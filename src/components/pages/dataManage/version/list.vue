@@ -1,78 +1,5 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <!--<el-row class="searchBox" :gutter="30">-->
-      <!--<h3 id="title">标准三角形</h3><br>-->
-      <!--<el-form label-width="100px" :model="searchForm">-->
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="对象" :label-width="formLabelWidth" >-->
-            <!--<el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type != 1">-->
-              <!--<el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-
-            <!--<el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type == 1">-->
-              <!--<el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="区域" :label-width="formLabelWidth">-->
-            <!--<el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">-->
-              <!--<el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="项目" :label-width="formLabelWidth">-->
-            <!--<el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">-->
-              <!--<el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--&lt;!&ndash; <el-col :span="5">-->
-          <!--<el-form-item label="楼栋"  style="display: none;">-->
-            <!--<el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" >-->
-              <!--<el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col> &ndash;&gt;-->
-        <!--<el-col :span="5" v-if="objType === '1'">-->
-          <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
-            <!--<el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >-->
-              <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="业态" :label-width="formLabelWidth">-->
-            <!--<el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">-->
-              <!--<el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="5" v-if="objType === '3' || objType === '4'">-->
-          <!--<el-form-item label="业种" :label-width="formLabelWidth">-->
-            <!--<el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
-              <!--<el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
-            <!--<el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">-->
-              <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="生效时间" :label-width="formLabelWidth">-->
-            <!--<el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">-->
-            <!--</el-date-picker>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-      <!--</el-form>-->
-    <!--</el-row>-->
-
-
       <h3 id="title">标准三角形</h3><br>
       <el-form label-width="100px" :model="searchForm">
         <el-row class="searchBox" :gutter="10">
@@ -108,7 +35,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
+        <!--</el-row>-->
         <!-- <el-col :span="5">
           <el-form-item label="楼栋"  style="display: none;">
             <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" >
@@ -116,22 +43,22 @@
             </el-select>
           </el-form-item>
         </el-col> -->
-        <el-row class="searchBox" :gutter="10">
-          <el-col :span="5">
+        <!--<el-row class="searchBox" :gutter="10">-->
+          <el-col :span="5" v-if="objType === '2' || objType === '3'||objType === '4'">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="5" v-if="objType === '3' || objType === '4'">
+          <el-col :span="5" v-if="objType === '3'||objType === '4'">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="5" v-if="objType === '4'">
             <el-form-item label="品牌" :label-width="formLabelWidth">
               <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -181,36 +108,34 @@
               </el-select>
             </el-form-item>
           </el-col> -->
-          <el-col  :span="8" >
+          <el-col  :span="8"  v-if="objType === '1'">
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="rentForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
+          <el-col :span="8" v-if="objType === '2' || objType === '3'">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" v-if="objType === '3'">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <el-select size="small" v-model="rentForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="品牌" :label-width="formLabelWidth">
-              <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
-                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <!--<el-col :span="8" v-if="objType === '3'">-->
+            <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">-->
+                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
         </el-row>
         <el-row class="FitnessValue">
           <el-row>
@@ -267,15 +192,14 @@
               </el-select>
             </el-form-item>
           </el-col> -->
-          <el-col  :span="8" >
-            <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
-                <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
+          <!--<el-col  :span="8" >-->
+            <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
+              <!--<el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >-->
+                <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="guestForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
@@ -304,7 +228,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="毛利率" :label-width="formLabelWidthYZ">
-                <el-input size="small" type="number" v-model="guestForm.persent" :maxlength="11" placeholder="请输入客流量 "></el-input>
+                <el-input size="small" type="number" v-model="guestForm.persent" :maxlength="11" placeholder="请输入毛利率 "></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -359,36 +283,34 @@
               </el-select>
             </el-form-item>
           </el-col> -->
-          <el-col :span="8" >
+          <el-col :span="8"  v-if="objType === '1'">
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="fittedForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
+          <el-col :span="8" v-if="objType === '2'||objType === '3'">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="fittedForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" v-if="objType === '3'">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <el-select size="small" v-model="fittedForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="品牌" :label-width="formLabelWidth">
-              <el-select size="small" v-model="fittedForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
-                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <!--<el-col :span="8" v-if="objType === '3'">-->
+            <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="fittedForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">-->
+                <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
         </el-row>
         <el-row class="FitnessValue">
             <el-col :span="8">
@@ -470,7 +392,7 @@
 
             <el-table-column align="center" prop="interestVal" label="毛利率"></el-table-column>
             <el-table-column align="center" prop="priceVal" label="客单价"></el-table-column>
-            <el-table-column align="center" prop="standardVal" label="客销度"></el-table-column>
+            <!--<el-table-column align="center" prop="standardVal" label="客销度"></el-table-column>-->
             <el-table-column align="center" prop="effectTime" label="生效时间"></el-table-column>
             <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" prop="createUser" label="创建人"></el-table-column>
@@ -1309,7 +1231,7 @@
           })
         }else if(this.objType==3){
           this.loading = true
-          window.$deleteStandardMajorFittedRent(id).then((res) => {
+          window.$deleteStandardFormRent(id).then((res) => {
             this.deleteItem(id)
           }, (err) => {
             this.loading = false

@@ -60,8 +60,8 @@
         <!-- <el-table-column align="center" prop="company" label="修改人"></el-table-column> -->
         <el-table-column align="center" prop="state" label="状态">
           <template slot-scope="scope">
-            <p class="using" v-if="scope.row.state === 1">签约</p>
-            <p class="unusing" v-if="scope.row.state === 2">停用</p>
+            <p class="using" v-if="scope.row.state === 1">已签约</p>
+            <p class="unusing" v-if="scope.row.state === 2">未签约</p>
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" width="200">
@@ -172,7 +172,7 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
     },
     rowClass({ row, rowIndex }) {

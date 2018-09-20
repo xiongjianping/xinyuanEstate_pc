@@ -19,8 +19,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="帮扶类型：">
-            <el-select size="small" v-model="searchForm.type" placeholder="租金帮扶" @change="searchList()">
+          <el-form-item label="指令类型：">
+            <el-select size="small" v-model="searchForm.type" placeholder="租金指令" @change="searchList()">
               <el-option v-for="(item,index) in helpTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -75,14 +75,14 @@
             </el-table-column>
             <el-table-column prop="type" label="类别"align="center">
               <template slot-scope="scope">
-                <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金帮扶</el-button>
+                <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金指令</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.type === 2">活动支持</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.type === 3">点位宣传支持</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.type === 4">品牌及会员</el-button>
                 <el-button disabled type="text" size="small" v-if="scope.row.type === 5">其他</el-button>
               </template>
             </el-table-column>
-            <el-table-column prop="context" label="帮扶内容" align="center">
+            <el-table-column prop="context" label="指令内容" align="center">
             </el-table-column>
           </el-table>
         </div>

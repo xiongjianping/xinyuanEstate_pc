@@ -39,7 +39,7 @@
           </el-form-item>
         </el-col> -->
 
-        <el-col :span="5" v-if="objType == 1">
+        <el-col :span="5"  v-if="objType == 1">
           <el-form-item label="楼层" :label-width="formLabelWidth">
             <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -96,7 +96,7 @@
 
     <el-dialog title="溢租率" :visible="dialogFormVisible"  @close='closeDialog'>
       <el-form class="yzl-line-top"></el-form>
-      <el-form  label-width="50px" :model="rentForm">
+      <el-form  label-width="50px" :model="rentForm" ref="rentForm">
         <el-row>
           <el-col  :span="8">
             <el-form-item label="区域" :label-width="formLabelWidth">
@@ -119,15 +119,14 @@
               </el-select>
             </el-form-item>
           </el-col> -->
-          <el-col  :span="8" >
-            <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="rentForm.floorId" placeholder="F1" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
+          <!--<el-col  :span="8" >-->
+            <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
+              <!--<el-select  size="small" v-model="rentForm.floorId"  placeholder="请选择楼层" @change="businessTypeChange()">-->
+                <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="rentForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
@@ -144,7 +143,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
-              <el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
+              <el-select size="small" v-model="rentForm.brandId" placeholder="请选择品牌">
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -266,23 +265,22 @@
             </el-select>
           </el-form-item>
         </el-col> -->
-          <el-col  :span="8" >
+          <el-col  v-if="objType == 1" :span="8" >
             <el-form-item label="楼层" :label-width="formLabelWidth">
               <el-select  size="small" v-model="guestForm.floorId" placeholder="请选择楼层" >
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
+
+          <el-col v-if="objType == 2" :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="guestForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
                 <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col v-if="objType == 2" :span="8">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <el-select size="small" v-model="guestForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
                 <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -290,7 +288,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="8">
+          <el-col v-if="objType == 2" :span="8">
             <el-form-item label="品牌" :label-width="formLabelWidth">
               <el-select size="small" v-model="guestForm.brandId" placeholder="请选择品牌">
                 <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
@@ -349,15 +347,14 @@
               </el-select>
             </el-form-item>
           </el-col> -->
-          <el-col  :span="8" >
-            <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="fittedForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">
-                <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
+          <!--<el-col  :span="8" >-->
+            <!--<el-form-item label="楼层" :label-width="formLabelWidth">-->
+              <!--<el-select  size="small" v-model="fittedForm.floorId" placeholder="请选择楼层" @change="businessTypeChange()">-->
+                <!--<el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+
           <el-col :span="8">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="fittedForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
@@ -375,7 +372,7 @@
           <el-col :span="8">
               <el-form-item label="品牌" :label-width="formLabelWidth">
                <!-- <el-input size="small" v-model="fittedForm.brandId" :maxlength="11" placeholder="品牌"></el-input>-->
-                <el-select size="small" v-model="fittedForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
+                <el-select size="small" v-model="fittedForm.brandId" placeholder="请选择品牌">
                   <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
@@ -824,6 +821,8 @@ export default {
       this.closeDialogSPZ()
     },
     closeDialog(){
+      this.myareaId = ''
+      // this.searchForm.areaId = ''
       this.floorId = ''
       this.brandId = ''
       this.rentFee = ''
@@ -833,6 +832,7 @@ export default {
       this.agencyFee = ''
       this.effectTime = ''
       this.dialogFormVisible = false;//清空数据
+
     },
     closeDialogKXD(){
       this.floorId = ''
@@ -844,6 +844,7 @@ export default {
       this.brandId = ''
       this.dialogFormVisible2 = false;//清空数据
     },
+
     showCreate() {
       dialogFormVisible: false
       dialogFormVisible1: false

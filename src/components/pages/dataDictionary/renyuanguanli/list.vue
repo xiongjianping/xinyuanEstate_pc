@@ -71,7 +71,7 @@
       </el-dialog>
       <el-dialog
         title="角色权限分配"
-        :visible="jueseVisible"
+        :visible.sync="jueseVisible"
         :modal=false
         width="60%">
         <ul>

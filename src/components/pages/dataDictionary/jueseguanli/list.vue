@@ -33,7 +33,7 @@
     </div>
     <el-dialog
       title="设置权限"
-      :visible="quanxianVisible"
+      :visible.sync="quanxianVisible"
       :modal=false
       width="50%">
       <div class="tree-wrapper">

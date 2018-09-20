@@ -12,6 +12,20 @@
           </el-form-item>
         </el-col>
 
+        <!--<el-col :span="6">-->
+
+          <!--<el-form-item label="公司">-->
+            <!--<el-button size="medium" class="company"  @click="handleComTree()">{{companyName}}</el-button>-->
+
+            <!--&lt;!&ndash;<el-input size="small" type="button" class="company" @focus="handleComTree()" v-model="companyName">&ndash;&gt;-->
+            <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
+          <!--</el-form-item>-->
+          <!--<el-dialog title="公司列表" :visible.sync="dialogTreeVisible">-->
+            <!--<el-tree :data="comTree" :props="comTreeOptions" @node-click="handleNodeClick" v-model="searchForm.companyId" ></el-tree>-->
+
+          <!--</el-dialog>-->
+        <!--</el-col>-->
+
         <el-col :span="6">
           <el-form-item label="公司">
             <el-select size="small" v-model="searchForm.companyId" placeholder="请选择公司" @change="getDepartment()">
@@ -37,13 +51,13 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
-          <el-form-item label="运营负责人">
-            <el-select size="small" v-model="projectHeadId" placeholder="请选择负责人">
-              <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+        <!--<el-col :span="6">-->
+          <!--<el-form-item label="运营负责人">-->
+            <!--<el-select size="small" v-model="projectHeadId" placeholder="请选择负责人">-->
+              <!--<el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+        <!--</el-col>-->
 
         <el-col :span="6">
           <el-form-item label="项目">
@@ -57,19 +71,19 @@
           </el-form-item>
         </el-col>
 
-      <el-col class="uploadFiles mt40">
-        <el-upload :action="getUploadUrl()"
-                  list-type="picture-card"
-                  :limit=6
-                  :on-preview="handlePictureCardPreview"
-                  :on-success="handleSuccess"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="dialogVisible">
-          <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
-      </el-col>
+      <!--<el-col class="uploadFiles mt40">-->
+        <!--<el-upload :action="getUploadUrl()"-->
+                  <!--list-type="picture-card"-->
+                  <!--:limit=6-->
+                  <!--:on-preview="handlePictureCardPreview"-->
+                  <!--:on-success="handleSuccess"-->
+                  <!--:on-remove="handleRemove">-->
+                  <!--<i class="el-icon-plus"></i>-->
+        <!--</el-upload>-->
+        <!--<el-dialog :visible.sync="dialogVisible">-->
+          <!--<img width="100%" :src="dialogImageUrl" alt="">-->
+        <!--</el-dialog>-->
+      <!--</el-col>-->
       </el-form>
     </el-row>
 
@@ -84,10 +98,11 @@ export default {
   data: () => ({
     loading: false,
     searchForm: {
-      projectImages: []
+      // projectImages: []
     },
     dialogImageUrl: '',
     dialogVisible: false,
+    dialogTreeVisible:false,
     areaList: [],
     companyList: [],
     departmentList: [],
@@ -95,10 +110,16 @@ export default {
     pictureList: [],
     departmentId:'',
     projectHeadId:'',
-    uploadFileUrl: window.$baseUrl
+    uploadFileUrl: window.$baseUrl,
+    comTree: [],
+    comTreeOptions: {
+        children: 'childTree',
+        label: 'name'
+    },
+    currentCompanyId: '',
+    companyName: '请选择公司'
   }),
   created () {
-    // this.searchList(1)
     window.$getAreaList().then((res) => {
       this.areaList = res
     }, (err) => {
@@ -112,27 +133,91 @@ export default {
     })
   },
   methods: {
-    getUploadUrl(){
-      return window.$baseUrl + '/file/upload/localhost'
-    },
-    handleSuccess(file){
-      this.searchForm.projectImages.push(file.data)
-    },
-    handlePictureCardPreview(file){
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
-    },
-    handleRemove(file, fileList) {
-        for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
-          if(this.searchForm.projectImages[i] === file.response.data){
-            console.log(i)
-            this.searchForm.projectImages.splice(i, 1)
-          }
-        }
-      },
+    // getUploadUrl(){
+    //   return window.$baseUrl + '/file/upload/localhost'
+    // },
+    // handleSuccess(file){
+    //   this.searchForm.projectImages.push(file.data)
+    // },
+    // handlePictureCardPreview(file){
+    //   this.dialogImageUrl = file.url
+    //   this.dialogVisible = true
+    // },
+    // handleRemove(file, fileList) {
+    //   for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
+    //     if(this.searchForm.projectImages[i] === file.response.data){
+    //       console.log(i)
+    //       this.searchForm.projectImages.splice(i, 1)
+    //     }
+    //   }
+    // },
+    // getType(obj){
+    //   //tostring会返回对应不同的标签的构造函数
+    //   var toString = Object.prototype.toString;
+    //   var map = {
+    //     '[object Boolean]'  : 'boolean',
+    //     '[object Number]'   : 'number',
+    //     '[object String]'   : 'string',
+    //     '[object Function]' : 'function',
+    //     '[object Array]'    : 'array',
+    //     '[object Date]'     : 'date',
+    //     '[object RegExp]'   : 'regExp',
+    //     '[object Undefined]': 'undefined',
+    //     '[object Null]'     : 'null',
+    //     '[object Object]'   : 'object'
+    //   };
+    //   if(obj instanceof Element) {
+    //     return 'element'
+    //   }
+    //   return map[toString.call(obj)]
+    // },
+    // deepClone(data){
+    //   let type = this.getType(data)
+    //   let obj
+    //   if(type === 'array'){
+    //     obj = []
+    //   } else if(type === 'object'){
+    //     obj = {}
+    //   } else {
+    //     //不再具有下一层次
+    //     return data
+    //   }
+    //   if(type === 'array'){
+    //     for(let i = 0, len = data.length; i < len; i++){
+    //       obj.push(this.deepClone(data[i]))
+    //     }
+    //   } else if(type === 'object'){
+    //     for(let key in data){
+    //       if (key === 'name') {
+    //         obj['label'] = this.deepClone(data[key])
+    //       } else if (key === 'childTree') {
+    //         obj['children'] = this.deepClone(data[key])
+    //       } else {
+    //         obj[key] = this.deepClone(data[key])
+    //       }
+    //     }
+    //   }
+    //   return obj
+    // },
+    // handleComTree(){
+    //   // this.dialogVisible = true
+    //   this.$axios.get('/region/find/org/tree')
+    //     .then(res => {
+    //       this.dialogTreeVisible = true;
+    //       this.comTree = res;
+    //       // this.comTree = this.deepClone(res);
+    //       // console.log(this.comTree)
+    //     })
+    // },
+    // handleNodeClick (data) {
+    //   // alert(1)
+    //   this.searchForm.companyId =  data.id;
+    //   this.companyName =  data.name;
+    //   this.dialogTreeVisible = false;
+    // },
     getDepartment(){
       this.departmentId = ''
-      this.projectHeadId = ''
+      // this.projectHeadId = ''
       window.$getDepartments(this.searchForm.companyId).then((res) => {
         this.departmentList = res
         console.log(res)
@@ -141,22 +226,22 @@ export default {
       })
     },
     getPerson(){
-      this.projectHeadId = ''
-      window.$getPersion(this.departmentId).then((res) => {
+      // this.projectHeadId = ''
+      window.$getPersion(this.companyId).then((res) => {
         this.projectHeadList = res
         console.log(res)
       }, (err) => {
         this.showAlert(err)
       })
     },
-    deleteImg(){
-      for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
-        this.searchForm.projectImages.slice(i, 1)
-      }
-    },
+    // deleteImg(){
+    //   for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
+    //     this.searchForm.projectImages.slice(i, 1)
+    //   }
+    // },
     create(){
       this.loading = true
-      this.searchForm.projectHeadId = this.projectHeadId
+      // this.searchForm.projectHeadId = this.projectHeadId
       window.$createProject(this.searchForm).then((res) => {
         this.loading = false
         this.searchForm = {}
@@ -190,6 +275,14 @@ export default {
     margin-bottom: 10px;
     margin-top: 10px;
     margin-left: 52px;
+    .company{
+      width: 132px;
+      border-radius: 10px;
+      color: #bbb;
+      &:hover,&:focus{
+        background: #fff;
+      }
+    }
   }
   .el-form-item__label {
     text-align: right;
@@ -204,6 +297,7 @@ export default {
   el-button{
     background: rgb(22,155,213);
   }
+
   .xxk{
     width: 100%;
     height: 100px;

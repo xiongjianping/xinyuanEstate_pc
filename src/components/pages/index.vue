@@ -323,13 +323,6 @@
               <li>
                 <b>华北区</b>
                 <span>
-                   <el-progress :percentage="100" :show-text="false"></el-progress>
-                </span>
-                <em>500</em>
-              </li>
-              <li>
-                <b>华北区</b>
-                <span>
                   <el-progress :percentage="100" :show-text="false"></el-progress>
                 </span>
                 <em>500</em>
@@ -444,40 +437,47 @@
           <div class="right_2_tidy_bg mt35 ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt">溢租率</span>
+            <div class="text-box">
+              <div class="g_text f-toe"  v-if="triangData.yzlState==1" v-for="(item, index) in triangData.yzl" :key="index">{{item.yx}}</div>
+              <div class="g_text f-toe"  v-if="triangData.yzlState==2" v-for="(item, index) in triangData.yzl" :key="index">{{item.lh}}</div>
+              <div class="g_text f-toe"  v-if="triangData.yzlState==3" v-for="(item, index) in triangData.yzl" :key="index">{{item.ts}}</div>
+              <div class="g_text f-toe"  v-if="triangData.yzlState==4" v-for="(item, index) in triangData.yzl" :key="index">{{item.hl}}</div>
+              <div class="g_text f-toe"  v-if="triangData.yzlState==5" v-for="(item, index) in triangData.yzl" :key="index">{{item.ks}}</div>
+            </div>
 
-            <div class="g_text f-toe"  v-if="triangData.yzlState==1" v-for="(item, index) in triangData.yzl" :key="index">{{item.yx}}</div>
-            <div class="g_text f-toe"  v-if="triangData.yzlState==2" v-for="(item, index) in triangData.yzl" :key="index">{{item.lh}}</div>
-            <div class="g_text f-toe"  v-if="triangData.yzlState==3" v-for="(item, index) in triangData.yzl" :key="index">{{item.ts}}</div>
-            <div class="g_text f-toe"  v-if="triangData.yzlState==4" v-for="(item, index) in triangData.yzl" :key="index">{{item.hl}}</div>
-            <div class="g_text f-toe"  v-if="triangData.yzlState==5" v-for="(item, index) in triangData.yzl" :key="index">{{item.ks}}</div>
 
           </div>
 
 
-          <div class="right_2_tidy_bg mt110 ml10">
+          <div class="right_2_tidy_bg ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt">客销度</span>
             <!--<div class="g_text  f-toe" v-for="(item, index) in triangData.kxd" :key="index">{{item}}</div>-->
-            <div class="g_text f-toe"  v-if="triangData.kxdState==1" v-for="(item, index) in triangData.kxd" :key="index">{{item.yx}}</div>
-            <div class="g_text f-toe"  v-if="triangData.kxdState==2" v-for="(item, index) in triangData.kxd" :key="index">{{item.lh}}</div>
-            <div class="g_text f-toe"  v-if="triangData.kxdState==3" v-for="(item, index) in triangData.kxd" :key="index">{{item.ts}}</div>
-            <div class="g_text f-toe"  v-if="triangData.kxdState==4" v-for="(item, index) in triangData.kxd" :key="index">{{item.hl}}</div>
-            <div class="g_text f-toe"  v-if="triangData.kxdState==5" v-for="(item, index) in triangData.kxd" :key="index">{{item.ks}}</div>
+            <div class="text-box">
+              <div class="g_text f-toe"  v-if="triangData.kxdState==1" v-for="(item, index) in triangData.kxd" :key="index">{{item.yx}}</div>
+              <div class="g_text f-toe"  v-if="triangData.kxdState==2" v-for="(item, index) in triangData.kxd" :key="index">{{item.lh}}</div>
+              <div class="g_text f-toe"  v-if="triangData.kxdState==3" v-for="(item, index) in triangData.kxd" :key="index">{{item.ts}}</div>
+              <div class="g_text f-toe"  v-if="triangData.kxdState==4" v-for="(item, index) in triangData.kxd" :key="index">{{item.hl}}</div>
+              <div class="g_text f-toe"  v-if="triangData.kxdState==5" v-for="(item, index) in triangData.kxd" :key="index">{{item.ks}}</div>
+            </div>
           </div>
 
 
-          <div class="right_2_tidy_bg mt110 ml10">
+          <div class="right_2_tidy_bg ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt">适配值</span>
 
             <!--<div class="g_text f-toe" v-for="(item, index) in triangData.spz" :key="index">-->
               <!--{{item}}-->
             <!--</div>-->
-            <div class="g_text f-toe"  v-if="triangData.spzState==1" v-for="(item, index) in triangData.spz" :key="index">{{item.yx}}</div>
-            <div class="g_text f-toe"  v-if="triangData.spzState==2" v-for="(item, index) in triangData.spz" :key="index">{{item.lh}}</div>
-            <div class="g_text f-toe"  v-if="triangData.spzState==3" v-for="(item, index) in triangData.spz" :key="index">{{item.ts}}</div>
-            <div class="g_text f-toe"  v-if="triangData.spzState==4" v-for="(item, index) in triangData.spz" :key="index">{{item.hl}}</div>
-            <div class="g_text f-toe"  v-if="triangData.spzState==5" v-for="(item, index) in triangData.spz" :key="index">{{item.ks}}</div>
+            <div class="text-box">
+              <div class="g_text f-toe"  v-if="triangData.spzState==1" v-for="(item, index) in triangData.spz" :key="index">{{item.yx}}</div>
+              <div class="g_text f-toe"  v-if="triangData.spzState==2" v-for="(item, index) in triangData.spz" :key="index">{{item.lh}}</div>
+              <div class="g_text f-toe"  v-if="triangData.spzState==3" v-for="(item, index) in triangData.spz" :key="index">{{item.ts}}</div>
+              <div class="g_text f-toe"  v-if="triangData.spzState==4" v-for="(item, index) in triangData.spz" :key="index">{{item.hl}}</div>
+              <div class="g_text f-toe"  v-if="triangData.spzState==5" v-for="(item, index) in triangData.spz" :key="index">{{item.ks}}</div>
+            </div>
+
           </div>
 
         </div>
@@ -725,15 +725,12 @@
       },
       projectList(val) {
         this.projectList = val
-        console.log(this.projectList)
       },
       buildingList(val) {
         this.buildingList = val
-        console.log(this.buildingList)
       },
       floorList(val) {
         this.floorList = val
-        console.log(this.floorList)
       },
       conditionList(val) {
         this.conditionList = val
@@ -838,24 +835,20 @@
     methods: {
 
       searchList2Triangle() {
-        console.log("确认条件***得到所有当前数据，展示三角形")
 
         if (this.typeId === 1) {//当前维度项目
-          console.log("维度为项目***")
           this.getTriangleValue(1)
+          this.forProjectDetails()
         }
         if (this.typeId === 2) {//当前维度楼层
-          console.log("维度为楼层***")
           this.getTriangleValue(2)
 
         }
         if (this.typeId === 3) {//当前维度业态
-          console.log("维度为业态***")
           this.getTriangleValue(3)
 
         }
         if (this.typeId === 4) {//当前维度品牌
-          console.log("维度为品牌***")
           this.getTriangleValue(4)
 
         }
@@ -885,42 +878,36 @@
           strDateOld = "0" + strDateOld;
         }
 
-        console.log("strDateOld***："+strDateOld)
 
         var currentdateYesterday = year + seperator1 + month + seperator1 + strDateOld;
         var currentdateToday = year + seperator1 + month + seperator1 + strDate;
 
-        console.log("currentdateYesterday***："+currentdateYesterday)
-        console.log("currentdateToday***："+currentdateToday)
+
 
         this.createTimeBegin = currentdateYesterday+""
         this.createTimeEnd = currentdateToday+""
-        console.log("当前选中的时间区间为***"+this.createTimeBegin+","+this.createTimeEnd)
+        // console.log("当前选中的时间区间为***"+this.createTimeBegin+","+this.createTimeEnd)
+        this.value_index = [this.createTimeBegin,this.createTimeEnd]
       },
 
 
       getTriangleValue(type) {
-        console.log("getTriangleValue方法执行了！")
 
         var params = {
           projectId: this.projectId
         }
 
-        //undefined,undefined
-        // console.log("当前选中的时间区间为***"+this.value_index[0]+","+this.value_index[1])
         if(typeof(this.value_index[0]) == "undefined") {
-          console.log("默认值***")
           this.getCurrentDateTime()
           params.createTime = this.createTimeBegin
           params.modifyTime = this.createTimeEnd
+
         }else {
-          console.log("用户选择的值***")
           params.createTime = this.value_index[0]
           params.modifyTime = this.value_index[1]
         }
 
 
-        console.log("此时的项目id为***" + this.projectId)
         var url = ''
         if (type === 1) {//项目。【yyh已通，默认暂无时间区间】
           // url = '/pctriangle/find/triangleproject/byprojectId'
@@ -970,12 +957,12 @@
           // params.brandId = this.brandId
           url = 'sy/get/brand'
           params.projectId = this.projectId
-          if(this.floorId==="" ||this.megabiteId === "" ||this.categoryId==="" || this.brandId===""){
+          if(this.megabiteId === "" ||this.categoryId==="" || this.brandId===""){
             alert("此层级数据不全！")
             return
           }else{
-            params.buildingId = this.buildingId
-            params.floorId = this.floorId
+            // params.buildingId = this.buildingId
+            // params.floorId = this.floorId
             params.formId = this.megabiteId
             params.speciesId = this.categoryId
             params.contractId = this.brandId
@@ -990,7 +977,6 @@
 
         //三角形数据接口
         this.$axios.post(url, params).then((res) => {
-          console.log(res)
           this.triangData = res
           // //优秀
           // // this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
@@ -1012,7 +998,7 @@
 
         }, (err) => {
           console.log("返回的错误信息："+err)
-          // alert(err)
+          alert(err)
         })
 
       },
@@ -1163,14 +1149,14 @@
               width: 3
             },
             data: [{
-              value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.standardGuest < 0 ? -1 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
+              value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -100 ? -101 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 0.001 : (this.triangData.standardGuest < 0 ? 0 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? 0 : this.triangData.standardFitted)],
               lineStyle: {
                 color: '#08E9DF'
               }
             },
 
               {
-                value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -180 ? -181 : this.triangData.standardRent), null, this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? -1 : this.triangData.standardFitted)],
+                value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -100 ? -101 : this.triangData.standardRent), null, this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? 0 : this.triangData.standardFitted)],
                 lineStyle: {
                   color: '#08E9DF'
                 }
@@ -1184,13 +1170,13 @@
                 width: 3
               },
               data: [{
-                value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 1 : (this.triangData.triangleGuest < 0 ? -1 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
+                value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -100 ? -101 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 0.001 : (this.triangData.triangleGuest < 0 ? 0 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? 0 : this.triangData.triangleFitted)],
                 lineStyle: {
                   color: '#ADF75C'
                 }
               },
                 {
-                  value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -180 ? -181 : this.triangData.triangleRent), null, this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? -1 : this.triangData.triangleFitted)],
+                  value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -100 ? -101 : this.triangData.triangleRent), null, this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? 0 : this.triangData.triangleFitted)],
                   lineStyle: {
                     color: '#ADF75C'
                   }
@@ -1208,8 +1194,6 @@
         this.$axios.get('/pctriangle/find/salepassengerflow/all')
           .then(res => {
             this.passengerFlowList = res
-            console.log(res);
-            console.log("this.passengerFlowList***"+this.passengerFlowList)
             var areaNameList = []
             var seriesList = [{
               name: '全国各区域客流量',
@@ -1232,7 +1216,6 @@
               seriesList[0].data.push(this.passengerFlowList[i].passengerFlow)
               seriesList[1].data.push(this.passengerFlowList[i].saleroom)
             }
-
             this.myChart3 = echarts.init(document.getElementById('main3'));
             var valueNameList = ['全国各区域客流量', '全国各区域销售量']
 
@@ -1268,7 +1251,7 @@
               xAxis: {
                 type: 'value',
                 name: 'Days',
-                boundaryGap: [0, 1],
+                boundaryGap: [0, 0.01],
                 axisLabel: {
                   formatter: '{value}'
                 },
@@ -1317,9 +1300,8 @@
 
 
       forProjectDetails() {
-        $axios.get('/pctriangle/find/project/by/' + this.searchForm.projectId).then((res) => {
+        $axios.get('/pctriangle/find/project/by/' + this.projectId).then((res) => {
           this.projectDetail = res
-          console.log(this.projectDetail)
         })
       },
       checkProjectType() {
@@ -1344,9 +1326,10 @@
 
         if (this.typeId === 1) {//项目
           this.areaChangedForFloor(this.areaList[index].id)
-        } else if (this.typeId === 2) {//
+        } else if (this.typeId === 2) {
           this.areaChangedForCondition(this.areaList[index].id)
         } else if (this.typeId === 3) {
+          alert(3)
           this.areaChangedForBrand(this.areaList[index].id)
         }
       },
@@ -1354,12 +1337,7 @@
 
 
       tabClick7(index, isClicked) {
-        console.log("***维度tabClick7被点击了!")
-        console.log("***维度tabClick7的index为" + index)
-        console.log("当前选中维度的name为***" + this.types[index].name)
         this.typeId = this.types[index].id
-        console.log("当前选中维度的id为***" + this.typeId)
-
         this.clicked7 = isClicked
         this.clicked1 = false
         this.clicked2 = false
@@ -1371,7 +1349,6 @@
         this.clicked6_category = false
 
         if (this.typeId === 1) {//项目维度
-          console.log("维度为项目***")
           this.isBuildingShow = false
           this.isFloorShow = false
           this.isOperationShow = false
@@ -1383,7 +1360,6 @@
         }
 
         if (this.typeId === 2) {//楼层
-          console.log("维度为楼层***")
           this.isBuildingShow = false
           this.isFloorShow = true
           this.isOperationShow = false
@@ -1396,7 +1372,6 @@
         }
 
         if (this.typeId === 3) {//业态
-          console.log("维度为业态***")
 
           this.isBuildingShow = false
           this.isFloorShow = false
@@ -1409,15 +1384,14 @@
         }
 
         if (this.typeId === 4) {
-          console.log("维度为品牌***")
           this.isBuildingShow = false
-          this.isFloorShow = true
+          this.isFloorShow = false
           this.isOperationShow = true
           this.isCategoryShow = true
           this.isBrandShow = true
 
 
-          this.getBuildingFloorInfo(this.projectId)
+          // this.getBuildingFloorInfo(this.projectId)
           this.getMegabite2category2brand(this.projectId)
 
         }
@@ -1450,7 +1424,6 @@
 
       getArea2projectInfo(index) {
 
-console.log("显示区域列表值："+this.areaList)
 //         window.$getAreaList().then((res) => {
 // console.log("区域列表数据***" + res)
 //           this.areaList = res
@@ -1459,27 +1432,21 @@ console.log("显示区域列表值："+this.areaList)
 //           console.log(err)
 //         })
 
-
-        console.log("***区域tabClick1_yyh的name为" + this.areaList[index].name)
         this.areaId = this.areaList[index].id
 
         window.$getProjectListForArea(this.areaId).then(res => {
-          console.log("tabClick1_yyh得到的项目列表数据***" + res)
-          console.log("tabClick1_yyh得到的项目列表数据长度***" + res.length)
-
+          // console.log(res[0]);
           if (res.length > 0) {
-
-
+            this.isProjectShow = true
             this.projectList = res
             this.projectId = res[0].id
-
 
             if (this.typeId === 2) {//楼层维度
               this.getBuildingFloorInfo(this.projectId)
             } else if (this.typeId === 3) {//业态维度
               this.getProject2operation(this.projectId)
             } else if (this.typeId === 4) {//品牌维度
-              this.getBuildingFloorInfo(this.projectId)
+              this.getProject2operation(this.projectId)
               this.getMegabite2category2brand(this.projectId)
             }
 
@@ -1544,7 +1511,7 @@ console.log("显示区域列表值："+this.areaList)
         }
         if (this.typeId === 4) {//品牌维度
           console.log("项目变化，层级为品牌！")
-          this.getBuildingFloorInfo(this.projectId)
+          // this.getBuildingFloorInfo(this.projectId)
           this.getMegabite2category2brand(this.projectId)
         }
 
@@ -1670,10 +1637,10 @@ console.log("显示区域列表值："+this.areaList)
 
           this.floorId = this.floorList[index].id
         }
-        if (this.typeId === 4) {
-
-          this.floorId = this.floorList[index].id
-        }
+        // if (this.typeId === 4) {
+        //
+        //   this.floorId = this.floorList[index].id
+        // }
 
       },
 
@@ -1754,15 +1721,12 @@ console.log("显示区域列表值："+this.areaList)
 
       getMegabite2category2brand(projectId) {
         this.projectId = projectId
-        // alert("品牌品牌品牌!"+this.projectId)
 
         window.$getBusinessListForProject(this.projectId).then(res => {
           if (res.length > 0) {
             this.isOperationShow = true
             this.megabiteList = res
-            console.log("getBusinessListForProject*当前业态列表数据为" + res)
             this.megabiteId = res[0].id
-            // alert("当前业态名："+res[0].name)
 
             this.getBusinessFormat2BusinessCategoryList()
 
@@ -1813,6 +1777,8 @@ console.log("显示区域列表值："+this.areaList)
       getBusinessCategory2Brand(){
         var params = {}
         params.projectId = this.projectId;
+        params.fromId = this.megabiteId;
+        params.speciesId = this.categoryId;
 
         window.$getcontractIdForSpecies(params).then((res) => {
         // window.$getBrandForSpecies_standard(this.categoryId).then(res => {
@@ -2471,23 +2437,27 @@ console.log("显示区域列表值："+this.areaList)
   }
 
   .right_2 {
-    .g_text {
-      padding-left: 15px;
-      color: #fff;
-      font-size: 12px;
-      line-height: 34px;
-      position: relative;
-      &:before {
-        content: '';
-        width: 5px;
-        height: 5px;
-        background: #fff;
-        border-radius: 50%;
-        position: absolute;
-        top: 14px;
-        left: 0;
+    .text-box{
+      height: 117px;
+      .g_text{
+        padding-left: 15px;
+        color: #fff;
+        font-size: 12px;
+        line-height: 34px;
+        position: relative;
+        &:before {
+          content: '';
+          width: 5px;
+          height: 5px;
+          background: #fff;
+          border-radius: 50%;
+          position: absolute;
+          top: 14px;
+          left: 0;
+        }
       }
     }
+
   }
 
   .right_3 {

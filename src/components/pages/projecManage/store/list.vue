@@ -67,9 +67,9 @@
         <el-table-column align="center" prop="acreage" label="面积/平"></el-table-column>
         <el-table-column align="center" prop="state" label="状态">
           <template slot-scope="scope">
-            <p class="using" v-if="scope.row.state === 1">启用</p>
+            <p class="using" v-if="scope.row.state === 1">未签约</p>
             <p class="unusing" v-if="scope.row.state === 2">禁用</p>
-            <p class="ongoing" v-if="scope.row.state === 3">签约中</p>
+            <p class="ongoing" v-if="scope.row.state === 3">已签约</p>
           </template>
         </el-table-column>
         <el-table-column align="center"  label="操作" width="200">
