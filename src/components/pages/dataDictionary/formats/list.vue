@@ -37,7 +37,7 @@
     </div>
 
     <el-dialog
-      title="提示"
+      title="新增业种"
       :visible="yetaiVisible"
       width="40%"
       :modal=false
@@ -200,9 +200,9 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
-      
+
     },
     // 查看详情
     showDetails (id) {

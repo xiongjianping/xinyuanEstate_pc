@@ -23,7 +23,7 @@
 
     <div class="buttonList">
       <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
-      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>
+      <!--<el-button type="primary" class="mr10 ml10" size="medium" v-on:click="showCreateCompany();">新增公司</el-button>-->
       <el-button type="primary" class="ml10" size="medium" v-on:click="editDetails(0);">新增项目</el-button>
     </div>
 
@@ -52,7 +52,7 @@
         <el-table-column align="center" prop="areaName" label="区域">
         </el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
-        <el-table-column align="center" prop="projectHeadName" label="运营负责人"></el-table-column>
+        <!--<el-table-column align="center" prop="projectHeadName" label="运营负责人"></el-table-column>-->
         <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
         <el-table-column align="center" prop="merchandiseName" label="当前状态">
           <template slot-scope="scope">

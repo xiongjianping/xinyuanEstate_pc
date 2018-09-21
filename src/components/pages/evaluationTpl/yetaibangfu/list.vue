@@ -126,14 +126,21 @@ export default {
       if(type === 1){
         this.page = 1
       }
+      if(this.searchForm.helpType == ''){
+        alert('请选择业务类型');
+        return;
+      }else{
 
-      this.searchForm.areaId = this.area
-      this.searchForm.projectId = this.projectId
-      window.$helpBusinessContent(this.page, this.size, this.searchForm).then((res) => {
-        this.data = res;
-      }, (err) => {
-        this.showAlert(err)
-      })
+
+
+        this.searchForm.areaId = this.area
+        this.searchForm.projectId = this.projectId
+        window.$helpBusinessContent(this.page, this.size, this.searchForm).then((res) => {
+          this.data = res;
+        }, (err) => {
+          this.showAlert(err)
+        })
+      }
     },
     changeArea() {
       this.projectId = ''

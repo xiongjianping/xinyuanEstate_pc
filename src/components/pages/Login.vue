@@ -3,7 +3,7 @@
   <div class="ms-login">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
       <div class="loginTit">
-        <p>商家后台管理系统</p>
+        <p>三角理论管理系统</p>
       </div>
       <div class="inputList">
         <el-form-item prop="username">
@@ -53,16 +53,36 @@ export default {
         var arr = urlArr[i].split('=')
         var userName = arr[arr.length - 1]
         console.log('userName = ' + userName)
+        // this.submitFormDandian(userName)
         this.submitForm(userName)
       }
     }
   },
   methods: {
+    // submitFormDandian (formName) {
+    //   var params = {
+    //     userName: this.ruleForm.username
+    //   }
+    //   const self = this
+    //   // this.params.userName = this.ruleForm.username;
+    //   window.$logins(params).then((res) => {
+    //     window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
+    //     // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
+    //     this.$router.replace('/index')
+    //   }, (err) => {
+    //     console.log(err)
+    //   })
+    // },
     submitForm (formName) {
-      var params = {
-        userName: formName
+      var params = {}
+      if(this.ruleForm.username == ''){
+        params.userName = formName;
+      }else{
+        params.userName = this.ruleForm.username
       }
+      console.log(params);
       const self = this
+      // this.params.userName = this.ruleForm.username;
       window.$login(params).then((res) => {
         window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
         // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
@@ -75,7 +95,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="less">
+<style lang="less" scoped>
 .login-wrap{
   position: relative;
   width:100%;
@@ -92,16 +112,27 @@ export default {
   border-radius: 10px;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  .loginTit{
-    font-size: 20px;
-    padding: 10px;
+  .demo-ruleForm{
+    position: absolute;
+    top: 4px;
     text-align: center;
-    margin-bottom: 20px;
-  }
-  .login-btn{
-    .el-button{
-      width: 100%;
+    .loginTit{
+      font-size: 20px;
+      padding: 10px;
+      text-align: center;
+      p{
+        color: #fff;
+      }
+    }
+    .inputList{
+      width: 335px;
+    }
+    .login-btn{
+      .el-button{
+        width: 100%;
+      }
     }
   }
+
 }
 </style>

@@ -5,18 +5,32 @@ import axios from 'axios'
  * 登录接口(GET)
  * userName：用户名
  */
+/*单点登录 login*/
 Vue.prototype.login = window.$login = function(params) {
-    return new Promise(function(resolve, reject) {
-        axios.post('/sso/login', params)
-            .then((res) => {
-                resolve(res)
-            })
-            .catch((error) => {
-                console.log(error);
-                reject(error)
-            });
-    })
+  return new Promise(function(resolve, reject) {
+    axios.post('/sso/login', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
 }
+/*用户名登录 logins*/
+// Vue.prototype.logins = window.$logins = function(params) {
+//     return new Promise(function(resolve, reject) {
+//         axios.post('/sso/logins', params)
+//             .then((res) => {
+//                 resolve(res)
+//             })
+//             .catch((error) => {
+//                 console.log(error);
+//                 reject(error)
+//             });
+//     })
+// }
 
 /*
  * 获取顶部菜单接口(GET)
