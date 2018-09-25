@@ -46,9 +46,9 @@ Vue.prototype.dimensionList2 = window.$dimensionList2 = [{ name: '项目', id: 1
 
 // Vue.prototype.baseUrl = window.$baseUrl = 'http://10.17.9.126:8080' // 本地
 // Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.173.119:8080' // 西安本地
-Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.3.33:8080' // 测试
+// Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.3.33:8080' // 测试
 // Vue.prototype.baseUrl = window.$baseUrl = 'http://192.168.0.55:8080' // 生产
-// Vue.prototype.baseUrl = window.$baseUrl = 'http://sjll.vinfai.com:8080/'// 生产
+Vue.prototype.baseUrl = window.$baseUrl = 'http://sjll.vinfai.com:8080/'// 生产
 var alert = require('element-ui').MessageBox.alert
 
 Vue.use(ElementUI);
