@@ -483,9 +483,11 @@
     data: () => ({
       //区域id
       myareaId:'',
-    //业态id
+      //项目id
+      myprojectId:'',
+      //业态id
       mybusinessFormId:'',
-    //业种id
+      //业种id
       mybusinessSpeciesId:'',
       isSearchList: false,
       type: 0,
@@ -866,6 +868,7 @@
       //2.项目
       projectChanged(){
         this.searchForm.buildingId = ''
+        this.myprojectId = this.searchForm.projectId;
         this.searchForm.floorId=''
         this.floorList = ''
      /*   this.floorId = ''*/
@@ -906,6 +909,7 @@
       //3.客销度新增项目
       guestProjectChanged(){
         this.guestForm.buildingId = ''
+        this.myprojectId = this.guestForm.projectId;
         this.floorId = ''
         window.$getBuilding(this.guestForm.projectId).then((res) => {
           //调用楼层
@@ -994,10 +998,10 @@
       getBind(){
         this.brandList = ''
         var params = {}
-        this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
-        params.projectId = this.rentForm.projectId
-        params.fromId = this.rentForm.businessFormId
-        params.speciesId = this.rentForm.businessSpeciesId
+        // this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+        params.projectId = this.myprojectId
+        params.fromId = this.mybusinessFormId
+        params.speciesId = this.mybusinessSpeciesId
         if (this.dialogFormVisible) {
           this.rentForm.brandList = ''
         }
