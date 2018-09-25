@@ -7,9 +7,9 @@ var isRefresh = true
 
  // axios.defaults.baseURL = "http://10.17.9.126:8080" //本地
 // axios.defaults.baseURL = "http://192.168.173.119:8080" //西安本地
-axios.defaults.baseURL = "http://192.168.3.33:8080" // 测试
+// axios.defaults.baseURL = "http://192.168.3.33:8080" // 测试
 // axios.defaults.baseURL = "http://192.168.0.55:8080" // 生产
-// axios.defaults.baseURL = "http://sjll.vinfai.com:8080/" // 生产
+axios.defaults.baseURL = "http://sjll.vinfai.com:8080/" // 生产
 
 axios.defaults.withCredentials = true
 axios.defaults.timeout = 10000

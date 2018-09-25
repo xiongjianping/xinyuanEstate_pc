@@ -335,7 +335,7 @@
           </el-col>
           <el-col  :span="8" >
             <el-form-item label="项目" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="fittedForm.projectId" placeholder="项目A" @change="fittedProjectChanged()">
+              <el-select  size="small" v-model="fittedForm.projectId" placeholder="请选择项目" @change="fittedProjectChanged()">
                 <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -538,9 +538,11 @@ export default {
     isSearchList: false,
     //区域id
     myareaId:'',
-   //业态id
+    //项目id
+    myprojectId:'',
+    //业态id
     mybusinessFormId:'',
-  //业种id
+    //业种id
     mybusinessSpeciesId:'',
     type: 0,
     searchForm:{},
@@ -905,6 +907,7 @@ export default {
     //2.项目
     projectChanged(){
       this.searchForm.buildingId = ''
+      this.myprojectId = this.searchForm.projectId;
       this.floorId = ''
       window.$getBuilding(this.searchForm.projectId).then((res) => {
         this.buildingList = res
@@ -923,6 +926,7 @@ export default {
     //2.溢租率新增项目
     rentProjectChanged(){
       this.rentForm.buildingId = ''
+      this.myprojectId = this.rentForm.projectId;
       this.floorId = ''
       window.$getBuilding(this.rentForm.projectId).then((res) => {
         console.log("溢租率projectChanged");
@@ -943,6 +947,7 @@ export default {
     //3.客销度新增项目
     guestProjectChanged(){
       this.guestForm.buildingId = ''
+      this.myprojectId = this.guestForm.projectId;
       this.floorId = ''
       window.$getBuilding(this.guestForm.projectId).then((res) => {
         console.log("客销度projectChanged");
@@ -963,6 +968,7 @@ export default {
     //3.适配值新增项目
     fittedProjectChanged(){
       this.fittedForm.buildingId = ''
+      this.myprojectId = this.fittedForm.projectId;
       this.floorId = ''
       window.$getBuilding(this.fittedForm.projectId).then((res) => {
         console.log("适配值projectChanged");
@@ -1038,23 +1044,22 @@ export default {
     getBind(){
       this.brandList = ''
       var params = {}
-      this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
-        params.projectId = this.rentForm.projectId
-        params.fromId = this.rentForm.businessFormId
-        params.speciesId = this.rentForm.businessSpeciesId
-      if (this.dialogFormVisible) {
-        this.rentForm.brandList = ''
-      }
-      if (this.dialogFormVisible1){
-        this.guestForm.brandList = ''
-      }
-      if (this.dialogFormVisible2) {
-        this.fittedForm.brandList = ''
-      }
+      // this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+        params.projectId = this.myprojectId
+        params.fromId = this.mybusinessFormId
+        params.speciesId = this.mybusinessSpeciesId
+        if (this.dialogFormVisible) {
+          this.rentForm.brandList = ''
+        }
+        if (this.dialogFormVisible1){
+          this.guestForm.brandList = ''
+        }
+        if (this.dialogFormVisible2) {
+          this.fittedForm.brandList = ''
+        }
 
       //获取品牌
       window.$getcontractIdForSpecies(params).then((res) => {
-        console.log("品牌list")
         console.log(res)
         this.brandList = res
         if (this.dialogFormVisible) {
