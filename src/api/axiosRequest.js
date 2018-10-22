@@ -40,7 +40,7 @@ Vue.prototype.menus = window.$menus = function() {
         axios.get('/permission/login/menus')
             .then((res) => {
                 resolve(res)
-              console.log(res);
+              // console.log(res);
             })
             .catch((error) => {
                 console.log(error);
@@ -1597,7 +1597,6 @@ Vue.prototype.getcontractIdForSpecies = window.$getcontractIdForSpecies = async 
   return new Promise(function(resolve, reject) {
     axios.post('/brand/find/contract', params)
       .then((res) => {
-        console.log("getcontractIdForSpecies")
         console.log(res)
         resolve(res)
       })
@@ -1724,3 +1723,36 @@ Vue.prototype.getBusinessListForProject = window.$getBusinessListForProject = fu
             })
     })
 }
+/*
+ * 数据缺失列表页
+ *
+ */
+Vue.prototype.getQueshiList = window.$getQueshiList = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/sy/wt/get/list', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+/*
+ * 数据缺失详情页
+ *
+ */
+Vue.prototype.getQueshiDetail = window.$getQueshiDetail = function(params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/sy/wt/get/detail', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}
+

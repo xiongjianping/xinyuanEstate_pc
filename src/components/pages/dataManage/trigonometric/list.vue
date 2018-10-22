@@ -188,7 +188,7 @@
           @current-change="handleCurrentChange"
           :current-page="page"
           layout="prev, pager, next"
-          :total="data.count">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -489,7 +489,7 @@ export default {
     /*  if(this.different ===3 ){
         this.conditionId = ''
       }*/
-      this.searchForm.projectId = '';
+      // this.searchForm.projectId = '';
       this.searchForm.buildingId = '';
      /* this.searchForm.floorId = '';*/
       this.floorId = '',
@@ -531,6 +531,7 @@ export default {
       this.buildingList= {};
       this.floorList = [];
       myProjectId = this.searchForm.projectId;
+      // alert(this.searchForm.projectId);
       if (this.dialogFormVisible) {
         myProjectId = this.guestForm.projectId;
       }

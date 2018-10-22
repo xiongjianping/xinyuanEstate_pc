@@ -6,7 +6,7 @@
         <el-col :span="5">
           <el-form-item label="区域">
             <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域">
-              <el-option v-for="(item,index) in options" :key="index" :label="item.name" :value="item.id"></el-option>
+              <el-option v-for="(item,index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -139,15 +139,19 @@ export default {
     picIndex: 0,
     newCompany: {},
     formLabelWidth: '120px',
-    companyList: []
+    companyList: [],
+    areaList:[]
   }),
 
   created () {
     window.$getAreaList().then((res) => {
-        this.options.push.apply(this.options, res)
-      }, (err) => {
-        console.log(err)
-      })
+      this.areaList = res
+    }, (err) => {console.log(err)})
+    // window.$getAreaList().then((res) => {
+    //     this.options.push.apply(this.options, res)
+    //   }, (err) => {
+    //     console.log(err)
+    //   })
     this.searchList(1)
   },
 

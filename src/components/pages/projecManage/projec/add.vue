@@ -36,12 +36,19 @@
 
         <el-col :span="6" >
           <el-form-item label="部门">
-            <el-select size="small" v-model="departmentId" placeholder="请选择部门" @change="getPerson()">
+            <el-select size="small" v-model="searchForm.deptId" placeholder="请选择部门" @change="getPerson()">
               <el-option v-for="(item,index) in departmentList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
+        <el-col :span="6">
+          <el-form-item label="项目负责人">
+            <el-select size="small" v-model="projectHeadId" placeholder="请选择负责人">
+              <el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
         <el-col :span="6">
           <el-form-item label="状态">
             <el-select size="small" v-model="searchForm.state" placeholder="请选择状态">
@@ -51,13 +58,7 @@
           </el-form-item>
         </el-col>
 
-        <!--<el-col :span="6">-->
-          <!--<el-form-item label="运营负责人">-->
-            <!--<el-select size="small" v-model="projectHeadId" placeholder="请选择负责人">-->
-              <!--<el-option v-for="(item,index) in projectHeadList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
+
 
         <el-col :span="6">
           <el-form-item label="项目">
@@ -70,20 +71,27 @@
             <el-input type="number" size="small" v-model="searchForm.acreage" :maxlength="11" placeholder="请输入面积"></el-input>
           </el-form-item>
         </el-col>
-
-      <!--<el-col class="uploadFiles mt40">-->
-        <!--<el-upload :action="getUploadUrl()"-->
-                  <!--list-type="picture-card"-->
-                  <!--:limit=6-->
-                  <!--:on-preview="handlePictureCardPreview"-->
-                  <!--:on-success="handleSuccess"-->
-                  <!--:on-remove="handleRemove">-->
-                  <!--<i class="el-icon-plus"></i>-->
-        <!--</el-upload>-->
-        <!--<el-dialog :visible.sync="dialogVisible">-->
-          <!--<img width="100%" :src="dialogImageUrl" alt="">-->
-        <!--</el-dialog>-->
-      <!--</el-col>-->
+        <el-col :span="6">
+          <el-form-item label="开业时间">
+            <el-input type="text" size="small" v-model="searchForm.createDate" :maxlength="11" placeholder="请输入开业时间"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col class="uploadFiles mt40 mb10">
+          <el-upload :action="getUploadUrl()"
+                  list-type="picture-card"
+                  :limit=6
+                  :on-preview="handlePictureCardPreview"
+                  :on-success="handleSuccess"
+                  :on-remove="handleRemove">
+                  <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </el-col>
+        <el-col class="mb40 tip">
+          (* 图片格式：png,jpg格式，1200px*1000px，大小不超过5M，限传5张)
+        </el-col>
       </el-form>
     </el-row>
 
@@ -98,7 +106,7 @@ export default {
   data: () => ({
     loading: false,
     searchForm: {
-      // projectImages: []
+      projectImages: []
     },
     dialogImageUrl: '',
     dialogVisible: false,
@@ -133,24 +141,29 @@ export default {
     })
   },
   methods: {
-    // getUploadUrl(){
-    //   return window.$baseUrl + '/file/upload/localhost'
-    // },
-    // handleSuccess(file){
-    //   this.searchForm.projectImages.push(file.data)
-    // },
-    // handlePictureCardPreview(file){
-    //   this.dialogImageUrl = file.url
-    //   this.dialogVisible = true
-    // },
-    // handleRemove(file, fileList) {
-    //   for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
-    //     if(this.searchForm.projectImages[i] === file.response.data){
-    //       console.log(i)
-    //       this.searchForm.projectImages.splice(i, 1)
-    //     }
-    //   }
-    // },
+    getUploadUrl(){
+      return window.$baseUrl + '/file/upload/localhost'
+    },
+    handleSuccess(file){
+      this.searchForm.projectImages.push(file.data)
+    },
+    handlePictureCardPreview(file){
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
+    },
+    handleRemove(file, fileList) {
+      for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
+        if(this.searchForm.projectImages[i] === file.response.data){
+          console.log(i)
+          this.searchForm.projectImages.splice(i, 1)
+        }
+      }
+    },
+    deleteImg(){
+      for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
+        this.searchForm.projectImages.slice(i, 1)
+      }
+    },
     // getType(obj){
     //   //tostring会返回对应不同的标签的构造函数
     //   var toString = Object.prototype.toString;
@@ -215,6 +228,7 @@ export default {
     //   this.companyName =  data.name;
     //   this.dialogTreeVisible = false;
     // },
+    // 通过公司获取部门(GET)
     getDepartment(){
       this.departmentId = ''
       // this.projectHeadId = ''
@@ -227,21 +241,17 @@ export default {
     },
     getPerson(){
       // this.projectHeadId = ''
-      window.$getPersion(this.companyId).then((res) => {
+      window.$getPersion(this.searchForm.deptId).then((res) => {
         this.projectHeadList = res
         console.log(res)
       }, (err) => {
         this.showAlert(err)
       })
     },
-    // deleteImg(){
-    //   for(var i = this.searchForm.projectImages.length - 1; i >= 0; i--){
-    //     this.searchForm.projectImages.slice(i, 1)
-    //   }
-    // },
+
     create(){
       this.loading = true
-      // this.searchForm.projectHeadId = this.projectHeadId
+      this.searchForm.projectHeadId = this.projectHeadId
       window.$createProject(this.searchForm).then((res) => {
         this.loading = false
         this.searchForm = {}
@@ -316,9 +326,14 @@ export default {
     }
   }
   .uploadFiles{
-    width: 100%
+    width: 100%;
+    height: 150px;
   }
-
+  .tip{
+    color: #f4282c;
+    font-size: 14px;
+    font-weight: bold;
+  }
   .img{
     width: 100px;
     height: 100px;

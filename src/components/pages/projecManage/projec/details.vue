@@ -3,39 +3,44 @@
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
     <div class="detailsContent">
       <h3 class="title">基本信息</h3>
-      <i class="hengxian"></i>
       <el-row class="detailsInfo" :gutter="30" style="margin-left: 40px">
-        <h3 class="biaoti">{{data.projectName}}</h3>
-        <el-col :span="5" :offset="1">
+
+        <el-col :span="6">
+          <h3 class="biaoti">{{data.projectName}}</h3>
+        </el-col>
+        <el-col :span="6">
           区域：{{data.areaName}}
         </el-col>
-        <el-col :span="5" :offset="1">
+        <el-col :span="6">
           公司：{{data.companyName}}
         </el-col>
-        <el-col :span="5" :offset="1">
+        <el-col :span="6">
           面积/平：{{data.acreage}}
         </el-col>
-        <el-col :span="5" :offset="1">
+        <el-col :span="6">
           状态：<span v-if="!data.state">停用</span><span v-if="data.state">启用</span>
         </el-col>
 
-        <el-col :span="5" :offset="1">
+        <el-col :span="6">
           开始时间：{{data.createTime}}
         </el-col>
-        <el-col :span="5" :offset="1">
+        <el-col :span="6">
           最后一次修改时间：{{data.modifyTime}}
         </el-col>
-        <el-col :span="5" :offset="1">
-          修改人：{{data.projectAuditName}}
+        <el-col :span="6">
+          修改人：{{data.projectHeadName}}
         </el-col><br/><br/><br/>
 
-        <el-col :span="20" :offset="1">
-          <img class="imgList" v-for="img in data.projectImages" :src="img"/>
+        <el-col :span="24">
+          <div v-for="(item, index) in data.projectImages" :key="index" class="f-cb">
+            <img class="imgList f-fl" :src="item"/>
+          </div>
+
         </el-col>
       </el-row>
 
       <div class="xxk">
-        <button @click="goBack()">返回</button>
+        <el-button type="primary" size="medium" @click="goBack()">返回</el-button>
       </div>
 
     </div>
@@ -59,6 +64,7 @@ export default {
       window.$getProjectDetails(this.$route.params.id).then((res) => {
         this.loading = false
         this.data = res
+        console.log(this.data.projectImages);
       }, (err) => {
         this.loading = false
         this.showAlert(err)

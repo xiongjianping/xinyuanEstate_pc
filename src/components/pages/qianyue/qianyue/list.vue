@@ -1,72 +1,82 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <el-row class="searchBox" :gutter="30">
-      <h3 id="title">签约管理</h3><br>
-      <el-form label-width="100px" :model="searchForm">
+    <el-form label-width="100px" :model="searchForm">
+      <el-row class="searchBox" :gutter="30">
+        <h3 id="title">签约管理</h3><br>
+          <el-col :span="5">
+            <el-form-item label="区域">
+              <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
+                <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item label="项目">
+              <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+                <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+      </el-row>
+      <el-row class="searchBox" :gutter="30">
         <el-col :span="5">
-          <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
-              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+          <el-form-item label="品牌/铺位">
+            <el-input size="small" maxlength="11" v-model="searchForm.brandName" placeholder="请输入品牌/铺位"/>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="项目">
-            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
-              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="楼栋">
-            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
-              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+        <!--<el-col :span="5">-->
+          <!--<el-form-item label="铺位">-->
+            <!--<el-input size="small" maxlength="11" v-model="searchForm.name" placeholder="请输入铺位"/>-->
+          <!--</el-form-item>-->
+        <!--</el-col>-->
+          <!--<el-col :span="5">-->
+            <!--<el-form-item label="楼栋">-->
+              <!--<el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">-->
+                <!--<el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+
+          <el-col :span="5">
+            <el-form-item label="业态">
+              <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态"  @change="businessChanged()">
+                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!--<el-col :span="5">-->
+            <!--<el-form-item label="业种">-->
+              <!--<el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
+                <!--<el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
         <el-col :span="5">
           <el-form-item label="楼层">
-            <el-select size="small" v-model="floorId" placeholder="请选择楼层">
+            <el-select size="small" v-model="searchForm.floorId" placeholder="请选择楼层">
               <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item label="业态">
-            <el-select size="small" v-model="searchForm.businessFormId" placeholder="请选择业态"  @change="businessChanged()">
-              <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-form-item label="状态">
+            <el-select size="small" v-model="searchForm.status" placeholder="请选择状态">
+              <el-option v-for="(item, index) in statusList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="业种">
-            <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
-              <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="品牌">
-            <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌">
-              <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="铺位">
-            <el-input size="small" maxlength="11" v-model="searchForm.name" placeholder="请输入铺位"/>
-          </el-form-item>
-        </el-col>
-      </el-form>
-    </el-row>
 
+      </el-row>
+
+    </el-form>
     <div class="buttonList">
       <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="reset();">清空</el-button>
       <el-button type="primary" class="ml10" size="medium" v-on:click="qianyue(0);">签约</el-button>
     </div>
 
-    <p class="t"></p>
-    <div class="biaoti1">签约管理列表</div>
+    <!--<p class="t"></p>-->
+    <!--<div class="biaoti1">签约管理列表</div>-->
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
         <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
@@ -121,20 +131,51 @@
 import moment from 'moment'
 export default {
   data: () => ({
+    //区域id
+    myareaId:'',
+    //项目id
+    myprojectId:'',
+    //业态id
+    mybusinessFormId:'',
+    //业种id
+    mybusinessSpeciesId:'',
     data: {},
     loading: false,
-    searchForm: {},
+    searchForm: {
+      areaId: '',
+      projectId: '',
+      buildingId: '',
+      floorId: '',
+      businessFormId: '',
+      businessSpeciesId: '',
+      brandName: '',
+    },
     page: 1,
     size: 10,
-    businessList: [],
-    speciesList: [],
-    brandList:[],
     areaList: [],
     projectList: [],
     buildingList: [],
     floorList: [],
+    businessList: [],
+    speciesList: [],
+    brandList:[],
+    projectId:'',
+    buildingId:'',
     floorId:'',
+    business:'',
+    businessSpeciesId:'',
+    species:'',
     brandId:'',
+    statusList:[
+      {
+        id:0,
+        name:'已解约'
+      },
+      {
+        id:1,
+        name:'已签约'
+      }
+    ],
 
     effectTime:'',
     dialogFormVisible: false,
@@ -144,8 +185,6 @@ export default {
 
   }),
   created () {
-
-
     window.$getformSelect().then((res) => {
         this.businessList = res
       }, (err) => {})
@@ -156,7 +195,85 @@ export default {
       this.searchList(1)
   },
   methods: {
+    reset(){
+      this.searchForm.areaId= '';
+      this.searchForm.projectId= '';
+      this.searchForm.brandName= '';
+      this.searchForm.businessFormId= '';
+      this.searchForm.floorId= '';
+      this.searchForm.status= '';
+      this.searchList(1)
+    },
+    areaChanged(){
+      this.searchForm.buildingId = ''
+      this.floorId = ''
+      this.myareaId = this.searchForm.areaId
 
+      window.$getProjectListForArea(this.myareaId).then((res) => {
+        this.projectList = res
+
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    //2.项目
+    projectChanged(){
+      this.searchForm.buildingId = ''
+      this.myprojectId = this.searchForm.projectId;
+      this.floorId = ''
+      window.$getBuilding(this.searchForm.projectId).then((res) => {
+        this.buildingList = res
+        //调用楼层
+        window.$getFloorForBuilding(res[0].id).then((floorRes) => {
+          this.floorList = floorRes
+        }, (err) => {
+          this.showAlert(err)
+        })
+      }, (err) => {
+        this.showAlert(err)
+      })
+
+      this.getBind()
+    },
+    // 业态
+    businessChanged(){
+      // this.searchForm.businessSpeciesId = ''
+      // this.speciesList = [];
+      // this.brandId = ''
+      this.mybusinessFormId = this.searchForm.businessFormId;
+
+      window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
+        this.speciesList = res
+        console.log(res);
+      }, (err) => {
+        this.showAlert(err)
+      })
+      this.getBind()
+    },
+    //业种
+    speciesChanged(){
+      this.brandList = ''
+      this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
+      //获取品牌
+      this.getBind()
+    },
+    getBind(){
+      this.brandList = ''
+      var params = {}
+      params.projectId = this.myprojectId
+      params.fromId = this.mybusinessFormId
+      params.speciesId = this.mybusinessSpeciesId
+
+      //获取品牌
+      window.$getcontractIdForSpecies(params).then((res) => {
+        this.brandList = res
+      }, (err) => {
+        this.showAlert(err)
+      })
+    },
+    brandChanged(){
+      console.log(this.searchForm.brandId)
+    },
     /**
      * 获取当前时间
      * 格式YYYY-MM-DD
@@ -247,8 +364,9 @@ export default {
       this.searchList()
     },
     searchList (type) {
-      this.searchForm.brandId = this.brandId
-      this.searchForm.floorId = this.floorId
+      // this.searchForm.brandId = this.searchForm.contractId
+      // this.searchForm.floorId = this.floorId
+
 
       if(type === 1){
         this.page = 1
@@ -259,52 +377,6 @@ export default {
         this.showAlert(err)
       })
     },
-    businessChanged(){
-      this.searchForm.businessSpeciesId = ''
-      this.brandId = ''
-      window.$getSpeciesSelect(this.searchForm.businessFormId).then((res) => {
-        this.speciesList = res
-      }, (err) => {
-        this.showAlert(err)
-      })
-
-    },
-    speciesChanged(){
-      this.brandId = ''
-      window.$getBrandForSpecies(this.searchForm.businessSpeciesId).then((res) => {
-        this.brandList = res
-      }, (err) => {
-        this.showAlert(err)
-      })
-    },
-    areaChanged(){
-      this.searchForm.projectId = ''
-      this.searchForm.buildingId = ''
-      this.floorId = ''
-      window.$getProjectListForArea(this.searchForm.areaId).then((res) => {
-        this.projectList = res
-      }, (err) => {
-        this.showAlert(err)
-      })
-    },
-    projectChanged(){
-      this.searchForm.buildingId = ''
-      this.floorId = ''
-      window.$getBuilding(this.searchForm.projectId).then((res) => {
-        this.buildingList = res
-      }, (err) => {
-        this.showAlert(err)
-      })
-    },
-    buildingChanged(){
-       this.floorId = ''
-      window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
-        this.floorList = res
-      }, (err) => {
-        this.showAlert(err)
-      })
-    },
-
     breakContract(id){
 
       this.dialogFormVisible = true;
@@ -341,4 +413,7 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
 }
+  .listCont{
+    margin: 42px 0;padding: 0;
+  }
 </style>

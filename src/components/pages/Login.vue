@@ -59,20 +59,6 @@ export default {
     }
   },
   methods: {
-    // submitFormDandian (formName) {
-    //   var params = {
-    //     userName: this.ruleForm.username
-    //   }
-    //   const self = this
-    //   // this.params.userName = this.ruleForm.username;
-    //   window.$logins(params).then((res) => {
-    //     window.localStorage.setItem('xinyuan_accesstoken', res.accessToken)
-    //     // window.localStorage.setItem('xinyuan_refreshtoken', res.refreshToken)
-    //     this.$router.replace('/index')
-    //   }, (err) => {
-    //     console.log(err)
-    //   })
-    // },
     submitForm (formName) {
       var params = {}
       if(this.ruleForm.username == ''){

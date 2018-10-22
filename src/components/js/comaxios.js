@@ -12,7 +12,7 @@ var isRefresh = true
 axios.defaults.baseURL = "http://sjll.vinfai.com:8080/" // 生产
 
 axios.defaults.withCredentials = true
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 100000
 
 
 async function requestInterceptor(config) {

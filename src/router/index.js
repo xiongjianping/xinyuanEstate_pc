@@ -469,7 +469,35 @@ export default new Router({
                                 },
                                 component: resolve => require(['@/components/pages/dataManage/trigonometric/yz-xinzeng.vue'], resolve)
                             }]
-                        }
+                        },
+                        //数据缺失统计
+                        {
+                          path: 'queshi',
+                          name: 'queshi',
+                          meta: {
+                            pageName: '数据缺失'
+                          },
+                          component: resolve => require(['@/components/common/SubContent.vue'], resolve),
+                          children: [{
+                            path: 'list',
+                            name: 'queshiList',
+                            meta: {
+                              parentPath: '/dataManage',
+                              pageName: '数据缺失'
+                            },
+                            component: resolve => require(['@/components/pages/dataManage/queshi/list.vue'], resolve)
+                          },
+                            {
+                              path: 'xiangqing',
+                              name: 'queshiXiangqing',
+                              meta: {
+                                parentPath: '/dataManage',
+                                pageName: '详情'
+                              },
+                              component: resolve => require(['@/components/pages/dataManage/queshi/xiangqing.vue'], resolve)
+                            }
+                          ]
+                        },
                     ]
                 },
                 //  帮扶计划

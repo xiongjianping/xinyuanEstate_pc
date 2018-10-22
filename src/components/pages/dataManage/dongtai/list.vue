@@ -1,96 +1,100 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-    <el-row class="searchBox" :gutter="30">
-      <h3 id="title">动态三角形</h3><br>
+
+
       <el-form label-width="100px" :model="searchForm">
-        <el-col :span="5">
-          <el-form-item label="对象" :label-width="formLabelWidth" >
-            <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type == 1">
-              <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+        <el-row class="searchBox" :gutter="30">
+          <h3 id="title">动态三角形</h3><br>
+          <el-col :span="5">
+            <el-form-item label="区域" :label-width="formLabelWidth">
+              <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
+                <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-            <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type != 1">
-              <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+          <el-col :span="5">
+            <el-form-item label="项目" :label-width="formLabelWidth">
+              <el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
+                <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="5">
-          <el-form-item label="区域" :label-width="formLabelWidth">
-            <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
-              <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+          <el-col :span="5">
+            <el-form-item label="对象" :label-width="formLabelWidth" >
+              <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type == 1">
+                <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
 
-        <el-col :span="5">
-          <el-form-item label="项目" :label-width="formLabelWidth">
-            <el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
-              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+              <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type != 1">
+                <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="5" v-if="objType == 1">
+            <el-form-item label="楼栋"  :label-width="formLabelWidth">
+              <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
+                <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col> -->
+        </el-row>
+        <el-row class="searchBox" :gutter="30">
+          <el-col :span="5" v-if="objType == 2">
+            <el-form-item label="品牌" :label-width="formLabelWidth">
+              <el-input size="small" maxlength="11" v-model="searchForm.brandName" placeholder="请输入品牌"/>
 
-        <!-- <el-col :span="5" v-if="objType == 1">
-          <el-form-item label="楼栋"  :label-width="formLabelWidth">
-            <el-select size="small" v-model="searchForm.buildingId" placeholder="请选择楼栋" @change="buildingChanged()">
-              <el-option v-for="(item, index) in buildingList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col> -->
-
-        <el-col :span="5"  v-if="objType == 1">
-          <el-form-item label="楼层" :label-width="formLabelWidth">
-            <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
-              <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="5" v-if="objType == 2">
-          <el-form-item label="业态" :label-width="formLabelWidth">
-            <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
-              <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="5" v-if="objType == 2">
-          <el-form-item label="业种" :label-width="formLabelWidth">
-            <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
-              <el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="5" v-if="objType == 2">
-          <el-form-item label="品牌" :label-width="formLabelWidth">
-            <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
+              <!--<el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌">-->
               <!--<el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>-->
-              <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+              <!--</el-select>-->
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="5" v-if="type == 0">
-          <el-form-item label="生效时间" :label-width="formLabelWidth">
-            <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
+          <el-col :span="5" v-if="objType == 2">
+            <el-form-item label="业态" :label-width="formLabelWidth">
+              <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
+                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="5" v-if="type != 0">
-          <el-form-item label="生效时间" :label-width="formLabelWidth">
-            <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
+          <!--<el-col :span="5" v-if="objType == 2">-->
+            <!--<el-form-item label="业种" :label-width="formLabelWidth">-->
+              <!--<el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">-->
+                <!--<el-option v-for="(item, index) in speciesList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
 
+          <el-col :span="5"  v-if="objType == 1||objType == 2">
+            <el-form-item label="楼层" :label-width="formLabelWidth">
+              <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层"  @change="floorChanged()">
+                <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="5" v-if="type == 0">
+            <el-form-item label="生效时间" :label-width="formLabelWidth">
+              <el-date-picker v-model="effectTime" value-format="yyyy-MM" type="month" placeholder="选择日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="5" v-if="type != 0">
+            <el-form-item label="生效时间" :label-width="formLabelWidth">
+              <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
-    </el-row>
+
 
     <div class="buttonList">
       <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="reset();">清空</el-button>
       <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
     </div>
 
@@ -520,12 +524,13 @@
           </el-table>
         </el-tab-pane>
       </el-tabs>
+
       <div class="paginationCont">
         <el-pagination
           @current-change="handleCurrentChange"
           :current-page="page"
-          layout=" prev, pager, next"
-          :total="data.count">
+          layout="prev, pager, next"
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -545,6 +550,8 @@ export default {
     //业种id
     mybusinessSpeciesId:'',
     type: 0,
+    data: {},
+    loading: false,
     searchForm:{},
     formLabelWidth:"70px",
     formLabelWidthYZ:'70px',
@@ -554,8 +561,13 @@ export default {
     areaList:[],
     projectList:[],
     projectId:'',
-    data: {},
-    loading: false,
+
+    options:[
+      {
+        id: '0',
+        name: '全部',
+      }
+    ],
     infoData: {},
     page: 1,
     size: 10,
@@ -568,9 +580,19 @@ export default {
     activeName2: 'first',
     buildingList:[],
     buildingId:'',
-    floorList:[],
+    floorList:[
+      {
+        id: '',
+        name: '全部',
+      }
+    ],
     floorId:'',
-    businessList:[],
+    businessList:[
+      {
+        id: '',
+        name: '全部',
+      }
+    ],
     business:'',
     businessSpeciesId:'',
     speciesList:[],
@@ -590,7 +612,7 @@ export default {
         id: 2,
         name: '品牌'
       }],
-      objTypeList1:[
+    objTypeList1:[
       {
         id: 2,
         name: '品牌'
@@ -604,7 +626,7 @@ export default {
       businessFormId : "", //业态
       brandName : "", //品牌
       effectTime : '',//生效时间
-      contractId : '' //签约id
+      // contractId : '' //签约id
     },
 
     rentForm:{},
@@ -688,15 +710,31 @@ export default {
   }),
   created () {
     window.$getformSelect().then((res) => {
-      this.businessList = res
+      // this.businessList = res
+      this.businessList.push.apply(this.businessList, res)
     }, (err) => {})
-    console.log("created:"+this.businessList);
+
+    // window.$getAreaList().then((res) => {
+    //   this.options.push.apply(this.options, res)
+    // }, (err) => {
+    //   console.log(err)
+    // })
     window.$getAreaList().then((res) => {
       this.areaList = res
     }, (err) => {console.log(err)})
+
     this.searchList(1)
   },
   methods: {
+    reset(){
+      this.searchForm.areaId= '';
+      this.searchForm.projectId= '';
+      this.searchForm.brandName= '';
+      this.searchForm.businessFormId= '';
+      this.searchForm.floorId= '';
+      this.effectTime= '';
+      this.searchList(1)
+    },
     createRent(){
       this.rentCreateDate.rent = this.rentFee; //租金
       this.rentCreateDate.propertyfee = this.wuyefei; //物业费
@@ -913,7 +951,8 @@ export default {
         this.buildingList = res
         //调用楼层
         window.$getFloorForBuilding(res[0].id).then((floorRes) => {
-          this.floorList = floorRes
+          // this.floorList = floorRes
+          this.floorList.push.apply(this.floorList, floorRes)
         }, (err) => {
           this.showAlert(err)
         })
@@ -995,7 +1034,11 @@ export default {
         this.showAlert(err)
       })
     },
-
+    floorChanged(){
+      if(this.searchForm.floorId ==0){
+        this.searchRequest.floorId = 0;
+      }
+    },
     // 业态
     businessChanged(){
       this.searchForm.businessSpeciesId = ''
@@ -1171,9 +1214,9 @@ export default {
         this.searchRequest.floorId = this.searchForm.floorId; //楼层
         this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
        /* this.searchRequest.contractId =  this.searchForm.brandId//品牌*/
-        /*this.searchRequest.brandName = this.searchForm.projectId.brandName //品牌*/
+        this.searchRequest.brandName = this.searchForm.brandName //品牌
         this.searchRequest.effectTime = this.effectTime;//生效时间
-        this.searchRequest.contractId =this.searchForm.brandId;
+        // this.searchRequest.contractId =this.searchForm.brandId;
         console.log("溢租率列表---sadf--"+this.searchRequest)
         this.data="";//清空数据
         window.$getRentList(this.page, this.size, this.searchRequest)
@@ -1239,11 +1282,19 @@ export default {
             })
         }
       } else if (this.type == 2) {//适配值
+        this.searchRequest.projectId = this.searchForm.projectId; //项目ID
+        this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
+        this.searchRequest.floorId = this.searchForm.floorId; //楼层
+        this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
+        this.searchRequest.brandName = this.searchForm.brandName //品牌
+        this.searchRequest.effectTime = this.effectTime;//生效时间
+        this.searchRequest.contractId =this.searchForm.brandId;
+        console.log("客销度列表条件---sadf--"+this.searchRequest)
+        this.data="";//清空数据
       console.log(this.objType)
         //调接口
         window.$getFittedList(this.page, this.size, this.searchRequest)
           .then((res) => {
-            console.log(res)
             this.data = res
             console.log("适配值列表")
             console.log(res)

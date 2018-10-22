@@ -5,18 +5,25 @@
       <el-form label-width="100px" :model="searchForm">
         <el-col :span="5">
           <el-form-item label="区域">
-            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择">
+            <el-select size="small" v-model="searchForm.areaId" placeholder="请选择区域" @change="areaChanged()">
               <el-option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
+        <!--<el-col :span="5">-->
+          <!--<el-form-item label="项目">-->
+            <!--<el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>-->
+          <!--</el-form-item>-->
+        <!--</el-col>-->
         <el-col :span="5">
           <el-form-item label="项目">
-            <el-input size="small" v-model="searchForm.projectName" :maxlength="11" placeholder="请输入项目名称"></el-input>
+            <el-select size="small" v-model="searchForm.projectId" placeholder="请选择项目">
+              <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
-        
+
         <el-col :span="5">
           <el-form-item label="方位">
             <el-select size="small" v-model="searchForm.location" placeholder="请选择位置">
@@ -83,6 +90,7 @@ export default {
     loading: false,
     searchForm: {},
     areaList:[],
+    projectList: [],
     floorList: [],
     page: 1,
     size: 10
@@ -103,6 +111,17 @@ export default {
     handleCurrentChange (val) {
       this.page = val
       this.searchList()
+    },
+    areaChanged(){
+      this.searchForm.buildingId = ''
+      this.floorId = ''
+      this.myareaId = this.searchForm.areaId
+      window.$getProjectListForArea(this.myareaId).then((res) => {
+        this.projectList = res
+
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
     searchList (type) {
       this.loading = true
@@ -153,7 +172,7 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
     },
     rowClass({ row, rowIndex}) {

@@ -47,7 +47,7 @@
       </el-row>
 
       <div class="xxk">
-        <button @click="goBack()">返回</button>
+        <el-button type="primary" size="medium" v-on:click="goBack();">返回</el-button>
       </div>
     </div>
 

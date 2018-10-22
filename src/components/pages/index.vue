@@ -1,121 +1,4 @@
 <template>
-  <!--   <div id="box">
-    <div class="col-xs-12 col-md-4 col-lg-3" style="padding: 0">
-      <div class="left-box">
-        <div class="left-top">
-          <div class="xing"></div>
-          <span>全国各项目总量</span>
-          <div class="lzi">
-            <p>客流:<i>{{countryPassengerFlow}}</i>万人</p>
-            <p>销售:<i>{{countrySalesVolume}}</i>万元</p>
-          </div>
-        </div>
-        <div class="left-cont ">
-          <div class="xing"></div>
-          <div class="left-cont-t1">
-            <span class="l2">全过各区域客流量排行</span>
-          </div>
-          <div class="left-cont-t2">
-            <div id="main3" style="width: 300px;height:240px"></div>
-          </div>
-        </div>
-        <div class="left-bottom">
-          <div class="xing"></div>
-          <span>全国销售额与客流量增长趋势统计</span>
-          <div class="lx">
-            <p class="p1"><i></i><span>全国各区域客流量</span></p>
-            <p class="p2"><i></i><span>全国各区域销售量</span></p>
-          </div>
-          <div id="main1" style="width: 300px;height:240px"></div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-4 col-lg-6">
-      <div class="cont-box">
-        <div class="cont-top">
-          <div class="xing"></div>
-          <span>三角理念统计</span>
-          <div class="center-cent1">
-            <div class="left">
-              <select @change="getProjectList()" v-model="searchForm.areaId" placeholder="请选择区域">
-                <option v-for="(item, index) in areaList" :key="index" :label="item.name" :value="item.id"></option>
-              </select>
-              <select v-model="searchForm.projectId" placeholder="请选择项目" @change="forProjectDetails()">
-                <option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></option>
-              </select>
-              <select v-model="searchForm.checkPro" placeholder="请选择项目" @change="checkProjectType()">
-                <option v-for="(item, index) in projectTypeList" :key="index" :label="item.name" :value="item.id"></option>
-              </select>
-            </div>
-            <div class="right">
-              <select placeholder="楼栋" v-if="searchForm.checkPro=='2'||searchForm.checkPro=='4'">
-                <option></option>
-              </select>
-              <select placeholder="全部楼层" v-if="searchForm.checkPro=='2'||searchForm.checkPro=='4'">
-                <option ></option>
-              </select>
-              <select placeholder="全部业态" v-if="searchForm.checkPro=='3'||searchForm.checkPro=='4'">
-                <option ></option>
-              </select>
-              <select placeholder="全部品牌" v-if="searchForm.checkPro=='4'">
-                <option></option>
-              </select>
-            </div>
-          </div>
-          <div id="main"></div>
-          <div class="cent-btn-left2">优</div>
-          <div class="cent-btn-right">
-            <div>溢租率</div>
-            <div>客销度</div>
-            <div>适配值</div>
-          </div>
-        </div>
-        <div class="cont-bottom">
-          <div class="xing"></div>
-          <span class="c2">全国各城市项目品牌总量</span>
-          <div class="center-btn-left"></div>
-          <div id="main2" style="width: 500px;height:300px;"></div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-4 col-lg-3">
-      <div class="right-box">
-        <div class="right-top">
-          <div class="xing"></div>
-          <span class="r1">项目预览</span>
-          <div class="right-img"></div>
-          <div class="right_img1"></div>
-          <div class="zi">
-            <span class="rx">西安鑫苑大都汇 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>
-            <span class="rx">楼层数：共5层</span>
-            <br>
-            <span class="rx">开始时间：2016年12月16日 &nbsp &nbsp &nbsp &nbsp &nbsp</span>
-            <span class="rx">面积：12万平方</span>
-          </div>
-        </div>
-        <div class="right-cont">
-          <div class="xing"></div>
-          <span class="r2-1">客销度</span>
-          <p class="r2">E1：短期下调租金培育品牌经营</p>
-          <p class="r2">E2:辅助品牌经营</p>
-          <p class="r2">E3:分析品牌下降原因</p>
-          <p class="r2">E4:下调租金</p>
-          <p class="r2">E5:品牌淘汰</p>
-        </div>
-        <div class="right-bottom">
-          <div class="xing"></div>
-          <span class="r3-1">建议措施</span>
-          <span class="r3">溢租率</span>
-          <span class="r3">适配值</span>
-          <p class="r4">E1：短期下调租金培育品牌经营</p>
-          <p class="r4">E2:辅助品牌经营</p>
-          <p class="r4">E3:分析品牌下降原因</p>
-          <p class="r4">E4:下调租金</p>
-          <p class="r4">E5:品牌淘汰</p>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="g_ct">
     <el-row>
       <el-col :span="6">
@@ -147,8 +30,43 @@
       <el-col :span="12">
 
         <div class="center_1 mb20">
+          <div class="missingData f-fl" @click="showMissingData()">数据缺失查询</div>
+          <el-dialog title="数据缺失情况" :visible="dialogVisible" @close='closeDialog'>
+            <div v-loading="loading" element-loading-text="拼命加载中">
+              <ul>
+                <li v-for="(item, index) in missingData.projecbzkxd" :key="index">{{item}}</li>
+              </ul>
+
+              <ul>
+                <li v-for="(item, index) in missingData.projecbzspz" :key="index">{{item}}</li>
+              </ul>
+
+              <ul>
+                <li v-for="(item, index) in missingData.projecbzyzl" :key="index">{{item}}</li>
+              </ul>
+
+              <ul>
+                <li v-for="(item, index) in missingData.projeckxd" :key="index">{{item}}</li>
+              </ul>
+
+              <ul>
+                <li v-for="(item, index) in missingData.projecspz" :key="index">{{item}}</li>
+              </ul>
+
+              <ul>
+                <li v-for="(item, index) in missingData.projecyzl" :key="index">{{item}}</li>
+              </ul>
+
+              <ul>
+                <li v-for="(item, index) in missingData.sp" :key="index">{{item}}</li>
+              </ul>
+
+            </div>
+
+          </el-dialog>
+
           <div class="title_bg tit_center1"></div>
-          <span class="title_txt">三角理念统计</span>
+          <span class="title_txt">三角理论统计</span>
 
 
           <!-- <div class="select_ct">
@@ -228,12 +146,7 @@
 
             </div>
           </div>
-          <!--<h2 class="center_1_lable" v-if="triangData.triangleGuest >= triangData.excellentPgeVal * 0.75 ">优秀</h2>-->
-          <!--<h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.5 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.75 ">良好</h2>-->
-          <!--<h2 class="center_1_lable" v-else-if="triangData.excellentPgeVal * 0.25 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.5 ">提升</h2>-->
-          <!--<h2 class="center_1_lable" v-else-if="0 <= triangData.triangleGuest < triangData.excellentPgeVal * 0.25 ">合理</h2>-->
-          <!--<h2 class="center_1_lable" v-else-if="triangData.triangleGuest < 0">亏损</h2>-->
-          <!--<h2 class="center_1_lable" v-else></h2>-->
+
           <h2 class="center_1_lable" v-if="triangData.kxdState==1">优秀</h2>
           <h2 class="center_1_lable" v-if="triangData.kxdState==2">良好</h2>
           <h2 class="center_1_lable" v-if="triangData.kxdState==3">提升</h2>
@@ -320,48 +233,14 @@
           </div>
           <div class="f-fr g_place">
             <ul class="pt75">
-              <li>
-                <b>华北区</b>
+              <li v-for="(item,index) in areaNums" :key="index">
+                <b>{{item.name}}</b>
                 <span>
-                  <el-progress :percentage="100" :show-text="false"></el-progress>
+                  <el-progress :percentage="parseFloat(item.num)/totalNum*100" :show-text="false"></el-progress>
                 </span>
-                <em>500</em>
+                <em>{{item.num}}</em>
               </li>
-              <li>
-                <b>华中区</b>
-                <span>
-                  <el-progress :percentage="80" :show-text="false"></el-progress>
-                </span>
-                <em>400</em>
-              </li>
-              <li>
-                <b>华东区</b>
-                <span>
-                  <el-progress :percentage="50" :show-text="false"></el-progress>
-                </span>
-                <em>300</em>
-              </li>
-              <li>
-                <b>华南区</b>
-                <span>
-                  <el-progress :percentage="15" :show-text="false"></el-progress>
-                </span>
-                <em>200</em>
-              </li>
-              <li>
-                <b>华西北区</b>
-                <span>
-                  <el-progress :percentage="15" :show-text="false"></el-progress>
-                </span>
-                <em>100</em>
-              </li>
-              <li>
-                <b>华西南区</b>
-                <span>
-                  <el-progress :percentage="15" :show-text="false"></el-progress>
-                </span>
-                <em>100</em>
-              </li>
+
             </ul>
             <el-row class="mt20 mb10 f-tac">
               <!--<el-button type="primary" size="small">智能推送</el-button>-->
@@ -376,28 +255,48 @@
         <div class="right_1 mb20">
           <div class="title_bg tit_right1"></div>
           <span class="title_txt">项目预览</span>
-          <swiper :options="swiperOption" ref="mySwiper" class="mySwiper_list">
-            <swiper-slide>
-              <div class="img">
-                <img src="../../assets/images/r_t.png" alt="">
-              </div>
+          <swiper :options="swiperOption" ref="mySwiper" class="mySwiper_list" v-if="proSummary">
 
+            <swiper-slide v-for="(item, index) in proSummary.url" :key="index">
+              <div class="img-box">
+                <img :src="item.url" alt="">
+              </div>
             </swiper-slide>
+            <!--<swiper-slide>-->
+              <!--<div class="img-box">-->
+                <!--<img src="../../assets/images/r_t.png" alt="">-->
+              <!--</div>-->
+            <!--</swiper-slide>-->
+
+            <!-- <div class="swiper-pagination" slot="pagination"></div> -->
+          </swiper>
+          <swiper :options="swiperOption" ref="mySwiper" class="mySwiper_list" v-else="">
+
+            <!--<swiper-slide v-for="(item, index) in proSummary.url" :key="index" v-if="proSummary">-->
+              <!--<div class="img-box">-->
+                <!--<img :src="item.url" alt="">-->
+              <!--</div>-->
+            <!--</swiper-slide>-->
             <swiper-slide>
-              <div class="img">
+              <div class="img-box">
                 <img src="../../assets/images/r_t.png" alt="">
               </div>
             </swiper-slide>
+
             <!-- <div class="swiper-pagination" slot="pagination"></div> -->
           </swiper>
           <div class="swiper_txt f-cb">
             <div class="f-fl">
-              <p>西安鑫苑大都汇</p>
-              <p>楼层数：共5层</p>
+              <p v-if="proSummary">{{proSummary.name}}</p>
+              <p v-else>西安鑫苑大都汇</p>
+              <p v-if="proSummary">楼层数：共{{proSummary.floorNum}}层</p>
+              <p v-else="">楼层数：共5层</p>
             </div>
             <div class="f-fr">
-              <p>开业时间：2016年12月16日</p>
-              <p>面积：12万平方</p>
+              <p v-if="proSummary">开业时间：{{proSummary.createDate}}</p>
+              <p v-else="">开业时间：2016年12月16日</p>
+              <p v-if="proSummary">面积：{{proSummary.acreage}}平方</p>
+              <p v-else="">面积：120000平方</p>
             </div>
           </div>
         </div>
@@ -518,10 +417,13 @@
 <script>
   import echarts from '../../../static/js/echarts.js'
   // import china from '../../components/options/china.js';
+  var me = this;
   export default {
 
     data() {
       return {
+        dayPassengerflowall: [],//左下角客流量
+        daySaleroomall: [],//左下角销售额
         value_index: '',//时间区间
         createTimeBegin: '',
         createTimeEnd: '',
@@ -544,12 +446,13 @@
             }
           ]
         },
-
+        proSummary:'',
         buildingId: '',
         buildingList: {},
         floorId: '',
         floorList: {},
-
+        areaNums:'',
+        totalNum:0,
         megabiteId: '',
         megabiteList: {},
         categoryId:'',
@@ -663,6 +566,7 @@
         isCategoryShow: false, //业种
         isBrandShow: false,//品牌
 
+
         swiperOption: {
           // 如果需要分页器
           pagination: {
@@ -675,16 +579,14 @@
           initialSlide: 0
         },
         screenWidth: document.body.clientWidth,
-        // good: 0.2,
-        // good1: 0.4,
-        // good2: 0.6,
-        // good3: 0.8,
-        // good4: 1
+        missingData: '',
+        dialogVisible: false,
+        loading: false,
       }
     },
     created() {
+
       window.$getAreaList().then((res) => {
-        console.log("区域列表数据***" + res)
         this.areaList = res
         this.hintArea2ProjectOne(res[0].id) //yyh
         // this.areaChangedForFloor(res[0].id)
@@ -701,20 +603,48 @@
         })
       // 查询全国销售额
       this.$axios.get('/dayguest/find/saleroomall/list')
+      .then(res => {
+        // this.countrySalesVolume = (parseInt(res)/10000)+""
+        this.countrySalesVolume = Number(parseInt(res)/10000).toFixed(2)
+        Number(value).toFixed(2)
+      }, (err) => {
+        console.log(err)
+      })
+
+      // 中间下方地图
+      this.$axios.get('/region/sy/pb/num')
         .then(res => {
-          // this.countrySalesVolume = (parseInt(res)/10000)+""
-          this.countrySalesVolume = Number(parseInt(res)/10000).toFixed(2)
-          Number(value).toFixed(2)
+          this.areaNums = res;
+          this.areaNums.forEach((item, index) => {
+            this.totalNum = this.totalNum += parseFloat(item.num)
+          })
+
         }, (err) => {
           console.log(err)
         })
+      // // 左下角客流量
+      // me.$axios.get('/dayguest/find/day/passengerflowall/list')
+      //   .then(res => {
+      //     me.dayPassengerflowall = res.data;
+      //
+      //   }, (err) => {
+      //     console.log(err)
+      //   })
+      //   console.log(me);
+      // // 左下角销售额
+      //   this.$axios.get('/dayguest/find/day/saleroomall/list')        .then(res => {
+      //     this.daySaleroomall = res;
+      //   }, (err) => {
+      //     console.log(err)
+      //   })
+      //   console.log(this.daySaleroomall)
     },
 
     watch: {
       screenWidth(val) {
         this.screenWidth = val
         this.myChart.resize()
-        myChart1.resize()
+        this.myChart1.resize()
         this.myChart3.resize()
       },
       triangData(val) {
@@ -748,82 +678,17 @@
           window.screenWidth = document.body.clientWidth
           this.screenWidth = window.screenWidth
           this.myChart.resize()
-          myChart1.resize()
+          this.myChart1.resize()
           this.myChart3.resize()
         })()
       }
-
-      var myChart1 = echarts.init(document.getElementById('main1'));
-      var option1 = {
-        color: ['#ce4b4b', '#00ac82'],
-        textStyle: {
-          color: "white"
-        },
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          data: ['全国各区域客流量', '全国各区域销售量'],
-          left: 'right',
-          top: 10,
-          textStyle: {
-            color: '#fff'
-          }
-        },
-        grid: {
-          left: '20%',
-          right: '15%',
-          bottom: '15%',
-          top: '25%'
-        },
-        calculable: true,
-        xAxis: [{
-          type: 'category',
-          boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-        }],
-        yAxis: [{
-          type: 'value',
-          axisLabel: {
-            formatter: '{value}'
-          }
-        }],
-        series: [{
-          name: '全国各区域客流量',
-          type: 'line',
-          data: [11, 11, 15, 13, 12, 13, 10],
-          // markPoint: {
-          //   data: [
-          //     {type: 'max', name: '最大值'},
-          //     {type: 'min', name: '最小值'}
-          //   ]
-          // },
-          markLine: {
-            data: [
-              {type: 'average', name: '平均值'}
-            ]
-          }
-        },
-          {
-            name: '全国各区域销售量',
-            type: 'line',
-            data: [1, -2, 2, 5, 3, 2, 0],
-            // markPoint: {
-            //   data: [
-            //     {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-            //   ]
-            // },
-            markLine: {
-              data: [
-                {type: 'average', name: '平均值'}
-              ]
-            }
-          }
-        ]
-      };
-      myChart1.setOption(option1);
+      // this.myChart1 = echarts.init(document.getElementById('main1'));
+      // var option1 = this.getOption1()
+      //
+      // this.myChart1.setOption(option1);
 
       this.getAaa()
+      this.getZxj()
       //中国地图
       // var myChart_china = echarts.init(document.getElementById('china'))
       // china( myChart_china)
@@ -978,24 +843,6 @@
         //三角形数据接口
         this.$axios.post(url, params).then((res) => {
           this.triangData = res
-          // //优秀
-          // // this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
-          // this.good = (this.triangData.excellentPgeVal - this.triangData.goodPgeVal)/this.triangData.excellentPgeVal
-          //
-          // //良好
-          // // this.good1 = (this.triangData.excellentPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
-          // this.good1 = (this.triangData.goodPgeVal - this.triangData.promotePgeVal)/this.triangData.excellentPgeVal
-          //
-          // //提升
-          // // this.good2 = (this.triangData.excellentPgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
-          // this.good2 = (this.triangData.promotePgeVal - this.triangData.reasonablePgeVal)/this.triangData.excellentPgeVal
-          //
-          // // this.good3 = (this.triangData.excellentPgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
-          // this.good3 = (this.triangData.reasonablePgeVal - this.triangData.lossVal)/this.triangData.excellentPgeVal
-          //
-          // //亏损
-          // this.good4 = this.triangData.lossVal/this.triangData.excellentPgeVal
-
         }, (err) => {
           console.log("返回的错误信息："+err)
           alert(err)
@@ -1003,7 +850,7 @@
 
       },
 
-
+      //三角形
       getOption() {
         return {
           textStyle: {
@@ -1188,8 +1035,6 @@
 
         }
       },
-
-
       getAaa() {
         this.$axios.get('/pctriangle/find/salepassengerflow/all')
           .then(res => {
@@ -1296,8 +1141,86 @@
             console.log(err)
           })
       },
+      //左下角
+      getZxj() {
+        this.$axios.get('/dayguest/find/day/saleroomall/list')
+          .then(res => {
+            this.dayPassengerflowall = res.kll
+            this.daySaleroomall = res.xse
+
+            this.myChart1 = echarts.init(document.getElementById('main1'));
+
+            var option1 = {
+              color: ['#ce4b4b', '#00ac82'],
+              textStyle: {
+                color: "#fff"
+              },
+              tooltip: {
+                trigger: 'axis',
+                // formatter: "{b}<br/>全国各区域客流量 {d}万: <br/>全国各区域销售量: {c}万"
+              },
+              legend: {
+                data: ['全国各区域客流量', '全国各区域销售量'],
+                top: -5,
+                textStyle: {
+                  color: '#fff'
+                }
+              },
+              grid: {
+                left: '8%',
+                right: '11%',
+              },
+              xAxis: [
+                {
+                  type: 'category',
+                  boundaryGap: false,
+                  data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                },
+                {
+                  type: 'category',
+                  boundaryGap: false,
+                }
+              ],
+              yAxis: [
+                {
+                  type: 'value',
+                  scale: true,
+                  name: '客流(万)',
+                  max: 8,
+                  min: 0,
+                  boundaryGap: [0.2, 0.2]
+                },
+                {
+                  type: 'value',
+                  scale: false,
+                  name: '销售量(万)',
+                  max: 300,
+                  min: 0,
+                  boundaryGap: [0.2, 0.2]
+                }
+              ],
+              series: [
+                {
+                  name:'全国各区域客流量',
+                  type:'line',
+                  xAxisIndex: 0,
+                  yAxisIndex: 0,
+                  data: this.dayPassengerflowall
+                },
+                {
+                  name:'全国各区域销售量',
+                  type:'line',
+                  data: this.daySaleroomall,
+                }
+              ]
 
 
+            }
+            this.myChart1.setOption(option1)
+          }, (err) => {
+            console.log(err)
+          })
+      },
 
       forProjectDetails() {
         $axios.get('/pctriangle/find/project/by/' + this.projectId).then((res) => {
@@ -1500,7 +1423,14 @@
 
         this.projectId = this.projectList[index].id
         console.log("***tabClick2_yyh当前项目的id为" + this.projectId)
-
+        // 右上角项目概览
+        this.$axios.get('/region/sy/project/'+ this.projectId)
+          .then(res => {
+            this.proSummary = res
+            console.log(res);
+          }, (err) => {
+            console.log(err)
+          })
         if (this.typeId === 2) {//楼层维度
           console.log("项目变化，层级为楼层！")
           this.getBuildingFloorInfo(this.projectId)
@@ -1514,7 +1444,6 @@
           // this.getBuildingFloorInfo(this.projectId)
           this.getMegabite2category2brand(this.projectId)
         }
-
 
       },
 
@@ -1540,7 +1469,6 @@
             this.megabiteList = {}
             this.isOperationShow = false
             // alert("此项目没有业态！")
-            console.log("此项目没有业态-------------------------")
 
             this.isCategoryShow = false
             this.isBrandShow = false
@@ -1555,7 +1483,6 @@
 
 
       getBuildingFloorInfo(projectId) {
-        console.log("***getBuildingFloorInfo*projectId" + projectId)
         this.projectId = projectId
         window.$getBuilding(this.projectId).then(res => {
           console.log(res)
@@ -1564,9 +1491,7 @@
           this.buildingId = res[0].id
 
           window.$getFloorForBuilding(this.buildingId).then(res => {
-            console.log("***当前楼层列表的数据长度：" + res.length)
             if (res.length > 0) {
-              console.log("***当前楼层列表的数据：" + res)
               this.isFloorShow = true
               this.floorList = res
               this.floorId = this.floorList[0].id
@@ -1574,7 +1499,6 @@
               this.floorList = {}
               this.floorId = ""
               this.isFloorShow = false
-              console.log("没有楼层数据--------------------------")
               // alert("当前项目暂时没有楼层数据！")
             }
           }, err => {
@@ -1620,7 +1544,6 @@
 
 
       tabClick4_yyh(index, isClicked) {
-        console.log("tabClick4_yyh楼层下拉列表被点击！")
         this.clicked4 = isClicked
         this.clicked1 = false
         this.clicked2 = false
@@ -1631,7 +1554,6 @@
         this.clicked8 = false
         this.clicked6_category = false
 
-        console.log("当前楼层名***" + this.floorList[index].name)
 
         if (this.typeId === 2) {
 
@@ -1677,7 +1599,6 @@
         this.clicked8 = false
         this.clicked6_category = false
 
-        console.log("当前业态名***" + this.megabiteList[index].name)
 
         if (this.typeId === 3) {
 
@@ -1734,7 +1655,6 @@
             this.isOperationShow = false
             this.megabiteList = {}
             // alert("此项目没有业态！")
-            console.log("此项目没有业态--------------------------")
 
             this.isCategoryShow = false
             this.isBrandShow = false
@@ -1754,7 +1674,6 @@
         window.$getSpeciesSelect(this.megabiteId).then((res) => {
           if (res.length > 0) {
             this.isCategoryShow = true
-            console.log("业种数据："+res)
             this.categoryList = res
 
             this.categoryId = res[0].id
@@ -1762,7 +1681,6 @@
             this.getBusinessCategory2Brand()
 
           }else{
-            console.log("当前没有业种数据--------------------------")
             this.isCategoryShow = false
             this.categoryList = {}
           }
@@ -1789,7 +1707,6 @@
             this.brandId = res[0].id
           } else {
             this.isBrandShow = false
-            console.log("当前没有品牌数据--------------------------")
             // alert("当前没有品牌数据")
             this.brandList = {}
           }
@@ -1814,7 +1731,6 @@
         this.clicked7 = false
         this.clicked6_category = false
 
-        console.log("当前品牌名***" + this.brandList[index].name)
 
         if (this.typeId === 4) {
           this.brandId = this.brandList[index].id
@@ -1827,13 +1743,11 @@
       areaChangedForFloor(areaId) { // 区域改变
         this.areaId = areaId
         window.$getProjectListForArea(this.areaId).then(res => {
-          console.log("项目列表数据***" + res)
           // if(res.length===0){
           // this.projectList = []
           // }else{
           //this.projectList = {}//清空项目数据
           this.projectList = res
-          console.log("项目数据projectList***" + projectList)
           this.projectId = res[0].id
           console.log(res[0].id)
           // }
@@ -1865,7 +1779,6 @@
       hintArea2ProjectOne(areaId) {
         this.areaId = areaId
         window.$getProjectListForArea(this.areaId).then(res => {
-          console.log("项目列表数据***" + res)
           this.projectList = res
           this.projectId = res[0].id
           this.getTriangleValue(1)
@@ -2030,6 +1943,120 @@
         this.getTriangleValue(3)
       },
 
+      getMissingData(type) {
+
+        var params = {
+          projectId: this.projectId
+        }
+
+        if(typeof(this.value_index[0]) == "undefined") {
+          this.getCurrentDateTime()
+          params.createTime = this.createTimeBegin
+          params.modifyTime = this.createTimeEnd
+
+        }else {
+          params.createTime = this.value_index[0]
+          params.modifyTime = this.value_index[1]
+        }
+
+
+        var url = ''
+        if (type === 1) {//项目
+
+          url = '/sy/wt/get/project'
+          params.projectId = this.projectId
+
+
+        } else if (type === 2) {//楼层
+
+          url = '/sy/wt/get/floor'
+          params.projectId = this.projectId
+          params.buildingId = this.buildingId
+          if(this.floorId === ""){
+            alert("此项目没有楼层！")
+            return
+          }else{
+            params.floorId = this.floorId
+          }
+
+          // params.createTime = this.createTimeBegin
+          // params.modifyTime = this.createTimeEnd
+
+
+        } else if (type === 3) {//业态
+          // url = '/pctriangle/find/trianglecondition/byconditionId'
+          // params.conditionId = this.conditionId
+          // params.majoId = this.megabiteId
+          url = '/sy/wt/get/yetai'
+          params.projectId = this.projectId
+          if(this.megabiteId === ""){
+            alert("此项目没有业态！")
+            return
+          }else{
+            params.formId = this.megabiteId
+          }
+          // params.createTime = this.createTimeBegin
+          // params.modifyTime = this.createTimeEnd
+
+
+        } else if (type === 4) {//品牌
+          // url = '/pctriangle/find/trianglebrand/byBrandId'
+          // params.majoId = this.megabiteId
+          // params.brandId = this.brandId
+          url = '/sy/wt/get/brand'
+          params.projectId = this.projectId
+          if(this.megabiteId === "" ||this.categoryId==="" || this.brandId===""){
+            alert("此层级数据不全！")
+            return
+          }else{
+            // params.buildingId = this.buildingId
+            // params.floorId = this.floorId
+            params.formId = this.megabiteId
+            params.speciesId = this.categoryId
+            params.contractId = this.brandId
+          }
+
+
+          // params.createTime = this.createTimeBegin
+          // params.modifyTime = this.createTimeEnd
+
+
+        }
+
+        //三角形数据缺失接口
+        this.loading = true;
+        this.$axios.post(url, params).then((res) => {
+          this.missingData = res;
+          this.loading=false;
+        }, (err) => {
+          this.loading=true
+          console.log("返回的错误信息："+err)
+          alert(err)
+        })
+
+      },
+      showMissingData(){
+        this.dialogVisible = true;
+        if (this.typeId === 1) {//当前维度项目
+          this.getMissingData(1);
+        }
+        if (this.typeId === 2) {//当前维度楼层
+          this.getMissingData(2);
+
+        }
+        if (this.typeId === 3) {//当前维度业态
+          this.getMissingData(3);
+
+        }
+        if (this.typeId === 4) {//当前维度品牌
+          this.getMissingData(4);
+
+        }
+        // this.getMissingData(type);
+      },
+      closeDialog(){
+        this.dialogVisible = false;
+      },
 
     }
   }
@@ -2142,6 +2169,16 @@
       position: relative;
       width: 425px;
       margin: 15px auto 0;
+
+    }
+    .missingData{
+      color: #ddd;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      top: 32px;
+      right: 30px;
     }
   }
 
@@ -2282,7 +2319,9 @@
       width: 100%;
       /*min-height: 230px;*/
       /*width: 30%;*/
-      min-height: 200px;
+      min-height: 210px;
+      top: 30px;
+      left: -5px;
     }
   }
 
@@ -2410,13 +2449,15 @@
       }
 
     }
-    .img {
+    .img-box {
       height: 250px;
       margin: 0 auto;
       text-align: center;
+      border-radius: 3px;
       img {
         width: 282px;
         height: 100%;
+        border-radius: 3px;
       }
     }
   }
@@ -2499,7 +2540,14 @@
       color: #fff;
     }
   }
-
+  .el-dialog__wrapper{
+    overflow: hidden;
+    .el-dialog__body {
+      padding: 5px 20px;
+      height: 320px;
+      overflow-y: auto;
+    }
+  }
 
 </style>
 

@@ -1,34 +1,4 @@
 <template>
-  <!--<div class="header">-->
-  <!--<el-row :gutter="20" class="">-->
-  <!--<el-col :span="8">-->
-  <!--<div class="index-left">-->
-  <!--<ul style="margin-top: 20px">-->
-  <!--<li>-->
-  <!--<p>首页</p>-->
-  <!--</li>-->
-  <!--<li class="subMenu">项目管理</li>-->
-  <!--<li>品牌管理</li>-->
-  <!--<li>签约管理</li>-->
-  <!--</ul>-->
-  <!--</div>-->
-  <!--</el-col>-->
-  <!--<el-col :span="8">-->
-  <!--<div class="index-content">-->
-  <!--<img src="../../assets/images/logo1.png" alt="" style="width:100%;margin-top:28px;">-->
-  <!--</div>-->
-  <!--</el-col>-->
-  <!--<el-col :span="8"><div class="index-right">-->
-  <!--<ul style="margin-top: 20px">-->
-  <!--<li>数据管理</li>-->
-  <!--<li>帮扶计划</li>-->
-  <!--<li>评估模板</li>-->
-  <!--<li>系统平台</li>-->
-  <!--</ul>-->
-  <!--</div>-->
-  <!--</el-col>-->
-  <!--</el-row>-->
-  <!--</div>-->
   <div class="header">
     <div class="navList">
       <ul class="navCont" @mouseleave="closeAllSubMenu">
@@ -49,6 +19,7 @@
           </ul>
         </li>
       </ul>
+      <button @click="exit()" class="exit">重新登录</button>
     </div>
   </div>
 </template>
@@ -109,6 +80,9 @@ export default {
       }, (err) => {
         console.log(err)
       })
+    },
+    exit() {
+      this.$router.replace('/login')
     },
     goLink(info, data) {
       this.closeAllSubMenu()
@@ -285,5 +259,14 @@ export default {
   padding: 0 30px;
   line-height: 40px;
 }
-
+.exit{
+  width: 80px;
+  text-align: center;
+  margin: 0 auto;
+  height: 30px !important;
+  line-height: 30px !important;
+  background-color: #4484a1 !important;
+  border: none;
+  border-radius: 4px;
+}
 </style>

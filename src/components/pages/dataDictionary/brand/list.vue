@@ -36,7 +36,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="paginationCont">
+      <div class="paginationCont" v-if="data.countSize">
           <el-pagination
               @current-change="handleCurrentChange"
               :current-page="page"
@@ -117,7 +117,7 @@ export default {
         this.showAlert(err)
       })
       }).catch(() => {
-                  
+
       })
     },
     editDetails (id) {

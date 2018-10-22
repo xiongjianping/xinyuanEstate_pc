@@ -1,19 +1,10 @@
 <template>
   <div class="mainContent" v-loading="loading" element-loading-text="拼命加载中">
-      <h3 id="title">标准三角形</h3><br>
+
       <el-form label-width="100px" :model="searchForm">
         <el-row class="searchBox" :gutter="10">
-          <el-col :span="5">
-            <el-form-item label="对象" :label-width="formLabelWidth" >
-              <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type != 1">
-                <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
+          <h3 id="title">标准三角形</h3><br>
 
-              <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type == 1">
-                <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <el-col :span="5">
             <el-form-item label="区域" :label-width="formLabelWidth">
               <el-select  size="small" v-model="searchForm.areaId" placeholder="全部区域" @change="areaChanged()">
@@ -25,6 +16,31 @@
             <el-form-item label="项目" :label-width="formLabelWidth">
               <el-select   size="small" v-model="searchForm.projectId" placeholder="请选择项目" @change="projectChanged()">
                 <el-option v-for="(item, index) in projectList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item label="对象" :label-width="formLabelWidth" >
+              <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type != 1">
+                <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+
+              <el-select  size="small" v-model="objType" placeholder="项目" @change="objTypeChange()" v-if="type == 1">
+                <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class="searchBox" :gutter="10">
+          <!--<el-col :span="5" v-if="objType == 2">-->
+            <!--<el-form-item label="品牌" :label-width="formLabelWidth">-->
+              <!--<el-input size="small" maxlength="11" v-model="searchForm.brandName" placeholder="请输入品牌"/>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+          <el-col :span="5" v-if="objType === '2' || objType === '3'||objType === '4'">
+            <el-form-item label="业态" :label-width="formLabelWidth">
+              <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
+                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -44,13 +60,7 @@
           </el-form-item>
         </el-col> -->
         <!--<el-row class="searchBox" :gutter="10">-->
-          <el-col :span="5" v-if="objType === '2' || objType === '3'||objType === '4'">
-            <el-form-item label="业态" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
-                <el-option v-for="(item, index) in businessList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+
           <el-col :span="5" v-if="objType === '3'||objType === '4'">
             <el-form-item label="业种" :label-width="formLabelWidth">
               <el-select size="small" v-model="searchForm.businessSpeciesId" placeholder="请选择业种" @change="speciesChanged()">
@@ -58,13 +68,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="5" v-if="objType === '4'">
-            <el-form-item label="品牌" :label-width="formLabelWidth">
-              <el-select size="small" v-model="searchForm.brandId" placeholder="请选择品牌" @change="brandIdChanged()">
-                <el-option v-for="(item, index) in brandList" :key="index" :label="item.name" :value="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+
           <el-col :span="5">
             <el-form-item label="生效时间" :label-width="formLabelWidth">
               <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
@@ -141,7 +145,8 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="溢租率" :label-width="formLabelWidth">
-                <el-input size="small" type="number" v-model="rentForm.rentFee" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="rentForm.rentFee" :maxlength="11" placeholder="请输入溢租率"></el-input>
+                <p class="tip">溢租率不能为空</p>
               </el-form-item>
             </el-col>
 
@@ -229,6 +234,7 @@
             <el-col :span="8">
               <el-form-item label="毛利率" :label-width="formLabelWidthYZ">
                 <el-input size="small" type="number" v-model="guestForm.persent" :maxlength="11" placeholder="请输入毛利率 "></el-input>
+                <p class="tip">毛利率不能为空</p>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -315,7 +321,8 @@
         <el-row class="FitnessValue">
             <el-col :span="8">
               <el-form-item label="适配值" :label-width="formLabelWidth">
-                <el-input size="small" type="number" v-model="fittedForm.fittedVal" :maxlength="11" placeholder=" "></el-input>
+                <el-input size="small" type="number" v-model="fittedForm.fittedVal" :maxlength="11" placeholder="请输入适配值"></el-input>
+                <p class="tip">适配值不能为空</p>
               </el-form-item>
             </el-col>
           <el-col :span="8">
@@ -339,6 +346,7 @@
 
     <div class="buttonList">
       <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="reset();">清空</el-button>
       <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
     </div>
 
@@ -469,7 +477,7 @@
           @current-change="handleCurrentChange"
           :current-page="page"
           layout="prev, pager, next"
-          :total="data.count">
+          :total="data.countSize">
         </el-pagination>
       </div>
     </div>
@@ -501,10 +509,16 @@
       businessType: '',
       exportExlsData: {},
       areaList:[],
-      projectList:[],
+      projectList:[], id: '0',
       projectId:'',
       data: {},
       loading: false,
+      options:[
+        {
+
+          name: '全部',
+        }
+      ],
       infoData: {},
       page: 1,
       size: 10,
@@ -518,12 +532,27 @@
       activeName2: 'first',
       buildingList:[],
       buildingId:'',
-      floorList:[],
+      floorList:[
+        {
+          id: '',
+          name: '全部',
+        }
+      ],
       floorId:'',
-      businessList:[],
+      businessList:[
+        {
+          id: '',
+          name: '全部',
+        }
+      ],
       business:'',
       businessSpeciesId:'',
-      speciesList:[],
+      speciesList:[
+        {
+          id: '',
+          name: '全部',
+        }
+      ],
       species:'',
       brandList:[],
       brandId:"",
@@ -569,8 +598,6 @@
         contractId:'',//签约ID
         rentingRateVal:'',//溢租率
         effectTime:'', //生效时间
-        contractId:'',//签约ID
-        effectTime:'' //生效时间
       },
       fittedCreateDate :{
         projectId:'',
@@ -636,15 +663,31 @@
     }),
     created () {
       window.$getformSelect().then((res) => {
-        this.businessList = res
+        // this.businessList = res
+        this.businessList.push.apply(this.businessList, res)
       }, (err) => {})
       console.log("created:"+this.businessList);
       window.$getAreaList().then((res) => {
         this.areaList = res
       }, (err) => {console.log(err)})
+      // window.$getAreaList().then((res) => {
+      //   this.options.push.apply(this.options, res)
+      // }, (err) => {
+      //   console.log(err)
+      // })
       this.searchList(1)
     },
     methods: {
+      reset(){
+        this.searchForm.areaId= '';
+        this.searchForm.projectId= '';
+        this.searchForm.brandName= '';
+        this.searchForm.businessFormId= '';
+        this.searchForm.floorId= '';
+        this.searchForm.businessSpeciesId= '';
+        this.effectTime= '';
+        this.searchList(1)
+      },
       createStandardRent(){
         this.rentCreateDate.projectId = this.rentForm.projectId //项目ID
         this.rentCreateDate.buildingId = this.rentForm.buildingId //楼栋ID
@@ -838,7 +881,7 @@
       areaChanged(){
         this.searchForm.projectId = '';
         this.searchForm.buildingId = '';
-        this.floorId = '';
+
         this.myareaId = this.searchForm.areaId;
         if (this.dialogFormVisible) {
           this.myareaId = this.rentForm.areaId;
@@ -860,7 +903,7 @@
           this.showAlert(err)
         })
       },
-//打印对象值
+      //打印对象值
       objTypeChange(){
         //this.showAlert(this.objType);
       },
@@ -869,15 +912,16 @@
       projectChanged(){
         this.searchForm.buildingId = ''
         this.myprojectId = this.searchForm.projectId;
-        this.searchForm.floorId=''
-        this.floorList = ''
+        // this.floorList = ''
      /*   this.floorId = ''*/
         window.$getBuilding(this.searchForm.projectId).then((res) => {
           console.log("projectChanged");
           console.log(res)
           //调用楼层
           window.$getFloorForBuilding(res[0].id).then((floorRes) => {
-            this.floorList = floorRes
+            // this.floorList = floorRes
+            this.floorList.push.apply(this.floorList, floorRes)
+
             console.log("楼层----")
             console.log(floorRes);
           }, (err) => {
@@ -950,11 +994,15 @@
           this.showAlert(err)
         })
       },
-
+      floorChanged(){
+        if(this.searchForm.floorId ==0){
+          this.searchRequest.floorId = 0;
+        }
+      },
       // 业态
       businessChanged(){
         this.searchForm.businessSpeciesId = ''
-        this.speciesList = [];
+        // this.speciesList = [];
         this.brandId = ''
         this.mybusinessFormId = this.searchForm.businessFormId;
         if (this.dialogFormVisible) {
@@ -970,7 +1018,9 @@
           this.mybusinessFormId = this.fittedForm.businessFormId;
         }
         window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
-          this.speciesList = res
+          // this.speciesList = res
+          this.speciesList.push.apply(this.speciesList, res)
+
         }, (err) => {
           this.showAlert(err)
         })
@@ -1109,7 +1159,7 @@
         this.searchRequest.speciesId = this.searchForm.businessSpeciesId; //业种
         this.searchRequest.brandName = this.searchForm.brandName //品牌
         this.searchRequest.effectTime = this.effectTime;//生效时间
-        this.searchRequest.contractId =this.searchForm.brandId;
+        // this.searchRequest.contractId =this.searchForm.brandId;
         if (this.type == 0) {//溢租率
           if(this.objType==0){
             window.$getStandardProjectRentList(this.page, this.size, this.searchRequest)
@@ -1400,5 +1450,10 @@
   }
   .el-tabs__content {
     overflow: inherit;
+  }
+  .tip{
+    margin-top: -15px;
+    font-size: 12px;
+    color: red;
   }
 </style>

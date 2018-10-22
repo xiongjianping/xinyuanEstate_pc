@@ -67,11 +67,11 @@
         <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" v-on:click="bianji(scope.row.id)">编辑</el-button>
-            <el-button type="text" v-on:click="deleteBrand(scope.row.id)">删除</el-button>
+            <!--<el-button type="text" v-on:click="deleteBrand(scope.row.id)">删除</el-button>-->
           </template>
         </el-table-column>
       </el-table>
-      <div class="paginationCont">
+      <div class="paginationCont" v-if="data.countSize">
         <el-pagination
         @current-change="handleCurrentChange"
         :current-page="page"
