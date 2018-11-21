@@ -44,7 +44,7 @@
     <div class="biaoti1">楼层管理列表</div>
     <div class="listCont">
       <el-table :data="floorList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" label="序号"></el-table-column>
+        <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
         <el-table-column align="center" prop="buildingName" label="楼栋"></el-table-column>
@@ -104,6 +104,9 @@ export default {
     })
   },
   methods: {
+    indexMethod(index) {
+      return (this.page-1)*10+index + 1;
+    },
     handleSizeChange (val) {
       this.size = val
       this.searchList()

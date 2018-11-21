@@ -147,11 +147,11 @@
             </div>
           </div>
 
-          <h2 class="center_1_lable" v-if="triangData.kxdState==1">优秀</h2>
-          <h2 class="center_1_lable" v-if="triangData.kxdState==2">良好</h2>
-          <h2 class="center_1_lable" v-if="triangData.kxdState==3">提升</h2>
-          <h2 class="center_1_lable" v-if="triangData.kxdState==4">合理</h2>
-          <h2 v-if="triangData.kxdState==5">亏损</h2>
+          <!--<h2 class="center_1_lable" v-if="triangData.kxdState==1">优秀</h2>-->
+          <!--<h2 class="center_1_lable" v-if="triangData.kxdState==2">良好</h2>-->
+          <!--<h2 class="center_1_lable" v-if="triangData.kxdState==3">提升</h2>-->
+          <!--<h2 class="center_1_lable" v-if="triangData.kxdState==4">合理</h2>-->
+          <!--<h2 v-if="triangData.kxdState==5">亏损</h2>-->
 
 
 
@@ -168,28 +168,13 @@
               <span>标准三角形</span>
               <span>
                 <i>{{triangData.standardRent}}</i>
-                <!--<i v-if="triangData.standardRent >= 3">（优秀）</i>-->
-                <!--<i v-else-if="2 <= triangData.standardRent < 3">（良好）</i>-->
-                <!--<i v-else-if="1 <= triangData.standardRent < 2">（提升）</i>-->
-                <!--<i v-else-if="0 <= triangData.standardRent < 1">（合理）</i>-->
-                <!--<i v-else-if="triangData.standardRent < 0">（亏损）</i>-->
               </span>
               <span>
                 <i>{{triangData.standardGuest}}</i>
-                <!--<i v-if="triangData.standardGuest >= triangData.excellentPgeVal">（优秀）</i>-->
-                <!--<i v-else-if="triangData.goodPgeVal <= triangData.standardGuest < triangData.excellentPgeVal">（良好）</i>-->
-                <!--<i v-else-if="triangData.promotePgeVal <= triangData.standardGuest < triangData.goodPgeVal">（提升）</i>-->
-                <!--<i v-else-if="triangData.reasonablePgeVal <= triangData.standardGuest < triangData.promotePgeVal">（合理）</i>-->
-                <!--<i v-else-if="0 < triangData.standardGuest < triangData.reasonablePgeVal">（亏损）</i>-->
               </span>
 
               <span>
                 <i>{{triangData.standardFitted}}</i>
-                <!--<i v-if="triangData.standardFitted >= 9000">（优秀）</i>-->
-                <!--<i v-else-if="8000 <= triangData.standardFitted < 9000">（良好）</i>-->
-                <!--<i v-else-if="7000 <= triangData.standardFitted < 8000">（提升）</i>-->
-                <!--<i v-else-if="6000 <= triangData.standardFitted < 7000">（合理）</i>-->
-                <!--<i v-else-if="triangData.standardFitted < 6000">（亏损）</i>-->
               </span>
             </div>
             <div class="notes_list ranged f-cb">
@@ -301,38 +286,9 @@
           </div>
         </div>
 
-
-
-
-        <!--<div>-->
-          <!--<img class="tidy_img_bg" src="../../assets/images/help_command_bg.png" >-->
-          <!--<div class="title_bg tit_right1"></div>-->
-          <!--<span class="title_txt">指令措施</span>-->
-
-          <!--<div class="right_2_tidy_bg mt25 ml10">-->
-            <!--<img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">-->
-            <!--<span class="tidy_title_txt">溢租率</span>-->
-          <!--</div>-->
-
-          <!--<div class="right_2_tidy_bg mt25 ml10">-->
-            <!--<img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">-->
-            <!--<span class="tidy_title_txt">客销度</span>-->
-          <!--</div>-->
-
-          <!--<div class="right_2_tidy_bg mt25 ml70">-->
-            <!--<img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">-->
-            <!--<span class="tidy_title_txt">适配值</span>-->
-          <!--</div>-->
-
-        <!--</div>-->
-
-
-        <!--//没有数据，暂时搭架子有接口数据再细调-->
         <div class="right_2 mb10">
           <div class="title_bg_help tit_right2"></div>
           <span class="title_txt_help">指令措施</span>
-
-
           <div class="right_2_tidy_bg mt35 ml10">
             <img class="tidy_img" src="../../assets/images/left_tidy_titlebg.png" alt="">
             <span class="tidy_title_txt">溢租率</span>
@@ -589,7 +545,6 @@
       window.$getAreaList().then((res) => {
         this.areaList = res
         this.hintArea2ProjectOne(res[0].id) //yyh
-        // this.areaChangedForFloor(res[0].id)
       }, (err) => {
         console.log(err)
       })
@@ -751,7 +706,6 @@
 
         this.createTimeBegin = currentdateYesterday+""
         this.createTimeEnd = currentdateToday+""
-        // console.log("当前选中的时间区间为***"+this.createTimeBegin+","+this.createTimeEnd)
         this.value_index = [this.createTimeBegin,this.createTimeEnd]
       },
 
@@ -996,7 +950,7 @@
               width: 3
             },
             data: [{
-              value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -100 ? -101 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 0.001 : (this.triangData.standardGuest < 0 ? 0 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? 0 : this.triangData.standardFitted)],
+              value: [this.triangData.standardRent > 400 ? 401 : (this.triangData.standardRent < -100 ? -101 : this.triangData.standardRent), this.triangData.standardGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 0.0001 : (this.triangData.standardGuest < 0 ? 0 : this.triangData.standardGuest), this.triangData.standardFitted > 10000 ? 10001 : (this.triangData.standardFitted < 0 ? 0 : this.triangData.standardFitted)],
               lineStyle: {
                 color: '#08E9DF'
               }
@@ -1017,7 +971,7 @@
                 width: 3
               },
               data: [{
-                value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -100 ? -101 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 0.001 : (this.triangData.triangleGuest < 0 ? 0 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? 0 : this.triangData.triangleFitted)],
+                value: [this.triangData.triangleRent > 400 ? 401 : (this.triangData.triangleRent < -100 ? -101 : this.triangData.triangleRent), this.triangData.triangleGuest > this.triangData.excellentPgeVal ? this.triangData.excellentPgeVal + 0.0001 : (this.triangData.triangleGuest < 0 ? 0 : this.triangData.triangleGuest), this.triangData.triangleFitted > 10000 ? 10001 : (this.triangData.triangleFitted < 0 ? 0 : this.triangData.triangleFitted)],
                 lineStyle: {
                   color: '#ADF75C'
                 }
@@ -1356,14 +1310,12 @@
 //         })
 
         this.areaId = this.areaList[index].id
-
         window.$getProjectListForArea(this.areaId).then(res => {
-          // console.log(res[0]);
+          this.projectList = {}
           if (res.length > 0) {
             this.isProjectShow = true
             this.projectList = res
-            this.projectId = res[0].id
-
+            this.projectId = this.projectList[0].id
             if (this.typeId === 2) {//楼层维度
               this.getBuildingFloorInfo(this.projectId)
             } else if (this.typeId === 3) {//业态维度
@@ -1378,8 +1330,6 @@
             this.projectList = {}
             // this.projectList = this.projectListNoData
             this.isProjectShow = false //没有项目，就隐藏
-            console.log("此区域没有项目-------------------------------")
-            // alert("此区域没有项目！")
           }
         }, err => {
           console.log(err)
@@ -1422,25 +1372,20 @@
 
 
         this.projectId = this.projectList[index].id
-        console.log("***tabClick2_yyh当前项目的id为" + this.projectId)
         // 右上角项目概览
         this.$axios.get('/region/sy/project/'+ this.projectId)
           .then(res => {
             this.proSummary = res
-            console.log(res);
           }, (err) => {
             console.log(err)
           })
         if (this.typeId === 2) {//楼层维度
-          console.log("项目变化，层级为楼层！")
           this.getBuildingFloorInfo(this.projectId)
         }
         if (this.typeId === 3) {//业态维度
-          console.log("项目变化，层级为业态！")
           this.getProject2operation(this.projectId)
         }
         if (this.typeId === 4) {//品牌维度
-          console.log("项目变化，层级为品牌！")
           // this.getBuildingFloorInfo(this.projectId)
           this.getMegabite2category2brand(this.projectId)
         }
@@ -1453,15 +1398,12 @@
         this.projectId = projectId
         // alert("业态业态业态！"+this.projectId)
         window.$getBusinessListForProject(this.projectId).then(res => {
-          console.log("***当前业态列表数据为" + res)
           this.megabiteList = res
-          console.log("***当前业态列表数据为xxxxx" + this.megabiteList)
 
           if (res.length>0) {
             if(this.megabiteList[0] === null){
               alert("数据错误!!!")
             }else{
-              console.log("***当前业态列表数据name为" + res[0].name)
               this.megabiteId = res[0].id
               this.isOperationShow = true
             }
@@ -1485,7 +1427,6 @@
       getBuildingFloorInfo(projectId) {
         this.projectId = projectId
         window.$getBuilding(this.projectId).then(res => {
-          console.log(res)
           this.buildingList = res
 
           this.buildingId = res[0].id
@@ -1586,8 +1527,7 @@
       },
 
 
-      tabClick6(index, isClicked) {
-        console.log("***业态点击事件被触发_tabClick6")
+      tabClick6(index, isClicked) {//业态点击事件被触发
 
         this.clicked6 = isClicked
         this.clicked1 = false
@@ -1618,8 +1558,7 @@
 
 
 
-      tabClick6_category(index, isClicked) {
-        console.log("***业种点击事件被触发_tabClick6_category")
+      tabClick6_category(index, isClicked) {//业种点击事件被触发
         this.clicked6_category = isClicked
         this.clicked1 = false
         this.clicked2 = false
@@ -1642,11 +1581,12 @@
 
       getMegabite2category2brand(projectId) {
         this.projectId = projectId
-
+        //根据项目获取业态
         window.$getBusinessListForProject(this.projectId).then(res => {
+          this.megabiteId = ''
           if (res.length > 0) {
             this.isOperationShow = true
-            this.megabiteList = res
+            this.megabiteList = res //业态
             this.megabiteId = res[0].id
 
             this.getBusinessFormat2BusinessCategoryList()
@@ -1668,14 +1608,14 @@
       },
 
 
-
+      //根据业态获取业种
       getBusinessFormat2BusinessCategoryList(){
 
         window.$getSpeciesSelect(this.megabiteId).then((res) => {
           if (res.length > 0) {
             this.isCategoryShow = true
-            this.categoryList = res
-
+            this.categoryList = res //业种
+console.log(this.categoryList)
             this.categoryId = res[0].id
 
             this.getBusinessCategory2Brand()
@@ -1700,7 +1640,6 @@
 
         window.$getcontractIdForSpecies(params).then((res) => {
         // window.$getBrandForSpecies_standard(this.categoryId).then(res => {
-          console.log(res)
           if (res.length > 0) {
             this.isBrandShow = true
             this.brandList = res
@@ -1720,7 +1659,6 @@
 
 
       tabClick8(index, isClicked) {
-        console.log("tabClick8品牌下拉列表被点击！")
         this.clicked8 = isClicked
         this.clicked1 = false
         this.clicked2 = false
@@ -1749,7 +1687,6 @@
           //this.projectList = {}//清空项目数据
           this.projectList = res
           this.projectId = res[0].id
-          console.log(res[0].id)
           // }
           window.$getBuilding(this.projectId).then(res => {
             this.buildingList = res
@@ -1758,7 +1695,6 @@
               if (res != '') {
                 this.floorList = res
                 this.floorId = res[0].id
-                console.log(res[0].id)
                 this.getTriangleValue(1)
               }
             }, err => {
@@ -1779,9 +1715,12 @@
       hintArea2ProjectOne(areaId) {
         this.areaId = areaId
         window.$getProjectListForArea(this.areaId).then(res => {
-          this.projectList = res
-          this.projectId = res[0].id
-          this.getTriangleValue(1)
+          if(res.data!=[]){
+            this.projectList = res
+            this.projectId = res[0].id
+            this.getTriangleValue(1)
+          }
+
         }, err => {
           console.log(err)
         })
@@ -2030,7 +1969,6 @@
           this.loading=false;
         }, (err) => {
           this.loading=true
-          console.log("返回的错误信息："+err)
           alert(err)
         })
 

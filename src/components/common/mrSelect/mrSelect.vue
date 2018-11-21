@@ -16,10 +16,13 @@
     data() {
       return {
         selectedTime: 0,
-        //selectItem: this.tabs[0],
+        selectItem: this.tabs[0],
         isClicked:this.clicked,
         // selectId: ''
       }
+    },
+    created() {
+      // console.log(this.tabs)
     },
     watch: {
       tabs(val){
@@ -36,7 +39,6 @@
       showTabs(){
         if(this.isClicked== true) {
           this.isClicked = false;
-
         }else{
           this.isClicked = true;
         }
@@ -48,8 +50,9 @@
         //点击事件
         this.selectItem = item;
         this.selectedTime = index;
-        console.log( this.selectedTime);
+        // console.log( this.selectedTime);
         this.showTabs()
+        // this.$emit("childTab",this.selectedTime,this.isClicked);
         //this.$emit("childTab",index,this.isClicked);
       }
     },

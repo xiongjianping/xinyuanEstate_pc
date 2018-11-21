@@ -23,11 +23,11 @@
 
           <el-col :span="5">
             <el-form-item label="对象" :label-width="formLabelWidth" >
-              <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type == 1">
+              <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type == 1" @change="objTypeChange()">
                 <el-option v-for="(item, index) in objTypeList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
 
-              <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type != 1">
+              <el-select  size="small" v-model="objType" placeholder="请选择对象" v-if="type != 1" @change="objTypeChange()">
                 <el-option v-for="(item, index) in objTypeList1" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -69,7 +69,7 @@
 
           <el-col :span="5"  v-if="objType == 1||objType == 2">
             <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层"  @change="floorChanged()">
+              <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" @change="floorChanged">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -92,10 +92,37 @@
       </el-form>
 
 
-    <div class="buttonList">
-      <el-button type="primary" size="medium" v-on:click="searchList(1);">搜索</el-button>
-      <el-button type="primary" class="mr10 ml10" size="medium" v-on:click="reset();">清空</el-button>
-      <el-button type="primary" class="ml10" size="medium" v-on:click="showCreate()">新增</el-button>
+    <div class="buttonList f-cb">
+
+      <el-button type="primary" size="medium f-fl" v-on:click="searchList(1);">搜索</el-button>
+      <el-button type="primary" class="ml10 f-fl" size="medium" v-on:click="reset();">清空</el-button>
+      <el-button type="primary" class="ml10 f-fl" size="medium" v-on:click="showCreate()">新增</el-button>
+      <el-button type="primary" class="ml10 export_guest f-fl" size="medium" v-on:click="exportGuest()" v-if="activeName2 == 'second'">模板导出</el-button>
+      <!--<el-button type="primary" @click="importGuest" class="upload_guest" size="medium">导入</el-button>-->
+      <!--<el-upload-->
+      <!--class="upload_guest"-->
+      <!--action="getUploadUrl()"-->
+      <!--:on-preview="handlePreview"-->
+      <!--:on-remove="handleRemove"-->
+      <!--:before-remove="beforeRemove"-->
+      <!--multiple-->
+      <!--:limit="3"-->
+      <!--:on-exceed="handleExceed"-->
+      <!--:file-list="fileList">-->
+      <!--<el-button size="small" type="primary">点击上传</el-button>-->
+      <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+      <!--</el-upload>-->
+      <el-upload :action="getUploadUrl()"
+                 list-type="fileList"
+                 :limit=6
+                 :on-preview="handlePreview"
+                 :on-success="handleSuccess"
+                 :on-remove="handleRemove" class="f-fl ml10" v-if="activeName2 == 'second'">
+        <el-button size="medium" type="primary" class="upload_guest" >数据导入</el-button>
+      </el-upload>
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
     </div>
 
     <el-dialog title="溢租率" :visible="dialogFormVisible"  @close='closeDialog'>
@@ -454,6 +481,8 @@
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
         <el-tab-pane label="溢租率" name="first">
           <el-table :data="data.resultList" border size="medium">
+            <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
+            <!--<el-table-column align="center" prop="index" label="序号"></el-table-column>-->
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <!--<el-table-column align="center" prop="phone" label="楼层"></el-table-column>-->
             <el-table-column align="center" prop="roomName" label="铺位号"></el-table-column>
@@ -478,6 +507,7 @@
         </el-tab-pane>
         <el-tab-pane label="客销度" name="second">
           <el-table :data="data.resultList" border size="medium">
+            <el-table-column type="index" align="center" width="50" label="序号":index="indexMethod"></el-table-column>
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
             <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
@@ -498,6 +528,7 @@
         </el-tab-pane>
         <el-tab-pane label="适配值" name="third">
           <el-table :data="data.resultList" border size="medium">
+            <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
            <!-- <el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
@@ -542,27 +573,27 @@ export default {
   data: () => ({
     isSearchList: false,
     //区域id
-    myareaId:'',
+    myareaId: '',
     //项目id
-    myprojectId:'',
+    myprojectId: '',
     //业态id
-    mybusinessFormId:'',
+    mybusinessFormId: '',
     //业种id
-    mybusinessSpeciesId:'',
+    mybusinessSpeciesId: '',
     type: 0,
     data: {},
     loading: false,
-    searchForm:{},
-    formLabelWidth:"70px",
-    formLabelWidthYZ:'70px',
-    formLabelWidthDT:'85px',
+    searchForm: {},
+    formLabelWidth: "70px",
+    formLabelWidthYZ: '70px',
+    formLabelWidthDT: '85px',
     businessType: '',
     exportExlsData: {},
-    areaList:[],
-    projectList:[],
-    projectId:'',
+    areaList: [],
+    projectList: [],
+    projectId: '',
 
-    options:[
+    options: [
       {
         id: '0',
         name: '全部',
@@ -576,30 +607,30 @@ export default {
     dialogFormVisible2: false,
     pictureList: [],
     picIndex: 0,
-  //  value6:[],
+    //  value6:[],
     activeName2: 'first',
-    buildingList:[],
-    buildingId:'',
-    floorList:[
+    buildingList: [],
+    buildingId: '',
+    floorList: [
       {
         id: '',
         name: '全部',
       }
     ],
-    floorId:'',
-    businessList:[
+    floorId: '',
+    businessList: [
       {
         id: '',
         name: '全部',
       }
     ],
-    business:'',
-    businessSpeciesId:'',
-    speciesList:[],
-    species:'',
-    brandList:[],
-    brandId:"",
-    objTypeList:[
+    business: '',
+    businessSpeciesId: '',
+    speciesList: [],
+    species: '',
+    brandList: [],
+    brandId: "",
+    objTypeList: [
       {
         id: 0,
         name: '项目'
@@ -612,107 +643,112 @@ export default {
         id: 2,
         name: '品牌'
       }],
-    objTypeList1:[
+    objTypeList1: [
       {
         id: 2,
         name: '品牌'
       }],
     objType: 2,
     //搜索条件
-    searchRequest : {
-      projectId : "",//项目ID
-      buildingId : "",//楼栋
-      floorId : "",//楼层
-      businessFormId : "", //业态
-      brandName : "", //品牌
-      effectTime : '',//生效时间
+    searchRequest: {
+      projectId: "",//项目ID
+      buildingId: "",//楼栋
+      floorId: "",//楼层
+      businessFormId: "", //业态
+      brandName: "", //品牌
+      effectTime: '',//生效时间
       // contractId : '' //签约id
     },
 
-    rentForm:{},
-    rentCreateDate:{
-      id:'',
-      rent:'', //租金
-      propertyfee:'', //物业费
-      depreciation:'',//装修折旧费
-      agencyFee:'',//代理费\
-      laborCost:'',//人工成本
-      contractId:'',//签约ID
-      effectTime:'' //生效时间
+    rentForm: {},
+    rentCreateDate: {
+      id: '',
+      rent: '', //租金
+      propertyfee: '', //物业费
+      depreciation: '',//装修折旧费
+      agencyFee: '',//代理费\
+      laborCost: '',//人工成本
+      contractId: '',//签约ID
+      effectTime: '' //生效时间
     },
-    fittedCreateDate :{
-      projectId:'',
-      buildingId:'',
-      floorId:'', //楼层ID
-      formId:'',//业态
-      speciesId:'',//业种
-      contractId:'',//签约ID
-      marketVal:'',//市场地位
-      brandPositioningVal:'',//品牌定位
-      brandImgVal:'',//品牌形象
-      rentVal:'',//租费收缴率
-      chainVal:'',//连锁跟进度
-      customerVal:'',//客服投诉率
-      enterpriseVal:'',//企划配合度
-      effectTime:'' //生效时间
+    fittedCreateDate: {
+      projectId: '',
+      buildingId: '',
+      floorId: '', //楼层ID
+      formId: '',//业态
+      speciesId: '',//业种
+      contractId: '',//签约ID
+      marketVal: '',//市场地位
+      brandPositioningVal: '',//品牌定位
+      brandImgVal: '',//品牌形象
+      rentVal: '',//租费收缴率
+      chainVal: '',//连锁跟进度
+      customerVal: '',//客服投诉率
+      enterpriseVal: '',//企划配合度
+      effectTime: '' //生效时间
     },
-    guestProjectCreateDate:{
-      projectId:'', //项目ID
-      passengerFlow:'',//客流量
-      salesVolume:'',//销售额
-      effectTime:'' //生效时间
+    guestProjectCreateDate: {
+      projectId: '', //项目ID
+      passengerFlow: '',//客流量
+      salesVolume: '',//销售额
+      effectTime: '' //生效时间
     },
-    guestFloorCreateDate:{
-      projectId:'', //项目ID
-      buildingId:'', //楼栋ID
-      floorId:'', //楼层ID
-      passengerFlow:'',//客流量
-      salesVolume:'',//销售额
-      effectTime:'' //生效时间
+    guestFloorCreateDate: {
+      projectId: '', //项目ID
+      buildingId: '', //楼栋ID
+      floorId: '', //楼层ID
+      passengerFlow: '',//客流量
+      salesVolume: '',//销售额
+      effectTime: '' //生效时间
     },
-    guestBrandCreateDate:{
-      projectId:'', //项目ID
-      buildingId:'', //楼栋ID
-      floorId:'', //楼层ID
-      formId:'',//业态
-      speciesId:'',//业种
-      contractId:'',//签约ID
-      passengerFlow:'',//客流量
-      salesVolume:'',//销售额
-      effectTime:'' //生效时间
+    guestBrandCreateDate: {
+      projectId: '', //项目ID
+      buildingId: '', //楼栋ID
+      floorId: '', //楼层ID
+      formId: '',//业态
+      speciesId: '',//业种
+      contractId: '',//签约ID
+      passengerFlow: '',//客流量
+      salesVolume: '',//销售额
+      effectTime: '' //生效时间
     },
 
-/*    options4: [],
+    /*    options4: [],
     value9: [],
     list: [],
     loading: false,
     states: [],*/
-    rentFee:0.00,
-    wuyefei:0.00,
-    zhejiufei:0.00,
-    rengongchengben:0.00,
-    agencyFee:0.00,
-    guestForm:{},
-    contractType:'',
-    persent:'',//客流量
-    sale:'',//销售额
-    fittedForm:{},
-    shichangdiwei:'',
-    pinpaidiwei:'',
-    pinpaixingxiang:'',
-    zifeishoujiaolv:'',
-    liansuogengjindu:'',
-    kefutousu:'',
-    qihuapeihedu:'',
-    effectTime:'',
-    effectTime2:'',
-    effectTime3:''
+    rentFee: 0.00,
+    wuyefei: 0.00,
+    zhejiufei: 0.00,
+    rengongchengben: 0.00,
+    agencyFee: 0.00,
+    guestForm: {},
+    contractType: '',
+    persent: '',//客流量
+    sale: '',//销售额
+    fittedForm: {},
+    shichangdiwei: '',
+    pinpaidiwei: '',
+    pinpaixingxiang: '',
+    zifeishoujiaolv: '',
+    liansuogengjindu: '',
+    kefutousu: '',
+    qihuapeihedu: '',
+    effectTime: '',
+    effectTime2: '',
+    effectTime3: '',
+    fileList: [],
+    uploadFileUrl: window.$baseUrl,
+    dialogImageUrl: '',
+    dialogVisible: false,
   }),
-  created () {
+  created() {
     window.$getformSelect().then((res) => {
       // this.businessList = res
       this.businessList.push.apply(this.businessList, res)
-    }, (err) => {})
+    }, (err) => {
+    })
 
     // window.$getAreaList().then((res) => {
     //   this.options.push.apply(this.options, res)
@@ -721,21 +757,27 @@ export default {
     // })
     window.$getAreaList().then((res) => {
       this.areaList = res
-    }, (err) => {console.log(err)})
+    }, (err) => {
+      console.log(err)
+    })
 
     this.searchList(1)
   },
   methods: {
-    reset(){
-      this.searchForm.areaId= '';
-      this.searchForm.projectId= '';
-      this.searchForm.brandName= '';
-      this.searchForm.businessFormId= '';
-      this.searchForm.floorId= '';
-      this.effectTime= '';
+    indexMethod(index) {
+      return (this.page-1)*10+index + 1;
+    },
+    reset() {
+      this.searchForm.areaId = '';
+      this.searchForm.projectId = '';
+      this.objType = '';
+      this.searchForm.brandName = '';
+      this.searchForm.businessFormId = '';
+      this.searchForm.floorId = '';
+      this.effectTime = '';
       this.searchList(1)
     },
-    createRent(){
+    createRent() {
       this.rentCreateDate.rent = this.rentFee; //租金
       this.rentCreateDate.propertyfee = this.wuyefei; //物业费
       this.rentCreateDate.depreciation = this.zhejiufei;//装修折旧费
@@ -755,9 +797,9 @@ export default {
       })
       this.closeDialog()
     },
-    createGuest(){
+    createGuest() {
       this.guestForm.effectTime2 = this.effectTime2;
-      if(this.objType==0){
+      if (this.objType == 0) {
         /*this.guestForm.persent = this.persent;*/
         this.guestForm.sale = 0;
         this.guestProjectCreateDate.projectId = this.guestForm.projectId; //项目ID
@@ -777,7 +819,7 @@ export default {
           this.showAlert(err)
         })
         this.closeDialogKXD();
-      }else if(this.objType==1){
+      } else if (this.objType == 1) {
         /*this.guestForm.persent = this.persent;*/
         this.guestFloorCreateDate.projectId = this.guestForm.projectId; //项目ID
         this.guestFloorCreateDate.buildingId = this.guestForm.buildingId;  //楼栋ID
@@ -797,18 +839,18 @@ export default {
           this.showAlert(err)
         })
         this.guestForm.sale = 0;
-      }else  if(this.objType==2){
+      } else if (this.objType == 2) {
         /*this.guestForm.persent = this.persent;*/
         /*this.guestForm.sale = this.sale;*/
-          this.guestBrandCreateDate.projectId = this.guestForm.projectId; //项目ID
-          this.guestBrandCreateDate.buildingId = this.guestForm.buildingId;  //楼栋ID
-          this.guestBrandCreateDate.floorId = this.guestForm.floorId; //楼层ID
-          this.guestBrandCreateDate.formId = this.guestForm.businessFormId; //业态
-          this.guestBrandCreateDate.speciesId = this.guestForm.businessSpeciesId; //业种
-          this.guestBrandCreateDate.contractId = this.guestForm.brandId;//签约ID
-          this.guestBrandCreateDate.passengerFlow = this.guestForm.persent;//客流量
-          this.guestBrandCreateDate.salesVolume = this.guestForm.sale;//销售额
-          this.guestBrandCreateDate.effectTime = this.guestForm.effectTime2; //生效时间
+        this.guestBrandCreateDate.projectId = this.guestForm.projectId; //项目ID
+        this.guestBrandCreateDate.buildingId = this.guestForm.buildingId;  //楼栋ID
+        this.guestBrandCreateDate.floorId = this.guestForm.floorId; //楼层ID
+        this.guestBrandCreateDate.formId = this.guestForm.businessFormId; //业态
+        this.guestBrandCreateDate.speciesId = this.guestForm.businessSpeciesId; //业种
+        this.guestBrandCreateDate.contractId = this.guestForm.brandId;//签约ID
+        this.guestBrandCreateDate.passengerFlow = this.guestForm.persent;//客流量
+        this.guestBrandCreateDate.salesVolume = this.guestForm.sale;//销售额
+        this.guestBrandCreateDate.effectTime = this.guestForm.effectTime2; //生效时间
         console.log("新增品牌客销度！");
         console.log(this.guestBrandCreateDate)
         //调接口
@@ -822,9 +864,9 @@ export default {
         })
       }
     },
-    createFitted(){
+    createFitted() {
       console.log("新增适配值！");
-      console.log("objType:"+this.objType);
+      console.log("objType:" + this.objType);
       /*this.fittedForm.businessType = this.businessType;*/
       this.fittedForm.shichangdiwei = this.shichangdiwei;
       this.fittedForm.pinpaidiwei = this.pinpaidiwei;
@@ -836,21 +878,21 @@ export default {
       this.fittedCreateDate.projectId = this.fittedForm.projectId; //项目ID
       this.fittedCreateDate.buildingId = this.fittedForm.buildingId; //楼栋ID
       this.fittedCreateDate.floorId = this.fittedForm.floorId; //楼层ID
-      this.fittedCreateDate.formId  = this.fittedForm.businessFormId;//业态
+      this.fittedCreateDate.formId = this.fittedForm.businessFormId;//业态
       this.fittedCreateDate.speciesId = this.fittedForm.businessSpeciesId;//业种
       this.fittedCreateDate.contractId = this.fittedForm.brandId;//签约ID
 
-      this.fittedCreateDate.marketVal  = this.shichangdiwei;//市场地位
+      this.fittedCreateDate.marketVal = this.shichangdiwei;//市场地位
       this.fittedCreateDate.brandPositioningVal = this.pinpaidiwei;//品牌定位
       this.fittedCreateDate.brandImgVal = this.pinpaixingxiang; //品牌形象
       this.fittedCreateDate.rentVal = this.zifeishoujiaolv;//租费收缴率
       this.fittedCreateDate.chainVal = this.liansuogengjindu; //连锁跟进度
-      this.fittedCreateDate.customerVal  = this.kefutousu;//客服投诉率
+      this.fittedCreateDate.customerVal = this.kefutousu;//客服投诉率
       this.fittedCreateDate.enterpriseVal = this.qihuapeihedu; //企划配合度
       /*fittedDate.quarterVal; //适配值*/
       this.fittedCreateDate.effectTime = this.effectTime3; //生效时间
 
-     //调接口
+      //调接口
       window.$createFittedObj(this.fittedCreateDate).then((res) => {
         this.isSearchList = true
         this.showAlert("新增成功！")
@@ -860,7 +902,7 @@ export default {
       })
       this.closeDialogSPZ()
     },
-    closeDialog(){
+    closeDialog() {
       this.myareaId = ''
       // this.searchForm.areaId = ''
       this.floorId = ''
@@ -874,12 +916,12 @@ export default {
       this.dialogFormVisible = false;//清空数据
 
     },
-    closeDialogKXD(){
+    closeDialogKXD() {
       this.floorId = ''
       this.brandId = ''
       this.dialogFormVisible1 = false;//清空数据
     },
-    closeDialogSPZ(){
+    closeDialogSPZ() {
       this.floorId = ''
       this.brandId = ''
       this.dialogFormVisible2 = false;//清空数据
@@ -892,7 +934,7 @@ export default {
       if (this.activeName2 == "first") {
         this.dialogFormVisible = true
       }
-      if (this.activeName2 == 'second'){
+      if (this.activeName2 == 'second') {
         this.dialogFormVisible1 = true;
       }
       if (this.activeName2 == 'third') {
@@ -900,23 +942,28 @@ export default {
       }
       window.$getformSelect().then((res) => {
         this.businessList = res
-      }, (err) => {})
+      }, (err) => {
+      })
       window.$getAreaList().then((res) => {
         this.areaList = res
-      }, (err) => {console.log(err)})
+      }, (err) => {
+        console.log(err)
+      })
     },
     //自己添加
     // 1.区域
-    areaChanged(){
-      this.searchForm.projectId = ''
-      this.searchForm.buildingId = ''
-      this.floorId = ''
-      this.myareaId = this.searchForm.areaId
+    areaChanged() {
+      this.myareaId = this.searchForm.areaId;
+      this.searchForm.projectId= '';
+      this.searchForm.brandName= '';
+      this.searchForm.businessFormId= '';
+      this.searchForm.floorId= '';
+      this.searchForm.businessSpeciesId= '';
       if (this.dialogFormVisible) {
         this.myareaId = this.rentForm.areaId
         /*this.dialogFormVisible = true*/
       }
-      if (this.dialogFormVisible1){
+      if (this.dialogFormVisible1) {
         this.myareaId = this.guestForm.areaId
         /* this.dialogFormVisible1 = true;*/
       }
@@ -926,7 +973,7 @@ export default {
       }
       window.$getProjectListForArea(this.myareaId).then((res) => {
         this.projectList = res
-       /* if (this.activeName2 == "first") {
+        /* if (this.activeName2 == "first") {
           this.rentForm.projectList = res;
           /!*this.dialogFormVisible = true*!/
         }
@@ -943,15 +990,22 @@ export default {
       })
     },
     //2.项目
-    projectChanged(){
-      this.searchForm.buildingId = ''
+    projectChanged() {
       this.myprojectId = this.searchForm.projectId;
-      this.floorId = ''
+      this.searchForm.brandName= '';
+      this.searchForm.businessFormId= '';
+      this.searchForm.floorId= '';
+      this.searchForm.businessSpeciesId= '';
       window.$getBuilding(this.searchForm.projectId).then((res) => {
         this.buildingList = res
         //调用楼层
         window.$getFloorForBuilding(res[0].id).then((floorRes) => {
-          // this.floorList = floorRes
+          this.floorList=[
+            {
+              id: '',
+              name: '全部',
+            }
+          ]
           this.floorList.push.apply(this.floorList, floorRes)
         }, (err) => {
           this.showAlert(err)
@@ -962,8 +1016,17 @@ export default {
 
       this.getBind()
     },
+    //改变对象值
+    objTypeChange(){
+      this.searchForm.businessFormId = ''
+      this.searchForm.businessSpeciesId = ''
+      this.searchForm.brandName= '';
+      this.searchForm.floorId= '';
+      // this.effectTime= '';
+      //this.showAlert(this.objType);
+    },
     //2.溢租率新增项目
-    rentProjectChanged(){
+    rentProjectChanged() {
       this.rentForm.buildingId = ''
       this.myprojectId = this.rentForm.projectId;
       this.floorId = ''
@@ -984,7 +1047,7 @@ export default {
       this.getBind()
     },
     //3.客销度新增项目
-    guestProjectChanged(){
+    guestProjectChanged() {
       this.guestForm.buildingId = ''
       this.myprojectId = this.guestForm.projectId;
       this.floorId = ''
@@ -1005,7 +1068,7 @@ export default {
       this.getBind()
     },
     //3.适配值新增项目
-    fittedProjectChanged(){
+    fittedProjectChanged() {
       this.fittedForm.buildingId = ''
       this.myprojectId = this.fittedForm.projectId;
       this.floorId = ''
@@ -1026,21 +1089,20 @@ export default {
       this.getBind()
     },
     //3.楼栋
-    buildingChanged(){
-      this.floorId = '';
+    buildingChanged() {
+      // this.floorId = '';
       window.$getFloorForBuilding(this.searchForm.buildingId).then((res) => {
         this.floorList = res
       }, (err) => {
         this.showAlert(err)
       })
     },
-    floorChanged(){
-      if(this.searchForm.floorId ==0){
-        this.searchRequest.floorId = 0;
-      }
+    floorChanged() {
+      //获取品牌
+      this.getBind()
     },
     // 业态
-    businessChanged(){
+    businessChanged() {
       this.searchForm.businessSpeciesId = ''
       this.speciesList = [];
       this.brandId = ''
@@ -1049,7 +1111,7 @@ export default {
         this.rentForm.businessSpeciesId = ''
         this.mybusinessFormId = this.rentForm.businessFormId;
       }
-      if (this.dialogFormVisible1){
+      if (this.dialogFormVisible1) {
         this.guestForm.businessSpeciesId = ''
         this.mybusinessFormId = this.guestForm.businessFormId;
       }
@@ -1066,14 +1128,14 @@ export default {
       this.getBind()
     },
     //业种
-    speciesChanged(){
+    speciesChanged() {
       this.brandList = ''
       this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
       if (this.dialogFormVisible) {
         this.rentForm.brandList = ''
         this.mybusinessSpeciesId = this.rentForm.businessSpeciesId;
       }
-      if (this.dialogFormVisible1){
+      if (this.dialogFormVisible1) {
         this.guestForm.brandList = ''
         this.mybusinessSpeciesId = this.guestForm.businessSpeciesId;
       }
@@ -1082,34 +1144,34 @@ export default {
         this.mybusinessSpeciesId = this.fittedForm.businessSpeciesId;
       }
       //获取品牌
-     this.getBind()
+      this.getBind()
     },
-    getBind(){
+    getBind() {
       this.brandList = ''
       var params = {}
       // this.mybusinessSpeciesId = this.searchForm.businessSpeciesId;
-        params.projectId = this.myprojectId
-        params.fromId = this.mybusinessFormId
-        params.speciesId = this.mybusinessSpeciesId
-        if (this.dialogFormVisible) {
-          this.rentForm.brandList = ''
-        }
-        if (this.dialogFormVisible1){
-          this.guestForm.brandList = ''
-        }
-        if (this.dialogFormVisible2) {
-          this.fittedForm.brandList = ''
-        }
+      params.projectId = this.myprojectId
+      params.fromId = this.mybusinessFormId
+      params.speciesId = this.mybusinessSpeciesId
+      if (this.dialogFormVisible) {
+        this.rentForm.brandList = ''
+      }
+      if (this.dialogFormVisible1) {
+        this.guestForm.brandList = ''
+      }
+      if (this.dialogFormVisible2) {
+        this.fittedForm.brandList = ''
+      }
 
       //获取品牌
       window.$getcontractIdForSpecies(params).then((res) => {
         console.log(res)
         this.brandList = res
         if (this.dialogFormVisible) {
-        //  for()res
+          //  for()res
           this.rentForm.brandList = res
         }
-        if (this.dialogFormVisible1){
+        if (this.dialogFormVisible1) {
           this.guestForm.brandList = res
         }
         if (this.dialogFormVisible2) {
@@ -1123,31 +1185,34 @@ export default {
       this.dialogFormVisible = false
     },
     handleClick(tab, event) {
+      this.reset();
       this.type = tab.index
       console.log(this.type)
-      if(this.type != 1) {
+      if (this.type != 1) {
         this.objType = 2
       }
 
       this.searchList(1)
     },
-    importFile(){
+    importFile() {
       document.getElementById('fileUpload_input').click()
     },
-    areaChange(){
+    areaChange() {
       window.$getProjectListForArea(this.exportExlsData.areaId).then((res) => {
         this.projectList = res
-      }, (err) => { this.showAlert(err)})
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
-    exportFile(){
-      if(!this.businessType){
+    exportFile() {
+      if (!this.businessType) {
         this.showAlert('请选择业务类型');
         return false
       }
       this.dialogFormVisible = true
     },
-    exportExls(){
-      if(!this.exportExlsData.projectId){
+    exportExls() {
+      if (!this.exportExlsData.projectId) {
         this.showAlert('请选择项目');
         return false
       }
@@ -1161,8 +1226,8 @@ export default {
         this.showAlert(err)
       })
     },
-    fileUpload(e){
-      if(!this.businessType){
+    fileUpload(e) {
+      if (!this.businessType) {
         this.showAlert('请选择业务类型')
         return false
       }
@@ -1170,21 +1235,23 @@ export default {
       let url = this.businessType === 1 ? '/importexcel/excel/rentimport/sheet' : (this.businessType === 2 ? '/importexcel/excel/guestimport/sheet' : '/importexcel/excel/fittedimport/sheet')
       window.$fileUpload(e, url).then((res) => {
         this.showAlert('导入成功')
-      }, (err) =>{this.showAlert(err)})
+      }, (err) => {
+        this.showAlert(err)
+      })
     },
-    businessTypeChange(){
+    businessTypeChange() {
       this.page = 1;
       this.size = 10
     },
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.size = val;
       this.searchList()
     },
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.page = val;
       this.searchList()
     },
-    searchList (type) {
+    searchList(type) {
       /*//判断需要展示的筛选列表是：溢租率、客销度、适配值
       if(this.projectId!=null){
         this.searchForm.projectId = this.projectId;
@@ -1201,8 +1268,8 @@ export default {
       if(this.effectTime!=null){//生效时间
         this.searchForm.effectTime = this.effectTime;
       }*/
-      if(type === 1){
-        this.page =1
+      if (type === 1) {
+        this.page = 1
       }
 
       console.log(this.type)
@@ -1213,12 +1280,12 @@ export default {
         this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
         this.searchRequest.floorId = this.searchForm.floorId; //楼层
         this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
-       /* this.searchRequest.contractId =  this.searchForm.brandId//品牌*/
+        /* this.searchRequest.contractId =  this.searchForm.brandId//品牌*/
         this.searchRequest.brandName = this.searchForm.brandName //品牌
         this.searchRequest.effectTime = this.effectTime;//生效时间
         // this.searchRequest.contractId =this.searchForm.brandId;
-        console.log("溢租率列表---sadf--"+this.searchRequest)
-        this.data="";//清空数据
+        console.log("溢租率列表---sadf--" + this.searchRequest)
+        this.data = "";//清空数据
         window.$getRentList(this.page, this.size, this.searchRequest)
           .then((res) => {
             console.log(res)
@@ -1229,19 +1296,19 @@ export default {
           }, (err) => {
             console.log(err)
           })
-      } else if (this.type == 1){//客销度
-      console.log(this.objType)
+      } else if (this.type == 1) {//客销度
+        console.log(this.objType)
         //调接口
         this.searchRequest.projectId = this.searchForm.projectId; //项目ID
         this.searchRequest.buildingId = this.searchForm.buildingId; //楼栋
         this.searchRequest.floorId = this.searchForm.floorId; //楼层
-        this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
+        this.searchRequest.formId = this.searchForm.businessFormId; //业态
         this.searchRequest.brandName = this.searchForm.brandName //品牌
         this.searchRequest.effectTime = this.effectTime;//生效时间
-        this.searchRequest.contractId =this.searchForm.brandId;
-        console.log("客销度列表条件---sadf--"+this.searchRequest)
-        this.data="";//清空数据
-        if(this.objType==0){
+        this.searchRequest.contractId = this.searchForm.brandId;
+        console.log("客销度列表条件---sadf--" + this.searchRequest)
+        this.data = "";//清空数据
+        if (this.objType == 0) {
           //调接口
           window.$getGuestProjectList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1254,7 +1321,7 @@ export default {
               console.log(err)
             })
           this.closeDialogKXD();
-        }else if(this.objType==1){
+        } else if (this.objType == 1) {
           //调接口
           window.$getGuestFloorList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1268,7 +1335,7 @@ export default {
             })
           this.closeDialogKXD();
           this.guestForm.sale = 0;
-        }else  if(this.objType==2) {
+        } else if (this.objType == 2) {
           //品牌接口
           window.$getGuestBrandList(this.page, this.size, this.searchRequest)
             .then((res) => {
@@ -1288,10 +1355,10 @@ export default {
         this.searchRequest.businessFormId = this.searchForm.businessFormId; //业态
         this.searchRequest.brandName = this.searchForm.brandName //品牌
         this.searchRequest.effectTime = this.effectTime;//生效时间
-        this.searchRequest.contractId =this.searchForm.brandId;
-        console.log("客销度列表条件---sadf--"+this.searchRequest)
-        this.data="";//清空数据
-      console.log(this.objType)
+        this.searchRequest.contractId = this.searchForm.brandId;
+        console.log("客销度列表条件---sadf--" + this.searchRequest)
+        this.data = "";//清空数据
+        console.log(this.objType)
         //调接口
         window.$getFittedList(this.page, this.size, this.searchRequest)
           .then((res) => {
@@ -1305,7 +1372,7 @@ export default {
       }
 
 
-     /* if(this.businessType === 1){
+      /* if(this.businessType === 1){
 
       } else if(this.businessType === 2){
         if(!this.searchForm.different){
@@ -1317,13 +1384,13 @@ export default {
 
       }*/
     },
-    deleteRent(id){
+    deleteRent(id) {
       this.$confirm('确认删除？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-      this.loading = true
+        this.loading = true
         window.$deleteRent(id).then((res) => {
           for (var i = this.data.resultList.length - 1; i >= 0; i--) {
             if (this.data.resultList[i].id === id) {
@@ -1340,14 +1407,14 @@ export default {
 
       })
     },
-    deleteGuest(id){
+    deleteGuest(id) {
       this.$confirm('确认删除？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         console.log(this.objType)
-        if(this.objType==0){
+        if (this.objType == 0) {
           this.loading = true
           window.$deleteProjectGuest(id).then((res) => {
             for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -1361,7 +1428,7 @@ export default {
             this.loading = false
             this.showAlert(err)
           })
-        }else if(this.objType==1){
+        } else if (this.objType == 1) {
           this.loading = true
           window.$deleteFloorGuest(id).then((res) => {
             for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -1375,7 +1442,7 @@ export default {
             this.loading = false
             this.showAlert(err)
           })
-        }else if(this.objType==2){
+        } else if (this.objType == 2) {
           this.loading = true
           window.$deleteBrandGuest(id).then((res) => {
             for (var i = this.data.resultList.length - 1; i >= 0; i--) {
@@ -1394,57 +1461,114 @@ export default {
 
       })
     },
-    deleteFitted(id){
+    deleteFitted(id) {
       this.$confirm('确认删除？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-      this.loading = true
-      window.$deleteFitted(id).then((res) => {
-        for (var i = this.data.resultList.length - 1; i >= 0; i--) {
-          if (this.data.resultList[i].id === id) {
-            this.data.resultList.splice(i, 1)
-            this.loading = false
-            return false
+        this.loading = true
+        window.$deleteFitted(id).then((res) => {
+          for (var i = this.data.resultList.length - 1; i >= 0; i--) {
+            if (this.data.resultList[i].id === id) {
+              this.data.resultList.splice(i, 1)
+              this.loading = false
+              return false
+            }
           }
-        }
-      }, (err) => {
-        this.loading = false
-        this.showAlert(err)
-      })
+        }, (err) => {
+          this.loading = false
+          this.showAlert(err)
+        })
       }).catch(() => {
 
       })
     },
     // 查看详情
-    showDetails (id) {
+    showDetails(id) {
       this.showAlert(id);
       this.$router.push('/dataManage/dongtai/details/' + id)
     },
-    editDetails (id) {
+    editDetails(id) {
       this.$router.push('/dataManage/dongtai/edit/' + id)
     },
-    xiugai (id) {
+    xiugai(id) {
       this.$router.push('/dataManage/dongtai/xiugai/' + id)
     },
-    xiangqing (id) {
+    xiangqing(id) {
       this.$router.push('/dataManage/dongtai/xiangqing/' + id)
     },
-    showAlert: function (cont) {
-      this.$alert(cont, '温馨提示', {
-        confirmButtonText: '确定',
-        callback: action =>{
-          if(this.isSearchList){
-            this.isSearchList = false
-            this.searchList(1)
-          }
+    exportGuest() {
+      console.log(this.myprojectId)
+      if (this.myprojectId) {
+        this.$axios.get('/export/excel/' + this.myprojectId)
+          .then(res => {
+            // this.guestExl = res
+            // console.log(res)
+            let uri = 'data:text/xlsx;charset=utf-8,\ufeff' + encodeURIComponent(this.guestExl);
+            var link = document.createElement("a");
+            link.href = res;
+            // link.download =  "客流销售导出表.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+          }, (err) => {
+            console.log(err)
+          })
+      } else {
+        alert('请选择您要导出数据的相关项目！')
+      }
+    },
+    getUploadUrl(){
+      return window.$baseUrl + '/brandrate/excel/import/localhost'
+    },
+    // handleRemove(file, fileList) {
+    //   console.log(file, fileList);
+    // },
+    // handlePreview(file) {
+    //   console.log(file);
+    // },
+    // handleExceed(files, fileList) {
+    //   this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    // },
+    // beforeRemove(file, fileList) {
+    //   return this.$confirm(`确定移除 ${ file.name }？`);
+    // }
+    getUploadUrl(){
+      return window.$baseUrl + '/brandrate/excel/import'
+    },
+    handleSuccess(response, file, fileList){
+
+
+      if(response.code=='RENTING_RATE_000'){
+        this.fileList.push(file.data);
+        alert('数据重复，导入失败!')
+      }else if(response.code=='0'){
+        alert('导入成功!')
+      }else{
+        alert(response.message+',导入失败!')
+      }
+
+    },
+    // handlePictureCardPreview(file){
+    //   this.dialogImageUrl = ficonsole.log()le.url
+    //   this.dialogVisible = true
+    // },
+    handlePreview(file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
+    },
+    handleRemove(file, fileList) {
+      for(var i = this.fileList.length - 1; i >= 0; i--){
+        if(this.fileList[i] === file.response.data){
+          console.log(i)
+          this.fileList.splice(i, 1)
         }
-      })
-    }
+      }
+    },
   }
 }
-
 </script>
 <style  lang="less">
   .yzl-line{
@@ -1490,5 +1614,18 @@ export default {
   }
   .el-tabs__content {
     overflow: inherit;
+  }
+  .export_guest{
+  }
+  .upload_guest{
+    input[type='file']{
+      display: none;
+    }
+  }
+  .el-upload-list{
+    visibility: hidden;
+  }
+  input[type=file]{
+    display: none !important;
   }
 </style>

@@ -25,7 +25,7 @@
     <div class="biaoti1">人员管理列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" label="序号"></el-table-column>
+        <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
         <el-table-column align="center" prop="name" label="姓名"></el-table-column>
         <el-table-column align="center" prop="userName" label="用户名"></el-table-column>
         <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
@@ -113,6 +113,9 @@ export default {
     this.searchList(1)
   },
   methods: {
+    indexMethod(index) {
+      return (this.page-1)*10+index + 1;
+    },
     handleSizeChange (val) {
       this.size = val
       this.searchList()

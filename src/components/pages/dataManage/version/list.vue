@@ -37,6 +37,11 @@
               <!--<el-input size="small" maxlength="11" v-model="searchForm.brandName" placeholder="请输入品牌"/>-->
             <!--</el-form-item>-->
           <!--</el-col>-->
+          <el-col :span="5" v-if="type==1">
+            <el-form-item label="品牌" :label-width="formLabelWidth">
+              <el-input size="small" maxlength="11" v-model="searchForm.brandName" placeholder="请输入品牌"/>
+            </el-form-item>
+          </el-col>
           <el-col :span="5" v-if="objType === '2' || objType === '3'||objType === '4'">
             <el-form-item label="业态" :label-width="formLabelWidth">
               <el-select  size="small" v-model="searchForm.businessFormId" placeholder="请选择业态" @change="businessChanged()">
@@ -46,7 +51,7 @@
           </el-col>
           <el-col :span="5" v-if="objType === '1'">
             <el-form-item label="楼层" :label-width="formLabelWidth">
-              <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" >
+              <el-select  size="small" v-model="searchForm.floorId" placeholder="请选择楼层" @change="floorChanged">
                 <el-option v-for="(item, index) in floorList" :key="index" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -357,6 +362,7 @@
       <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
         <el-tab-pane label="溢租率" name="first">
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
+            <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
            <!-- <el-table-column align="center" prop="fittedVerssionName" label="品牌名称"></el-table-column>-->
@@ -383,7 +389,7 @@
         </el-tab-pane>
         <el-tab-pane label="客销度" name="second">
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-            <!--<el-table-column align="center" type="index" label="序号" width="50"></el-table-column>-->
+            <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
             <!--<el-table-column align="center" prop="fittedVerssionName" label="铺位号"></el-table-column>-->
@@ -430,7 +436,7 @@
         </el-tab-pane>
         <el-tab-pane label="适配值" name="third">
           <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-            <!--<el-table-column align="center" type="index" label="序号" width="50"></el-table-column>-->
+            <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
             <el-table-column align="center" prop="projectName" label="项目名称"></el-table-column>
             <el-table-column align="center" prop="floorName" label="楼层"></el-table-column>
             <el-table-column align="center" prop="formName" label="业态名称"></el-table-column>
@@ -678,9 +684,13 @@
       this.searchList(1)
     },
     methods: {
+      indexMethod(index) {
+        return (this.page-1)*10+index + 1;
+      },
       reset(){
         this.searchForm.areaId= '';
         this.searchForm.projectId= '';
+        this.objType= '';
         this.searchForm.brandName= '';
         this.searchForm.businessFormId= '';
         this.searchForm.floorId= '';
@@ -879,10 +889,14 @@
       //自己添加
       // 1.区域
       areaChanged(){
-        this.searchForm.projectId = '';
-        this.searchForm.buildingId = '';
-
         this.myareaId = this.searchForm.areaId;
+        this.searchForm.projectId= '';
+        this.searchForm.brandName= '';
+        this.searchForm.businessFormId= '';
+        this.searchForm.floorId= '';
+        this.searchForm.businessSpeciesId= '';
+        this.businessChanged();
+        // this.effectTime= '';
         if (this.dialogFormVisible) {
           this.myareaId = this.rentForm.areaId;
           /*this.dialogFormVisible = true*/
@@ -903,23 +917,37 @@
           this.showAlert(err)
         })
       },
-      //打印对象值
+      //改变对象值
       objTypeChange(){
+        this.searchForm.businessFormId = ''
+        this.searchForm.businessSpeciesId = ''
+        this.searchForm.brandName= '';
+        this.searchForm.floorId= '';
+        this.businessChanged();
+        // this.effectTime= '';
         //this.showAlert(this.objType);
       },
 
       //2.项目
       projectChanged(){
-        this.searchForm.buildingId = ''
         this.myprojectId = this.searchForm.projectId;
-        // this.floorList = ''
-     /*   this.floorId = ''*/
+        this.searchForm.brandName= '';
+        this.searchForm.businessFormId= '';
+        this.searchForm.floorId= '';
+        this.searchForm.businessSpeciesId= '';
+        this.businessChanged();
+        // this.effectTime= '';
         window.$getBuilding(this.searchForm.projectId).then((res) => {
           console.log("projectChanged");
           console.log(res)
           //调用楼层
           window.$getFloorForBuilding(res[0].id).then((floorRes) => {
-            // this.floorList = floorRes
+            this.floorList=[
+              {
+                id: '',
+                name: '全部',
+              }
+            ]
             this.floorList.push.apply(this.floorList, floorRes)
 
             console.log("楼层----")
@@ -995,9 +1023,8 @@
         })
       },
       floorChanged(){
-        if(this.searchForm.floorId ==0){
-          this.searchRequest.floorId = 0;
-        }
+        //获取品牌
+        this.getBind()
       },
       // 业态
       businessChanged(){
@@ -1018,7 +1045,12 @@
           this.mybusinessFormId = this.fittedForm.businessFormId;
         }
         window.$getSpeciesSelect(this.mybusinessFormId).then((res) => {
-          // this.speciesList = res
+          this.speciesList=[
+            {
+              id: '',
+              name: '全部',
+            }
+          ]
           this.speciesList.push.apply(this.speciesList, res)
 
         }, (err) => {
@@ -1086,6 +1118,7 @@
         this.dialogFormVisible = false
       },
       handleClick(tab, event) {
+        this.reset();
         this.type = tab.index
         if(this.type == 1){
           this.objType = '4'

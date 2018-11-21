@@ -14,7 +14,7 @@
     <div class="biaoti1">业种管理列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" prop="id" label="序号"></el-table-column>
+        <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
         <el-table-column align="center" prop="businessFormName" label="业态"></el-table-column>
         <el-table-column align="center" prop="name" label="业种"></el-table-column>
         <el-table-column align="center" prop="modifyTime" label="修改时间"></el-table-column>
@@ -25,15 +25,23 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="paginationCont" v-if="data.countSize">
-          <el-pagination
-              @current-change="handleCurrentChange"
-              :current-page="data.page"
-              :page-size="size"
-              layout="prev, pager, next"
-              :total="data.countSize">
-            </el-pagination>
-        </div>
+      <!--<div class="paginationCont" v-if="data.countSize">-->
+          <!--<el-pagination-->
+              <!--@current-change="handleCurrentChange"-->
+              <!--:current-page="page"-->
+              <!--:page-size="size"-->
+              <!--layout="prev, pager, next"-->
+              <!--:total="data.countSize">-->
+            <!--</el-pagination>-->
+        <!--</div>-->
+      <div class="paginationCont">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="page"
+          layout="prev, pager, next"
+          :total="data.countSize">
+        </el-pagination>
+      </div>
     </div>
 
     <el-dialog
@@ -102,6 +110,7 @@ export default {
       startTime: null
     },
     infoData: {},
+    page: 1,
     size: 10,
     dialogFormVisible: false,
     dialogVisible: false,
@@ -124,6 +133,9 @@ export default {
     })
   },
   methods: {
+    indexMethod(index) {
+      return (this.page-1)*10+ index + 1;
+    },
     addYezhong () {
       if (this.yetaiSelect === '') {
         this.$alert('请选择业态名称')
@@ -156,7 +168,7 @@ export default {
       }, (err) => {this.showAlert(err)})
     },
     handleCurrentChange (val) {
-      this.data.page = val
+      this.page = val
       this.searchList()
     },
     searchList (type) {

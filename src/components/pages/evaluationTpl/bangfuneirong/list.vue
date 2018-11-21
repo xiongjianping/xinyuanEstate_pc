@@ -22,7 +22,7 @@
     <div class="biaoti1">指令内容列表</div>
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index"  prop='id'  label="序号" width="50"></el-table-column>
+        <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
         <el-table-column align="center" prop="type" label="类别">
           <template slot-scope="scope">
             <el-button disabled type="text" size="small" v-if="scope.row.type === 1">租金指令</el-button>
@@ -73,6 +73,9 @@ export default {
     this.searchList(1)
   },
   methods: {
+    indexMethod(index) {
+      return (this.page-1)*10+index + 1;
+    },
     handleSizeChange(val) {
       this.size = val
       this.searchList()

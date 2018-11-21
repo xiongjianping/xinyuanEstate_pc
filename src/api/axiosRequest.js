@@ -1597,7 +1597,6 @@ Vue.prototype.getcontractIdForSpecies = window.$getcontractIdForSpecies = async 
   return new Promise(function(resolve, reject) {
     axios.post('/brand/find/contract', params)
       .then((res) => {
-        console.log(res)
         resolve(res)
       })
       .catch((error) => {
@@ -1674,9 +1673,10 @@ Vue.prototype.fileUpload = window.$fileUpload = async function(e, url) {
     let params = new FormData() //创建form对象
     params.append('file', e.target.files[0]) //通过append向form对象添加数据
     return new Promise(function(resolve, reject) {
-        axios.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.post(url, params, { headers: { 'Content-Type': 'multipart/form-data','ACCESS-TOKEN':'tCgvUkkOjdqFT0hNqOZIUTEbd83BmMLF' } })
             .then((res) => {
                 resolve(res)
+              console.log(res)
             })
             .catch((error) => {
                 console.log(error);
@@ -1756,3 +1756,15 @@ Vue.prototype.getQueshiDetail = window.$getQueshiDetail = function(params) {
   })
 }
 
+Vue.prototype.exportGuest = window.$exportGuest = function( params) {
+  return new Promise(function(resolve, reject) {
+    axios.post('/export/excel', params)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error)
+      });
+  })
+}

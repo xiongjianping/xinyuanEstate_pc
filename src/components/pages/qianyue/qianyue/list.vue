@@ -79,7 +79,7 @@
     <!--<div class="biaoti1">签约管理列表</div>-->
     <div class="listCont">
       <el-table :data="data.resultList" border size="medium" :header-cell-style="rowClass">
-        <el-table-column align="center" type="index" label="序号" width="50"></el-table-column>
+        <el-table-column type="index" align="center" width="50" label="序号" :index="indexMethod"></el-table-column>
         <el-table-column align="center" prop="areaName" label="区域"></el-table-column>
         <el-table-column align="center" prop="projectName" label="项目"></el-table-column>
         <el-table-column align="center" prop="brandName" label="品牌名称"></el-table-column>
@@ -116,12 +116,12 @@
 
 
     <el-dialog title="选择生效时间" :visible.sync="dialogFormVisible">
-      <el-form>
+      <el-form style="line-height: 40px;">
         <el-date-picker v-model="effectTime" value-format="yyyy-MM-dd"  type="date" placeholder="选择日期"></el-date-picker>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="breakContractGo_yyh()">确 定</el-button>
+        <el-button type="primary" class="ml10" size="medium"  @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" class="ml10" size="medium"  @click="breakContractGo_yyh()">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -195,6 +195,9 @@ export default {
       this.searchList(1)
   },
   methods: {
+    indexMethod(index) {
+      return (this.page-1)*10+index + 1;
+    },
     reset(){
       this.searchForm.areaId= '';
       this.searchForm.projectId= '';
@@ -331,12 +334,12 @@ export default {
         console.log("*********"+this.dateFormatCompare(this.currentTime,this.effectTime))
         var disparityTime = this.dateFormatCompare(this.currentTime,this.effectTime);
 
-        if(disparityTime<0){
-          // alert("开始时间大");
-          // 选择时间不能小于当前时间，即当前时间大
-          alert("解约时间不能小于当天时间！");
-          return
-        }
+        // if(disparityTime<0){
+        //   // alert("开始时间大");
+        //   // 选择时间不能小于当前时间，即当前时间大
+        //   alert("解约时间不能小于当天时间！");
+        //   return
+        // }
         // else if (disparityTime>0){
         //   alert("结束时间大");
         // }else if (disparityTime==0){
